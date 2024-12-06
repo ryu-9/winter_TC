@@ -1,0 +1,24 @@
+{
+    "board": [
+        {
+            "name": "AAAA",
+            "score": 10
+        },
+        {
+            "name": "PG",
+            "score": 110
+        },
+        {
+            "name": "XYZ",
+            "score": 1000
+        },
+        {
+            "name": "PGN",
+            "score": 20161
+        },
+        {
+            "name": "PP",
+            "score": 27419
+        }
+    ]
+}

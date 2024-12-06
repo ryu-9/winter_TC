@@ -1,0 +1,12 @@
+﻿  ApplicationBase.cpp
+  WinMain.cpp
+  ioJson.cpp
+  ioJsonText.cpp
+  ActorClass.cpp
+E:\winter\mypg\AppFrame\source\ModeServer\ActorClass.cpp(17,10): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  Component.cpp
+  ModeBase.cpp
+  ModeServer.cpp
+  SpriteComponent.cpp
+  コードを生成中...
+  AppFrame.vcxproj -> E:\winter\mypg\Game\x64\Debug\AppFrame.lib
