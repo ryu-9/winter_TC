@@ -89,9 +89,6 @@
     <ClInclude Include="source\CameraActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeGame.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeMenu.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
@@ -99,6 +96,12 @@
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeTitle.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGame.h">
+      <Filter>ヘッダー ファイル\Mode\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeChangeEffect.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
   </ItemGroup>

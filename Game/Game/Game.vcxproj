@@ -170,6 +170,7 @@
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CameraActor.h" />
+    <ClInclude Include="source\ModeChangeEffect.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModelComponent.h" />
     <ClInclude Include="source\ModeMenu.h" />
