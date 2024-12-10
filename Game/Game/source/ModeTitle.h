@@ -15,7 +15,9 @@ public:
 
 
 private:
-
+	int _Step;
+	std::vector<int> _StepTm;
+	std::vector<int> _Handle;
 };
 
 
