@@ -30,19 +30,24 @@ void MoveComponent::ProcessInput()
 	// ˆÚ“®•ûŒü‚ðŒˆ‚ß‚é
 	VECTOR v = { 0,0,0 };
 	float mvSpeed = 12.f;
+	DINPUT_JOYSTATE input;
+	/*
 	if (key & PAD_INPUT_DOWN) { v.x = 1; }
 	if (key & PAD_INPUT_UP) { v.x = -1; }
 	if (key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (key & PAD_INPUT_RIGHT) { v.z = 1; }
+	*/
+	GetJoypadDirectInputState(DX_INPUT_KEY_PAD1 , &input);
+	v.x = input.Y / 1000;
+	v.z = input.X / 1000;
+
 
 	// v‚ðrad•ª‰ñ“]‚³‚¹‚é
 	float length = 0.f;
 	if (VSize(v) > 0.f) { 
-		_AddSpeed += 0.2f;
-		length = mvSpeed + _AddSpeed; 
+		length = mvSpeed; 
 	}
 	else {
-		_AddSpeed = 0.f;
 	}
 	float rad = atan2(v.z, v.x);
 	v.x = cos(rad + camrad) * length;
