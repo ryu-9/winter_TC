@@ -1,0 +1,212 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeTitleMenu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeTitleMenu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeTitle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeSynopsis.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeTitle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeSynopsis.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ApplicationMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ApplicationMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{86BD2FD0-5535-4871-A2A7-E0B6B19E123C}|..\\AppFrame\\AppFrame.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\AppFrame\\source\\ModeServer\\ModeServer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeMenu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeMenu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeChangeEffect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{BBC10395-B9C4-4023-A9E8-F8ABE797FBA8}|Game\\Game.vcxproj|solutionrelative:Game\\source\\ModeChangeEffect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 289,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApplicationMain.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ApplicationMain.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.cpp",
+              "RelativeToolTip": "Game\\source\\ApplicationMain.cpp",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwC0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T09:45:23.743Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ModeServer.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\AppFrame\\source\\ModeServer\\ModeServer.cpp",
+              "RelativeDocumentMoniker": "..\\AppFrame\\source\\ModeServer\\ModeServer.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\AppFrame\\source\\ModeServer\\ModeServer.cpp",
+              "RelativeToolTip": "..\\AppFrame\\source\\ModeServer\\ModeServer.cpp",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAwwPwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T09:45:19.228Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationMain.h",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.h",
+              "RelativeDocumentMoniker": "Game\\source\\ApplicationMain.h",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ApplicationMain.h",
+              "RelativeToolTip": "Game\\source\\ApplicationMain.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T09:44:14.387Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ModeTitle.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ModeTitle.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.cpp",
+              "RelativeToolTip": "Game\\source\\ModeTitle.cpp",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAowCYAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T09:38:18.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ModeSynopsis.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ModeSynopsis.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.cpp",
+              "RelativeToolTip": "Game\\source\\ModeSynopsis.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T09:16:03.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ModeMenu.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeMenu.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ModeMenu.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeMenu.cpp",
+              "RelativeToolTip": "Game\\source\\ModeMenu.cpp",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T09:16:50.279Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ModeChangeEffect.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeChangeEffect.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ModeChangeEffect.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeChangeEffect.cpp",
+              "RelativeToolTip": "Game\\source\\ModeChangeEffect.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T08:47:51.583Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 289,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ModeTitleMenu.cpp",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.cpp",
+              "RelativeDocumentMoniker": "Game\\source\\ModeTitleMenu.cpp",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.cpp",
+              "RelativeToolTip": "Game\\source\\ModeTitleMenu.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-10T10:21:45.491Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ModeTitleMenu.h",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.h",
+              "RelativeDocumentMoniker": "Game\\source\\ModeTitleMenu.h",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitleMenu.h",
+              "RelativeToolTip": "Game\\source\\ModeTitleMenu.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T10:21:03.469Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ModeSynopsis.h",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.h",
+              "RelativeDocumentMoniker": "Game\\source\\ModeSynopsis.h",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeSynopsis.h",
+              "RelativeToolTip": "Game\\source\\ModeSynopsis.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T09:13:34.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ModeTitle.h",
+              "DocumentMoniker": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.h",
+              "RelativeDocumentMoniker": "Game\\source\\ModeTitle.h",
+              "ToolTip": "C:\\nagayama\\nagayama\\winter\\winter_TC\\Game\\Game\\source\\ModeTitle.h",
+              "RelativeToolTip": "Game\\source\\ModeTitle.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-10T09:47:21.58Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+﻿  ModeTitle.cpp
+C:\nagayama\nagayama\winter\winter_TC\Game\Game\source\ModeTitle.cpp(35,19): warning C4018: '>': signed と unsigned の数値を比較しようとしました。
+C:\nagayama\nagayama\winter\winter_TC\Game\Game\source\ModeTitle.cpp(38,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+  Game.vcxproj -> C:\nagayama\nagayama\winter\winter_TC\Game\x64\Debug\Game.exe
