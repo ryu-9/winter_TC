@@ -2,12 +2,14 @@
 #include "ApplicationMain.h"
 #include "ModeGame.h"
 #include "ModeSynopsis.h"
+#include "ModeTitleMenu.h"
 
 bool ModeTitle::Initialize()
 {
 	_Step = 0;
 	_StepTm.emplace_back(4000);
 	_StepTm.emplace_back(8000);
+	_StepTm.emplace_back(0);
 	_Handle.emplace_back(LoadGraph("res/title/logo.png"));
 	_Handle.emplace_back(LoadGraph("res/title/advice.png"));
 	_Handle.emplace_back();
@@ -50,8 +52,7 @@ bool ModeTitle::Process()
 		
 		if (trg & PAD_INPUT_1)
 		{
-			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-			ModeServer::GetInstance()->Del(this);
+			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
 		}
 		_TitleTm += GetStepTm();
 		if (_TitleTm > 30 * 1000) {

@@ -13,6 +13,7 @@ public:
 
 private:
 	int _Cur;
+	std::vector<std::string> _Text;
 
 };
 
