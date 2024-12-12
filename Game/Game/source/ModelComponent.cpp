@@ -108,11 +108,11 @@ void ModelSpriteComponent::Draw()
 	rot = VTransform(rot, MGetRotZ(-v.x/100));
 	rot2 = VTransform(rot2, MGetRotX(v.z / 100));
 	rot2 = VTransform(rot2, MGetRotZ(-v.x / 100));
-	//rot = VAdd(rot, VGet(cos(rot.z) * v.z / 100, sin(rot.z) * v.z / 100, 0));
+
 	//	角度をセット
-	DrawLine3D(_Owner->GetPosition(), VAdd(_Owner->GetPosition(), VScale(rot, 1000)), GetColor(255, 255, 255));
+
 	MV1SetRotationZYAxis(_Model->GetHandle(),rot,rot2,0);
-	//MV1SetRotationXYZ(_Model->GetHandle(), rot);
+
 	_Owner->SetRotation(rot);
 	_Owner->SetRotation2(rot2);
 
