@@ -12,5 +12,7 @@ public:
 	virtual bool Render();
 
 private:
+	int _Cur;
+
 };
 

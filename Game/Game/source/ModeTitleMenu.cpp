@@ -12,6 +12,7 @@ bool ModeTitleMenu::Terminate()
 
 bool ModeTitleMenu::Process()
 {
+
 	return false;
 }
 
