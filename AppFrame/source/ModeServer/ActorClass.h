@@ -33,6 +33,10 @@ public:
 	void SetPosition(const VECTOR pos) { _Position = pos; }
 	VECTOR GetDirection() const { return _Direction; }
 	void SetDirection(const VECTOR dir) { _Direction = dir; }
+	VECTOR GetRotation() const { return _Rotation; }
+	void SetRotation(const VECTOR rot) { _Rotation = rot; }
+	VECTOR GetRotation2() const { return _Rotation2; }
+	void SetRotation2(const VECTOR rot) { _Rotation2 = rot; }
 	VECTOR GetMove() const { return _Move; }
 	void SetMove(const VECTOR move) { _Move = move; }
 	
@@ -46,6 +50,8 @@ public:
 protected:
 	VECTOR _Position;	// 位置
 	VECTOR _Direction;	// 向き
+	VECTOR _Rotation;	// 向き
+	VECTOR _Rotation2;	// 向き
 	VECTOR _Move;		// 移動ベクトル
 
 	std::vector<class Component*> _Components;

@@ -1,4 +1,28 @@
-﻿  ModeTitle.cpp
-C:\nagayama\nagayama\winter\winter_TC\Game\Game\source\ModeTitle.cpp(35,19): warning C4018: '>': signed と unsigned の数値を比較しようとしました。
-C:\nagayama\nagayama\winter\winter_TC\Game\Game\source\ModeTitle.cpp(38,20): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
-  Game.vcxproj -> C:\nagayama\nagayama\winter\winter_TC\Game\x64\Debug\Game.exe
+﻿  ApplicationGlobal.cpp
+  ApplicationMain.cpp
+  CameraActor.cpp
+C:\Users\amg\source\winter_TC\Game\Game\source\CameraActor.cpp(48,12): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\CameraActor.cpp(49,15): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\CameraActor.cpp(52,126): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\CameraActor.cpp(52,54): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  ModeGame.cpp
+  ModeMenu.cpp
+C:\Users\amg\source\winter_TC\Game\Game\source\ModeMenu.cpp(54,14): warning C4267: '初期化中': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+C:\Users\amg\source\winter_TC\Game\Game\source\ModeMenu.cpp(89,64): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  ModeResult.cpp
+C:\Users\amg\source\winter_TC\Game\Game\source\ModeResult.cpp(59,50): warning C4267: '=': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  ModeTitle.cpp
+  ModelComponent.cpp
+C:\Users\amg\source\winter_TC\Game\Game\source\ModelComponent.cpp(81,16): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  MoveComponent.cpp
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(28,15): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(41,16): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(42,16): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(52,12): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(53,26): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(54,26): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(67,40): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\amg\source\winter_TC\Game\Game\source\MoveComponent.cpp(68,40): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  PlayerActor.cpp
+  コードを生成中...
+  Game.vcxproj -> C:\Users\amg\source\winter_TC\Game\x64\Debug\Game.exe

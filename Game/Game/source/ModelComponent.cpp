@@ -9,7 +9,7 @@ ModelComponent::ModelComponent(PlayerActor* owner)
 	,_AttachIndex(-1)
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
-	_Handle = MV1LoadModel("res/SDChar/SDChar.mv1");
+	_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
 }
 
 ModelComponent::~ModelComponent()
@@ -79,7 +79,7 @@ void ModelComponent::SetModelInfo()
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_pOwner->GetDirection().x * -1, _pOwner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
-	MV1SetRotationXYZ(_Handle, vRot);
+	//MV1SetRotationXYZ(_Handle, vRot);
 }
 
 
@@ -97,11 +97,31 @@ void ModelSpriteComponent::Draw()
 {
 	
 
+	// 速度を取得
+	VECTOR v =_Owner -> GetMove();
+	// 角度を取得
+	VECTOR rot = _Owner->GetRotation();
+	VECTOR rot2 = _Owner->GetRotation2();
+
+	//	速度から角度を算出
+	rot = VTransform(rot, MGetRotX(v.z/100));
+	rot = VTransform(rot, MGetRotZ(-v.x/100));
+	rot2 = VTransform(rot2, MGetRotX(v.z / 100));
+	rot2 = VTransform(rot2, MGetRotZ(-v.x / 100));
+	//rot = VAdd(rot, VGet(cos(rot.z) * v.z / 100, sin(rot.z) * v.z / 100, 0));
+	//	角度をセット
+	DrawLine3D(_Owner->GetPosition(), VAdd(_Owner->GetPosition(), VScale(rot, 1000)), GetColor(255, 255, 255));
+	MV1SetRotationZYAxis(_Model->GetHandle(),rot,rot2,0);
+	//MV1SetRotationXYZ(_Model->GetHandle(), rot);
+	_Owner->SetRotation(rot);
+	_Owner->SetRotation2(rot2);
+
 	// モデルを描画する モデルコンポでよくないか…？
 	{
 		_Model->SetModelInfo();
 		// 描画
 		MV1DrawModel(_Model->GetHandle());
+		DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
 	}
 }
 
