@@ -7,6 +7,7 @@ ActorClass::ActorClass(ModeBase* mode)
 	, _Direction(VGet(0, 0, -1))
 	, _Rotation(VGet(1, 0, 0))
 	, _Rotation2(VGet(0, 1, 0))
+	, _Size(VGet(0.5, 0.5, 0.5))
 	, _Mode(mode)
 {
 	_Mode->AddActor(this);

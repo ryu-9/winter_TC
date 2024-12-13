@@ -38,14 +38,19 @@ void MoveComponent::ProcessInput()
 	if (key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
 	GetJoypadDirectInputState(DX_INPUT_KEY_PAD1 , &input);
-	v.x = input.Y / 1000;
-	v.z = input.X / 1000;
+	v.x = (float)input.Y / 1000;
+	v.z = (float)input.X / 1000;
 
 
 	// v‚ðrad•ª‰ñ“]‚³‚¹‚é
 	float length = 0.f;
 	if (VSize(v) > 0.f) { 
-		length = mvSpeed; 
+		if (VSize(v) > 1) {
+			length = mvSpeed;
+		}
+		else {
+			length = mvSpeed * VSize(v);
+		}
 	}
 	else {
 	}
@@ -99,7 +104,9 @@ void MoveComponent::ProcessInput()
 	}
 
 	// ˆÚ“®—Ê‚ÌƒZƒbƒg
+	float size = VSize(v)/10000;
 	_pOwner->SetMove(v);
+	_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
 
 }
 
