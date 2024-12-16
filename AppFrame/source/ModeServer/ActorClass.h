@@ -62,4 +62,4 @@ protected:
 
 	State _State;
 };
-
+ 

@@ -9,7 +9,9 @@ ModelComponent::ModelComponent(PlayerActor* owner)
 	,_AttachIndex(-1)
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
-	_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
+	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
+	_Handle = ModelServer::GetInstance()->Add("res/Debug/chinpo.mv1");
+	_Handle = ModelServer::GetInstance()->Add("res/Debug/chinpo.mv1");
 }
 
 ModelComponent::~ModelComponent()
@@ -105,10 +107,10 @@ void ModelSpriteComponent::Draw()
 	VECTOR rot2 = _Owner->GetRotation2();
 
 	//	速度から角度を算出
-	rot = VTransform(rot, MGetRotX(v.z/100));
-	rot = VTransform(rot, MGetRotZ(-v.x/100));
-	rot2 = VTransform(rot2, MGetRotX(v.z / 100));
-	rot2 = VTransform(rot2, MGetRotZ(-v.x / 100));
+	rot = VTransform(rot, MGetRotX(v.z/100 / _Owner->GetSize().x / 2));
+	rot = VTransform(rot, MGetRotZ(-v.x/100 / _Owner->GetSize().x / 2));
+	rot2 = VTransform(rot2, MGetRotX(v.z / 100 / _Owner->GetSize().x / 2));
+	rot2 = VTransform(rot2, MGetRotZ(-v.x / 100 / _Owner->GetSize().x / 2));
 
 	//	角度をセット
 

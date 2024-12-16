@@ -69,6 +69,9 @@
     <ClCompile Include="source\ModeGame.cpp">
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
+    <ClCompile Include="source\MoveCollisionComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeTitle.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MoveCollisionComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

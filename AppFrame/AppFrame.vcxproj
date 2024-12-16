@@ -168,6 +168,7 @@
     <ClInclude Include="source\Application\UtilMacro.h" />
     <ClInclude Include="source\ioJson\ioJson.h" />
     <ClInclude Include="source\ioJson\ioJsonText.h" />
+    <ClInclude Include="source\ModelServer\ModelServer.h" />
     <ClInclude Include="source\ModeServer\ActorClass.h" />
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\ModeBase.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="source\Application\WinMain.cpp" />
     <ClCompile Include="source\ioJson\ioJson.cpp" />
     <ClCompile Include="source\ioJson\ioJsonText.cpp" />
+    <ClCompile Include="source\ModelServer\ModelServer.cpp" />
     <ClCompile Include="source\ModeServer\ActorClass.cpp" />
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\ModeBase.cpp" />

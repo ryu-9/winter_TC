@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../ModeServer/ModeServer.h"
+#include "../ModelServer/ModelServer.h"
 
 class ApplicationBase
 {
@@ -33,5 +34,6 @@ protected:
 	int		_gKey, _gTrg, _gRel;
 
 	ModeServer* _serverMode;
+	ModelServer* _serverModel;
 
 };
