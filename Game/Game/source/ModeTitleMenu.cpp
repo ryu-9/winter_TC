@@ -8,6 +8,7 @@ bool ModeTitleMenu::Initialize()
 	_Text.emplace_back("‚Í‚¶‚ß‚©‚ç");
 	_Text.emplace_back("‚Â‚Ã‚«‚©‚ç");
 	_Text.emplace_back("ƒQ[ƒ€I—¹");
+	
 	return false;
 }
 

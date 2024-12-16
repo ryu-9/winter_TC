@@ -14,6 +14,7 @@ bool ModeTitle::Initialize()
 	_Handle.emplace_back(LoadGraph("res/title/advice.png"));
 	_Handle.emplace_back();
 	_Handle.emplace_back(LoadGraph("res/title/title.png"));
+	new ActorClass(this);
 	return false;
 }
 
