@@ -1,75 +1,90 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<Filter Include="ModeServer">
-  <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-  <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-</Filter>
-<Filter Include="Application">
-  <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-  <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-</Filter>
-<Filter Include="ioJson">
-  <UniqueIdentifier>{b583321e-aadb-47e9-8237-452d332e91cd}</UniqueIdentifier>
-</Filter>
+    <Filter Include="ModeServer">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ioJson">
+      <UniqueIdentifier>{b583321e-aadb-47e9-8237-452d332e91cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModeServer\Actor">
+      <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-<ClInclude Include="source\appframe.h" />
-<ClInclude Include="source\Application\ApplicationBase.h">
-  <Filter>Application</Filter>
-</ClInclude>
-<ClInclude Include="source\ModeServer\ModeBase.h">
-  <Filter>ModeServer</Filter>
-</ClInclude>
-<ClInclude Include="source\ModeServer\ActorClass.h">
-  <Filter>ModeServer</Filter>
-</ClInclude>
-<ClInclude Include="source\ModeServer\Component.h">
-  <Filter>ModeServer</Filter>
-</ClInclude>
-<ClInclude Include="source\ModeServer\SpriteComponent.h">
-  <Filter>ModeServer</Filter>
-</ClInclude>
-<ClInclude Include="source\ModeServer\ModeServer.h">
-  <Filter>ModeServer</Filter>
-</ClInclude>
-<ClInclude Include="source\Application\UtilMacro.h">
-  <Filter>Application</Filter>
-</ClInclude>
-<ClInclude Include="source\ioJson\ioJson.h">
-  <Filter>ioJson</Filter>
-</ClInclude>
-<ClInclude Include="source\ioJson\ioJsonText.h">
-  <Filter>ioJson</Filter>
-</ClInclude>
+    <ClInclude Include="source\appframe.h" />
+    <ClInclude Include="source\Application\ApplicationBase.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ModeBase.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ActorClass.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\Component.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\SpriteComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ModeServer.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Application\UtilMacro.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ioJson\ioJson.h">
+      <Filter>ioJson</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ioJson\ioJsonText.h">
+      <Filter>ioJson</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h">
+      <Filter>ModeServer\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\Actor\UIChipClass.h">
+      <Filter>ModeServer\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-<ClCompile Include="source\Application\WinMain.cpp">
-  <Filter>Application</Filter>
-</ClCompile>
-<ClCompile Include="source\Application\ApplicationBase.cpp">
-  <Filter>Application</Filter>
-</ClCompile>
-<ClCompile Include="source\ModeServer\ModeBase.cpp">
-  <Filter>ModeServer</Filter>
-</ClCompile>
-<ClCompile Include="source\ModeServer\ActorClass.cpp">
-  <Filter>ModeServer</Filter>
-</ClCompile>
-<ClCompile Include="source\ModeServer\Component.cpp">
-  <Filter>ModeServer</Filter>
-</ClCompile>
-<ClCompile Include="source\ModeServer\SpriteComponent.cpp">
-  <Filter>ModeServer</Filter>
-</ClCompile>
-<ClCompile Include="source\ModeServer\ModeServer.cpp">
-  <Filter>ModeServer</Filter>
-</ClCompile>
-<ClCompile Include="source\ioJson\ioJsonText.cpp">
-  <Filter>ioJson</Filter>
-</ClCompile>
-<ClCompile Include="source\ioJson\ioJson.cpp">
-  <Filter>ioJson</Filter>
-</ClCompile>
+    <ClCompile Include="source\Application\WinMain.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Application\ApplicationBase.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ModeBase.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ActorClass.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\Component.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\SpriteComponent.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ModeServer.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ioJson\ioJsonText.cpp">
+      <Filter>ioJson</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ioJson\ioJson.cpp">
+      <Filter>ioJson</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp">
+      <Filter>ModeServer\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp">
+      <Filter>ModeServer\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@ bool ModeTitle::Initialize()
 	_StepTm.emplace_back(4000);
 	_StepTm.emplace_back(8000);
 	_StepTm.emplace_back(0);
+	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	_Handle.emplace_back(LoadGraph("res/title/logo.png"));
 	_Handle.emplace_back(LoadGraph("res/title/advice.png"));
 	_Handle.emplace_back();
