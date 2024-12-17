@@ -5,8 +5,6 @@
 #include <vector>
 
 
-// とりあえずコピペ
-
 // メニュー項目用ベースクラス
 class MenuItemBase
 {
