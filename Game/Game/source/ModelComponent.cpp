@@ -11,7 +11,6 @@ ModelComponent::ModelComponent(PlayerActor* owner)
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
 	_Handle = ModelServer::GetInstance()->Add("res/Debug/chinpo.mv1");
-	_Handle = ModelServer::GetInstance()->Add("res/Debug/chinpo.mv1");
 }
 
 ModelComponent::~ModelComponent()
