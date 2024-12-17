@@ -11,10 +11,6 @@ bool ModeTitle::Initialize()
 	_StepTm.emplace_back(8000);
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
-	_Handle.emplace_back(LoadGraph("res/title/logo.png"));
-	_Handle.emplace_back(LoadGraph("res/title/advice.png"));
-	_Handle.emplace_back();
-	_Handle.emplace_back(LoadGraph("res/title/title.png"));
 	new ActorClass(this);
 	return false;
 }
@@ -35,14 +31,25 @@ bool ModeTitle::Process()
 	switch (_Step)
 	{
 	case 0:
-	case 1:
 		if (GetModeTm() > _StepTm[_Step] || trg & PAD_INPUT_1)
 		{
 			_Step++;
 			if (GetModeTm() < _StepTm[_Step - 1]) {
-				_StepTm[_Step] -= _StepTm[_Step -1] - GetModeTm();
+				_StepTm[_Step] -= _StepTm[_Step - 1] - GetModeTm();
 			}
-				
+			delete _UIChip.front();
+			_UIChip.clear();
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/advice.png"));
+		}
+		break;
+	case 1:
+		if (GetModeTm() > _StepTm[_Step] || trg & PAD_INPUT_1)
+		{
+			_Step++;
+			
+			delete _UIChip.front();
+			_UIChip.clear();
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/title.png"));
 		}
 		break;
 	case 2:
@@ -71,7 +78,5 @@ bool ModeTitle::Render()
 {
 	base::Render();
 
-	
-	DrawGraph(0, 0, _Handle[_Step], FALSE);
 	return false;
 }
