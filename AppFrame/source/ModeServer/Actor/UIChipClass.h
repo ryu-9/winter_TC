@@ -3,12 +3,14 @@
 #include "../ActorClass.h"
 #include <string>
 
+
 class UIChipClass :public ActorClass {
 public:
 	struct UIData {
 		VECTOR scale;
 		float angle;
 		bool turn;
+		float alpha;
 	};
 
 	UIChipClass(class ModeBase* mode, VECTOR pos, const TCHAR* fname,int draworder = 100);

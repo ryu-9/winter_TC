@@ -7,8 +7,8 @@ class TMenuItemStart : public MenuItemBase
 {
 public:
 	TMenuItemStart(void* param, std::string text) : MenuItemBase(param, text) {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		new UIChipClass(mdGame, VGet(960, 540, 0), "res/title/start.png",110);
+		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
+		new UIChipClass(mdTm, VGet(0, 600, 0), "res/title/start.png",110);
 	}
 	virtual int Selected()
 	{
@@ -19,17 +19,39 @@ public:
 	}
 };
 
-class TMenuItemContinue : public MenuItemBase
-{
 
+class TMenuItemContinue : public MenuItemBase {
+public:
+	TMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
+		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
+		new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/continue.png", 110);
+	}
+	virtual int Selected() {
+		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("title"));
+		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("titlemenu"));
+		return 1;
+	}
+};
+
+class TMenuItemExit : public MenuItemBase {
+public:
+	TMenuItemExit(void* param, std::string text) : MenuItemBase(param, text) {
+		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
+		new UIChipClass(mdTm, VGet(600, 600, 0), "res/title/exit.png", 110);
+	}
+	virtual int Selected() {
+		ApplicationMain::GetInstance()->Terminate();
+		return 1;
+	}
 };
 
 bool ModeTitleMenu::Initialize()
 {
 	Add(new TMenuItemStart(this, "はじめから"));
-	_Text.emplace_back("はじめから");
-	_Text.emplace_back("つづきから");
-	_Text.emplace_back("ゲーム終了");
+	// if(もしセーブデータがあったら)
+	Add(new TMenuItemContinue(this, "つづきから"));
+	Add(new TMenuItemExit(this, "ゲーム終了"));
 	
 	return false;
 }
@@ -45,28 +67,29 @@ bool ModeTitleMenu::Process()
 {
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 
-	if (trg & PAD_INPUT_UP) { _Cur--; }
-	if (trg & PAD_INPUT_DOWN) {_Cur++;	}
-	if (_Cur < 0) {	_Cur = 0; }
-	if (_Cur >= _Text.size()) { _Cur = _Text.size() - 1; }
-	if (trg & PAD_INPUT_1)
-	{
-		switch (_Cur)
-		{
-		case 0:
-			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-			ModeServer::GetInstance()->Del(this);
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("title"));
-			break;
-		case 1:
-			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-			ModeServer::GetInstance()->Del(this);
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("title"));
-			break;
-		case 2:
-			ApplicationMain::GetInstance()->Terminate();
-			break;
+	bool close = false;
+
+	if (trg & PAD_INPUT_LEFT) { _Cur--; }
+	if (trg & PAD_INPUT_RIGHT) {_Cur++;	}
+	// カーソル位置を上下ループ
+	int itemNum = _vItems.size();
+	if (itemNum <= 0) {}
+	else {
+		_Cur = (_Cur + itemNum) % itemNum;
+	}
+	// 決定でアイテムのSelected()を呼ぶ
+	if (trg & PAD_INPUT_1) {
+		int ret = _vItems[_Cur]->Selected();
+		if (ret == 1) {
+			// メニューを閉じる
+			close = true;
 		}
+	}
+
+	// メニューを閉じる
+	if (close) {
+		// このモードを削除する
+		ModeServer::GetInstance()->Del(this);
 	}
 	return false;
 }
@@ -74,11 +97,6 @@ bool ModeTitleMenu::Process()
 bool ModeTitleMenu::Render()
 {
 	base::Render();
-	for (auto i = 0; i < _Text.size(); i++)
-	{
-		DrawFormatString(100, 100 + i * 20, GetColor(255, 255, 255), "%s", _Text[i].c_str());
-	}
-	DrawFormatString(80, 100 + _Cur * 20, GetColor(255, 255, 255), ">");
 	return false;
 }
 

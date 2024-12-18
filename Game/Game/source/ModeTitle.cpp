@@ -4,14 +4,17 @@
 #include "ModeSynopsis.h"
 #include "ModeTitleMenu.h"
 
+
 bool ModeTitle::Initialize()
 {
 	_Step = 0;
+    _StepTm.emplace_back(1000);
 	_StepTm.emplace_back(4000);
 	_StepTm.emplace_back(8000);
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
-	new ActorClass(this);
+new UIChipFadeComponent(_UIChip.front(), 255, 1000);
+new ActorClass(this);
 	return false;
 }
 
@@ -26,13 +29,16 @@ bool ModeTitle::Terminate()
 
 bool ModeTitle::Process()
 {
+base::Process();
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 	switch (_Step)
 	{
 	case 0:
+
 		if (GetModeTm() > _StepTm[_Step] || trg & PAD_INPUT_1)
 		{
+			
 			_Step++;
 			if (GetModeTm() < _StepTm[_Step - 1]) {
 				_StepTm[_Step] -= _StepTm[_Step - 1] - GetModeTm();

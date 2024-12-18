@@ -170,6 +170,7 @@
     <ClInclude Include="source\ioJson\ioJsonText.h" />
     <ClInclude Include="source\ModeServer\ActorClass.h" />
     <ClInclude Include="source\ModeServer\Actor\UIChipClass.h" />
+    <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h" />
     <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\ModeBase.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="source\ioJson\ioJsonText.cpp" />
     <ClCompile Include="source\ModeServer\ActorClass.cpp" />
     <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp" />
+    <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp" />
     <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\ModeBase.cpp" />

@@ -10,7 +10,7 @@ UIChipSpriteComponent::UIChipSpriteComponent(UIChipClass* owner, int drawOrder)
 
 void UIChipSpriteComponent::Draw() {
 	auto uiD = _UIc->GetUIData();
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, uiD->alpha);
 	MATRIX mRot = MGetRotZ(uiD->angle);
 	MATRIX mScale = MGetScale(uiD->scale);
 	MATRIX mTrans = MGetTranslate(_UIc->GetPosition());

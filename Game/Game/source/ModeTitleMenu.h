@@ -17,9 +17,7 @@ public:
 
 private:
 	std::vector<MenuItemBase*> _vItems;
-
 	int _Cur;
-	std::vector<std::string> _Text;
 
 };
 

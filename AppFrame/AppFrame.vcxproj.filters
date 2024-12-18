@@ -51,6 +51,9 @@
     <ClInclude Include="source\ModeServer\Actor\UIChipClass.h">
       <Filter>ModeServer\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h">
+      <Filter>ModeServer\Actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -84,6 +87,9 @@
       <Filter>ModeServer\Actor</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp">
+      <Filter>ModeServer\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp">
       <Filter>ModeServer\Actor</Filter>
     </ClCompile>
   </ItemGroup>
