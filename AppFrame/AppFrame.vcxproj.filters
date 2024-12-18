@@ -48,6 +48,9 @@
     <ClInclude Include="source\ModelServer\ModelServer.h">
       <Filter>ModelServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\MoveCollisionComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="source\ModelServer\ModelServer.cpp">
       <Filter>ModelServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp">
+      <Filter>ModeServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

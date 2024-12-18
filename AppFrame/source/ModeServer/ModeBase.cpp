@@ -1,5 +1,12 @@
 #include "ModeBase.h"
 
+VECTOR VMulti(VECTOR v, VECTOR m) {
+	VECTOR ret;
+	ret.x = v.x * m.x;
+	ret.y = v.y * m.y;
+	ret.z = v.z * m.z;
+	return ret;
+}
 
 ModeBase::ModeBase() {
 	_szName = "";
@@ -123,6 +130,18 @@ void ModeBase::AddSprite(SpriteComponent* sp) {
 void ModeBase::RemoveSprite(SpriteComponent* sp) {
 	auto iter = std::find(_Sprites.begin(), _Sprites.end(), sp);
 	_Sprites.erase(iter);
+}
+
+void ModeBase::AddMCollision(MoveCollisionComponent* mc)
+{
+	auto iter = _MCollision.begin();
+	_MCollision.insert(iter, mc);
+}
+
+void ModeBase::RemoveMCollision(MoveCollisionComponent* mc)
+{
+	auto iter = std::find(_MCollision.begin(), _MCollision.end(), mc);
+	_MCollision.erase(iter);
 }
 
 // ŽžŠÔŒo‰ß‚ð‚³‚¹‚é

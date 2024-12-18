@@ -1,8 +1,8 @@
 
 #include "ApplicationBase.h"
+#include <vector>
 
 ApplicationBase	*ApplicationBase::_lpInstance = NULL;
-
 
 ApplicationBase::ApplicationBase() {
 	_lpInstance = this;
