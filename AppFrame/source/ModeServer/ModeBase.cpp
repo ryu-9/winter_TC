@@ -131,7 +131,7 @@ void ModeBase::RemoveSprite(SpriteComponent* sp) {
 	auto iter = std::find(_Sprites.begin(), _Sprites.end(), sp);
 	_Sprites.erase(iter);
 }
-
+/*
 void ModeBase::AddMCollision(MoveCollisionComponent* mc)
 {
 	auto iter = _MCollision.begin();
@@ -143,6 +143,7 @@ void ModeBase::RemoveMCollision(MoveCollisionComponent* mc)
 	auto iter = std::find(_MCollision.begin(), _MCollision.end(), mc);
 	_MCollision.erase(iter);
 }
+*/
 
 // ŽžŠÔŒo‰ß‚ð‚³‚¹‚é
 void ModeBase::StepTime(unsigned long tmNow) {

@@ -173,7 +173,6 @@
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\ModeBase.h" />
     <ClInclude Include="source\ModeServer\ModeServer.h" />
-    <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +185,6 @@
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\ModeBase.cpp" />
     <ClCompile Include="source\ModeServer\ModeServer.cpp" />
-    <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

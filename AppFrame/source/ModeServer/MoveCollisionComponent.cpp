@@ -8,7 +8,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 	_Owner->GetMode()->AddMCollision(this);
 	switch (Type) {
 	case 0:
-		Handle = _Owner->GetMode()->GetHandle();
+		//Handle = _Owner->GetMode()->GetHandle();
 	
 	}
 }
