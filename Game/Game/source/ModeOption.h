@@ -1,9 +1,8 @@
 #pragma once
 #include "appframe.h"
 
-#include <vector>
 
-class ModeTitle : public ModeBase
+class ModeOption : public ModeBase
 {
 	typedef ModeBase base;
 public:
@@ -12,13 +11,9 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-
+	void Add(MenuItemBase* itemBase);
 private:
-	std::vector<UIChipClass*> _UIChip;
-	int _Step;
-	int _TitleTm;
-	std::vector<int> _StepTm;
-	std::vector<int> _Handle;
+	std::vector<MenuItemBase*> _vItems;
+	int _Cur;
 };
-
 
