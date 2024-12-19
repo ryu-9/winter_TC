@@ -13,8 +13,7 @@ public:
 	void SetBlendMode(int type) { _BlendMode = type; }
 	void SetBlendPalam(int palam) { _BlendPalam = palam; }
 protected:
-	int _BlendMode;
-	int _BlendPalam;
+
 	class UIChipClass* _UIc;
 
 

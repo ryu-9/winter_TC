@@ -3,14 +3,12 @@
 UIChipSpriteComponent::UIChipSpriteComponent(UIChipClass* owner, int drawOrder)
 	:SpriteComponent(owner,drawOrder)
 	,_UIc(owner)
-	,_BlendMode(DX_BLENDMODE_NOBLEND)
-	,_BlendPalam(255)
 {
 }
 
 void UIChipSpriteComponent::Draw() {
 	auto uiD = _UIc->GetUIData();
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, uiD->alpha);
+	SetDrawBlendMode(uiD->blendMode, uiD->blendParam);
 	MATRIX mRot = MGetRotZ(uiD->angle);
 	MATRIX mScale = MGetScale(uiD->scale);
 	MATRIX mTrans = MGetTranslate(_UIc->GetPosition());

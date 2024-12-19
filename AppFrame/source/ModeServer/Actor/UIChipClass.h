@@ -10,7 +10,8 @@ public:
 		VECTOR scale;
 		float angle;
 		bool turn;
-		float alpha;
+		int blendMode;
+		float blendParam;
 	};
 
 	UIChipClass(class ModeBase* mode, VECTOR pos, const TCHAR* fname,int draworder = 100);
@@ -20,11 +21,9 @@ public:
 	void ChangeImage(int num) { _Num = num; }
 	int GetImageNum()const { return _Num; }
 	void AddImage(std::string fname);
-	int GetType() { return _DrawType; }
-	void SetType(int type) { _DrawType = type; }
+
 protected:
 	UIData _Data;
-	int _DrawType;
 	int _Num;
 
 	class UIChipSpriteComponent* _Sp;
