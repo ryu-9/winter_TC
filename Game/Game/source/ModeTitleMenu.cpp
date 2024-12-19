@@ -8,7 +8,8 @@ class TMenuItemStart : public MenuItemBase
 public:
 	TMenuItemStart(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		new UIChipClass(mdTm, VGet(0, 600, 0), "res/title/start.png",110);
+		auto tmp = new UIChipClass(mdTm, VGet(0, 600, 0), "res/title/start.png",110);
+		new UIChipFadeComponent(tmp, 255, 250);
 	}
 	virtual int Selected()
 	{
@@ -24,7 +25,8 @@ class TMenuItemContinue : public MenuItemBase {
 public:
 	TMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/continue.png", 110);
+		auto tmp = new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/continue.png", 110);
+		new UIChipFadeComponent(tmp, 255, 250);
 	}
 	virtual int Selected() {
 		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
@@ -38,7 +40,8 @@ class TMenuItemExit : public MenuItemBase {
 public:
 	TMenuItemExit(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		new UIChipClass(mdTm, VGet(600, 600, 0), "res/title/exit.png", 110);
+		auto tmp= new UIChipClass(mdTm, VGet(600, 600, 0), "res/title/exit.png", 110);
+		new UIChipFadeComponent(tmp, 255, 250);
 	}
 	virtual int Selected() {
 		ApplicationMain::GetInstance()->Terminate();
@@ -65,6 +68,7 @@ bool ModeTitleMenu::Terminate()
 
 bool ModeTitleMenu::Process()
 {
+	base::Process();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 
 	bool close = false;

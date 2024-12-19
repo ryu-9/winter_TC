@@ -8,12 +8,13 @@
 bool ModeTitle::Initialize()
 {
 	_Step = 0;
+	_StepTm.emplace_back(500);
+	_StepTm.emplace_back(3000);
+	_StepTm.emplace_back(500);
+    _StepTm.emplace_back(500);
+    _StepTm.emplace_back(3000);
+    _StepTm.emplace_back(500);
 	_StepTm.emplace_back(1000);
-	_StepTm.emplace_back(2000);
-	_StepTm.emplace_back(1000);
-    _StepTm.emplace_back(1000);
-    _StepTm.emplace_back(2000);
-    _StepTm.emplace_back(1000);
 	_StepTm.emplace_back(8000);
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
@@ -31,8 +32,7 @@ bool ModeTitle::Terminate()
 	return false;
 }
 
-bool ModeTitle::Process()
-{
+bool ModeTitle::Process() {
 base::Process();
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
@@ -46,13 +46,13 @@ base::Process();
 		if (_TitleTm > _StepTm[_Step]) { newstep++; }
 		else if (trg & PAD_INPUT_1) {
 			newstep = 2;
-			new UIChipFadeComponent(_UIChip.front(), 0, 1000, 110);
+			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
 		}
 		break;
 	case 1:
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep = 2;
-			new UIChipFadeComponent(_UIChip.front(), 0, 1000,110);
+			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep],110);
 		}
 		break;
 	case 2:
@@ -60,21 +60,21 @@ base::Process();
 			newstep++;
 			delete _UIChip.front();
 			_UIChip.clear();
-			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/title.png"));
-			new UIChipFadeComponent(_UIChip.front(), 255, 1000);
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/advice.png"));
+			new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[newstep]);
 		}
 		break;
 	case 3:
 		if (_TitleTm > _StepTm[_Step]) { newstep++; }
 		else if (trg & PAD_INPUT_1) {
 			newstep = 5;
-			new UIChipFadeComponent(_UIChip.front(), 0, 1000, 110); 
+			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
 		}
 		break;
 	case 4:
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep++;
-			new UIChipFadeComponent(_UIChip.front(), 0, 1000, 110);
+			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
 		}
 		break;
 	case 5:
@@ -83,6 +83,7 @@ base::Process();
 			delete _UIChip.front();
 			_UIChip.clear();
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/title.png"));
+			new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[newstep]);
 		}
 		break;
 	case 6:
@@ -95,7 +96,7 @@ base::Process();
 		}
 		_TitleTm += GetStepTm();
 		if (_TitleTm > 30 * 1000) {
-			newstep = 2;
+			newstep = 6;
 		}
 		break;
 	}
@@ -110,6 +111,6 @@ base::Process();
 bool ModeTitle::Render()
 {
 	base::Render();
-
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
 	return false;
 }

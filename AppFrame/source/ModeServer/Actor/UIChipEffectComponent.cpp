@@ -13,6 +13,7 @@ UIChipEffectComponent::UIChipEffectComponent(ActorClass* owner, int updateOrder)
 UIChipFadeComponent::UIChipFadeComponent(ActorClass* owner, float alpha, int tm, int updateOrder)
 	:base(owner, updateOrder)
 {
+	_UIChip->GetUIData()->blendMode = DX_BLENDMODE_ALPHA;
 	_FadeData.start = _UIChip->GetUIData()->blendParam;
 	_FadeData.tm = tm;
 	_FadeData.end = alpha;

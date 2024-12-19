@@ -11,6 +11,7 @@ UIChipClass::UIChipClass(ModeBase* mode, VECTOR pos,const TCHAR* fname, int draw
 	_Data.scale = VGet(1, 1, 1);
 	_Data.angle = 0;
 	_Data.turn = false;
+	_Data.blendMode = DX_BLENDMODE_NOBLEND;
 	_Data.blendParam = 0;
 }
 

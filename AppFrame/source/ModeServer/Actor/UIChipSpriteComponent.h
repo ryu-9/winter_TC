@@ -9,9 +9,6 @@ public:
 	UIChipSpriteComponent(class UIChipClass* owner, int drawOrder = 100);
 	void Draw() override;
 	void SetImage(const TCHAR* filename);
-//	int GetImageSize() { return _cgHandle.size(); }
-	void SetBlendMode(int type) { _BlendMode = type; }
-	void SetBlendPalam(int palam) { _BlendPalam = palam; }
 protected:
 
 	class UIChipClass* _UIc;
