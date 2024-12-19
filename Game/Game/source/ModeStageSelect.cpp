@@ -1,10 +1,16 @@
 #include "ModeStageSelect.h"
+#include "ApplicationMain.h"
+#include "ModeGame.h"
 
 bool ModeStageSelect::Initialize() {
-	new UIChipClass(this, VGet(0, 0, 0), "res/stage/stage1.png", 0);
-	new UIChipClass(this, VGet(400, 0, 0), "res/stage/stage2.png", 0);
-	new UIChipClass(this, VGet(0, 400, 0), "res/stage/stage3.png", 0);
-	new UIChipClass(this, VGet(400, 400, 0), "res/stage/stage4.png", 0);
+	auto tmp = new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0);
+	new UIChipFadeComponent(tmp, 255, 250);
+	tmp =new UIChipClass(this, VGet(600, 200, 0), "res/select/stage2.png", 0);
+	new UIChipFadeComponent(tmp, 255, 250);
+	tmp = new UIChipClass(this, VGet(200, 600, 0), "res/select/stage3.png", 0);
+	new UIChipFadeComponent(tmp, 255, 250);
+	tmp = new UIChipClass(this, VGet(600, 600, 0), "res/select/stage4.png", 0);
+	new UIChipFadeComponent(tmp, 255, 250);
 	return true;
 }
 
@@ -22,6 +28,7 @@ bool ModeStageSelect::Process() {
 	if (trg & PAD_INPUT_RIGHT) { _Cur++; }
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択
+		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
 		// このモードを削除する
 		ModeServer::GetInstance()->Del(this);
 	}
