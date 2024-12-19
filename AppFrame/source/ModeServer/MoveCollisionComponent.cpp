@@ -1,26 +1,40 @@
 #include "MoveCollisionComponent.h"
 #include "ActorClass.h"
 #include "ModelComponent.h"
+#include "MoveComponent.h"
 
 MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	:Component(owner)
 	, Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 {
 	_Owner->GetMode()->AddMCollision(this);
-	if (Handle != -1) { return; }
-	ModelComponent *tmp = nullptr;
-	switch (Type) {
-	case 0:
 
-		Handle = dynamic_cast<ModelComponent*>(_Owner->GetComponent(tmp))->GetHandle();
-		break;
-
-	default:
-		Handle = -1;
-		break;
-	
+	if (isMove == TRUE) {
+		MoveComponent* moveComp = _Owner->GetComponent<MoveComponent>();
+		_Owner->SetMove(VGet(0, 0, 0));
 	}
-	delete tmp;
+
+
+	if (Handle != -1) { return; }
+	
+	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
+	if (modelComp != nullptr) {
+		switch (Type) {
+		case 0:
+
+			Handle = modelComp->GetHandle();
+			break;
+
+		default:
+			Handle = -1;
+			break;
+
+		}
+	}
+	else {
+		Handle = -1; // 適切なデフォルト値を設定
+	}
+	//*/
 }
 
 

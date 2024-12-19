@@ -45,7 +45,7 @@
     <ClCompile Include="source\ApplicationGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\MoveComponent.cpp">
+    <ClCompile Include="source\PlyaerMoveComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\PlayerActor.cpp">
@@ -74,7 +74,7 @@
     <ClInclude Include="source\ApplicationGlobal.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\MoveComponent.h">
+    <ClInclude Include="source\PlayerMoveComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\PlayerActor.h">

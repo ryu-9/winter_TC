@@ -1,6 +1,6 @@
 #include "PlayerActor.h"
 #include "appframe.h"
-#include "MoveComponent.h"
+#include "PlayerMoveComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode)
 	:ActorClass(mode)
@@ -12,7 +12,7 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	new ModelSpriteComponent(this, m);
 	int n = rand() % 2;
 	
-		_Input = new MoveComponent(this);
+		_Input = new PlayerMoveComponent(this);
 	
 	
 }

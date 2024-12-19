@@ -49,7 +49,7 @@ public:
 	void RemoveComponent(class Component* component);
 
 	template <typename T>
-	Component* GetComponent(T type);
+	T* GetComponent();
 
 	void Send(int message);
 protected:
@@ -66,3 +66,14 @@ protected:
 	State _State;
 };
  
+template <typename T>
+T* ActorClass::GetComponent()
+{
+	for (auto& comp : _Components) {
+		T* castedComp = dynamic_cast<T*>(comp);
+		if (castedComp != nullptr) {
+			return castedComp;
+		}
+	}
+	return nullptr;
+}

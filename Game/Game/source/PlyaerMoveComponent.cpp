@@ -1,21 +1,21 @@
-#include "MoveComponent.h"
+#include "PlayerMoveComponent.h"
 #include "ApplicationMain.h"
 #include "PlayerActor.h"
 #include "CameraActor.h"
 
-MoveComponent::MoveComponent(PlayerActor* owner, int updateOrder)
-	:Component(owner, updateOrder)
+PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
+	:MoveComponent(owner, updateOrder)
 	,_pOwner(owner)
 	,_colSubY(40.f)
 {
 
 }
 
-MoveComponent::~MoveComponent()
+PlayerMoveComponent::~PlayerMoveComponent()
 {
 }
 
-void MoveComponent::ProcessInput()
+void PlayerMoveComponent::ProcessInput()
 {
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
@@ -73,7 +73,7 @@ void MoveComponent::ProcessInput()
 		v.z = sin(rad + camrad + escape_rad) * length;
 
 		// vの分移動
-		_pOwner->SetPosition(VAdd(_pOwner->GetPosition(), v));
+		//_pOwner->SetPosition(VAdd(_pOwner->GetPosition(), v));
 
 		// コリジョン処理しないならループから抜ける
 		if (!_pOwner->GetMode()->GetUseCollision()) {
@@ -105,12 +105,13 @@ void MoveComponent::ProcessInput()
 
 	// 移動量のセット
 	float size = VSize(v)/10000;
-	_pOwner->SetMove(v);
+	//_pOwner->SetMove(v);
+	SetVelocity(v);
 	_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
 
 }
 
-void MoveComponent::Receive(int message)
+void PlayerMoveComponent::Receive(int message)
 {
 
 	switch (message)

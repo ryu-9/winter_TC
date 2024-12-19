@@ -54,6 +54,9 @@
     <ClInclude Include="source\ModeServer\ModelComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\MoveComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -90,6 +93,9 @@
       <Filter>ModeServer</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeServer\ModelComponent.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\MoveComponent.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
   </ItemGroup>
