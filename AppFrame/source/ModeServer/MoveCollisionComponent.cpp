@@ -1,24 +1,28 @@
 #include "MoveCollisionComponent.h"
 #include "ActorClass.h"
+#include "ModelComponent.h"
 
-MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR pos, VECTOR size, int type, bool move, bool isMove)
+MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	:Component(owner)
-	, Pos(pos), Size(size), Type(type), isMove(move), isActive(TRUE)
+	, Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 {
 	_Owner->GetMode()->AddMCollision(this);
+	if (Handle != -1) { return; }
+	ModelComponent *tmp = nullptr;
 	switch (Type) {
 	case 0:
-		//Handle = _Owner->GetMode()->GetHandle();
+
+		Handle = dynamic_cast<ModelComponent*>(_Owner->GetComponent(tmp))->GetHandle();
+		break;
+
+	default:
+		Handle = -1;
+		break;
 	
 	}
+	delete tmp;
 }
 
-MoveCollisionComponent::MoveCollisionComponent(ActorClass* owner, VECTOR pos, VECTOR size, int type, int handle, bool move, bool isMove)
-	:Component(owner)
-	, Pos(pos), Size(size), Type(type), Handle(handle), isMove(move), isActive(TRUE)
-{
-	_Owner->GetMode()->AddMCollision(this);
-}
 
 MoveCollisionComponent::~MoveCollisionComponent()
 {

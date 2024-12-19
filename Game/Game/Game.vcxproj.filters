@@ -45,9 +45,6 @@
     <ClCompile Include="source\ApplicationGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModelComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\MoveComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
@@ -76,9 +73,6 @@
     </ClInclude>
     <ClInclude Include="source\ApplicationGlobal.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModelComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\MoveComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>

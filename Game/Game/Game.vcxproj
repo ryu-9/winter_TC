@@ -159,7 +159,6 @@
     <ClCompile Include="source\ApplicationMain.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
-    <ClCompile Include="source\ModelComponent.cpp" />
     <ClCompile Include="source\ModeMenu.cpp" />
     <ClCompile Include="source\ModeResult.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
@@ -171,7 +170,6 @@
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CameraActor.h" />
     <ClInclude Include="source\ModeGame.h" />
-    <ClInclude Include="source\ModelComponent.h" />
     <ClInclude Include="source\ModeMenu.h" />
     <ClInclude Include="source\ModeResult.h" />
     <ClInclude Include="source\ModeTitle.h" />

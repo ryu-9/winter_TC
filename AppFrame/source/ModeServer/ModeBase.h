@@ -6,7 +6,7 @@
 #include <algorithm>
 
 #include "SpriteComponent.h"
-//#include "MoveCollisionComponent.h"
+#include "MoveCollisionComponent.h"
 #include "ActorClass.h"
 
 class ModeServer;
@@ -42,8 +42,8 @@ public:
 	void AddSprite(class SpriteComponent* sp);
 	void RemoveSprite(class SpriteComponent* sp);
 
-	//void AddMCollision(class MoveCollisionComponent* mc);
-	//void RemoveMCollision(class MoveCollisionComponent* mc);
+	void AddMCollision(class MoveCollisionComponent* mc);
+	void RemoveMCollision(class MoveCollisionComponent* mc);
 
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };
@@ -62,7 +62,7 @@ protected:
 	std::vector<class SpriteComponent*> _Sprites;
 
 	// 移動判定用コンポーネント
-	//std::deque<class MoveCollisionComponent*> _MCollision;
+	std::deque<class MoveCollisionComponent*> _MCollision;
 
 
 

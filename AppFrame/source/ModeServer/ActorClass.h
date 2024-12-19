@@ -48,6 +48,9 @@ public:
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);
 
+	template <typename T>
+	Component* GetComponent(T type);
+
 	void Send(int message);
 protected:
 	VECTOR _Position;	// ˆÊ’u

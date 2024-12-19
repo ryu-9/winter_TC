@@ -7,9 +7,8 @@ class MoveCollisionComponent : public	Component
 {
 public:
 	MoveCollisionComponent(class ActorClass* owner, VECTOR pos = VGet(0,0,0), VECTOR size = VGet(1,1,1)
-	, int type = 0, bool move = FALSE, bool isMove = FALSE);
-	MoveCollisionComponent(class ActorClass* owner, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
-		, int type = 0, int handle, bool move = FALSE, bool isMove = FALSE);
+	, int type = 0, bool move = FALSE, bool active = TRUE , int handle = -1);
+
 	~MoveCollisionComponent() override;
 
 	void Update() override;

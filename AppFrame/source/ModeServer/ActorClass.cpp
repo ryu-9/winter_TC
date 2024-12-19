@@ -84,6 +84,21 @@ void ActorClass::RemoveComponent(Component* component) {
 	}
 }
 
+
+template <typename T>
+Component* ActorClass::GetComponent(T type)
+{
+	for (auto comp : _Components) {
+		T comp = dynamic_cast<T>(comp);
+		if (comp != nullptr) {
+			return comp;
+		}
+	}
+	return nullptr;
+}
+
+
+
 void ActorClass::Send(int message)
 {
 	auto comp = _Components.size();
