@@ -6,10 +6,23 @@ class OpMenuItemContinue : public MenuItemBase {
 public:
 	OpMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeOption* mdOp = static_cast<ModeOption*>(_param);
-		auto tmp = new UIChipClass(mdOp, VGet(640, 400, 0), "res/option/continue.png", 110);
+		auto tmp = new UIChipClass(mdOp, VGet(640, 400, 0), "res/option/continue.png");
 		new UIChipFadeComponent(tmp, 255, 250);
 	}
 	virtual int Selected() {
+		return 1;
+	}
+};
+
+class OpMenuItemSave : public MenuItemBase {
+public:
+	OpMenuItemSave(void* param) :MenuItemBase(param, "") {
+		ModeOption* mdOp = static_cast<ModeOption*>(_param);
+		auto tmp = new UIChipClass(mdOp, VGet(640, 600, 0), "res/option/save.png");
+		new UIChipFadeComponent(tmp, 255, 250);
+	}
+	virtual int Selected() {
+		// ÉZÅ[Éu
 		return 1;
 	}
 };

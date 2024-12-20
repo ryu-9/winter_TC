@@ -7,6 +7,7 @@
 
 bool ModeTitle::Initialize()
 {
+	if (!base::Initialize()) { return false; }
 	_Step = 0;
 	_StepTm.emplace_back(500);
 	_StepTm.emplace_back(3000);
@@ -20,15 +21,11 @@ bool ModeTitle::Initialize()
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	new ActorClass(this);
-	return false;
+	return true;
 }
 
-bool ModeTitle::Terminate()
-{
-	for (auto& h : _Handle) {
-		DeleteGraph(h);
-	}
-	return false;
+bool ModeTitle::Terminate() {
+	return true;
 }
 
 bool ModeTitle::Process() {

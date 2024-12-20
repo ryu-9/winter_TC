@@ -1,6 +1,7 @@
 #include "ModeStageSelect.h"
 #include "ApplicationMain.h"
 #include "ModeGame.h"
+#include "ModeOption.h"
 
 bool ModeStageSelect::Initialize() {
 	auto tmp = new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0);
@@ -31,6 +32,10 @@ bool ModeStageSelect::Process() {
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
 		// ‚±‚Ìƒ‚[ƒh‚ðíœ‚·‚é
 		ModeServer::GetInstance()->Del(this);
+	}
+
+	if (trg & PAD_INPUT_3) {
+		ModeServer::GetInstance()->Add(new ModeOption(), 99, "option");
 	}
 	return false;
 }
