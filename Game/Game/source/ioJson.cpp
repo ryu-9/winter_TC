@@ -1,7 +1,6 @@
 #include <string>
 #include <fstream>
 #include <unordered_map>
-#include "nlohmann/json.hpp"
 #include "ioJson.h"
 #include "ioJsonText.h"
 
@@ -55,29 +54,6 @@ namespace iojson {
 
 		return true;
 	}
-	bool RoadBoard(std::vector<std::pair<std::string, int>>& board, std::string fname)
-	{
-		std::ifstream file(fname);
-		nlohmann::json json;
-		file >> json;
 
-		auto boardData = json.at("board");
-		for (auto i = 0; i < boardData.size(); i++) {
-			// 元データに追加
-			board.emplace_back(std::make_pair(ConvertString(boardData[i]["name"]), boardData[i]["score"]));
-		}
-		return false;
-	}
-	bool SaveBoard(std::vector<std::pair<std::string, int>>& board, std::string fname)
-	{
-		// アウトプット
-		nlohmann::json json;
-		json["board"] = nlohmann::json::array();
-		for (auto i = 0; i < board.size(); i++) {
-			json["board"].push_back({ {"name",board[i].first},{"score", board[i].second} });
-		}
-		std::ofstream file(fname);
-		file << json.dump(4);
-		return true;
-	}
+	
 }

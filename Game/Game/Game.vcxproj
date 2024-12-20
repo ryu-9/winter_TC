@@ -131,6 +131,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>source/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,6 +159,8 @@
     <ClCompile Include="source\ApplicationGlobal.cpp" />
     <ClCompile Include="source\ApplicationMain.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
+    <ClCompile Include="source\ioJson.cpp" />
+    <ClCompile Include="source\ioJsonText.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeMenu.cpp" />
     <ClCompile Include="source\ModeOption.cpp" />
@@ -166,13 +169,15 @@
     <ClCompile Include="source\ModeSynopsis.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
-    <ClCompile Include="source\PlyaerMoveComponent.cpp" />
+    <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CameraActor.h" />
+    <ClInclude Include="source\ioJson.h" />
+    <ClInclude Include="source\ioJsonText.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeMenu.h" />
     <ClInclude Include="source\ModeOption.h" />

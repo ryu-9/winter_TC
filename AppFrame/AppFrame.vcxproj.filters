@@ -9,12 +9,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ioJson">
-      <UniqueIdentifier>{b583321e-aadb-47e9-8237-452d332e91cd}</UniqueIdentifier>
+    <Filter Include="ModeServer\Actor">
+      <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
     </Filter>
-	  <Filter Include="ModeServer\Actor">
-		  <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
-	  </Filter>
     <Filter Include="ModelServer">
       <UniqueIdentifier>{8adc9293-3359-4859-b7db-5cc46bec2372}</UniqueIdentifier>
     </Filter>
@@ -42,12 +39,6 @@
     <ClInclude Include="source\Application\UtilMacro.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="source\ioJson\ioJson.h">
-      <Filter>ioJson</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ioJson\ioJsonText.h">
-      <Filter>ioJson</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h">
       <Filter>ModeServer\Actor</Filter>
     </ClInclude>
@@ -56,7 +47,7 @@
     </ClInclude>
     <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h">
       <Filter>ModeServer\Actor</Filter>
-		</ClInclude>
+    </ClInclude>
     <ClInclude Include="source\ModelServer\ModelServer.h">
       <Filter>ModelServer</Filter>
     </ClInclude>
@@ -92,12 +83,6 @@
     <ClCompile Include="source\ModeServer\ModeServer.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
-    <ClCompile Include="source\ioJson\ioJsonText.cpp">
-      <Filter>ioJson</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ioJson\ioJson.cpp">
-      <Filter>ioJson</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp">
       <Filter>ModeServer\Actor</Filter>
     </ClCompile>
@@ -106,7 +91,7 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp">
       <Filter>ModeServer\Actor</Filter>
-		</ClCompile>
+    </ClCompile>
     <ClCompile Include="source\ModelServer\ModelServer.cpp">
       <Filter>ModelServer</Filter>
     </ClCompile>

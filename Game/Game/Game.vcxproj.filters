@@ -37,6 +37,9 @@
     <Filter Include="ヘッダー ファイル\Mode\Game\Actor">
       <UniqueIdentifier>{10e9fcb2-0756-4061-b64f-c1115f290354}</UniqueIdentifier>
     </Filter>
+    <Filter Include="iojson">
+      <UniqueIdentifier>{7ddaef9d-93f7-4054-83ed-12a54edd16fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -45,7 +48,7 @@
     <ClCompile Include="source\ApplicationGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\PlyaerMoveComponent.cpp">
+    <ClCompile Include="source\PlayerMoveComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\PlayerActor.cpp">
@@ -77,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="source\ModeOption.cpp">
       <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ioJsonText.cpp">
+      <Filter>iojson</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ioJson.cpp">
+      <Filter>iojson</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +127,12 @@
     </ClInclude>
     <ClInclude Include="source\ModeOption.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ioJson.h">
+      <Filter>iojson</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ioJsonText.h">
+      <Filter>iojson</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

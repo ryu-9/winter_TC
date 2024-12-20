@@ -5,10 +5,10 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 #include "CameraActor.h"
-
+#include <fstream>
 #include "ModeResult.h"
 #include "ApplicationGlobal.h"
-
+#include "nlohmann/json.hpp"
 
 class MenuItemViewCameraInfo : public MenuItemBase {
 public:
@@ -136,6 +136,29 @@ bool ModeGame::Render() {
 
 	base::Render();
 
+	return true;
+}
+
+bool ModeGame::LoadStage(const std::string path) {
+	std::ifstream file(path);
+	nlohmann::json json;
+	file >> json;
+
+	nlohmann::json stage = json.at("Stage");
+	for (auto& data : stage) {
+		auto name = data.at("objectName");
+		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
+		pos.z *= -1.f;
+		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
+		rot.x = DEG2RAD(pos.x);
+		rot.y = DEG2RAD(pos.y);
+		rot.z = DEG2RAD(pos.z);
+		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
+
+		// ModelServerÇ≈ì«Ç›çûÇ›
+
+		// ÉAÉNÉ^Ç∆ÇµÇƒì«Ç›çûÇ›
+	}
 	return true;
 }
 
