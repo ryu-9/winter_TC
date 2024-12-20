@@ -1,6 +1,6 @@
 #include "PlayerActor.h"
-#include "ModelComponent.h"
-#include "MoveComponent.h"
+#include "appframe.h"
+#include "PlayerMoveComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode)
 	:ActorClass(mode)
@@ -8,10 +8,11 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	,_OldStatus(STATUS::NONE)
 {
 	auto m =new ModelComponent(this);
+	auto m2 = new MoveCollisionComponent(this);
 	new ModelSpriteComponent(this, m);
 	int n = rand() % 2;
 	
-		_Input = new MoveComponent(this);
+		_Input = new PlayerMoveComponent(this);
 	
 	
 }

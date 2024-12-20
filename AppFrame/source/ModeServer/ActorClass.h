@@ -39,6 +39,8 @@ public:
 	void SetRotation2(const VECTOR rot) { _Rotation2 = rot; }
 	VECTOR GetMove() const { return _Move; }
 	void SetMove(const VECTOR move) { _Move = move; }
+	VECTOR GetSize() const { return _Size; }
+	void SetSize(const VECTOR size) { _Size = size; }
 	
 	State GetState() const { return _State; }
 	void SetState(const State state) { _State = state; }
@@ -46,17 +48,32 @@ public:
 	void AddComponent(class Component* component);
 	void RemoveComponent(class Component* component);
 
+	template <typename T>
+	T* GetComponent();
+
 	void Send(int message);
 protected:
 	VECTOR _Position;	// 位置
 	VECTOR _Direction;	// 向き
-	VECTOR _Rotation;	// 向き
-	VECTOR _Rotation2;	// 向き
+	VECTOR _Rotation;	// 前の向き
+	VECTOR _Rotation2;	// 上の向き
 	VECTOR _Move;		// 移動ベクトル
+	VECTOR _Size;		// 大きさ
 
 	std::vector<class Component*> _Components;
 	class ModeBase* _Mode;
 
 	State _State;
 };
-
+ 
+template <typename T>
+T* ActorClass::GetComponent()
+{
+	for (auto& comp : _Components) {
+		T* castedComp = dynamic_cast<T*>(comp);
+		if (castedComp != nullptr) {
+			return castedComp;
+		}
+	}
+	return nullptr;
+}

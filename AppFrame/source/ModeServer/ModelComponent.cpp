@@ -1,9 +1,10 @@
 #include "ModelComponent.h"
+#include "ActorClass.h"
+#include "../ModelServer/ModelServer.h"
 
-ModelComponent::ModelComponent(PlayerActor* owner)
+ModelComponent::ModelComponent(ActorClass* owner)
 	:Component(owner)
 	// 再生時間の初期化
-	,_pOwner(owner)
 	,_TotalTime(0.f)
 	,_PlayTime(0.0f)
 	,_AttachIndex(-1)
@@ -26,7 +27,7 @@ void ModelComponent::Update()
 {
 	// moveの分移動
 //	_pOwner->SetPosition(VAdd(_pOwner->GetPosition(), _pOwner->GetMove()));
-
+	/*
 	// 移動量をそのままキャラの向きにする
 	if (VSize(_pOwner->GetMove()) > 0.f) {		// 移動していない時は無視するため
 		_pOwner->SetDirection(_pOwner->GetMove());
@@ -67,7 +68,7 @@ void ModelComponent::Update()
 	if (_PlayTime >= _TotalTime) {
 		_PlayTime = 0.0f;
 	}
-
+	*/
 	
 }
 
@@ -76,12 +77,12 @@ void ModelComponent::SetModelInfo()
 	// 再生時間をセットする
 	MV1SetAttachAnimTime(_Handle, _AttachIndex, _PlayTime);
 	// 位置
-	MV1SetPosition(_Handle, VAdd(_pOwner->GetPosition(),VGet(0,_pOwner->GetSize().y * 100, 0)));
+	MV1SetPosition(_Handle, VAdd(_Owner->GetPosition(),VGet(0,_Owner->GetSize().y * 100, 0)));
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
-	vRot.y = atan2(_pOwner->GetDirection().x * -1, _pOwner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
+	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
 	//MV1SetRotationXYZ(_Handle, vRot);
-	MV1SetScale(_Handle, _pOwner->GetSize());
+	MV1SetScale(_Handle, _Owner->GetSize());
 }
 
 

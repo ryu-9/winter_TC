@@ -8,3 +8,6 @@
 #include "ioJson/ioJson.h"
 #include "ModeServer/Actor/UIChipClass.h"
 #include "ModeServer/Actor/UIChipEffectComponent.h"
+#include "ModeServer/ModelComponent.h"
+#include "ModeServer/MoveCollisionComponent.h"
+#include "ModeServer/MoveComponent.h"

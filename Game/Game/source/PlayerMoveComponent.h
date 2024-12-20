@@ -1,11 +1,11 @@
 #pragma once
 #include "appframe.h"
 
-class MoveComponent : public Component
+class PlayerMoveComponent : public MoveComponent
 {
 public:
-	MoveComponent(class PlayerActor* owner, int updateOrder = 10);
-	virtual ~MoveComponent();
+	PlayerMoveComponent(class PlayerActor* owner, int updateOrder = 10);
+	virtual ~PlayerMoveComponent();
 
 	void ProcessInput() override;
 
@@ -13,6 +13,6 @@ public:
 private:
 	class PlayerActor* _pOwner;
 	float _colSubY;	// コリジョン判定時のY補正(腰位置）
-	float _AddSpeed;
+
 };
 

@@ -15,5 +15,6 @@ protected:
 	class ActorClass* _Owner;
 
 	int _UpdateOrder;
+
 };
 

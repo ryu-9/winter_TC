@@ -2,12 +2,16 @@
 
 #include <string>
 #include <vector>
+#include <deque>
 #include <algorithm>
 
 #include "SpriteComponent.h"
+#include "MoveCollisionComponent.h"
 #include "ActorClass.h"
 
 class ModeServer;
+
+VECTOR VMulti(VECTOR v, VECTOR m);
 
 class ModeBase {
 public:
@@ -38,6 +42,9 @@ public:
 	void AddSprite(class SpriteComponent* sp);
 	void RemoveSprite(class SpriteComponent* sp);
 
+	void AddMCollision(class MoveCollisionComponent* mc);
+	void RemoveMCollision(class MoveCollisionComponent* mc);
+
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };
 
@@ -47,11 +54,15 @@ protected:
 	bool _UpdatingActors;
 	//	アクタ
 	std::vector<class ActorClass*> _Actors;
+
 	//	待機中アクタ
 	std::vector<class ActorClass*> _PendingActors;
 
 	// 描画コンポーネント
 	std::vector<class SpriteComponent*> _Sprites;
+
+	// 移動判定用コンポーネント
+	std::deque<class MoveCollisionComponent*> _MCollision;
 
 
 

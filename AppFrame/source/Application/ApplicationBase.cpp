@@ -1,8 +1,8 @@
 
 #include "ApplicationBase.h"
+#include <vector>
 
 ApplicationBase	*ApplicationBase::_lpInstance = NULL;
-
 
 ApplicationBase::ApplicationBase() {
 	_lpInstance = this;
@@ -31,6 +31,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 	// モードサーバの初期化
 	_serverMode = new ModeServer();
+	_serverModel = new ModelServer();
 
 	return true;
 }

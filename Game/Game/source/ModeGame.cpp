@@ -102,7 +102,7 @@ bool ModeGame::Render() {
 	SetUseBackCulling(TRUE);
 
 	// ライト設定
-	SetUseLighting(TRUE);
+	SetUseLighting(FALSE);
 #if 1	// 平行ライト
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
@@ -132,7 +132,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-
+	DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
 
 	base::Render();
 

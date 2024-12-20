@@ -14,6 +14,8 @@
     </Filter>
     <Filter Include="ModeServer\Actor">
       <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
+    <Filter Include="ModelServer">
+      <UniqueIdentifier>{8adc9293-3359-4859-b7db-5cc46bec2372}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +55,17 @@
     </ClInclude>
     <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h">
       <Filter>ModeServer\Actor</Filter>
+    <ClInclude Include="source\ModelServer\ModelServer.h">
+      <Filter>ModelServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\MoveCollisionComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ModelComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\MoveComponent.h">
+      <Filter>ModeServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +104,17 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp">
       <Filter>ModeServer\Actor</Filter>
+    <ClCompile Include="source\ModelServer\ModelServer.cpp">
+      <Filter>ModelServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ModelComponent.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\MoveComponent.cpp">
+      <Filter>ModeServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
