@@ -22,12 +22,15 @@ public:
 	void SetOldStatus() { _OldStatus = _Status; }
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode);}
 	
-	void SetInput(class Component* input) { delete _Input; _Input = input; }
+	void SetInput(class PlayerMoveComponent* input) { delete _Input; _Input = input; }
 
 private:
 	STATUS _Status;
 	STATUS _OldStatus;
 
-	class Component* _Input;
+	class PlayerMoveComponent* _Input;
+
+	class ModelComponent* _Model;
+	class MoveCollisionComponent* _MCollision;
 };
 

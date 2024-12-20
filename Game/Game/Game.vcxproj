@@ -166,8 +166,9 @@
     <ClCompile Include="source\ModeSynopsis.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
-    <ClCompile Include="source\PlyaerMoveComponent.cpp" />
+    <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
+    <ClCompile Include="source\StageBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationGlobal.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="source\PlayerMoveComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />
     <ClInclude Include="source\PlayerActor.h" />
+    <ClInclude Include="source\StageBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

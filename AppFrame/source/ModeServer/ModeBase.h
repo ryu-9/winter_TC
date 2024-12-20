@@ -44,6 +44,7 @@ public:
 
 	void AddMCollision(class MoveCollisionComponent* mc);
 	void RemoveMCollision(class MoveCollisionComponent* mc);
+	std::deque<MoveCollisionComponent*>& GetMCollision() { return _MCollision; }
 
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };

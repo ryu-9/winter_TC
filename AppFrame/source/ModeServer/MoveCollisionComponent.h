@@ -24,13 +24,16 @@ public:
 
 	int GetType() const { return Type; }
 	void SetType(int type) { Type = type; }
-	// collisionの形　0: メッシュ 1:直方体　2:球 3:円柱 4:カプセル 5:四角錐
+	// collisionの形　0: メッシュ 1:線分 2:球 3:カプセル 4:円柱  5:四角錐 6:直方体
 
 	bool GetIsMove() const { return isMove; }
 	void SetIsMove(bool move) { isMove = move; }
 
 	bool GetIsActive() const { return isActive; }
 	void SetIsActive(bool active) { isActive = active; }
+
+	int GetHandle() const { return Handle; }
+	void SetHandle(int handle) { Handle = handle; }
 
 private:
 	// 位置

@@ -40,11 +40,70 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 
 MoveCollisionComponent::~MoveCollisionComponent()
 {
-	_Owner->GetMode()->RemoveMCollision(this);
+_Owner->GetMode()->RemoveMCollision(this);
 }
 
 void MoveCollisionComponent::Update()
 {
+	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
+		if (mcoll->GetIsActive() == TRUE) {
+			if (mcoll != this) {
+				bool flag = FALSE;
+				int typeSum = 0;
+				MoveCollisionComponent* coll[2];
+
+				typeSum += Type * Type;
+				if (typeSum < mcoll->GetType()* mcoll->GetType()) {
+					coll[0] = this; coll[1] = mcoll;
+				}
+				else {
+					coll[0] = mcoll; coll[1] = this;
+				}
+				switch (typeSum) {
+				case 0: // メッシュとメッシュ
+
+					break;
+
+				case 1: // メッシュと線分	
+					
+					if (MV1CollCheck_Line(handle[0], 0, pos,VAdd(pos,size))) {
+						flag = TRUE;
+					}
+					break;
+
+				case 2: // 線分と線分
+					if (CheckHitLine_Line(handle[0], handle[1])) {
+						flag = TRUE;
+					}
+					break;
+
+				case 4: // メッシュと球
+					if (CheckHitMesh_Sphere(handle[0], handle[1])) {
+						flag = TRUE;
+					}
+					break;
+
+				case 5: // 線分と球
+					if (CheckHitLine_Sphere(handle[0], handle[1])) {
+						flag = TRUE;
+					}
+					break;
+				
+				case 8: // 球と球
+					if (VSize(VSub(mcoll->GetPosition(), GetPosition())) < VSize(VAdd(GetSize(), mcoll->GetSize()))) {
+						flag = TRUE;
+					}
+					break;
+				
+				}
+				if (flag == TRUE) {
+				
+				
+				}
+			}
+		}
+	}
+	
 }
 VECTOR MoveCollisionComponent::GetPosition() {
 	return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize())); 

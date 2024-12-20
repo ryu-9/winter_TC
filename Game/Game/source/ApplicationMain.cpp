@@ -14,8 +14,8 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	gGlobal.Init();
 
 	// ƒ‚[ƒh‚Ì“o˜^
-//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 //	ModeServer::GetInstance()->Add(new ModeResult(), 1, "result");
 	return true;
 }

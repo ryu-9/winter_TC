@@ -2,16 +2,19 @@
 #include "ActorClass.h"
 #include "../ModelServer/ModelServer.h"
 
-ModelComponent::ModelComponent(ActorClass* owner)
+ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	:Component(owner)
 	// 再生時間の初期化
 	,_TotalTime(0.f)
 	,_PlayTime(0.0f)
 	,_AttachIndex(-1)
+	, _Front(VGet(0, 0, 1))
+	, _Up(VGet(0, 1, 0))
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
-	_Handle = ModelServer::GetInstance()->Add("res/Debug/chinpo.mv1");
+	_Handle = ModelServer::GetInstance()->Add(file);
+	new ModelSpriteComponent(_Owner, this);
 }
 
 ModelComponent::~ModelComponent()
@@ -99,7 +102,7 @@ ModelSpriteComponent::~ModelSpriteComponent()
 void ModelSpriteComponent::Draw()
 {
 	
-
+	/*
 	// 速度を取得
 	VECTOR v =_Owner -> GetMove();
 	// 角度を取得
@@ -118,13 +121,15 @@ void ModelSpriteComponent::Draw()
 
 	_Owner->SetRotation(rot);
 	_Owner->SetRotation2(rot2);
+	//*/
+
 
 	// モデルを描画する モデルコンポでよくないか…？
 	{
 		_Model->SetModelInfo();
 		// 描画
 		MV1DrawModel(_Model->GetHandle());
-		DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
+		//DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
 	}
 }
 

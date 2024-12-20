@@ -5,6 +5,7 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 #include "CameraActor.h"
+#include "StageBox.h"
 
 #include "ModeResult.h"
 #include "ApplicationGlobal.h"
@@ -56,6 +57,7 @@ bool ModeGame::Initialize() {
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
+	new StageBox(this);
 
 	
 	return true;
@@ -132,7 +134,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
+	//DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
 
 	base::Render();
 

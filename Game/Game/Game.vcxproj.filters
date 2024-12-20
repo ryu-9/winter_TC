@@ -45,7 +45,7 @@
     <ClCompile Include="source\ApplicationGlobal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\PlyaerMoveComponent.cpp">
+    <ClCompile Include="source\PlayerMoveComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\PlayerActor.cpp">
@@ -77,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="source\ModeOption.cpp">
       <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\StageBox.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeOption.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\StageBox.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
