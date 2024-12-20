@@ -12,8 +12,9 @@
     <Filter Include="ioJson">
       <UniqueIdentifier>{b583321e-aadb-47e9-8237-452d332e91cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ModeServer\Actor">
-      <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
+	  <Filter Include="ModeServer\Actor">
+		  <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
+	  </Filter>
     <Filter Include="ModelServer">
       <UniqueIdentifier>{8adc9293-3359-4859-b7db-5cc46bec2372}</UniqueIdentifier>
     </Filter>
@@ -55,6 +56,7 @@
     </ClInclude>
     <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h">
       <Filter>ModeServer\Actor</Filter>
+		</ClInclude>
     <ClInclude Include="source\ModelServer\ModelServer.h">
       <Filter>ModelServer</Filter>
     </ClInclude>
@@ -104,6 +106,7 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp">
       <Filter>ModeServer\Actor</Filter>
+		</ClCompile>
     <ClCompile Include="source\ModelServer\ModelServer.cpp">
       <Filter>ModelServer</Filter>
     </ClCompile>
