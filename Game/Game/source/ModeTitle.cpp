@@ -25,8 +25,7 @@ bool ModeTitle::Initialize()
 
 bool ModeTitle::Terminate()
 {
-	for (auto& h : _Handle)
-	{
+	for (auto& h : _Handle) {
 		DeleteGraph(h);
 	}
 	return false;
@@ -108,8 +107,7 @@ base::Process();
 	return true;
 }
 
-bool ModeTitle::Render()
-{
+bool ModeTitle::Render() {
 	base::Render();
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
 	return false;

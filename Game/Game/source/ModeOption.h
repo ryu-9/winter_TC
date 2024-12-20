@@ -1,5 +1,6 @@
 #pragma once
 #include "appframe.h"
+#include "ModeMenu.h"
 
 
 class ModeOption : public ModeBase

@@ -72,6 +72,9 @@ bool ModeTitleMenu::Process()
 	base::Process();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 
+	// このモードより下のレイヤーはProcess()を呼ばない
+	ModeServer::GetInstance()->SkipProcessUnderLayer();
+
 	bool close = false;
 
 	if (trg & PAD_INPUT_LEFT) { _Cur--; }

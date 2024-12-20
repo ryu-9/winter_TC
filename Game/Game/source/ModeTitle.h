@@ -3,6 +3,7 @@
 
 #include <vector>
 
+
 class ModeTitle : public ModeBase
 {
 	typedef ModeBase base;
