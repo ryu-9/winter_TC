@@ -20,8 +20,7 @@ bool ModeResult::Initialize()
 
 	ChangeFont("x14y20pxScoreDozer");
 	SetFontSize(48);
-	iojson::InputData(_Keys, "res/Keys.json");
-	iojson::RoadBoard(_Board, "res/Board.json");
+
 	_Name = "YOU";
 	_type = 2;
 	_Cur = 0;
@@ -97,7 +96,6 @@ bool ModeResult::Process() {
 			ModeBase* mode = new ModeTitle();
 			ModeServer::GetInstance()->Add(mode, 1, "TITLE");
 			ModeServer::GetInstance()->Del(this);
-			iojson::SaveBoard(_Board, "res/Board.json");
 		}
 	}
 	
