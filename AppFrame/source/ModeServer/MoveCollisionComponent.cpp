@@ -66,25 +66,22 @@ void MoveCollisionComponent::Update()
 
 				case 1: // メッシュと線分	
 					
-					if (MV1CollCheck_Line(handle[0], 0, pos,VAdd(pos,size))) {
+					if (MV1CollCheck_Line(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VAdd(coll[1]->GetPosition(), coll[1]->GetSize())).HitFlag == TRUE) {
 						flag = TRUE;
 					}
 					break;
 
 				case 2: // 線分と線分
-					if (CheckHitLine_Line(handle[0], handle[1])) {
-						flag = TRUE;
-					}
 					break;
 
 				case 4: // メッシュと球
-					if (CheckHitMesh_Sphere(handle[0], handle[1])) {
+					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize( coll[1]->GetSize())).Dim->HitFlag == TRUE) {
 						flag = TRUE;
 					}
 					break;
 
 				case 5: // 線分と球
-					if (CheckHitLine_Sphere(handle[0], handle[1])) {
+					if (MV1CollCheck_Line(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VAdd(coll[1]->GetPosition(), coll[1]->GetSize())).HitFlag == TRUE) {
 						flag = TRUE;
 					}
 					break;
