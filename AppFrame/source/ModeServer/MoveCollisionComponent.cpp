@@ -45,6 +45,9 @@ _Owner->GetMode()->RemoveMCollision(this);
 
 void MoveCollisionComponent::Update()
 {
+	if (isActive == FALSE || isMove == FALSE) {
+		return;
+	}
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 		if (mcoll->GetIsActive() == TRUE) {
 			if (mcoll != this) {
@@ -87,14 +90,21 @@ void MoveCollisionComponent::Update()
 					break;
 				
 				case 8: // ‹…‚Æ‹…
-					if (VSize(VSub(mcoll->GetPosition(), GetPosition())) < VSize(VAdd(GetSize(), mcoll->GetSize()))) {
+					if (VSize(VSub(coll[0]->GetPosition(), GetPosition())) < VSize(VAdd(GetSize(), coll[1]->GetSize()))) {
 						flag = TRUE;
 					}
-					break;
+					break; 
 				
 				}
 				if (flag == TRUE) {
-				
+					if (coll[1]->isMove == TRUE) {
+					}
+										else {
+						VECTOR move = VSub(GetPosition(), coll[1]->GetPosition());
+						move = VNorm(move);
+						move = VMulti(move, VSize(VSub(GetPosition(), coll[1]->GetPosition())));
+						_Owner->SetMove(VAdd(_Owner->GetMove(), move));
+					}
 				
 				}
 			}
