@@ -110,9 +110,15 @@ void MoveCollisionComponent::Update()
 				}
 				if (flag == TRUE) {
 
-					if (coll[1]->isMove == TRUE) {
+					if (mcoll->isMove == TRUE) {
 					}
 					else {
+						VECTOR v = VSub(GetPosition(), mcoll->GetPosition());
+						float size = VSize(v);
+						if (size != 0) {
+							v = VNorm(v);
+							_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(v, VSize(VAdd(GetSize(),mcoll->GetSize()))/2)));
+						}
 					}
 				}
 				}
