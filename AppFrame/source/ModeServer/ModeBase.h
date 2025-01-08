@@ -49,6 +49,8 @@ public:
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };
 
+	void SetDrawCollision(const bool flag) { _DrawCollision = flag; }
+
 protected:
 
 	bool _IsUpdate;
@@ -90,6 +92,7 @@ private:
 	int		_callPerFrame, _callPerFrame_cnt;
 	int		_callOfCount;
 
+	bool _DrawCollision;		// è’ìÀîªíËÇï`âÊÇ∑ÇÈÇ©Ç«Ç§Ç©
 
 
 };

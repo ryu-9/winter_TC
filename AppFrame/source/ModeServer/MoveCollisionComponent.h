@@ -35,6 +35,8 @@ public:
 	int GetHandle() const { return Handle; }
 	void SetHandle(int handle) { Handle = handle; }
 
+	void DebugDraw();
+
 private:
 	// 位置
 	VECTOR Pos;
@@ -53,5 +55,7 @@ private:
 
 	//	モデルハンドル
 	int Handle;
+
+	bool flag;
 };
 

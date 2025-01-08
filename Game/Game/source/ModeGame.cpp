@@ -54,6 +54,7 @@ bool ModeGame::Initialize() {
 	SetFogEnable(TRUE);
 	SetFogStartEnd(200, 10000);
 	
+	SetDrawCollision(TRUE);
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);

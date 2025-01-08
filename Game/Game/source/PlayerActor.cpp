@@ -8,7 +8,9 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	,_OldStatus(STATUS::NONE)
 {
 	_Model = new ModelComponent(this, "res/Debug/chinpo.mv1");
-	_MCollision = new MoveCollisionComponent(this);
+	//_MCollision = new MoveCollisionComponent(this);
+	//_MCollision->SetIsMove(true);
+	_MCollision = new MoveCollisionComponent(this,VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
 	int n = rand() % 2;
 	
 		_Input = new PlayerMoveComponent(this);
