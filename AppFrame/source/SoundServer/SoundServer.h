@@ -7,6 +7,7 @@
 #include <string>
 #include <map>
 #include "WAVRead.h"
+#include "../ModeServer/ActorClass.h"
 
 class SoundServer {
 public:
@@ -17,7 +18,8 @@ public:
 	static SoundServer* GetInstance() { return (SoundServer*)_lpInstance; }
 
 	void Clear();
-	void Add(std::string path);
+	void Add(std::string path,std::string name);
+	void Create(class ActorClass* owner,std::string name);
 	bool Del(std::string name);
 
 
@@ -25,6 +27,7 @@ protected:
 	bool Init();
 	IXAudio2* _XAudio2;
 	IXAudio2MasteringVoice* _MasteringVoice;
+
 
 	// debug
 	IXAudio2SourceVoice* sourceVoice;

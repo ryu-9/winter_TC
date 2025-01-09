@@ -69,6 +69,9 @@
     <ClInclude Include="source\SoundServer\WAVRead.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\SoundServer\SoundComponent.h">
+      <Filter>SoundServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -117,6 +120,9 @@
       <Filter>SoundServer</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundServer\WAVRead.cpp">
+      <Filter>SoundServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundServer\SoundComponent.cpp">
       <Filter>SoundServer</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,13 +36,14 @@ void SoundServer::Clear()
 {
 }
 
-void SoundServer::Add(std::string path) {
+void SoundServer::Add(std::string path,std::string name) {
 	if (WAVRead::Read(path.c_str(), &wavData) == false) {
 		return;
 	}
 
 	// ソースボイスの作成
 	sourceVoice = nullptr;
+
 	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &wavData.wFormat);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
@@ -55,7 +56,6 @@ void SoundServer::Add(std::string path) {
 	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
 	xAudio2Buffer.AudioBytes = wavData.size;
 
-	// 三項演算子を用いて、ループするか否かの設定をする
 	xAudio2Buffer.LoopCount = 0;
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 
