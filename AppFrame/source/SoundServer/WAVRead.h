@@ -12,7 +12,7 @@ namespace WAVRead {
 		~WAVDATA() { free(sBuffer); }
 	};
 
-	HRESULT Read(const char* path, WAVDATA* wavData);
+	bool Read(const char* path, WAVDATA* wavData);
 
 }
 
