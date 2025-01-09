@@ -23,7 +23,11 @@ int WINAPI WinMain(
 	if (!appBase) { return 0; }
 
 	SetZBufferBitDepth(32);
-
+	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	if (FAILED(hr)) {
+		printf("CoInitializeEx failed: %#X\n", hr);
+		return false;
+	}
 	if (!appBase->Initialize(hInstance)) {
 		return 0;
 	}

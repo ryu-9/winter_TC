@@ -3,9 +3,14 @@
 #pragma comment(lib, "winmm.lib")
 
 
+// インスタンス
+SoundServer* SoundServer::_lpInstance = nullptr;
+
+
 SoundServer::SoundServer() 
 	: _XAudio2(nullptr), _MasteringVoice(nullptr)
 {
+	_lpInstance = this;
 	if (Init() == FALSE){
 		delete this;
 	}
@@ -32,7 +37,32 @@ void SoundServer::Clear()
 }
 
 void SoundServer::Add(std::string path) {
-	
+	if (WAVRead::Read(path.c_str(), &wavData) == false) {
+		return;
+	}
+
+	// ソースボイスの作成
+	sourceVoice = nullptr;
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &wavData.wFormat);
+	if (FAILED(hr)) {
+		printf("CreateSourceVoice failed: %#X\n", hr);
+		return;
+	}
+
+	// デバッグ用
+	XAUDIO2_BUFFER xAudio2Buffer{};
+	xAudio2Buffer.pAudioData = (BYTE*)wavData.sBuffer;
+	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
+	xAudio2Buffer.AudioBytes = wavData.size;
+
+	// 三項演算子を用いて、ループするか否かの設定をする
+	xAudio2Buffer.LoopCount = 0;
+	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
+
+	// 実際に音を鳴らす
+	sourceVoice->Start();
+
+	return ;
 }
 
 bool SoundServer::Del(std::string name)
@@ -42,14 +72,10 @@ bool SoundServer::Del(std::string name)
 
 bool SoundServer::Init() {
 	// XAudio2の初期化
-	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-	if (FAILED(hr)) {
-		printf("CoInitializeEx failed: %#X\n", hr);
-		return false;
-	}
+	
 
 	UINT32 flags = 0;
-	hr = XAudio2Create(&_XAudio2, flags);
+	HRESULT hr = XAudio2Create(&_XAudio2, flags);
 	// 例外処理
 	if (FAILED(hr)) {
 		printf("XAudio2Create failed: %#X\n", hr);

@@ -5,6 +5,7 @@
 #include <time.h>
 #include "../ModeServer/ModeServer.h"
 #include "../ModelServer/ModelServer.h"
+#include "../SoundServer/SoundServer.h"
 
 class ApplicationBase
 {
@@ -35,5 +36,6 @@ protected:
 
 	ModeServer* _serverMode;
 	ModelServer* _serverModel;
+	SoundServer* _serverSound;
 
 };

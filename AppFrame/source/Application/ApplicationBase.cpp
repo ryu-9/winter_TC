@@ -32,6 +32,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 	// モードサーバの初期化
 	_serverMode = new ModeServer();
 	_serverModel = new ModelServer();
+	_serverSound = new SoundServer();
 
 	return true;
 }

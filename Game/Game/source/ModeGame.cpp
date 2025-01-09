@@ -61,7 +61,8 @@ bool ModeGame::Initialize() {
 	_Player = new PlayerActor(this);
 	new StageBox(this);
 
-	
+	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav");
+
 	return true;
 }
 

@@ -13,6 +13,9 @@ public:
 	SoundServer();
 	virtual ~SoundServer();
 
+	static SoundServer* _lpInstance;
+	static SoundServer* GetInstance() { return (SoundServer*)_lpInstance; }
+
 	void Clear();
 	void Add(std::string path);
 	bool Del(std::string name);
@@ -23,6 +26,8 @@ protected:
 	IXAudio2* _XAudio2;
 	IXAudio2MasteringVoice* _MasteringVoice;
 
-//	std::map < std::string,int* > _mSounds;
+	// debug
+	IXAudio2SourceVoice* sourceVoice;
+	WAVRead::WAVDATA wavData;
 };
 

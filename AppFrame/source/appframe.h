@@ -10,3 +10,4 @@
 #include "ModeServer/ModelComponent.h"
 #include "ModeServer/MoveCollisionComponent.h"
 #include "ModeServer/MoveComponent.h"
+#include "SoundServer/SoundServer.h"
