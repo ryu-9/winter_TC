@@ -1,5 +1,5 @@
 #include "SoundServer.h"
-
+#include <fileapi.h>
 
 
 SoundServer::SoundServer() 
