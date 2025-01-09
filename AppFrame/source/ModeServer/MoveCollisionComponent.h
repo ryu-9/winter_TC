@@ -16,6 +16,10 @@ public:
 	VECTOR GetPosition();
 	VECTOR GetSize();
 
+	VECTOR GetUp();
+	VECTOR GetFront();
+	VECTOR GetRight();
+
 	VECTOR GetRPosition() const { return Pos; }
 	VECTOR GetRSize() const { return Size; }
 

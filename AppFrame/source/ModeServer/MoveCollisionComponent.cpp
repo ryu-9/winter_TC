@@ -28,7 +28,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 
 			
 		case 6:
-			Handle = ModelServer::GetInstance()->Add("res/Collision/box.mv1");
+			Handle = ModelServer::GetInstance()->Add("res/cube.mv1");
 			break;
 
 		default:
@@ -59,6 +59,7 @@ void MoveCollisionComponent::Update()
 			if (mcoll != this) {
 				flag = FALSE;
 				int typeSum = 0;
+				VECTOR move = VGet(0,0,0);
 				MoveCollisionComponent* coll[2];
 
 				typeSum += Type * Type;
@@ -68,6 +69,7 @@ void MoveCollisionComponent::Update()
 				else {
 					coll[0] = mcoll; coll[1] = this;
 				}
+				typeSum += mcoll->GetType() * mcoll->GetType();
 				switch (typeSum) {
 				//case 0: // メッシュとメッシュ
 
@@ -101,6 +103,12 @@ void MoveCollisionComponent::Update()
 					}
 					break; 
 
+				case 40: // 球と直方体
+					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize(coll[1]->GetSize())).HitNum > 0) {
+						flag = TRUE;
+					}
+					break;
+
 				default:
 					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize(coll[1]->GetSize())).HitNum > 0) {
 						flag = TRUE;
@@ -110,15 +118,58 @@ void MoveCollisionComponent::Update()
 				}
 				if (flag == TRUE) {
 
+					switch (typeSum) {
+
+					case 1: // メッシュと線分
+						break;
+
+					case 8: // 球と球
+						break;
+
+
+					case 40: // 球と直方体
+					{
+						VECTOR dir = VSub(_Owner->GetComponent<MoveComponent>()->GetOldPosition(), mcoll->GetPosition());
+						float x = VDot(coll[0]->GetRight(), dir), y = VDot(coll[0]->GetUp(), dir), z = VDot(coll[0]->GetFront(), dir);
+						if (x < 0) { x *= -1; } if (y < 0) { y *= -1; } if (z < 0) { z *= -1; }
+						int n = 0; if (x > 0) { n = 1; }
+						if (y > x) {
+							n = 2;
+							if (z > y) { n = 3; }
+						}
+						else if (z > x) { n = 3; }
+						float dist = 0;
+						switch (n) {
+						case 1: // x
+							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetRight());
+							move = VScale(GetRight(), dist);
+							break;
+
+						case 2: // y
+							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetUp());
+							move = VScale(GetUp(), dist);
+							break;
+
+						case 3: // z
+							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetFront());
+							move = VScale(GetFront(), dist);
+							break;
+
+						default:
+							break;
+						}
+						break;
+					}
+					default:
+						break;
+					}
+
+
+
 					if (mcoll->isMove == TRUE) {
 					}
 					else {
-						VECTOR v = VSub(GetPosition(), mcoll->GetPosition());
-						float size = VSize(v);
-						if (size != 0) {
-							v = VNorm(v);
-							_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(v, VSize(VAdd(GetSize(),mcoll->GetSize()))/2)));
-						}
+						_Owner->SetPosition(VAdd(_Owner->GetPosition(), move));
 					}
 				}
 				}
@@ -133,6 +184,21 @@ VECTOR MoveCollisionComponent::GetPosition() {
 
 VECTOR MoveCollisionComponent::GetSize() {
 	return VMulti(Size, _Owner->GetSize()); 
+}
+
+VECTOR MoveCollisionComponent::GetUp()
+{
+	return _Owner->GetComponent<ModelComponent>()->GetUp();
+}
+
+VECTOR MoveCollisionComponent::GetFront()
+{
+	return _Owner->GetComponent<ModelComponent>()->GetFront();
+}
+
+VECTOR MoveCollisionComponent::GetRight()
+{
+	return VCross(GetUp(),GetFront());
 }
 
 void MoveCollisionComponent::DebugDraw()
