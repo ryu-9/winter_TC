@@ -1,5 +1,6 @@
 #include "SoundServer.h"
-#include <fileapi.h>
+#include <mmsystem.h>
+#pragma comment(lib, "winmm.lib")
 
 
 SoundServer::SoundServer() 
@@ -41,10 +42,14 @@ bool SoundServer::Del(std::string name)
 
 bool SoundServer::Init() {
 	// XAudio2ÇÃèâä˙âª
-	CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	if (FAILED(hr)) {
+		printf("CoInitializeEx failed: %#X\n", hr);
+		return false;
+	}
 
 	UINT32 flags = 0;
-	HRESULT hr = XAudio2Create(&_XAudio2, flags);
+	hr = XAudio2Create(&_XAudio2, flags);
 	// ó·äOèàóù
 	if (FAILED(hr)) {
 		printf("XAudio2Create failed: %#X\n", hr);

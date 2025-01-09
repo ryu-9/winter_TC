@@ -178,8 +178,8 @@
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
-    <ClInclude Include="source\SoundServer\SoundItem.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
+    <ClInclude Include="source\SoundServer\WAVRead.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\ApplicationBase.cpp" />
@@ -196,8 +196,8 @@
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
-    <ClCompile Include="source\SoundServer\SoundItem.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
+    <ClCompile Include="source\SoundServer\WAVRead.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

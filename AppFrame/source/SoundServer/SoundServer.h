@@ -1,5 +1,4 @@
 #pragma once
-#include "SoundItem.h"
 
 #include <Windows.h>
 #include <stdio.h>
@@ -7,6 +6,7 @@
 #pragma comment(lib, "xaudio2.lib")
 #include <string>
 #include <map>
+#include "WAVRead.h"
 
 class SoundServer {
 public:
@@ -17,18 +17,12 @@ public:
 	void Add(std::string path);
 	bool Del(std::string name);
 
-	struct WAVEDATA {
-		WAVEFORMATEX wFormat;
-		char* sBuffer;
-		DWORD size;
 
-		~WAVEDATA() { free(sBuffer); }
-	};
 protected:
 	bool Init();
 	IXAudio2* _XAudio2;
 	IXAudio2MasteringVoice* _MasteringVoice;
 
-	std::map < std::string, WAVEDATA> _mSounds;
+//	std::map < std::string,int* > _mSounds;
 };
 

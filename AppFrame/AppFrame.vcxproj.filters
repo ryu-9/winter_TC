@@ -66,7 +66,7 @@
     <ClInclude Include="source\SoundServer\SoundServer.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
-    <ClInclude Include="source\SoundServer\SoundItem.h">
+    <ClInclude Include="source\SoundServer\WAVRead.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
   </ItemGroup>
@@ -116,7 +116,7 @@
     <ClCompile Include="source\SoundServer\SoundServer.cpp">
       <Filter>SoundServer</Filter>
     </ClCompile>
-    <ClCompile Include="source\SoundServer\SoundItem.cpp">
+    <ClCompile Include="source\SoundServer\WAVRead.cpp">
       <Filter>SoundServer</Filter>
     </ClCompile>
   </ItemGroup>
