@@ -159,7 +159,7 @@ bool ModeGame::LoadStage(const std::string path) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		// ModelServer�œǂݍ���
+		// ModelServerから取得
 
 		// �A�N�^�Ƃ��ēǂݍ���
 	}

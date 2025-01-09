@@ -83,6 +83,7 @@
     </ClCompile>
     <ClCompile Include="source\StageBox.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+		</ClCompile>
     <ClCompile Include="source\ioJsonText.cpp">
       <Filter>iojson</Filter>
     </ClCompile>
@@ -132,6 +133,7 @@
     </ClInclude>
     <ClInclude Include="source\StageBox.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+		</ClInclude>
     <ClInclude Include="source\ioJson.h">
       <Filter>iojson</Filter>
     </ClInclude>
