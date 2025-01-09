@@ -5,6 +5,8 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 #include "CameraActor.h"
+#include "StageBox.h"
+
 #include <fstream>
 #include "ModeResult.h"
 #include "ApplicationGlobal.h"
@@ -14,8 +16,8 @@ class MenuItemViewCameraInfo : public MenuItemBase {
 public:
 	MenuItemViewCameraInfo(void* param, std::string text) : MenuItemBase(param, text) {}
 
-	// €–Ú‚ğŒˆ’è‚µ‚½‚ç‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚é
-	// return int : 0 = ƒƒjƒ…[Œp‘±, 1 = ƒƒjƒ…[I—¹
+	// ï¿½ï¿½ï¿½Ú‚ï¿½ï¿½ï¿½è‚µï¿½ï¿½ï¿½ç‚±ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚Î‚ï¿½ï¿½
+	// return int : 0 = ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½pï¿½ï¿½, 1 = ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½
 	virtual int Selected() {
 		ModeGame* mdGame = static_cast<ModeGame*>(_param);
 		if (mdGame->GetDebugViewCameraInfo()) {
@@ -32,8 +34,8 @@ class MenuItemSetDashInput : public MenuItemBase {
 public:
 	MenuItemSetDashInput(void* param, std::string text) : MenuItemBase(param, text) {}
 
-	// €–Ú‚ğŒˆ’è‚µ‚½‚ç‚±‚ÌŠÖ”‚ªŒÄ‚Î‚ê‚é
-	// return int : 0 = ƒƒjƒ…[Œp‘±, 1 = ƒƒjƒ…[I—¹
+	// ï¿½ï¿½ï¿½Ú‚ï¿½ï¿½ï¿½è‚µï¿½ï¿½ï¿½ç‚±ï¿½ÌŠÖï¿½ï¿½ï¿½ï¿½Ä‚Î‚ï¿½ï¿½
+	// return int : 0 = ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½pï¿½ï¿½, 1 = ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½
 	virtual int Selected() {
 		ModeGame* mdGame = static_cast<ModeGame*>(_param);
 		mdGame->GetPlayer()->Send(2);
@@ -46,16 +48,18 @@ public:
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
-	ChangeFont("MSƒSƒVƒbƒN");
+	ChangeFont("MSï¿½Sï¿½Vï¿½bï¿½N");
 	SetFontSize(48);
 	_bUseCollision = TRUE;
 	_bViewCameraInfo = FALSE;
 	SetFogEnable(TRUE);
 	SetFogStartEnd(200, 10000);
 	
+	SetDrawCollision(TRUE);
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
+	new StageBox(this);
 
 	
 	return true;
@@ -72,12 +76,12 @@ bool ModeGame::Process() {
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 
-	// ESCƒL[‚Åƒƒjƒ…[‚ğŠJ‚­
+	// ESCï¿½Lï¿½[ï¿½Åƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Jï¿½ï¿½
 	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
-		// ModeGame‚æ‚èã‚ÌƒŒƒCƒ„[‚Éƒƒjƒ…[‚ğ“o˜^‚·‚é
+		// ModeGameï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Éƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½oï¿½^ï¿½ï¿½ï¿½ï¿½
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
-		// ModeMenu‚Éƒƒjƒ…[€–Ú‚ğ’Ç‰Á‚·‚é
+		// ModeMenuï¿½Éƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ú‚ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½ï¿½
 		modeMenu->Add(new MenuItemViewCameraInfo(this, "ViewCameraInfo"));
 		modeMenu->Add(new MenuItemSetDashInput(this, "SetDashInput"));
 	}
@@ -96,25 +100,25 @@ bool ModeGame::Update()
 bool ModeGame::Render() {
 
 	
-	// 3DŠî–{İ’è
+	// 3Dï¿½ï¿½{ï¿½İ’ï¿½
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
-	// ƒ‰ƒCƒgİ’è
+	// ï¿½ï¿½ï¿½Cï¿½gï¿½İ’ï¿½
 	SetUseLighting(FALSE);
-#if 1	// •½sƒ‰ƒCƒg
+#if 1	// ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Cï¿½g
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
 #endif
-#if 0	// ƒ|ƒCƒ“ƒgƒ‰ƒCƒg
+#if 0	// ï¿½|ï¿½Cï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Cï¿½g
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypePoint(VAdd(_vPos, VGet(0, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
 #endif
 
 
 
-	// 0,0,0‚ğ’†S‚Éü‚ğˆø‚­
+	// 0,0,0ï¿½ğ’†Sï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		float linelength = 1000.f;
 		VECTOR v = { 0, 0, 0 };
@@ -123,7 +127,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	// ƒJƒƒ‰ƒ^[ƒQƒbƒg‚ğ’†S‚É’Z‚¢ü‚ğˆø‚­
+	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ğ’†Sï¿½É’Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	{
 		float linelength = 10.f;
 		VECTOR v = _Camera->GetDirection();
@@ -132,7 +136,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
+	//DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
 
 	base::Render();
 
@@ -155,9 +159,9 @@ bool ModeGame::LoadStage(const std::string path) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		// ModelServer‚Å“Ç‚İ‚İ
+		// ModelServerï¿½Å“Ç‚İï¿½ï¿½ï¿½
 
-		// ƒAƒNƒ^‚Æ‚µ‚Ä“Ç‚İ‚İ
+		// ï¿½Aï¿½Nï¿½^ï¿½Æ‚ï¿½ï¿½Ä“Ç‚İï¿½ï¿½ï¿½
 	}
 	return true;
 }

@@ -7,7 +7,7 @@
 class ModelComponent : public Component
 {
 public:
-	ModelComponent(class ActorClass* owner);
+	ModelComponent(class ActorClass* owner, const TCHAR* file);
 	virtual ~ModelComponent();
 
 	void ProcessInput() override;
@@ -16,6 +16,13 @@ public:
 
 	int GetHandle() const { return _Handle; }
 
+	VECTOR GetFront() const { return _Front; }
+	void SetFront(VECTOR front) { _Front = front; }
+
+	VECTOR GetUp() const { return _Up; }
+	void SetUp(VECTOR up) { _Up = up; }
+	
+
 private:
 
 	// 3Dƒ‚ƒfƒ‹•`‰æ—p
@@ -23,6 +30,9 @@ private:
 	float _TotalTime;
 	float _PlayTime;
 	int _AttachIndex;
+
+	VECTOR _Front;
+	VECTOR _Up;
 };
 
 class ModelSpriteComponent : public SpriteComponent

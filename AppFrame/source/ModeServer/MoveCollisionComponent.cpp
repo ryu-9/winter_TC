@@ -2,6 +2,7 @@
 #include "ActorClass.h"
 #include "ModelComponent.h"
 #include "MoveComponent.h"
+#include "../AppFrame/source/ModelServer/ModelServer.h"
 
 MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	:Component(owner)
@@ -25,6 +26,11 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 			Handle = modelComp->GetHandle();
 			break;
 
+			
+		case 6:
+			Handle = ModelServer::GetInstance()->Add("res/Collision/box.mv1");
+			break;
+
 		default:
 			Handle = -1;
 			break;
@@ -40,11 +46,86 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 
 MoveCollisionComponent::~MoveCollisionComponent()
 {
-	_Owner->GetMode()->RemoveMCollision(this);
+_Owner->GetMode()->RemoveMCollision(this);
 }
 
 void MoveCollisionComponent::Update()
 {
+	if (isActive == FALSE || isMove == FALSE) {
+		return;
+	}
+	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
+		if (mcoll->GetIsActive() == TRUE) {
+			if (mcoll != this) {
+				flag = FALSE;
+				int typeSum = 0;
+				MoveCollisionComponent* coll[2];
+
+				typeSum += Type * Type;
+				if (typeSum < mcoll->GetType()* mcoll->GetType()) {
+					coll[0] = this; coll[1] = mcoll;
+				}
+				else {
+					coll[0] = mcoll; coll[1] = this;
+				}
+				switch (typeSum) {
+				//case 0: // メッシュとメッシュ
+
+					//break;
+
+				case 1: // メッシュと線分	
+					
+					if (MV1CollCheck_Line(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VAdd(coll[1]->GetPosition(), coll[1]->GetSize())).HitFlag == TRUE) {
+						flag = TRUE;
+					}
+					break;
+
+				case 2: // 線分と線分
+					break;
+
+				case 4: // メッシュと球
+					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize( coll[1]->GetSize())).HitNum > 0) {
+						flag = TRUE;
+					}
+					break;
+
+				case 5: // 線分と球
+					if (MV1CollCheck_Line(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VAdd(coll[1]->GetPosition(), coll[1]->GetSize())).HitFlag == TRUE) {
+						flag = TRUE;
+					}
+					break;
+				
+				case 8: // 球と球
+					if (VSize(VSub(coll[0]->GetPosition(), GetPosition())) < VSize(VAdd(GetSize(), coll[1]->GetSize()))) {
+						flag = TRUE;
+					}
+					break; 
+
+				default:
+					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize(coll[1]->GetSize())).HitNum > 0) {
+						flag = TRUE;
+					}
+					break;
+				
+				}
+				if (flag == TRUE) {
+
+					if (mcoll->isMove == TRUE) {
+					}
+					else {
+						VECTOR v = VSub(GetPosition(), mcoll->GetPosition());
+						float size = VSize(v);
+						if (size != 0) {
+							v = VNorm(v);
+							_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(v, VSize(VAdd(GetSize(),mcoll->GetSize()))/2)));
+						}
+					}
+				}
+				}
+			}
+
+	}
+	
 }
 VECTOR MoveCollisionComponent::GetPosition() {
 	return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize())); 
@@ -52,4 +133,32 @@ VECTOR MoveCollisionComponent::GetPosition() {
 
 VECTOR MoveCollisionComponent::GetSize() {
 	return VMulti(Size, _Owner->GetSize()); 
+}
+
+void MoveCollisionComponent::DebugDraw()
+{
+	if (isActive == FALSE) {
+		return;
+	}
+	if (flag == TRUE) {
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "Hit");
+	}
+	switch (Type) {
+
+		// collisionの形　0: メッシュ 1:線分 2:球 3:カプセル 4:円柱  5:四角錐 6:直方体
+
+	case 1:
+		DrawLine3D(VAdd(GetPosition(), VGet(0, 0, 0)), VAdd(GetPosition(), VGet(0, 0, GetSize().z)), GetColor(255, 255, 255));
+		break;
+
+	case 2:
+		DrawSphere3D(GetPosition(), VSize(GetSize()), 16, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
+		break;
+
+
+	default:
+		MV1DrawModel(Handle);
+		break;
+
+	}
 }

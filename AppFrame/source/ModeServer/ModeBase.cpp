@@ -21,6 +21,8 @@ ModeBase::ModeBase() {
 	_tmPauseStep = 0;
 	_tmOldFrame = 0;
 
+	_DrawCollision = false;
+
 	SetCallPerFrame(1);
 	SetCallOfCount(1);
 }
@@ -89,7 +91,13 @@ bool ModeBase::Update()
 bool	ModeBase::Render()
 {
 	for (auto sprite : _Sprites) {
-		sprite->Draw();
+		//sprite->Draw();
+	}
+
+	if (_DrawCollision) {
+		for (auto mc : _MCollision) {
+			mc->DebugDraw();
+		}
 	}
 	return	true;
 }

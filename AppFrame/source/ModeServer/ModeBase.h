@@ -44,9 +44,12 @@ public:
 
 	void AddMCollision(class MoveCollisionComponent* mc);
 	void RemoveMCollision(class MoveCollisionComponent* mc);
+	std::deque<MoveCollisionComponent*>& GetMCollision() { return _MCollision; }
 
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };
+
+	void SetDrawCollision(const bool flag) { _DrawCollision = flag; }
 
 protected:
 
@@ -89,6 +92,7 @@ private:
 	int		_callPerFrame, _callPerFrame_cnt;
 	int		_callOfCount;
 
+	bool _DrawCollision;		// è’ìÀîªíËÇï`âÊÇ∑ÇÈÇ©Ç«Ç§Ç©
 
 
 };
