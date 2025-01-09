@@ -91,12 +91,12 @@ bool ModeBase::Update()
 bool	ModeBase::Render()
 {
 	for (auto sprite : _Sprites) {
-		//sprite->Draw();
+		sprite->Draw();
 	}
 
 	if (_DrawCollision) {
 		for (auto mc : _MCollision) {
-			mc->DebugDraw();
+			//mc->DebugDraw();
 		}
 	}
 	return	true;

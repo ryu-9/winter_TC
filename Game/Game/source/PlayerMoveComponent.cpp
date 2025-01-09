@@ -91,11 +91,13 @@ void PlayerMoveComponent::ProcessInput()
 		int x = (int)((pos.x +200) / 400);
 		int y = (int)((pos.z-200) / 400);
 
-	
+		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
 			// “–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚çAƒJƒƒ‰‚àˆÚ“®‚·‚é
 			_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
 			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
 			break;
+		}
+
 		
 
 

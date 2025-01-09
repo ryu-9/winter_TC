@@ -51,6 +51,7 @@ _Owner->GetMode()->RemoveMCollision(this);
 
 void MoveCollisionComponent::Update()
 {
+	MV1SetPosition(Handle, GetPosition());
 	if (isActive == FALSE || isMove == FALSE) {
 		return;
 	}
@@ -104,7 +105,7 @@ void MoveCollisionComponent::Update()
 					break; 
 
 				case 40: // ‹…‚Æ’¼•û‘Ì
-					if (MV1CollCheck_Sphere(coll[0]->GetHandle(), 0, coll[1]->GetPosition(), VSize(coll[1]->GetSize())).HitNum > 0) {
+					if (MV1CollCheck_Sphere(coll[1]->GetHandle(), 0, coll[0]->GetPosition(), GetSize().x).HitNum > 0) {
 						flag = TRUE;
 					}
 					break;
@@ -130,34 +131,46 @@ void MoveCollisionComponent::Update()
 					case 40: // ‹…‚Æ’¼•û‘Ì
 					{
 						VECTOR dir = VSub(_Owner->GetComponent<MoveComponent>()->GetOldPosition(), mcoll->GetPosition());
-						float x = VDot(coll[0]->GetRight(), dir), y = VDot(coll[0]->GetUp(), dir), z = VDot(coll[0]->GetFront(), dir);
-						if (x < 0) { x *= -1; } if (y < 0) { y *= -1; } if (z < 0) { z *= -1; }
-						int n = 0; if (x > 0) { n = 1; }
-						if (y > x) {
-							n = 2;
-							if (z > y) { n = 3; }
-						}
-						else if (z > x) { n = 3; }
+						bool X = FALSE, Y = FALSE, Z = FALSE;
+						move = VGet(0, 0, 0);
 						float dist = 0;
-						switch (n) {
-						case 1: // x
-							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetRight());
-							move = VScale(GetRight(), dist);
-							break;
+						float x = VDot(coll[1]->GetRight(), dir), y = VDot(coll[1]->GetUp(), dir), z = VDot(coll[1]->GetFront(), dir);
+						dir.x = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetRight());
+						dir.y = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetUp());
+						dir.z = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetFront());
+						if (x < 0) { x *= -1; } if (y < 0) { y *= -1; } if (z < 0) { z *= -1; }
 
-						case 2: // y
-							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetUp());
-							move = VScale(GetUp(), dist);
-							break;
+						if (x > coll[1]->GetSize().x * 200) { X = TRUE; }
+						if (y > coll[1]->GetSize().y * 200) { Y = TRUE; }
+						if (z > coll[1]->GetSize().z * 200) { Z = TRUE; }
 
-						case 3: // z
-							dist = VDot(VSub(GetPosition(), mcoll->GetPosition()), GetFront());
-							move = VScale(GetFront(), dist);
-							break;
-
-						default:
-							break;
+						if (X == TRUE) {
+							dist = dir.x;
+							float tmp = dir.x / VSize(VGet(dir.x , dir.y * Y , dir.z * Z));
+							if (dist < 0) { dist = -GetSize().x * tmp - mcoll->GetSize().x * 200 - dist; }
+							else { dist = GetSize().x * VDot(dir, coll[1]->GetRight()) + mcoll->GetSize().x * 200 - dist; }
+							VECTOR m = VAdd(move, VScale(coll[1]->GetRight(), dist));
+							move = VAdd(move, m);
 						}
+						if (Y == TRUE) {
+							dist = dir.y;
+							float tmp = dir.y / VSize(VGet(dir.x * X, dir.y, dir.z * Z));
+							if (dist < 0) { dist = -GetSize().y * tmp - mcoll->GetSize().y * 200 - dist; }
+							else { dist = GetSize().y * VDot(dir, coll[1]->GetUp()) + mcoll->GetSize().y * 200 - dist; }
+							VECTOR m = VAdd(move, VScale(coll[1]->GetUp(), dist));
+							move = VAdd(move, m);
+						}
+						if (Z == TRUE) {
+							dist = dir.z;
+							float tmp = dir.z / VSize(VGet(dir.x * X, dir.y * Y, dir.z));
+							if (dist < 0) { dist = -GetSize().z * tmp - mcoll->GetSize().z * 200 - dist; }
+							else { dist = GetSize().z * VDot(dir, coll[1]->GetFront()) + mcoll->GetSize().z * 200 - dist; }
+							VECTOR m = VAdd(move, VScale(coll[1]->GetFront(), dist));
+							move = VAdd(move, m);
+						}
+
+
+
 						break;
 					}
 					default:
@@ -218,7 +231,7 @@ void MoveCollisionComponent::DebugDraw()
 		break;
 
 	case 2:
-		DrawSphere3D(GetPosition(), VSize(GetSize()), 16, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
+		DrawSphere3D(GetPosition(), GetSize().x, 16, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
 		break;
 
 

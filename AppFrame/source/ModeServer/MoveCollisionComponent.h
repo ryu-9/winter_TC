@@ -41,6 +41,8 @@ public:
 
 	void DebugDraw();
 
+	bool GetFlag() const { return flag; }
+
 private:
 	// ˆÊ’u
 	VECTOR Pos;
