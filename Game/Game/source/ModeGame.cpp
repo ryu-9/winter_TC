@@ -59,12 +59,12 @@ bool ModeGame::Initialize() {
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
-	new StageBox(this);
-
+	_Player->SetPosition(VGet(0, 0, 200));
+	auto box = new StageBox(this);
+	box->SetPosition(VGet(0,0,0));
+	box->GetComponent<ModelComponent>()->SetFront(VGet(1,0,0));
 	LoadStage("res/Stage/map_1-1/", "chutorial2.json");
-
 	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav","m");
-
 	return true;
 }
 
