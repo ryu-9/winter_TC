@@ -4,7 +4,7 @@ CameraActor::CameraActor(ModeBase* mode)
 	:ActorClass(mode)
 {
 	// カメラの設定（わかりやすい位置に）
-	_Position = VGet(0, 90.f, -10000.f);
+	_Position = VGet(0, 90.f, -300.f);
 	_Direction = VGet(0, 60, 0);
 	_clipNear = 2.f;
 	_clipFar = 20000.f;

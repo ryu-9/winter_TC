@@ -4,7 +4,7 @@ StageBox::StageBox(ModeBase* mode)
 	:ActorClass(mode)
 {
 	auto m = new ModelComponent(this, "res/cube.mv1");
-	auto coll = new MoveCollisionComponent(this, m, VGet(0,0,0), VGet(10,1,1),6);
+	auto coll = new MoveCollisionComponent(this, m, VGet(0,0,0), VGet(1,1,1),6);
 
 }
 

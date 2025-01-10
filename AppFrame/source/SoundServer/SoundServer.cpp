@@ -69,8 +69,11 @@ bool SoundServer::Add(std::string path,std::string name) {
 	// ŽÀÛ‚É‰¹‚ð–Â‚ç‚·
 	sourceVoice->Start();
 	*/
-	return ;
+	return true;
 }
+
+void SoundServer::Create(class ActorClass* owner, std::string name) {};
+void SoundServer::Create(std::string name) {};
 
 bool SoundServer::Del(std::string name)
 {
