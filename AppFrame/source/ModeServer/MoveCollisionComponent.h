@@ -6,7 +6,7 @@
 class MoveCollisionComponent : public	Component
 {
 public:
-	MoveCollisionComponent(class ActorClass* owner, VECTOR pos = VGet(0,0,0), VECTOR size = VGet(1,1,1)
+	MoveCollisionComponent(class ActorClass* owner, class ModelComponent* model,  VECTOR pos = VGet(0,0,0), VECTOR size = VGet(1,1,1)
 	, int type = 0, bool move = FALSE, bool active = TRUE , int handle = -1);
 
 	~MoveCollisionComponent() override;
@@ -43,12 +43,18 @@ public:
 
 	bool GetFlag() const { return flag; }
 
+	void SetRotation(VECTOR rot);
+
 private:
 	// 位置
 	VECTOR Pos;
 	
 	// サイズ
 	VECTOR Size;
+
+	VECTOR Rot;
+	VECTOR Front;
+	VECTOR Up;
 
 	// collisionの形
 	int Type;
@@ -63,5 +69,9 @@ private:
 	int Handle;
 
 	bool flag;
+
+	VECTOR devpos[3];
+
+	class ModelComponent* _Model;
 };
 

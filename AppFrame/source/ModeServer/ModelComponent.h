@@ -22,6 +22,11 @@ public:
 	VECTOR GetUp() const { return _Up; }
 	void SetUp(VECTOR up) { _Up = up; }
 	
+	void SetRotation(VECTOR rot);
+	VECTOR GetRotation() const { return _Rot; }
+
+	void SetRotationZY(VECTOR front, VECTOR up);
+
 
 private:
 
@@ -31,6 +36,7 @@ private:
 	float _PlayTime;
 	int _AttachIndex;
 
+	VECTOR _Rot;
 	VECTOR _Front;
 	VECTOR _Up;
 };

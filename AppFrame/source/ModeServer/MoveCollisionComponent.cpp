@@ -4,9 +4,10 @@
 #include "MoveComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
 
-MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
+MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner,ModelComponent* model,  VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	:Component(owner)
-	, Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
+	,_Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
+	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0))
 {
 	_Owner->GetMode()->AddMCollision(this);
 
@@ -41,6 +42,11 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, VECTOR p
 		Handle = -1; // 適切なデフォルト値を設定
 	}
 	//*/
+	MV1SetPosition(Handle,GetPosition());
+	MV1SetScale(Handle, GetSize());
+	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1SetupCollInfo(Handle);
+
 }
 
 
@@ -52,6 +58,10 @@ _Owner->GetMode()->RemoveMCollision(this);
 void MoveCollisionComponent::Update()
 {
 	MV1SetPosition(Handle, GetPosition());
+	MV1SetScale(Handle, GetSize());
+	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1RefreshCollInfo(Handle);
+
 	if (isActive == FALSE || isMove == FALSE) {
 		return;
 	}
@@ -105,7 +115,8 @@ void MoveCollisionComponent::Update()
 					break; 
 
 				case 40: // 球と直方体
-					if (MV1CollCheck_Sphere(coll[1]->GetHandle(), 0, coll[0]->GetPosition(), GetSize().x).HitNum > 0) {
+					if (MV1CollCheck_Sphere(coll[1]->GetHandle(), -1, coll[0]->GetPosition(), GetSize().x).HitNum > 0) {
+						VECTOR debug = MV1GetPosition(coll[1]->GetHandle());
 						flag = TRUE;
 					}
 					
@@ -136,37 +147,39 @@ void MoveCollisionComponent::Update()
 						bool X = FALSE, Y = FALSE, Z = FALSE;
 						move = VGet(0, 0, 0);
 						float dist = 0;
+						VECTOR size = this->GetSize(); VECTOR size2 = mcoll->GetSize();
+
 						float x = VDot(coll[1]->GetRight(), dir), y = VDot(coll[1]->GetUp(), dir), z = VDot(coll[1]->GetFront(), dir);
 						dir.x = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetRight());
 						dir.y = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetUp());
 						dir.z = VDot(VSub(GetPosition(), mcoll->GetPosition()), coll[1]->GetFront());
 						if (x < 0) { x *= -1; } if (y < 0) { y *= -1; } if (z < 0) { z *= -1; }
 
-						if (x > coll[1]->GetSize().x * 200) { X = TRUE; }
-						if (y > coll[1]->GetSize().y * 200) { Y = TRUE; }
-						if (z > coll[1]->GetSize().z * 200) { Z = TRUE; }
+						if (x > coll[1]->GetSize().x * 100) { X = TRUE; }
+						if (y > coll[1]->GetSize().y * 100) { Y = TRUE; }
+						if (z > coll[1]->GetSize().z * 100) { Z = TRUE; }
 
 						if (X == TRUE) {
 							dist = dir.x;
 							float tmp = dir.x / VSize(VGet(dir.x , dir.y * Y , dir.z * Z));
-							if (dist < 0) { dist = GetSize().x * tmp - mcoll->GetSize().x * 200 - dist; }
-							else { dist = GetSize().x * tmp + mcoll->GetSize().x * 200 - dist;}
+							if (dist < 0) { dist = GetSize().x * tmp - mcoll->GetSize().x * 100 - dist; }
+							else { dist = GetSize().x * tmp + mcoll->GetSize().x * 100 - dist;}
 							VECTOR m = VScale(coll[1]->GetRight(), dist);
 							move = VAdd(move, m);
 						}
 						if (Y == TRUE) {
 							dist = dir.y;
 							float tmp = dir.y / VSize(VGet(dir.x * X, dir.y, dir.z * Z));
-							if (dist < 0) { dist = GetSize().y * tmp - mcoll->GetSize().y * 200 - dist; }
-							else { dist = GetSize().y * tmp + mcoll->GetSize().y * 200 - dist; }
+							if (dist < 0) { dist = GetSize().y * tmp - mcoll->GetSize().y * 100 - dist; }
+							else { dist = GetSize().y * tmp + mcoll->GetSize().y * 100 - dist; }
 							VECTOR m = VScale(coll[1]->GetUp(), dist);
 							move = VAdd(move, m);
 						}
 						if (Z == TRUE) {
 							dist = dir.z;
 							float tmp = dir.z / VSize(VGet(dir.x * X, dir.y * Y, dir.z));
-							if (dist < 0) { dist = GetSize().z * tmp - mcoll->GetSize().z * 200 - dist; }
-							else { dist = GetSize().z * tmp + mcoll->GetSize().z * 200 - dist; }
+							if (dist < 0) { dist = GetSize().z * tmp - mcoll->GetSize().z * 100 - dist; }
+							else { dist = GetSize().z * tmp + mcoll->GetSize().z * 100 - dist; }
 							VECTOR m = VScale(coll[1]->GetFront(), dist);
 							move = VAdd(move, m);
 						}
@@ -218,6 +231,7 @@ VECTOR MoveCollisionComponent::GetRight()
 
 void MoveCollisionComponent::DebugDraw()
 {
+
 	if (isActive == FALSE) {
 		return;
 	}
@@ -246,4 +260,17 @@ void MoveCollisionComponent::DebugDraw()
 		break;
 
 	}
+}
+
+void MoveCollisionComponent::SetRotation(VECTOR rot)
+{
+	Rot = rot;
+	VECTOR rotate = VAdd(_Model->GetRotation(), rot);
+	MV1SetRotationXYZ(Handle, rotate);
+	Front = VTransform(VGet(0, 0, 1), MGetRotX(rotate.x));
+	Front = VTransform(Front, MGetRotY(rotate.y));
+	Front = VTransform(Front, MGetRotZ(rotate.z));
+	Up = VTransform(VGet(0, 1, 0), MGetRotX(rotate.x));
+	Up = VTransform(Up, MGetRotY(rotate.y));
+	Up = VTransform(Up, MGetRotZ(rotate.z));
 }

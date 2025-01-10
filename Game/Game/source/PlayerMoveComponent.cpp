@@ -105,7 +105,7 @@ void PlayerMoveComponent::ProcessInput()
 	float size = VSize(v)/10000;
 	//_pOwner->SetMove(v);
 	SetVelocity(v);
-	_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
+	//_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
 
 }
 

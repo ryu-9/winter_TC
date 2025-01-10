@@ -59,10 +59,10 @@ bool ModeGame::Initialize() {
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
-	_Player->SetPosition(VGet(200, 0, 0));
+	_Player->SetPosition(VGet(0, 0, 200));
 	auto box = new StageBox(this);
-	//box->SetPosition(VGet(200,0,0));
-	
+	box->SetPosition(VGet(0,0,0));
+	box->GetComponent<ModelComponent>()->SetFront(VGet(1,0,0));
 	return true;
 }
 
