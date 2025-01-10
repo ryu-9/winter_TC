@@ -61,7 +61,9 @@ bool ModeGame::Initialize() {
 	_Player = new PlayerActor(this);
 	new StageBox(this);
 
-	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav");
+	LoadStage("res/Stage/map_1-1/", "chutorial2.json");
+
+	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav","m");
 
 	return true;
 }
@@ -144,14 +146,14 @@ bool ModeGame::Render() {
 	return true;
 }
 
-bool ModeGame::LoadStage(const std::string path) {
-	std::ifstream file(path);
+bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
+	std::ifstream file(path + jsname);
 	nlohmann::json json;
 	file >> json;
 
 	nlohmann::json stage = json.at("Stage");
 	for (auto& data : stage) {
-		auto name = data.at("objectName");
+		std::string name = data.at("objectName");
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
@@ -160,8 +162,14 @@ bool ModeGame::LoadStage(const std::string path) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		// ModelServerから取得
-
+		// ModelServerへ
+//		ModelServer::GetInstance()->Add((path + name).c_str());
+		if (name == "SM_Cube") {
+			auto box = new StageBox(this);
+			box->SetPosition(pos);
+			box->SetDirection(rot);
+			box->SetSize(scale);
+		}
 		// �A�N�^�Ƃ��ēǂݍ���
 	}
 	return true;

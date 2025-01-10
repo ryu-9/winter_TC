@@ -44,5 +44,5 @@ protected:
 	bool	_bUseCollision;
 
 private:
-	bool LoadStage(const std::string path);
+	bool LoadStage(const std::string path,const std::string jsname);
 };

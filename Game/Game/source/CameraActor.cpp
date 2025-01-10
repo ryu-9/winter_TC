@@ -4,7 +4,7 @@ CameraActor::CameraActor(ModeBase* mode)
 	:ActorClass(mode)
 {
 	// カメラの設定（わかりやすい位置に）
-	_Position = VGet(0, 90.f, -300.f);
+	_Position = VGet(0, 90.f, -10000.f);
 	_Direction = VGet(0, 60, 0);
 	_clipNear = 2.f;
 	_clipFar = 20000.f;
@@ -38,8 +38,8 @@ void CameraComponent::ProcessInput()
 	float lx, ly, rx, ry;	// 左右アナログスティックの座標
 	float analogMin = 0.3f;	// アナログ閾値
 	// Logicoolパッドの場合
-	lx = (float)di.X / 1000.f; ly = (float)di.Y / 1000.f;
-	rx = (float)di.Z / 1000.f; ry = -(float)di.Rz / 1000.f;	// Y軸反転
+	lx = (float)di.X / 1000.f; ly = (float)di.Y / 100.f;
+	rx = (float)di.Z / 100.f; ry = -(float)di.Rz / 100.f;	// Y軸反転
 
 
 	// Y軸回転
