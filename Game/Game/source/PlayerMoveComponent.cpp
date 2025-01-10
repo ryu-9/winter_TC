@@ -61,8 +61,9 @@ void PlayerMoveComponent::ProcessInput()
 	// 移動前の位置を保存
 	VECTOR oldvPos = _pOwner->GetPosition();
 	VECTOR oldv = _pOwner->GetMove();
-
-	// コリジョン判定で引っかかった時に、escapeTbl[]順に角度を変えて回避を試みる
+	
+	/*
+		// コリジョン判定で引っかかった時に、escapeTbl[]順に角度を変えて回避を試みる
 	float escapeTbl[] = {
 		0, -10, 10, -20, 20, -30, 30, -40, 40, -50, 50, -60, 60, -70, 70, -80, 80,
 	};
@@ -71,7 +72,7 @@ void PlayerMoveComponent::ProcessInput()
 		float escape_rad = DEG2RAD(escapeTbl[i]);
 		v.x = cos(rad + camrad + escape_rad) * length;
 		v.z = sin(rad + camrad + escape_rad) * length;
-
+		
 		// vの分移動
 		//_pOwner->SetPosition(VAdd(_pOwner->GetPosition(), v));
 
@@ -88,23 +89,18 @@ void PlayerMoveComponent::ProcessInput()
 		VECTOR pos = _pOwner->GetPosition();
 		
 		// プレイヤーの位置を元に、どのブロックと当たっているかを計算
-		int x = (int)((pos.x +200) / 400);
-		int y = (int)((pos.z-200) / 400);
-
-		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
-			// 当たっていなかったら、カメラも移動する
-			_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
-			break;
-		}
-
-		
-
-
-
+	
+		break;
 		
 	}
+	*/
 
+	if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
+		// 当たっていなかったら、カメラも移動する
+		_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
+		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
+
+	}
 	// 移動量のセット
 	float size = VSize(v)/10000;
 	//_pOwner->SetMove(v);

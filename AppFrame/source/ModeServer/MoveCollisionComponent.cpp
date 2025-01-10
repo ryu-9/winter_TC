@@ -108,6 +108,7 @@ void MoveCollisionComponent::Update()
 					if (MV1CollCheck_Sphere(coll[1]->GetHandle(), 0, coll[0]->GetPosition(), GetSize().x).HitNum > 0) {
 						flag = TRUE;
 					}
+					
 					break;
 
 				default:
@@ -117,6 +118,7 @@ void MoveCollisionComponent::Update()
 					break;
 				
 				}
+
 				if (flag == TRUE) {
 
 					switch (typeSum) {
@@ -147,25 +149,25 @@ void MoveCollisionComponent::Update()
 						if (X == TRUE) {
 							dist = dir.x;
 							float tmp = dir.x / VSize(VGet(dir.x , dir.y * Y , dir.z * Z));
-							if (dist < 0) { dist = -GetSize().x * tmp - mcoll->GetSize().x * 200 - dist; }
-							else { dist = GetSize().x * VDot(dir, coll[1]->GetRight()) + mcoll->GetSize().x * 200 - dist; }
-							VECTOR m = VAdd(move, VScale(coll[1]->GetRight(), dist));
+							if (dist < 0) { dist = GetSize().x * tmp - mcoll->GetSize().x * 200 - dist; }
+							else { dist = GetSize().x * tmp + mcoll->GetSize().x * 200 - dist;}
+							VECTOR m = VScale(coll[1]->GetRight(), dist);
 							move = VAdd(move, m);
 						}
 						if (Y == TRUE) {
 							dist = dir.y;
 							float tmp = dir.y / VSize(VGet(dir.x * X, dir.y, dir.z * Z));
-							if (dist < 0) { dist = -GetSize().y * tmp - mcoll->GetSize().y * 200 - dist; }
-							else { dist = GetSize().y * VDot(dir, coll[1]->GetUp()) + mcoll->GetSize().y * 200 - dist; }
-							VECTOR m = VAdd(move, VScale(coll[1]->GetUp(), dist));
+							if (dist < 0) { dist = GetSize().y * tmp - mcoll->GetSize().y * 200 - dist; }
+							else { dist = GetSize().y * tmp + mcoll->GetSize().y * 200 - dist; }
+							VECTOR m = VScale(coll[1]->GetUp(), dist);
 							move = VAdd(move, m);
 						}
 						if (Z == TRUE) {
 							dist = dir.z;
 							float tmp = dir.z / VSize(VGet(dir.x * X, dir.y * Y, dir.z));
-							if (dist < 0) { dist = -GetSize().z * tmp - mcoll->GetSize().z * 200 - dist; }
-							else { dist = GetSize().z * VDot(dir, coll[1]->GetFront()) + mcoll->GetSize().z * 200 - dist; }
-							VECTOR m = VAdd(move, VScale(coll[1]->GetFront(), dist));
+							if (dist < 0) { dist = GetSize().z * tmp - mcoll->GetSize().z * 200 - dist; }
+							else { dist = GetSize().z * tmp + mcoll->GetSize().z * 200 - dist; }
+							VECTOR m = VScale(coll[1]->GetFront(), dist);
 							move = VAdd(move, m);
 						}
 
@@ -219,6 +221,10 @@ void MoveCollisionComponent::DebugDraw()
 	if (isActive == FALSE) {
 		return;
 	}
+	if (isMove == TRUE) {
+		DrawFormatString(0, 160, GetColor(255, 255, 255), "%f , %f", _Owner->GetPosition().x, _Owner->GetPosition().y);
+	}
+
 	if (flag == TRUE) {
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "Hit");
 	}
