@@ -18,8 +18,9 @@ public:
 	static SoundServer* GetInstance() { return (SoundServer*)_lpInstance; }
 
 	void Clear();
-	void Add(std::string path,std::string name);
+	bool Add(std::string path,std::string name);
 	void Create(class ActorClass* owner,std::string name);
+	void Create(std::string name);
 	bool Del(std::string name);
 
 
@@ -28,9 +29,10 @@ protected:
 	IXAudio2* _XAudio2;
 	IXAudio2MasteringVoice* _MasteringVoice;
 
+	std::map<std::string, WAVRead::WAVDATA> _m;
 
 	// debug
 	IXAudio2SourceVoice* sourceVoice;
-	WAVRead::WAVDATA wavData;
+	
 };
 

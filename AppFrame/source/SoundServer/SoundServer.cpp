@@ -36,14 +36,21 @@ void SoundServer::Clear()
 {
 }
 
-void SoundServer::Add(std::string path,std::string name) {
-	if (WAVRead::Read(path.c_str(), &wavData) == false) {
-		return;
+bool SoundServer::Add(std::string path,std::string name) {
+	if (_m.count(name)) {
+		return true;
+	}
+	else {
+		WAVRead::WAVDATA wavData;
+		if (WAVRead::Read(path.c_str(), &wavData) == false) {
+			return false;
+		}
+		_m[name] = wavData;
 	}
 
 	// ソースボイスの作成
 	sourceVoice = nullptr;
-
+	/*
 	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &wavData.wFormat);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
@@ -61,7 +68,7 @@ void SoundServer::Add(std::string path,std::string name) {
 
 	// 実際に音を鳴らす
 	sourceVoice->Start();
-
+	*/
 	return ;
 }
 
