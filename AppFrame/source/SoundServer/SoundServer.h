@@ -19,7 +19,7 @@ public:
 
 	void Clear();
 	bool Add(std::string path,std::string name);
-	void Create(class ActorClass* owner,std::string name);
+	bool Create(class ActorClass* owner,std::string name);
 	void Create(std::string name);
 	bool Del(std::string name);
 
@@ -30,9 +30,6 @@ protected:
 	IXAudio2MasteringVoice* _MasteringVoice;
 
 	std::map<std::string, WAVRead::WAVDATA> _m;
-
-	// debug
-	IXAudio2SourceVoice* sourceVoice;
 	
 };
 

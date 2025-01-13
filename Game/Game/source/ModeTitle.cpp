@@ -20,7 +20,9 @@ bool ModeTitle::Initialize()
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
-	new ActorClass(this);
+	auto ac = new ActorClass(this);
+	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
+	SoundServer::GetInstance()->Create(ac, "bgm1");
 	return true;
 }
 

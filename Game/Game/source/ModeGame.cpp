@@ -64,7 +64,7 @@ bool ModeGame::Initialize() {
 	box->SetPosition(VGet(0,0,0));
 	box->GetComponent<ModelComponent>()->SetFront(VGet(1,0,0));
 	LoadStage("res/Stage/map_1-1/", "chutorial2.json");
-	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav","m");
+	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
 	return true;
 }
 

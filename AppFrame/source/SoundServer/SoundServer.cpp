@@ -1,5 +1,6 @@
 #include "SoundServer.h"
 #include <mmsystem.h>
+#include "SoundComponent.h"
 #pragma comment(lib, "winmm.lib")
 
 
@@ -47,32 +48,31 @@ bool SoundServer::Add(std::string path,std::string name) {
 		}
 		_m[name] = wavData;
 	}
+	return true;
+}
 
-	// ソースボイスの作成
-	sourceVoice = nullptr;
-	/*
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &wavData.wFormat);
+bool SoundServer::Create(class ActorClass* actor, std::string name) {
+	IXAudio2SourceVoice* sourceVoice = nullptr;
+	if (_m.count(name) == 0) { return false; }
+	
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
-		return;
+		return false;
 	}
 
-	// デバッグ用
+	// 音声データの設定
 	XAUDIO2_BUFFER xAudio2Buffer{};
-	xAudio2Buffer.pAudioData = (BYTE*)wavData.sBuffer;
+	xAudio2Buffer.pAudioData = (BYTE*)_m[name].sBuffer;
 	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
-	xAudio2Buffer.AudioBytes = wavData.size;
+	xAudio2Buffer.AudioBytes = _m[name].size;
 
 	xAudio2Buffer.LoopCount = 0;
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 
-	// 実際に音を鳴らす
-	sourceVoice->Start();
-	*/
+	new SoundComponent(actor, sourceVoice);
 	return true;
-}
-
-void SoundServer::Create(class ActorClass* owner, std::string name) {};
+};
 void SoundServer::Create(std::string name) {};
 
 bool SoundServer::Del(std::string name)
