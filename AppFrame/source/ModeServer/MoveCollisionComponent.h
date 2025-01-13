@@ -28,7 +28,7 @@ public:
 
 	int GetType() const { return Type; }
 	void SetType(int type) { Type = type; }
-	// collisionの形　0: メッシュ 1:線分 2:球 3:カプセル 4:円柱  5:四角錐 6:直方体
+	// collisionの形　0: 球 1:線分 2:カプセル 3:メッシュ
 
 	bool GetIsMove() const { return isMove; }
 	void SetIsMove(bool move) { isMove = move; }
