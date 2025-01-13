@@ -26,10 +26,15 @@ UIChipFadeComponent::~UIChipFadeComponent()
 void UIChipFadeComponent::ProcessInput() {
 	_FadeData.cnt += _Owner->GetMode()->GetStepTm();
 	_UIChip->GetUIData()->blendParam = (_FadeData.end - _FadeData.start) * ((float)_FadeData.cnt / (float)_FadeData.tm) + _FadeData.start;
-	if (_FadeData.cnt>= _FadeData.tm) {
+	if (_FadeData.cnt >= _FadeData.tm) {
 		_UIChip->GetUIData()->blendParam = _FadeData.end;
 		_Owner->RemoveComponent(this);
 	}
+}
+
+void UIChipFadeComponent::Update()
+{
+	
 }
 
 

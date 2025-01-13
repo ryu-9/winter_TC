@@ -91,7 +91,7 @@ bool ModeBase::Update()
 bool	ModeBase::Render()
 {
 	for (auto sprite : _Sprites) {
-		//sprite->Draw();
+		sprite->Draw();
 	}
 
 	if (_DrawCollision) {

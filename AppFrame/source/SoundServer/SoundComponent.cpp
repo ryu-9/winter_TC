@@ -5,7 +5,7 @@ SoundComponent::SoundComponent(ActorClass* owner,IXAudio2SourceVoice* sv, int up
 	:Component(owner, updateOrder)
 {
 	_SourceVoice = sv;
-	_SourceVoice->Start(0);
+	_SourceVoice->Start();
 }
 
 SoundComponent::~SoundComponent() {

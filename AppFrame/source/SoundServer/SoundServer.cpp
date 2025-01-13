@@ -42,11 +42,10 @@ bool SoundServer::Add(std::string path,std::string name) {
 		return true;
 	}
 	else {
-		WAVRead::WAVDATA wavData;
-		if (WAVRead::Read(path.c_str(), &wavData) == false) {
+		if (WAVRead::Read(path.c_str(), &_m[name]) == false) {
 			return false;
 		}
-		_m[name] = wavData;
+	
 	}
 	return true;
 }
@@ -71,6 +70,7 @@ bool SoundServer::Create(class ActorClass* actor, std::string name) {
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 
 	new SoundComponent(actor, sourceVoice);
+//	sourceVoice->Start();
 	return true;
 };
 void SoundServer::Create(std::string name) {};
