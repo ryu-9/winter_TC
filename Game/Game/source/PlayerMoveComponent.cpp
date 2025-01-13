@@ -97,10 +97,20 @@ void PlayerMoveComponent::ProcessInput()
 
 	if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
 		// 当たっていなかったら、カメラも移動する
-		_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
+		//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
+		//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
 
 	}
+	{
+		VECTOR old = GetOldPosition();
+		VECTOR vector = VSub(_pOwner->GetPosition(), old);
+		_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), vector));
+		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
+	}
+
+
+
+
 	// 移動量のセット
 	float size = VSize(v)/10000;
 	//_pOwner->SetMove(v);

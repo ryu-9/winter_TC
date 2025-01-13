@@ -14,6 +14,6 @@ StageBox::~StageBox()
 
 void StageBox::UpdateActor()
 {
-	auto model = GetComponent<ModelComponent>();
-	model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.001, 0)));
+	//auto model = GetComponent<ModelComponent>();
+	//model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.001, 0)));
 }

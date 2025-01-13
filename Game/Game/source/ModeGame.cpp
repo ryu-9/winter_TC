@@ -121,7 +121,7 @@ bool ModeGame::Render() {
 
 
 
-	// 0,0,0�𒆐S�ɐ������
+	// �J�����^�[�Q�b�g�𒆐S�ɒZ���������
 	{
 		float linelength = 1000.f;
 		VECTOR v = { 0, 0, 0 };
