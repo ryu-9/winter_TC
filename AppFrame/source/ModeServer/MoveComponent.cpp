@@ -13,6 +13,10 @@ MoveComponent::~MoveComponent()
 
 void MoveComponent::Update()
 {
+	if (_Stand == FALSE) {
+		//SetVelocity(VAdd(GetVelocity(), VGet(0, -1, 0)));
+	}
+	_Stand = FALSE;
 	_OldPosition = _Owner->GetPosition();
 	_Owner->SetPosition(VAdd(_Owner->GetPosition(), _Velocity));
 }

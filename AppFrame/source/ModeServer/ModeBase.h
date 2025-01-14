@@ -13,6 +13,8 @@ class ModeServer;
 
 VECTOR VMulti(VECTOR v, VECTOR m);
 
+bool VEqual(VECTOR v, VECTOR m);
+
 class ModeBase {
 public:
 	ModeBase();

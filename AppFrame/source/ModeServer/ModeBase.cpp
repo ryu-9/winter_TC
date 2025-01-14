@@ -8,6 +8,15 @@ VECTOR VMulti(VECTOR v, VECTOR m) {
 	return ret;
 }
 
+bool VEqual(VECTOR v, VECTOR m) {
+	if (v.x == m.x && v.y == m.y && v.z == m.z) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 ModeBase::ModeBase() {
 	_szName = "";
 	_uid = 1;

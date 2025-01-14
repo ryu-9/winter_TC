@@ -17,9 +17,14 @@ public:
 	VECTOR GetVelocity() const { return _Velocity; }
 	void SetVelocity(VECTOR vel) { _Velocity = vel; }
 
+	bool GetStand() const { return _Stand; }
+	void SetStand(bool stand) { _Stand = stand; }
+
 private:
 	VECTOR _OldPosition;
 	VECTOR _Velocity;
+
+	bool _Stand;
 
 };
 

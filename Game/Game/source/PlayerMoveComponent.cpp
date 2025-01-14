@@ -108,8 +108,11 @@ void PlayerMoveComponent::ProcessInput()
 		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
 	}
 
+	v.y = GetVelocity().y;
 
-
+	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
+		v.y = 100;
+	}
 
 	// ˆÚ“®—Ê‚ÌƒZƒbƒg
 	float size = VSize(v)/10000;
