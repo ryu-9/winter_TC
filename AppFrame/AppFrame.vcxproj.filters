@@ -18,6 +18,9 @@
     <Filter Include="SoundServer">
       <UniqueIdentifier>{b109c811-85e4-41d0-9e01-2500a83b7b68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SoundServer\SourceVoice">
+      <UniqueIdentifier>{2351554b-8283-4f27-8aca-368ac465eb16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\appframe.h" />
@@ -72,6 +75,12 @@
     <ClInclude Include="source\SoundServer\SoundComponent.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\SoundServer\SourceVoiceItem.h">
+      <Filter>SoundServer\SourceVoice</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SoundServer\SourceVoiceEffect.h">
+      <Filter>SoundServer\SourceVoice</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -124,6 +133,12 @@
     </ClCompile>
     <ClCompile Include="source\SoundServer\SoundComponent.cpp">
       <Filter>SoundServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp">
+      <Filter>SoundServer\SourceVoice</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp">
+      <Filter>SoundServer\SourceVoice</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -72,8 +72,27 @@ bool SoundServer::Create(class ActorClass* actor, std::string name) {
 	new SoundComponent(actor, sourceVoice);
 //	sourceVoice->Start();
 	return true;
+}
+
+bool SoundServer::Create(std::string name, IXAudio2SourceVoice* sv) {
+	if (_m.count(name) == 0) { return false; }
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sv, &_m[name].wFormat);
+	if (FAILED(hr)) {
+		printf("CreateSourceVoice failed: %#X\n", hr);
+		return false;
+	}
+
+	// ‰¹ºƒf[ƒ^‚ÌÝ’è
+	XAUDIO2_BUFFER xAudio2Buffer{};
+	xAudio2Buffer.pAudioData = (BYTE*)_m[name].sBuffer;
+	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
+	xAudio2Buffer.AudioBytes = _m[name].size;
+	
+	xAudio2Buffer.LoopCount = 0;
+	sv->SubmitSourceBuffer(&xAudio2Buffer);
+	return true;
 };
-void SoundServer::Create(std::string name) {};
+
 
 bool SoundServer::Del(std::string name)
 {
