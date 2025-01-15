@@ -12,8 +12,8 @@ SVFade::SVFade(float vol, int tm)
 	_Start = 0.0f;
 }
 
-void SVFade::Update()
-{
+void SVFade::Update() {
+
 }
 
 void SVFade::SetFunc(float vol, int tm)
