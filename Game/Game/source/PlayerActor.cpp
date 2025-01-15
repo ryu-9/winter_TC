@@ -15,7 +15,7 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	
 		_Input = new PlayerMoveComponent(this);
 	
-	
+		SetPosition(VGet(0, 1000, 0));
 }
 
 PlayerActor::~PlayerActor()

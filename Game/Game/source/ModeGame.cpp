@@ -109,7 +109,7 @@ bool ModeGame::Render() {
 	SetUseBackCulling(TRUE);
 
 	
-	SetUseLighting(FALSE);
+	SetUseLighting(TRUE);
 #if 1	// ���s���C�g
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));

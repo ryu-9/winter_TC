@@ -11,7 +11,8 @@ bool ModeStage::Initialize() {
 	_Camera = new CameraActor(this);
 	auto ac = new PlayerActor(this);
 	
-	_StageVec.push_back("chutorial2.json");
+	//_StageVec.push_back("chutorial.json");
+	_StageVec.push_back("Map_2-1.json");
 	_StageVec.push_back("heimen_kari.json");
 	_StageNum = 0;
 	LoadStage("res/Stage/", _StageVec[_StageNum]);
@@ -58,7 +59,7 @@ bool ModeStage::Render() {
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
-	SetUseLighting(FALSE);
+	//SetUseLighting(FALSE);
 
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
@@ -96,8 +97,11 @@ bool ModeStage::LoadStage(const std::string path, const std::string jsname) {
 			auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
 			auto ac = new ActorClass(this);
-			auto mc=new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
-			new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 6);
+			if (name == "sharima") {
+				int test = 0;
+			}
+			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+			new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
 			ac->SetPosition(pos);
 			mc->SetRotation(rot);
 			ac->SetSize(scale);

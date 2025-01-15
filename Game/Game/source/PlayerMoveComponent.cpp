@@ -111,7 +111,10 @@ void PlayerMoveComponent::ProcessInput()
 	v.y = GetVelocity().y;
 
 	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
-		v.y = 100;
+		v.y = 50;
+	}
+	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_2) {
+		_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 	}
 	if (ApplicationMain::GetInstance()->GetKey() & PAD_INPUT_1) {
 		v.y = 1;

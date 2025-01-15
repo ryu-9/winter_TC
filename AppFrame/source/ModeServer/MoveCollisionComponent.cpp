@@ -118,9 +118,9 @@ void MoveCollisionComponent::Update()
 
 						for (int i = 0; i < Presult.HitNum; i++) {
 							MV1_COLL_RESULT_POLY mesh = Presult.Dim[i];
-							if (VSize(VCross(VSub(mesh.Position[0], mesh.Position[1]), VSub(mesh.Position[0], mesh.HitPosition))) <= 0.01 ||
-								VSize(VCross(VSub(mesh.Position[1], mesh.Position[2]), VSub(mesh.Position[1], mesh.HitPosition))) <= 0.01 ||
-								VSize(VCross(VSub(mesh.Position[2], mesh.Position[0]), VSub(mesh.Position[2], mesh.HitPosition))) <= 0.01) {
+							if (VSize(VCross(VSub(mesh.Position[0], mesh.Position[1]), VSub(mesh.Position[0], mesh.HitPosition))) <= 0.01 * VSize(VSub(mesh.Position[0], mesh.Position[1])) * VSize(VSub(mesh.Position[0], mesh.HitPosition)) ||
+								VSize(VCross(VSub(mesh.Position[1], mesh.Position[2]), VSub(mesh.Position[1], mesh.HitPosition))) <= 0.01 * VSize(VSub(mesh.Position[1], mesh.Position[2])) * VSize(VSub(mesh.Position[1], mesh.HitPosition)) ||
+								VSize(VCross(VSub(mesh.Position[2], mesh.Position[0]), VSub(mesh.Position[2], mesh.HitPosition))) <= 0.01 * VSize(VSub(mesh.Position[3], mesh.Position[0]))* VSize(VSub(mesh.Position[2], mesh.HitPosition))) {
 								if (VEqual(position[0], mesh.HitPosition) == TRUE) {
 									num[0]++;
 								}
@@ -158,9 +158,13 @@ void MoveCollisionComponent::Update()
 						if (shomen == FALSE) {
 							move = VNorm(VSub(coll[0]->GetPosition(), position[0]));
 						}
-
-						if (move.y >= 1.414/2) {
+						float deg = 0;
+						if (move.y >= cos(deg/180*atan(1)*4)) {
 							MoveCom->SetStand(TRUE);
+						}
+
+						if (move.y <= -0.5) {
+							int test = 0;
 						}
 
 						if (move.x >= 0.05 || move.x < -0.05) {
