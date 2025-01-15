@@ -1,5 +1,6 @@
 #pragma once
-#include "SourceVoiceItem.h"
+
+class SourceVoiceItem;
 
 class SourceVoiceEffectBase {
 public:

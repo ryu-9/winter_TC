@@ -23,7 +23,6 @@ void SourceVoiceItem::Stop() {
 	
 }
 
-float SourceVoiceItem::GetVolume() { return _Vol; }
 
 
 

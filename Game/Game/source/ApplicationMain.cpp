@@ -3,6 +3,7 @@
 #include "ModeGame.h"
 #include "ModeResult.h"
 #include "ModeTitle.h"
+#include "ModeStage.h"
 
 // À‘Ì
 ApplicationMain				g_oApplicationMain;
@@ -15,8 +16,8 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	// ƒ‚[ƒh‚Ì“o˜^
 //	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-//	ModeServer::GetInstance()->Add(new ModeResult(), 1, "result");
+//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+	ModeServer::GetInstance()->Add(new ModeStage(), 1, "devstage");
 	return true;
 }
 
