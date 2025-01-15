@@ -49,6 +49,7 @@ bool	ModeBase::Initialize() {
 // ModeServer‚©‚çíœ‚³‚ê‚éÛAˆê“x‚¾‚¯ŒÄ‚Î‚ê‚é
 bool	ModeBase::Terminate() {
 
+
 	return true;
 }
 

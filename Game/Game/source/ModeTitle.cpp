@@ -20,7 +20,9 @@ bool ModeTitle::Initialize()
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
-	new ActorClass(this);
+	auto ac = new ActorClass(this);
+	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
+	SoundServer::GetInstance()->Create(ac, "bgm1");
 	return true;
 }
 
@@ -79,17 +81,20 @@ base::Process();
 			delete _UIChip.front();
 			_UIChip.clear();
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/title.png"));
-			new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[newstep]);
+			new UIChipFadeComponent(_UIChip.front(), 255, 1000);
+
 		}
 		break;
 	case 6:
 		ModeServer::GetInstance()->Add(new ModeSynopsis(), 99, "synopsis");
+		
 		newstep++;
 		break;
 	case 7:
 		if (trg & PAD_INPUT_1) {
 			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
 		}
+
 		_TitleTm += GetStepTm();
 		if (_TitleTm > 30 * 1000) {
 			newstep = 6;

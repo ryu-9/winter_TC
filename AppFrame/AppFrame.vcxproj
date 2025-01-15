@@ -180,6 +180,8 @@
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
     <ClInclude Include="source\SoundServer\SoundComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
+    <ClInclude Include="source\SoundServer\SourceVoiceEffect.h" />
+    <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
     <ClInclude Include="source\SoundServer\WAVRead.h" />
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +201,8 @@
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
+    <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp" />
+    <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
     <ClCompile Include="source\SoundServer\WAVRead.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

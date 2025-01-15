@@ -62,9 +62,9 @@ bool ModeGame::Initialize() {
 	_Player->SetPosition(VGet(0, 0, 200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
+	LoadStage("res/Stage/", "chutorial2.json");
+	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
 	//box->GetComponent<ModelComponent>()->SetFront(VGet(1,0,0));
-	LoadStage("res/Stage/map_1-1/", "chutorial2.json");
-	SoundServer::GetInstance()->Add("res/debug/sound/casino.wav","m");
 	return true;
 }
 
@@ -108,8 +108,8 @@ bool ModeGame::Render() {
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
-	// ���C�g�ݒ�
-	SetUseLighting(TRUE);
+	
+	SetUseLighting(FALSE);
 #if 1	// ���s���C�g
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
@@ -121,7 +121,7 @@ bool ModeGame::Render() {
 
 
 
-	// �J�����^�[�Q�b�g�𒆐S�ɒZ���������
+	// 0,0,0
 	{
 		float linelength = 1000.f;
 		VECTOR v = { 0, 0, 0 };
@@ -164,7 +164,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 
 		// ModelServerへ
 //		ModelServer::GetInstance()->Add((path + name).c_str());
-		if (name == "SM_Cube") {
+		if (name == "SM_Cube"|| name == "Cube") {
 			auto box = new StageBox(this);
 			box->SetPosition(pos);
 			box->SetDirection(rot);

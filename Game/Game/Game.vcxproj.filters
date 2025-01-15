@@ -40,6 +40,12 @@
     <Filter Include="iojson">
       <UniqueIdentifier>{7ddaef9d-93f7-4054-83ed-12a54edd16fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Dev">
+      <UniqueIdentifier>{6cac334f-3d7b-44ba-9751-0523093a9a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Dev">
+      <UniqueIdentifier>{9c7c26e2-6e78-404c-8ec4-599f2266fca5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -83,12 +89,15 @@
     </ClCompile>
     <ClCompile Include="source\StageBox.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
-		</ClCompile>
+    </ClCompile>
     <ClCompile Include="source\ioJsonText.cpp">
       <Filter>iojson</Filter>
     </ClCompile>
     <ClCompile Include="source\ioJson.cpp">
       <Filter>iojson</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeStage.cpp">
+      <Filter>ソース ファイル\Dev</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,12 +142,15 @@
     </ClInclude>
     <ClInclude Include="source\StageBox.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
-		</ClInclude>
+    </ClInclude>
     <ClInclude Include="source\ioJson.h">
       <Filter>iojson</Filter>
     </ClInclude>
     <ClInclude Include="source\ioJsonText.h">
       <Filter>iojson</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeStage.h">
+      <Filter>ヘッダー ファイル\Dev</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,7 +7,8 @@ CameraActor::CameraActor(ModeBase* mode)
 	_Position = VGet(0, 90.f, -300.f);
 	_Direction = VGet(0, 60, 0);
 	_clipNear = 2.f;
-	_clipFar = 20000.f;
+	_clipFar = 200000.f;
+	_Follow = nullptr;
 	new CameraComponent(this);
 }
 
@@ -53,6 +54,9 @@ void CameraComponent::ProcessInput()
 	// YˆÊ’u
 	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 20.f , _cOwner->GetPosition().z));}
 	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 20.f, _cOwner->GetPosition().z)); }
+
+	
+
 }
 
 void CameraComponent::Update()

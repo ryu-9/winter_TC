@@ -12,16 +12,18 @@ public:
 	 void SetClipNear(float clipNear) { _clipNear = clipNear; }
 	 float GetClipFar() const { return _clipFar; }
 	 void SetClipFar(float clipFar) { _clipFar = clipFar; }
-
+	 void SetFollow(class ActorClass* ac) { _Follow = ac; }
+	 class ActorClass* GetFollow() { return _Follow; }
 private:
 //	VECTOR	_vTarget;				// 距離
 	float	_clipNear, _clipFar;	// クリップ
+	class ActorClass* _Follow;		// 追従するアクター
 };
 
 class CameraComponent : public Component
 {
 public:
-	CameraComponent(class CameraActor* owner,int UpdateOrder = 100);
+	CameraComponent(class CameraActor* owner, int UpdateOrder = 100);
 	virtual ~CameraComponent();
 
 	void ProcessInput() override;
@@ -29,4 +31,5 @@ public:
 
 private:
 	class CameraActor* _cOwner;
+	
 };

@@ -28,6 +28,7 @@ public:
 	virtual ~UIChipFadeComponent();
 
 	void ProcessInput() override;
+	void Update() override;
 
 private:
 	EASING _FadeData;
