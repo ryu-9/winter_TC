@@ -113,6 +113,9 @@ void PlayerMoveComponent::ProcessInput()
 	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
 		v.y = 100;
 	}
+	if (ApplicationMain::GetInstance()->GetKey() & PAD_INPUT_1) {
+		v.y = 1;
+	}
 
 	// ˆÚ“®—Ê‚ÌƒZƒbƒg
 	float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition()))/10000;

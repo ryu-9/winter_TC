@@ -43,6 +43,7 @@ void MoveCollisionComponent::Update()
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 	MV1RefreshCollInfo(Handle);
 
+
 	if (isActive == FALSE || isMove == FALSE) {
 		return;
 	}
@@ -107,6 +108,7 @@ void MoveCollisionComponent::Update()
 					num[0] = 0; num[1] = 0;
 					position[1] = position[0];
 
+
 					VECTOR tmp = VSub(MoveCom->GetOldPosition(), coll[0]->GetOwner()->GetPosition());
 					MV1_COLL_RESULT_POLY_DIM Presult = MV1CollCheck_Sphere(coll[1]->GetHandle(), -1, VAdd(coll[0]->GetPosition(), tmp), coll[0]->GetSize().x + VSize(tmp));
 
@@ -146,6 +148,7 @@ void MoveCollisionComponent::Update()
 								break;
 							}
 						}
+
 						if (num[0] == num[1]) {
 							if (VSize(VSub(position[0], coll[0]->GetPosition())) > VSize(VSub(position[2], coll[0]->GetPosition()))) {
 								position[0] = position[1];
@@ -195,10 +198,12 @@ void MoveCollisionComponent::Update()
 						}
 					}
 
-
+					MV1CollResultPolyDimTerminate(Presult);
 
 
 				}
+
+				MV1CollResultPolyDimTerminate(result);
 
 			}
 		}
