@@ -3,13 +3,13 @@
 #include "PlayerMoveComponent.h"
 #include "PlayerActor.h"
 #include "ApplicationMain.h"
+
 #include <fstream>
 
 bool ModeStage::Initialize() {
 	if (!base::Initialize()) { return false; }
 	_Camera = new CameraActor(this);
 	auto ac = new PlayerActor(this);
-	new PlayerMoveComponent(ac);
 	
 	_StageVec.push_back("chutorial2.json");
 	_StageVec.push_back("heimen_kari.json");
@@ -97,6 +97,7 @@ bool ModeStage::LoadStage(const std::string path, const std::string jsname) {
 
 			auto ac = new ActorClass(this);
 			auto mc=new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+			new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 6);
 			ac->SetPosition(pos);
 			mc->SetRotation(rot);
 			ac->SetSize(scale);
