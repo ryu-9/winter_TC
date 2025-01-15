@@ -160,6 +160,10 @@ void MoveCollisionComponent::Update()
 							MoveCom->SetStand(TRUE);
 						}
 
+						if (move.x >= 0.05 || move.x < -0.05) {
+							int test = 0;
+						}
+
 						if (mcoll->isMove == TRUE) {
 						}
 						else {
