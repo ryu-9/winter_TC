@@ -159,7 +159,7 @@ void MoveCollisionComponent::Update()
 							move = VNorm(VSub(coll[0]->GetPosition(), position[0]));
 						}
 
-						if (move.y >= 0.05||move.y<-0.05) {
+						if (move.y >= 1.414/2) {
 							MoveCom->SetStand(TRUE);
 						}
 
