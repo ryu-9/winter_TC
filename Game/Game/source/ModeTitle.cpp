@@ -27,6 +27,7 @@ bool ModeTitle::Initialize()
 }
 
 bool ModeTitle::Terminate() {
+
 	return true;
 }
 

@@ -9,8 +9,9 @@ class TMenuItemStart : public MenuItemBase
 public:
 	TMenuItemStart(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		auto tmp = new UIChipClass(mdTm, VGet(0, 600, 0), "res/title/start.png",110);
-		new UIChipFadeComponent(tmp, 255, 250);
+		_vAct.push_back(new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/start.png",110));
+		new UIChipFadeComponent(_vAct.back(), 255, 250);
+		new UIChipFocusComponent(_vAct.back(), VGet(1.2,1.2,1.2),300);
 	}
 	virtual int Selected()
 	{
@@ -26,8 +27,9 @@ class TMenuItemContinue : public MenuItemBase {
 public:
 	TMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		auto tmp = new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/continue.png", 110);
-		new UIChipFadeComponent(tmp, 255, 250);
+		_vAct.push_back(new UIChipClass(mdTm, VGet(720, 600, 0), "res/title/continue.png", 110));
+		new UIChipFadeComponent(_vAct.back(), 255, 250);
+		new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
 	}
 	virtual int Selected() {
 		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
@@ -41,8 +43,9 @@ class TMenuItemExit : public MenuItemBase {
 public:
 	TMenuItemExit(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		auto tmp= new UIChipClass(mdTm, VGet(600, 600, 0), "res/title/exit.png", 110);
-		new UIChipFadeComponent(tmp, 255, 250);
+		_vAct.push_back( new UIChipClass(mdTm, VGet(1200, 600, 0), "res/title/exit.png", 110));
+		new UIChipFadeComponent(_vAct.back(), 255, 250);
+		new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
 	}
 	virtual int Selected() {
 		ApplicationMain::GetInstance()->Terminate();
@@ -57,6 +60,8 @@ bool ModeTitleMenu::Initialize()
 	Add(new TMenuItemContinue(this, "つづきから"));
 	Add(new TMenuItemExit(this, "ゲーム終了"));
 	
+	_Cur = 0;
+	_vItems[_Cur]->Send(1);
 	return false;
 }
 
@@ -76,24 +81,28 @@ bool ModeTitleMenu::Process()
 	ModeServer::GetInstance()->SkipProcessUnderLayer();
 
 	bool close = false;
-
-	if (trg & PAD_INPUT_LEFT) { _Cur--; }
-	if (trg & PAD_INPUT_RIGHT) {_Cur++;	}
+	auto cur = _Cur;
+	if (trg & PAD_INPUT_LEFT) { cur--; }
+	if (trg & PAD_INPUT_RIGHT) {cur++;	}
 	// カーソル位置を上下ループ
 	int itemNum = _vItems.size();
 	if (itemNum <= 0) {}
 	else {
-		_Cur = (_Cur + itemNum) % itemNum;
+		cur = (cur + itemNum) % itemNum;
 	}
 	// 決定でアイテムのSelected()を呼ぶ
 	if (trg & PAD_INPUT_1) {
-		int ret = _vItems[_Cur]->Selected();
+		int ret = _vItems[cur]->Selected();
 		if (ret == 1) {
 			// メニューを閉じる
 			close = true;
 		}
 	}
-
+	if (cur != _Cur) {
+		_vItems[_Cur]->Send(0);
+		_Cur = cur;
+		_vItems[_Cur]->Send(1);
+	}
 	// メニューを閉じる
 	if (close) {
 		// このモードを削除する

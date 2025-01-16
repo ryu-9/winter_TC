@@ -14,9 +14,9 @@ UIChipFadeComponent::UIChipFadeComponent(ActorClass* owner, float alpha, int tm,
 	:base(owner, updateOrder)
 {
 	_UIChip->GetUIData()->blendMode = DX_BLENDMODE_ALPHA;
-	_FadeData.start = _UIChip->GetUIData()->blendParam;
-	_FadeData.tm = tm;
-	_FadeData.end = alpha;
+	_Data.start = _UIChip->GetUIData()->blendParam;
+	_Data.tm = tm;
+	_Data.end = alpha;
 }
 
 UIChipFadeComponent::~UIChipFadeComponent()
@@ -24,10 +24,10 @@ UIChipFadeComponent::~UIChipFadeComponent()
 }
 
 void UIChipFadeComponent::ProcessInput() {
-	_FadeData.cnt += _Owner->GetMode()->GetStepTm();
-	_UIChip->GetUIData()->blendParam = (_FadeData.end - _FadeData.start) * ((float)_FadeData.cnt / (float)_FadeData.tm) + _FadeData.start;
-	if (_FadeData.cnt >= _FadeData.tm) {
-		_UIChip->GetUIData()->blendParam = _FadeData.end;
+	_Data.cnt += _Owner->GetMode()->GetStepTm();
+	_UIChip->GetUIData()->blendParam = (_Data.end - _Data.start) * ((float)_Data.cnt / (float)_Data.tm) + _Data.start;
+	if (_Data.cnt >= _Data.tm) {
+		_UIChip->GetUIData()->blendParam = _Data.end;
 		_Owner->RemoveComponent(this);
 	}
 }
@@ -37,6 +37,67 @@ void UIChipFadeComponent::Update()
 	
 }
 
+UIChipFocusComponent::UIChipFocusComponent(ActorClass* owner, VECTOR scale, int tm, int updateOrder)
+	:base(owner, updateOrder)
+{
+	_Data.start = _UIChip->GetUIData()->scale;
+	_Data.tm = tm;
+	_Data.end = scale;
+	_isFocus = false;
+}
 
+UIChipFocusComponent::~UIChipFocusComponent()
+{
+}
 
+void UIChipFocusComponent::ProcessInput()
+{
+	if (_isFocus) {
+		if (_Data.cnt < _Data.tm) {
+			_Data.cnt += _Owner->GetMode()->GetStepTm();
+			auto tmp = (VSub(_Data.end, _Data.start));
+			auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
+			tmp.x = tmp.x * tmp2 + _Data.start.x;
+			tmp.y = tmp.y * tmp2 + _Data.start.y;
+			tmp.z = tmp.z;
+			_UIChip->GetUIData()->scale = tmp;
+			if (_Data.cnt >= _Data.tm) {
+				_UIChip->GetUIData()->scale = _Data.end;
+			}
+		}
+	}
+	else {
+		if (_Data.cnt < _Data.tm) {
+			_Data.cnt += _Owner->GetMode()->GetStepTm();
+			auto tmp = (VSub(_Data.start, _Data.end));
+			auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
+			tmp.x = tmp.x * tmp2 + _Data.end.x;
+			tmp.y = tmp.y * tmp2 + _Data.end.y;
+			tmp.z = tmp.z;
+			_UIChip->GetUIData()->scale = tmp;
+			if (_Data.cnt >= _Data.tm) {
+				_UIChip->GetUIData()->scale = _Data.start;
+//				_Owner->RemoveComponent(this);
+			}
+		}
+	}
+	
+}
 
+void UIChipFocusComponent::Update()
+{
+}
+
+void UIChipFocusComponent::Receive(int message)
+{
+	if (message == 1) {
+		_isFocus = true;
+		_Data.cnt = 0;
+	}
+	else if (message == 0) {
+		if (_isFocus) {
+			_isFocus = false;
+			_Data.cnt = 0;
+		}
+	}
+}

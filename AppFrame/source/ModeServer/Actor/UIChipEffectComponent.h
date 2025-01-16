@@ -31,6 +31,29 @@ public:
 	void Update() override;
 
 private:
-	EASING _FadeData;
+	EASING _Data;
 };
 
+class UIChipFocusComponent : public UIChipEffectComponent
+{
+	typedef UIChipEffectComponent base;
+
+	struct  EASING
+	{
+		VECTOR start;
+		VECTOR end;
+		int cnt;
+		int tm;
+	};
+
+public:
+	UIChipFocusComponent(class ActorClass* owner, VECTOR scale, int tm, int updateOrder = 100);
+	virtual ~UIChipFocusComponent();
+
+	void ProcessInput() override;
+	void Update() override;
+	void Receive(int message) override;
+private:
+	EASING _Data;
+	bool _isFocus;
+};

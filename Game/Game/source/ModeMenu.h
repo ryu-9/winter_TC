@@ -22,9 +22,15 @@ public:
 		return 0;
 	}
 
+	void Send(int message) {
+		for (auto act : _vAct) {
+			act->Send(message);
+		}
+	}
 public:
 	void* _param;
 	std::string		_text;
+	std::vector<ActorClass*> _vAct;
 };
 
 

@@ -4,14 +4,18 @@
 #include "ModeOption.h"
 
 bool ModeStageSelect::Initialize() {
-	auto tmp = new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0);
-	new UIChipFadeComponent(tmp, 255, 250);
-	tmp =new UIChipClass(this, VGet(600, 200, 0), "res/select/stage2.png", 0);
-	new UIChipFadeComponent(tmp, 255, 250);
-	tmp = new UIChipClass(this, VGet(200, 600, 0), "res/select/stage3.png", 0);
-	new UIChipFadeComponent(tmp, 255, 250);
-	tmp = new UIChipClass(this, VGet(600, 600, 0), "res/select/stage4.png", 0);
-	new UIChipFadeComponent(tmp, 255, 250);
+	_UIChip.push_back(new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0));
+	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
+	_UIChip.push_back(new UIChipClass(this, VGet(600, 200, 0), "res/select/stage2.png", 0));
+	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
+	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	_UIChip.push_back(new UIChipClass(this, VGet(200, 600, 0), "res/select/stage3.png", 0));
+	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
+	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	_UIChip.push_back(new UIChipClass(this, VGet(600, 600, 0), "res/select/stage4.png", 0));
+	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
 	return true;
 }
 
@@ -23,10 +27,24 @@ bool ModeStageSelect::Terminate() {
 bool ModeStageSelect::Process() {
 	base::Process();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
-	if (trg & PAD_INPUT_UP) { _Cur -= 2; }
-	if (trg & PAD_INPUT_DOWN) { _Cur += 2; }
-	if (trg & PAD_INPUT_LEFT) { _Cur--; }
-	if (trg & PAD_INPUT_RIGHT) { _Cur++; }
+	auto cur = _Cur;
+	if (trg & PAD_INPUT_UP) { cur -= 2; }
+	if (trg & PAD_INPUT_DOWN) { cur += 2; }
+	if (trg & PAD_INPUT_LEFT) { cur--; }
+	if (trg & PAD_INPUT_RIGHT) { cur++; }
+
+	// カーソル位置を上下ループ
+	int itemNum = 4;
+	if (itemNum <= 0) {}
+	else {
+		_Cur = (_Cur + itemNum) % itemNum;
+	}
+	if (cur != _Cur) {
+		_UIChip[_Cur]->Send(0);
+		_Cur = cur;
+		_UIChip[_Cur]->Send(1);
+	}
+
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");

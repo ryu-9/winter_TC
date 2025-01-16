@@ -52,8 +52,8 @@ void CameraComponent::ProcessInput()
 	if (rx < -analogMin) { rad += 0.05f; }
 	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length,_cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
 	// YˆÊ’u
-	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 20.f , _cOwner->GetPosition().z));}
-	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 20.f, _cOwner->GetPosition().z)); }
+	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f , _cOwner->GetPosition().z));}
+	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
 	
 

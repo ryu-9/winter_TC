@@ -37,6 +37,16 @@ ModeBase::ModeBase() {
 }
 
 ModeBase::~ModeBase() {
+	while (!_Actors.empty()) {
+		delete _Actors.back();
+	}
+	while (!_Sprites.empty()) {
+		delete _Sprites.back();
+	}
+	while (!_MCollision.empty()) {
+		delete _MCollision.back();
+	}
+
 }
 
 

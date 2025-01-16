@@ -19,6 +19,7 @@ private:
 	int _Step;
 	int _TitleTm;
 	std::vector<int> _StepTm;
+
 };
 
 

@@ -34,8 +34,7 @@ class MenuItemSetDashInput : public MenuItemBase {
 public:
 	MenuItemSetDashInput(void* param, std::string text) : MenuItemBase(param, text) {}
 
-	// ���ڂ���肵���炱�̊֐����Ă΂��
-	// return int : 0 = ���j���[�p��, 1 = ���j���[�I��
+	
 	virtual int Selected() {
 		ModeGame* mdGame = static_cast<ModeGame*>(_param);
 		mdGame->GetPlayer()->Send(2);
@@ -130,7 +129,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	// �J�����^�[�Q�b�g�𒆐S�ɒZ���������
+	
 	{
 		float linelength = 10.f;
 		VECTOR v = _Camera->GetDirection();
@@ -170,7 +169,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetDirection(rot);
 			box->SetSize(scale);
 		}
-		// �A�N�^�Ƃ��ēǂݍ���
+	
 	}
 	return true;
 }
