@@ -69,6 +69,7 @@ private:
 	int Handle;
 
 	bool flag;
+	bool shomen;
 
 	VECTOR devpos[3];
 

@@ -30,7 +30,7 @@ ModeBase::ModeBase() {
 	_tmPauseStep = 0;
 	_tmOldFrame = 0;
 
-	_DrawCollision = false;
+	_DrawCollision = true;
 
 	SetCallPerFrame(1);
 	SetCallOfCount(1);
@@ -106,7 +106,7 @@ bool	ModeBase::Render()
 
 	if (_DrawCollision) {
 		for (auto mc : _MCollision) {
-			//mc->DebugDraw();
+			mc->DebugDraw();
 		}
 	}
 	return	true;

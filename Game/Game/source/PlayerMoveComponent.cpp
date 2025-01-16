@@ -7,6 +7,8 @@ PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	:MoveComponent(owner, updateOrder)
 	,_pOwner(owner)
 	,_colSubY(40.f)
+	,_DashTime(0)
+	,_DashDir(VGet(0,0,1))
 {
 
 }
@@ -27,6 +29,8 @@ void PlayerMoveComponent::ProcessInput()
 	float sz = _pOwner->GetMode()->GetCamera()->GetPosition().z - _pOwner->GetMode()->GetCamera()->GetDirection().z;
 	float camrad = atan2(sz, sx);
 
+
+
 	// ˆÚ“®•ûŒü‚ðŒˆ‚ß‚é
 	VECTOR v = { 0,0,0 };
 	float mvSpeed = 12.f;
@@ -40,6 +44,7 @@ void PlayerMoveComponent::ProcessInput()
 	GetJoypadDirectInputState(DX_INPUT_KEY_PAD1 , &input);
 	v.x = (float)input.Y / 1000;
 	v.z = (float)input.X / 1000;
+
 
 
 	// v‚ðrad•ª‰ñ“]‚³‚¹‚é
@@ -57,6 +62,15 @@ void PlayerMoveComponent::ProcessInput()
 	float rad = atan2(v.z, v.x);
 	v.x = cos(rad + camrad) * length;
 	v.z = sin(rad + camrad) * length;
+	if (_DashTime <= 0) {
+		if (v.x != 0 || v.z != 0) {
+			_DashDir = VNorm(v);
+		}
+	}
+	else{
+		_DashTime--;
+		v = VScale(_DashDir, _DashTime);
+	}
 
 	// ˆÚ“®‘O‚ÌˆÊ’u‚ð•Û‘¶
 	VECTOR oldvPos = _pOwner->GetPosition();
@@ -104,14 +118,24 @@ void PlayerMoveComponent::ProcessInput()
 	{
 		VECTOR old = GetOldPosition();
 		VECTOR vector = VSub(_pOwner->GetPosition(), old);
-		_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), vector));
+		VECTOR dist = VSub(_pOwner->GetMode()->GetCamera()->GetPosition(), _pOwner->GetMode()->GetCamera()->GetDirection());
 		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
+		float height = dist.y;
+		dist.y = 0;
+		dist = VScale(VNorm(dist), VSize(_pOwner->GetSize()) * 200);
+		dist = VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), dist);
+		VECTOR campos = VGet(dist.x, dist.y + height, dist.z);
+		_pOwner->GetMode()->GetCamera()->SetPosition(campos);
 	}
 
 	v.y = GetVelocity().y;
 
+	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_4&&_DashTime <= 0) {
+		_DashTime = 100;
+	}
 	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
 		v.y = 50;
+		_DashTime = 0;
 	}
 	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_2) {
 		_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
