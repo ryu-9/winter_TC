@@ -1,7 +1,7 @@
 #include "WAVRead.h"
 
 bool WAVRead::Read(const char* path, WAVDATA* wavData) {
-	if (wavData == nullptr) return E_POINTER;
+	if (wavData == nullptr) return false;
 	
 	HMMIO mmHandle = nullptr;
 	

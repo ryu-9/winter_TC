@@ -1,6 +1,8 @@
 #include "SourceVoiceItem.h"
 
-SourceVoiceItem::SourceVoiceItem(std::string wavname) {
+SourceVoiceItem::SourceVoiceItem(std::string wavname)
+	:_SV(nullptr)
+{
 	if (SoundServer::GetInstance()->Create(wavname, _SV) == false) {
 		printf("CreateSourceVoice failed\n");
 		delete this;

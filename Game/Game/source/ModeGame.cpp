@@ -8,16 +8,12 @@
 #include "StageBox.h"
 
 #include <fstream>
-#include "ModeResult.h"
-#include "ApplicationGlobal.h"
 #include "nlohmann/json.hpp"
 
 class MenuItemViewCameraInfo : public MenuItemBase {
 public:
 	MenuItemViewCameraInfo(void* param, std::string text) : MenuItemBase(param, text) {}
 
-	// ���ڂ���肵���炱�̊֐����Ă΂��
-	// return int : 0 = ���j���[�p��, 1 = ���j���[�I��
 	virtual int Selected() {
 		ModeGame* mdGame = static_cast<ModeGame*>(_param);
 		if (mdGame->GetDebugViewCameraInfo()) {
@@ -47,8 +43,7 @@ public:
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
-	ChangeFont("MS�S�V�b�N");
-	SetFontSize(48);
+
 	_bUseCollision = TRUE;
 	_bViewCameraInfo = FALSE;
 	SetFogEnable(TRUE);
@@ -63,7 +58,7 @@ bool ModeGame::Initialize() {
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
-	//box->GetComponent<ModelComponent>()->SetFront(VGet(1,0,0));
+	
 	return true;
 }
 
@@ -78,12 +73,12 @@ bool ModeGame::Process() {
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 
-	// ESC�L�[�Ń��j���[��J��
+	
 	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
-		// ModeGame����̃��C���[�Ƀ��j���[��o�^����
+		
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
-		// ModeMenu�Ƀ��j���[���ڂ�ǉ�����
+		
 		modeMenu->Add(new MenuItemViewCameraInfo(this, "ViewCameraInfo"));
 		modeMenu->Add(new MenuItemSetDashInput(this, "SetDashInput"));
 	}
@@ -102,25 +97,25 @@ bool ModeGame::Update()
 bool ModeGame::Render() {
 
 	
-	// 3D��{�ݒ�
+	
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
 	
 	SetUseLighting(TRUE);
-#if 1	// ���s���C�g
+#if 1	
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
 #endif
-#if 0	// �|�C���g���C�g
+#if 0	
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypePoint(VAdd(_vPos, VGet(0, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
 #endif
 
 
 
-	// 0,0,0
+	// 0,0,0地点にラインを描画
 	{
 		float linelength = 1000.f;
 		VECTOR v = { 0, 0, 0 };
@@ -129,7 +124,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	
+	// カメラのターゲット位置にラインを描画
 	{
 		float linelength = 10.f;
 		VECTOR v = _Camera->GetDirection();
