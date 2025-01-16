@@ -14,10 +14,15 @@ public:
 	virtual void Play();
 	virtual bool IsPlay();
 	virtual void Stop();
-	virtual void SetFade(float vol,int tm);
 
 	virtual float GetVolume();
 	virtual void SetVolume(float vol);
+
+	virtual void AddEffect(std::string name, std::shared_ptr<SourceVoiceEffectBase> effect);
+	virtual void RemoveEffect(std::string name);
+	virtual std::shared_ptr<SourceVoiceEffectBase> GetEffect(std::string name);
+
+	void Update();
 
 private:
 	float _Volume;

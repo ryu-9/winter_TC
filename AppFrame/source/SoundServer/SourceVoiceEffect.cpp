@@ -7,12 +7,22 @@ SVFade::SVFade()
 }
 
 
+void SVFade::Set(float vol, int tm)
+{
+}
+
 void SVFade::Update() {
 
 }
 
 
 SVEcho::SVEcho()
+	: palam(0.0f)
+{
+
+}
+
+void SVEcho::Set(float palam)
 {
 }
 

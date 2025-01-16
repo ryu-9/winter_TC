@@ -44,6 +44,7 @@ UIChipFocusComponent::UIChipFocusComponent(ActorClass* owner, VECTOR scale, int 
 	_Data.tm = tm;
 	_Data.end = scale;
 	_isFocus = false;
+	_Data.cnt = tm;
 }
 
 UIChipFocusComponent::~UIChipFocusComponent()
