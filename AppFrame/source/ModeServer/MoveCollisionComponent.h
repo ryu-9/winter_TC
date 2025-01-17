@@ -71,7 +71,7 @@ private:
 	bool flag;
 	bool shomen;
 
-	VECTOR devpos[3];
+	VECTOR oldmove;
 
 	class ModelComponent* _Model;
 };
