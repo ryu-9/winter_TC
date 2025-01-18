@@ -12,6 +12,7 @@ public:
 	~MoveCollisionComponent() override;
 
 	void Update() override;
+	void Process();
 
 	VECTOR GetPosition();
 	VECTOR GetSize();
@@ -25,6 +26,9 @@ public:
 
 	void SetRPosition(VECTOR pos) { Pos = pos; }
 	void SetRSize(VECTOR size) { Size = size; }
+
+	float GetAccuracy();
+	void SetAccuracy(float accuracy) { Accuracy = accuracy; }
 
 	int GetType() const { return Type; }
 	void SetType(int type) { Type = type; }
@@ -58,6 +62,8 @@ private:
 
 	// collision‚ÌŒ`
 	int Type;
+
+	float Accuracy;
 
 	//	ˆÚ“®‚·‚é‚©
 	bool isMove;

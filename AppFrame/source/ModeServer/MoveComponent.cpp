@@ -19,5 +19,24 @@ void MoveComponent::Update()
 	}
 	_Stand = FALSE;
 	_OldPosition = _Owner->GetPosition();
+	MoveCollisionComponent* mcc = _Owner->GetComponent<MoveCollisionComponent>();
 	_Owner->SetPosition(VAdd(_Owner->GetPosition(), _Velocity));
+	//mcc->Process();
+	//return;
+	if(mcc!=nullptr) {
+		float acc = mcc->GetAccuracy();
+		int num = VSize(_Velocity) / acc;
+		VECTOR move = VScale(VNorm(_Velocity), acc);
+		for (int i = 0; i < num; i++) {
+			mcc->Process();
+			_Owner->SetPosition(VAdd(_Owner->GetPosition(), move));
+		}
+		mcc->Process();
+		_Owner->SetPosition(VAdd(_Owner->GetPosition(), VSub(_Velocity,VScale(move,num))));
+		mcc->Process();
+
+	}
+	else {
+		_Owner->SetPosition(VAdd(_Owner->GetPosition(), _Velocity));
+	}
 }

@@ -8,6 +8,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner,ModelComp
 	:Component(owner)
 	,_Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0))
+	, Accuracy(1)
 {
 	_Owner->GetMode()->AddMCollision(this);
 
@@ -23,10 +24,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner,ModelComp
 		Handle = modelComp->GetHandle();
 	}
 	//*/
-	MV1SetPosition(Handle,GetPosition());
-	MV1SetScale(Handle, GetSize());
-	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-	MV1SetupCollInfo(Handle);
+	Update();
 
 }
 
@@ -36,11 +34,16 @@ MoveCollisionComponent::~MoveCollisionComponent()
 _Owner->GetMode()->RemoveMCollision(this);
 }
 
-void MoveCollisionComponent::Update() {
+void MoveCollisionComponent::Update()
+{
 	MV1SetPosition(Handle, GetPosition());
 	MV1SetScale(Handle, GetSize());
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-	MV1RefreshCollInfo(Handle);
+	MV1SetupCollInfo(Handle);
+}
+
+void MoveCollisionComponent::Process() {
+	Update();
 
 	int num = 0;
 
@@ -52,7 +55,7 @@ void MoveCollisionComponent::Update() {
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 
 		if (mcoll->GetIsActive() == TRUE) {
-			if (mcoll != this) {
+			if (mcoll->GetOwner() != GetOwner()) {
 
 				int typeSum = 0;
 				VECTOR move = VGet(0, 0, 0);
@@ -238,6 +241,15 @@ VECTOR MoveCollisionComponent::GetFront()
 VECTOR MoveCollisionComponent::GetRight()
 {
 	return VCross(GetUp(),GetFront());
+}
+
+float MoveCollisionComponent::GetAccuracy()
+{
+	float acc = VSize(GetSize()) / Accuracy;
+	if (acc == 0) {
+		return 1;
+	}
+	return acc;
 }
 
 void MoveCollisionComponent::DebugDraw()

@@ -11,6 +11,7 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
 	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
+	_MCollision->SetAccuracy(4);
 	int n = rand() % 2;
 	
 		_Input = new PlayerMoveComponent(this);
