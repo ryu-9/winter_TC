@@ -122,6 +122,7 @@ bool	ModeBase::Render()
 	return	true;
 }
 
+// アクタの追加
 void ModeBase::AddActor(ActorClass* actor) {
 	if (_UpdatingActors) {
 		_PendingActors.emplace_back(actor);
@@ -131,6 +132,7 @@ void ModeBase::AddActor(ActorClass* actor) {
 	}
 }
 
+// アクタの削除
 void ModeBase::RemoveActor(ActorClass* actor) {
 	auto iter = std::find(_PendingActors.begin(), _PendingActors.end(), actor);
 	if (iter != _PendingActors.end()) {
@@ -145,6 +147,8 @@ void ModeBase::RemoveActor(ActorClass* actor) {
 	}
 }
 
+
+// スプライトの追加
 void ModeBase::AddSprite(SpriteComponent* sp) {
 	int myDrawOrder = sp->GetDrawOrder();
 	auto iter = _Sprites.begin();
@@ -155,6 +159,7 @@ void ModeBase::AddSprite(SpriteComponent* sp) {
 	_Sprites.insert(iter, sp);
 }
 
+// スプライトの削除
 void ModeBase::RemoveSprite(SpriteComponent* sp) {
 	auto iter = std::find(_Sprites.begin(), _Sprites.end(), sp);
 	_Sprites.erase(iter);
@@ -183,7 +188,7 @@ void ModeBase::StepTime(unsigned long tmNow) {
 		_tmPauseStep = 0;
 	}
 	else {
-		_tmMode = tmNow - _tmModeBase + _tmPauseStep;
+		_tmMode = tmNow - _tmModeBase +_tmPauseStep;
 		_tmStep = tmNow - _tmOldFrame;
 	}
 	_tmOldFrame = tmNow;

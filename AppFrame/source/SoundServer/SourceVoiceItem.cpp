@@ -4,6 +4,7 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname)
 	:_SV(nullptr)
 	, _Volume(1.0f)
 {
+	// ƒTƒEƒ“ƒh‚Ìì¬
 	if (SoundServer::GetInstance()->Create(wavname, _SV) == false) {
 		printf("CreateSourceVoice failed\n");
 		delete this;
