@@ -50,7 +50,7 @@ bool SoundServer::Add(std::string path,std::string name) {
 	return true;
 }
 
-bool SoundServer::Create(class ActorClass* actor, std::string name) {
+bool SoundServer::Create(class ActorClass* actor, std::string name,int seflag) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;
 	if (_m.count(name) == 0) { return false; }
 	
@@ -69,8 +69,7 @@ bool SoundServer::Create(class ActorClass* actor, std::string name) {
 	xAudio2Buffer.LoopCount = 0;
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 
-	new SoundComponent(actor, sourceVoice);
-//	sourceVoice->Start();
+//	new SoundComponent(actor, sourceVoice);
 	return true;
 }
 
