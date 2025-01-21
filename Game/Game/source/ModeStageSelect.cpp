@@ -4,17 +4,20 @@
 #include "ModeOption.h"
 
 bool ModeStageSelect::Initialize() {
+
+	// セーブデータで分岐
+
 	_UIChip.push_back(new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0));
-	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFadeComponent(_UIChip.back(), 255, 500);
 	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
 	_UIChip.push_back(new UIChipClass(this, VGet(600, 200, 0), "res/select/stage2.png", 0));
 	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
-	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFadeComponent(_UIChip.back(), 255, 500);
 	_UIChip.push_back(new UIChipClass(this, VGet(200, 600, 0), "res/select/stage3.png", 0));
 	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
-	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFadeComponent(_UIChip.back(), 255, 500);
 	_UIChip.push_back(new UIChipClass(this, VGet(600, 600, 0), "res/select/stage4.png", 0));
-	new UIChipFadeComponent(_UIChip.back(), 255, 250);
+	new UIChipFadeComponent(_UIChip.back(), 255, 500);
 	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
 	return true;
 }

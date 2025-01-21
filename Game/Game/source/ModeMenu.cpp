@@ -110,7 +110,7 @@ bool ModeMenu::Render() {
 	}
 	// カーソルの描画
 	// x座標はアニメーションする
-	DrawGraph(x + 4 + ((_curAnimCnt / 6) % 4) * 4, y + startY + fontPitch * _curPos, gGlobal._cgCursor, TRUE);
+//	DrawGraph(x + 4 + ((_curAnimCnt / 6) % 4) * 4, y + startY + fontPitch * _curPos, gGlobal._cgCursor, TRUE);
 
 	return true;
 }

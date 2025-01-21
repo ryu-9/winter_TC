@@ -25,9 +25,10 @@ public:
 	void Update();
 
 private:
-	float _Volume;
 	std::map<std::string, std::shared_ptr<SourceVoiceEffectBase>> _Effects;
 	IXAudio2SourceVoice* _SV;
 
+	float _Volume;
+	bool _VolumeChanged;
 };
 

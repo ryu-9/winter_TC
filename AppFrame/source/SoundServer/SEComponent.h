@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SourceVoiceItem.h"
 #include "SoundServer.h"
 #include <vector>
 
@@ -14,6 +15,6 @@ public:
 private:
 	
 	int _SEFlag;
-	std::vector<IXAudio2SourceVoice*> _SEvec;
+	std::vector<SourceVoiceItem*> _SEvec;
 };
 

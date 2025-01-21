@@ -13,7 +13,8 @@ ApplicationGlobal::~ApplicationGlobal() {
 
 
 bool ApplicationGlobal::Init() {
-	_cgCursor = LoadGraph("res/cursor.png");
+	// ŠJ”­—p
+	_Stageflg = 0;
 
 	return true;
 }

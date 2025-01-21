@@ -8,9 +8,7 @@ SEComponent::SEComponent(ActorClass* owner,int seflag, int updateOrder)
 }
 
 SEComponent::~SEComponent() {
-//	_SourceVoice->Stop();
-//	_SourceVoice->DestroyVoice();
-//	_SourceVoice = nullptr;
+
 }
 
 void SEComponent::Update() {

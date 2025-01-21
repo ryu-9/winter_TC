@@ -9,9 +9,9 @@ public:
 	bool Init();
 
 public:
-	int		_cgCursor;
-	int		_ms;
 
+	// ステージ解放データ
+	int	_Stageflg;
 };
 
 // 他のソースでgGlobalを使えるように
