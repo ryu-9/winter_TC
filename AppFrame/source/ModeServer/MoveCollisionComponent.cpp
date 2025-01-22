@@ -43,12 +43,13 @@ void MoveCollisionComponent::Update() {
 	MV1RefreshCollInfo(Handle);
 
 	int num = 0;
-
+	
 	if (isActive == FALSE || isMove == FALSE) {
 		return;
 	}
 	flag = FALSE;
 	shomen = FALSE;
+	OldMove = VGet(0, 0, 0);
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 		VECTOR oldmove = VGet(0, 0, 0);
 		if (mcoll->GetIsActive() == TRUE) {
@@ -68,8 +69,17 @@ void MoveCollisionComponent::Update() {
 
 				MoveComponent* MoveCom = coll[0]->GetOwner()->GetComponent<class MoveComponent>();
 
+				VECTOR oldPos = coll[0]->GetPosition();
+				
+				bool moveflag = FALSE;
+					if (MoveCom != nullptr) {
+						oldPos = MoveCom->GetOldPosition();
+						moveflag = TRUE;
+					}
+				VECTOR tmp = VSub(coll[0]->GetOwner()->GetPosition(), oldPos);
+
 				typeSum += mcoll->GetType() * mcoll->GetType();
-				MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(coll[1]->GetHandle(), -1, coll[0]->GetPosition(), coll[0]->GetSize().x);
+				MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Capsule(coll[1]->GetHandle(), -1, coll[0]->GetPosition(), oldPos, coll[0]->GetSize().x);
 				if (result.HitNum > 0) {
 
 	 				num++;
@@ -80,12 +90,11 @@ void MoveCollisionComponent::Update() {
 
 					for (int i = 0; i < result.HitNum; i++) {
 						MV1_COLL_RESULT_POLY mesh = result.Dim[i];
-
-						if (VSize(VSub(coll[0]->GetPosition(), position[0])) > VSize(VSub(coll[0]->GetPosition(), mesh.HitPosition))) {
-							position[0] = mesh.HitPosition;
-							poly = mesh;
+						move = mesh.Normal;
+						if (moveflag == FALSE || VDot(tmp, move) < 0) {
+						
+						
 						}
-
 					}
 
 					VECTOR oldPos = coll[0]->GetPosition();
@@ -147,6 +156,7 @@ void MoveCollisionComponent::Update() {
 
 
 						_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, tmp)));
+						OldMove = move;
 						MoveComponent* EnMoveCon = mcoll->GetOwner()->GetComponent<class MoveComponent>();
 						VECTOR EnMove;
 						if (EnMoveCon != nullptr) {
@@ -160,7 +170,7 @@ void MoveCollisionComponent::Update() {
 						MoveCom->SetVelocity(velocity);
 					}
 
-
+					MV1CollResultPolyDimTerminate(Presult);
 
 					MV1SetPosition(Handle, GetPosition());
 					MV1SetScale(Handle, GetSize());
