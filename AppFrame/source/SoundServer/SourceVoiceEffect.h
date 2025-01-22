@@ -8,6 +8,7 @@ public:
 
 	virtual void Update() = 0;
 	void SetSourceVoice(SourceVoiceItem* sv) { _SV = sv; }
+	virtual void Set() {};
 
 protected:
 	SourceVoiceItem* _SV;
@@ -18,7 +19,9 @@ public:
 	SVFade();
 
 	void Set(float vol, int tm);
-	virtual void Update() override;
+	void Update() override;
+
+	bool IsEnd() { return _Cnt >= _Tm; }
 private:
 	float _Start;
 	float _End;
@@ -26,15 +29,3 @@ private:
 	int _Cnt;
 };
 
-class SVEcho : public SourceVoiceEffectBase {
-	typedef SourceVoiceEffectBase base;
-public:
-	SVEcho();
-
-	void Set(float palam);
-	virtual void Update() override;
-
-private:
-
-	float palam;
-};

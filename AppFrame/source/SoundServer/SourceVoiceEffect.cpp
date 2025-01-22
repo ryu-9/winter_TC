@@ -4,7 +4,6 @@
 SVFade::SVFade()
 	:_Start(0.0f), _End(0.0f), _Tm(0), _Cnt(0)
 {
-
 }
 
 
@@ -16,21 +15,12 @@ void SVFade::Set(float vol, int tm) {
 }
 
 void SVFade::Update() {
+	// モードから時間取得
+	// 仮
+	_Cnt += 16;
 
-}
-
-
-SVEcho::SVEcho()
-	: palam(0.0f)
-{
-
-}
-
-void SVEcho::Set(float palam)
-{
-}
-
-void SVEcho::Update()
-{
+	// イージングで音量を変更
+	auto tmvl = (_End - _Start) * ((float)_Cnt / (float)_Tm) + _Start;
+	_SV->SetVolume(tmvl);
 }
 

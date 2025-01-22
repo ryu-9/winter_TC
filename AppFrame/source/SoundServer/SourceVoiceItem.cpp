@@ -10,7 +10,7 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname)
 		printf("CreateSourceVoice failed\n");
 		delete this;
 	}
-
+	AddEffect("fade", std::make_shared<SVFade>());
 }
 
 SourceVoiceItem::~SourceVoiceItem() {
@@ -34,6 +34,9 @@ bool SourceVoiceItem::IsPlay() {
 }
 
 void SourceVoiceItem::Stop() {
+}
+
+void SourceVoiceItem::ForceStop() {
 	_SV->Stop();
 }
 
@@ -47,6 +50,15 @@ void SourceVoiceItem::SetVolume(float vol) {
 		_Volume = vol;
 		_VolumeChanged = true;
 	}
+}
+
+float SourceVoiceItem::GetPitch() {
+	return _Pitch;
+}
+
+void SourceVoiceItem::SetPitch(float pitch) {
+	_Pitch = pitch;
+	_SV->SetFrequencyRatio(pitch);
 }
 
 void SourceVoiceItem::AddEffect(std::string name, std::shared_ptr<SourceVoiceEffectBase> effect) {
@@ -74,8 +86,15 @@ std::shared_ptr<SourceVoiceEffectBase> SourceVoiceItem::GetEffect(std::string na
 }
 
 void SourceVoiceItem::Update() {
+	if (_Volume == 0.0f) {
+		_SV->Stop();
+		if (_ToDestroy == true) {
+			delete this;
+		}
+		return;
+	}
 	// エフェクトの更新
-	for (auto& e : _Effects) {
+	for (auto&& e : _Effects) {
 		e.second->Update();
 	}
 
