@@ -85,97 +85,79 @@ void MoveCollisionComponent::Update() {
 	 				num++;
 
 					flag = TRUE;
-					VECTOR position[2];
-					MV1_COLL_RESULT_POLY poly;
+					std::deque <MV1_COLL_RESULT_POLY> polyList;
+
 
 					for (int i = 0; i < result.HitNum; i++) {
-						MV1_COLL_RESULT_POLY mesh = result.Dim[i];
-						move = mesh.Normal;
-						if (moveflag == FALSE || VDot(tmp, move) < 0) {
-						
-						
+						if (moveflag == FALSE || VDot(tmp, result.Dim[i].Normal) < 0) {
+							polyList.push_back(result.Dim[i]);
 						}
 					}
-
-					VECTOR oldPos = coll[0]->GetPosition();
-					if (MoveCom != nullptr) {
-						oldPos = MoveCom->GetOldPosition();
-					}
-					position[1] = position[0];
 					MV1_COLL_RESULT_POLY_DIM Presult = MV1CollCheck_Sphere(coll[1]->GetHandle(), -1, oldPos, coll[0]->GetSize().x);
 
-					for (int i = 0; i < Presult.HitNum; i++) {
-						MV1_COLL_RESULT_POLY mesh = Presult.Dim[i];
-						if (VEqual(mesh.Position[0], poly.Position[0]) == TRUE &&
-							VEqual(mesh.Position[1], poly.Position[1]) == TRUE &&
-							VEqual(mesh.Position[2], poly.Position[2]) == TRUE) {
+					for (int i = 0; i < polyList.size(); i++) {
+						for (int j = 0; j < Presult.HitNum; j++) {
+							if (VEqual(polyList[i].Position[0], Presult.Dim[j].Position[0]) == TRUE&&
+								VEqual(polyList[i].Position[1], Presult.Dim[j].Position[1]) == TRUE&&
+								VEqual(polyList[i].Position[2], Presult.Dim[j].Position[2]) == TRUE) {
+								move = VNorm(VSub(oldPos, Presult.Dim[j].HitPosition));
+								move = VSub(move, VScale(move, VDot(move, OldMove)));
+								if (VSize(move) != 0) {
+									move = VNorm(move);
+									tmp = VSub(coll[0]->GetOwner()->GetPosition(), oldPos);
+									float length = 0;
+									if (VEqual(move, Presult.Dim[j].Normal) == TRUE) {
+										float a = VDot(tmp, move);
+										if (a < 0) { a *= -1; }
+										float b = VSize(VSub(Presult.Dim[j].HitPosition, oldPos));
+										if (b < 0) { b *= -1; }
+										float c = coll[0]->GetSize().x;;
+										length = a - b + c;
+									}
+									else {
+									
+									
+									}
+									_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+									OldMove = move;
+									MoveComponent* EnMoveCon = mcoll->GetOwner()->GetComponent<class MoveComponent>();
+									VECTOR EnMove;
+									if (EnMoveCon != nullptr) {
+										EnMove = EnMoveCon->GetVelocity();
+									}
+									else { EnMove = VGet(0, 0, 0); }
+									VECTOR velocity = VAdd(VSub(MoveCom->GetVelocity(), VScale(move, VDot(move, MoveCom->GetVelocity()))), VScale(move, VDot(move, EnMove)));
+									if (velocity.y > 0.1) {
+										int test = 0;
+									}
+									MoveCom->SetVelocity(velocity);
 
-							position[1] = mesh.HitPosition;
-						}
+									float deg = 0;
+									if (move.y >= cos(deg / 180 * atan(1) * 4)) {
+										MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
+										if (SelfMC != nullptr) {
+											SelfMC->SetStand(TRUE);
+										}
+									}
 
-					}
+									MV1SetPosition(Handle, GetPosition());
+									MV1SetScale(Handle, GetSize());
+									MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+									MV1RefreshCollInfo(Handle);
 
+									break;
+								}
+								else if( j == Presult.HitNum -1){
+									int test = 0;
+								}
 
-					
-
-					VECTOR tmp = VSub(MoveCom->GetOldPosition(), coll[0]->GetOwner()->GetPosition());
-
-
-					VECTOR move = VNorm(VSub(oldPos, position[1]));
-
-					float deg = 0;
-					if (move.y >= cos(deg / 180 * atan(1) * 4)) {
-						MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
-						if (SelfMC != nullptr) {
-							SelfMC->SetStand(TRUE);
-						}
-					}
-
-					if (mcoll->isMove == TRUE) {
-					}
-					else {
-
-						//move = VNorm(move);
-						float dot = VDot(move, VSub(position[0], coll[0]->GetPosition()));
-						if (dot > 0) {
-							if (shomen == FALSE) {
-								int test = 0;
 							}
-
 						}
-						float a = VSize(VSub(position[0], coll[0]->GetPosition()));
-						float r = coll[0]->GetSize().x;
-						float debugSQRT = 4 * (dot * dot) - 4 * (a * a - r * r);
-						if (debugSQRT < 0) {
-							int test = 0;
-							debugSQRT = 0;
-						}
-
-						float tmp = (2 * dot + sqrt(debugSQRT)) / 2;
-
-
-
-						_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, tmp)));
-						OldMove = move;
-						MoveComponent* EnMoveCon = mcoll->GetOwner()->GetComponent<class MoveComponent>();
-						VECTOR EnMove;
-						if (EnMoveCon != nullptr) {
-							EnMove = EnMoveCon->GetVelocity();
-						}
-						else { EnMove = VGet(0, 0, 0); }
-						VECTOR velocity = VAdd(VSub(MoveCom->GetVelocity(), VScale(move, VDot(move, MoveCom->GetVelocity()))), VScale(move, VDot(move, EnMove)));
-						if (velocity.y > 0.1) {
-							int test = 0;
-						}
-						MoveCom->SetVelocity(velocity);
 					}
+
 
 					MV1CollResultPolyDimTerminate(Presult);
 
-					MV1SetPosition(Handle, GetPosition());
-					MV1SetScale(Handle, GetSize());
-					MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-					MV1RefreshCollInfo(Handle);
 				}
 
 				MV1CollResultPolyDimTerminate(result);
