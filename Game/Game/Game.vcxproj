@@ -159,6 +159,7 @@
     <ClCompile Include="source\ApplicationGlobal.cpp" />
     <ClCompile Include="source\ApplicationMain.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
+    <ClCompile Include="source\EnemyActor.cpp" />
     <ClCompile Include="source\ioJson.cpp" />
     <ClCompile Include="source\ioJsonText.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CameraActor.h" />
+    <ClInclude Include="source\EnemyActor.h" />
     <ClInclude Include="source\ioJson.h" />
     <ClInclude Include="source\ioJsonText.h" />
     <ClInclude Include="source\ModeGame.h" />

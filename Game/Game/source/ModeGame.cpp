@@ -6,6 +6,7 @@
 #include "PlayerActor.h"
 #include "CameraActor.h"
 #include "StageBox.h"
+#include "EnemyActor.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -53,7 +54,8 @@ bool ModeGame::Initialize() {
 
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
-	_Player->SetPosition(VGet(0, 0, 200));
+	_Player->SetPosition(VGet(800, 200, 100));
+	new EnemyActor(this);
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
@@ -133,8 +135,6 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	//DrawCube3D(VGet(50,0,50),VGet(-50,100,-50),GetColor(255,255,255),GetColor(255,255,255),TRUE);
-
 	base::Render();
 
 	return true;
@@ -156,8 +156,6 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		// ModelServerへ
-//		ModelServer::GetInstance()->Add((path + name).c_str());
 		if (name == "SM_Cube"|| name == "Cube") {
 			auto box = new StageBox(this);
 			box->SetPosition(pos);
