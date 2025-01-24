@@ -5,6 +5,16 @@
 
 class EnemyActor : public ActorClass {
 public:
+
+	struct PARAM
+	{
+		int hp;
+		float damage;
+		float speed;
+		float serchdist;
+		int interval;
+	};
+
 	EnemyActor(class ModeBase* mode);
 	virtual ~EnemyActor();
 
@@ -25,6 +35,7 @@ public:
 
 	void SetInput(class MoveComponent* input) { delete _Input; _Input = input; }
 
+	void SetParam(PARAM param) { _Param = param; }
 private:
 	STATUS _Status;
 	STATUS _OldStatus;
@@ -33,5 +44,7 @@ private:
 
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
+
+	PARAM _Param;
 };
 

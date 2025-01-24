@@ -7,6 +7,7 @@
 #include "CameraActor.h"
 #include "StageBox.h"
 #include "EnemyActor.h"
+#include "EnemyCreator.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -60,7 +61,7 @@ bool ModeGame::Initialize() {
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
-	
+//	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	return true;
 }
 
