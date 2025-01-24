@@ -43,6 +43,8 @@ public:
 
 	bool GetFlag() const { return flag; }
 
+	void Push();
+
 	void SetRotation(VECTOR rot);
 
 private:

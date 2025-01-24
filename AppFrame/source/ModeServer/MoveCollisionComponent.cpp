@@ -43,6 +43,7 @@ void MoveCollisionComponent::Update() {
 	MV1RefreshCollInfo(Handle);
 
 	int num = 0;
+	int PushNum = 0;
 	devpos = VGet(0, 0, 0);
 
 	if (isActive == FALSE || isMove == FALSE) {
@@ -51,6 +52,7 @@ void MoveCollisionComponent::Update() {
 	flag = FALSE;
 	shomen = FALSE;
 	OldMove = VGet(0, 0, 0);
+	bool sqrtFlag = FALSE;
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 		VECTOR oldmove = VGet(0, 0, 0);
 		if (mcoll->GetIsActive() == TRUE) {
@@ -90,15 +92,20 @@ void MoveCollisionComponent::Update() {
 
 
 					for (int i = 0; i < result.HitNum; i++) {
+						polyList.push_back(result.Dim[i]);
 						if (moveflag == FALSE || VDot(tmp, result.Dim[i].Normal) < 0) {
-							polyList.push_back(result.Dim[i]);
+							
 						}
+					}
+					if (polyList.size() <= 0) {
+						int test = 0;
 					}
 					MV1_COLL_RESULT_POLY_DIM Presult = MV1CollCheck_Sphere(coll[1]->GetHandle(), -1, oldPos, coll[0]->GetSize().x + VSize(tmp));
 					if (Presult.HitNum <= 0) {
 						continue;
 					}
 					std::list<MV1_COLL_RESULT_POLY> mesh;
+					MV1_COLL_RESULT_POLY tmpMesh;
 					mesh.push_back(Presult.Dim[Presult.HitNum - 1]);
 					for (int i = 0; i < Presult.HitNum - 1; i++) {
 						bool tmpFlag = FALSE;
@@ -114,6 +121,9 @@ void MoveCollisionComponent::Update() {
 						float Dist = VSize(VSub(oldPos, Presult.Dim[0].HitPosition));
 						int j = 0;
 						for (auto &m : mesh) {
+							if (j > 1000) {
+								break;
+							}
 							float tmpDist = VSize(VSub(oldPos, m.HitPosition));
 							if (tmpDist > Dist) {
 								mesh.insert(std::next(mesh.begin(),j), Presult.Dim[i]);
@@ -129,25 +139,34 @@ void MoveCollisionComponent::Update() {
 
 					for (auto& m : mesh) {
 						move = VNorm(VSub(oldPos, m.HitPosition));
+						if (VDot(move, m.Normal) < 0) {
+							continue;
+						}
 						if (VDot(move, tmp) > 0) {
 							continue;
 						}
 						if (VSize(move) != 0) {
 							float length = 0;
-							float judge = VDot(move, m.Normal);
-							if (judge >= 0.98) {
-								float v = VDot(move, OldMove);
-								if (v > 0) {
-									move = VSub(move, VScale(move, v));
-									move = VNorm(move);
-								}
+							
 
+							float v = VDot(move, OldMove);
+
+							if (v < 0) {
+								move = VSub(move, VScale(OldMove, v));
+								move = VNorm(move);
+
+							}
+							float judge = VDot(move, m.Normal);
+
+							if (judge >= 0.98) {
+								
 								float a = VDot(tmp, move);
 								if (a < 0) { a *= -1; }
 								float b = VSize(VSub(m.HitPosition, oldPos));
 								if (b < 0) { b *= -1; }
 								float c = coll[0]->GetSize().x;;
 								length = a - b + c;
+
 							}
 							else {
 								float dot = VDot(move, VSub(m.HitPosition, coll[0]->GetPosition()));
@@ -155,28 +174,35 @@ void MoveCollisionComponent::Update() {
 								float r = coll[0]->GetSize().x;
 								float debugSQRT = 4 * (dot * dot) - 4 * (a * a - r * r);
 								if (debugSQRT < 0) {
-									int test = 0;
-									debugSQRT = 0;
+//									OldMove = move;
+									if (sqrtFlag == FALSE) {
+										sqrtFlag = TRUE;
+										tmpMesh = m;
+									}
+									continue;
 								}
-
-								length = (2 * dot + sqrt(debugSQRT)) / 2;
-
+								else {
+									length = (2 * dot + sqrt(debugSQRT)) / 2;
+								}
 							}
 							_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+							PushNum++;
 							tmp = VSub(coll[0]->GetOwner()->GetPosition(), oldPos);
 							OldMove = move;
 							devpos = VAdd(devpos, VScale(move, length));
+
 							MoveComponent* EnMoveCon = mcoll->GetOwner()->GetComponent<class MoveComponent>();
 							VECTOR EnMove;
 							if (EnMoveCon != nullptr) {
 								EnMove = EnMoveCon->GetVelocity();
 							}
 							else { EnMove = VGet(0, 0, 0); }
-							VECTOR velocity = VAdd(VSub(MoveCom->GetVelocity(), VScale(move, VDot(move, MoveCom->GetVelocity()))), VScale(move, VDot(move, EnMove)));
-							if (velocity.y > 0.1) {
-								int test = 0;
+							VECTOR velocity = MoveCom->GetVelocity();
+							if (VDot(move, velocity) < VDot(move, EnMove)) {
+								VECTOR velocity = VAdd(VSub(MoveCom->GetVelocity(), VScale(move, VDot(move, MoveCom->GetVelocity()))), VScale(move, VDot(move, EnMove)));
+								MoveCom->SetVelocity(velocity);
 							}
-							MoveCom->SetVelocity(velocity);
+
 
 							float deg = 0;
 							if (move.y >= cos(deg / 180 * atan(1) * 4)) {
@@ -191,8 +217,91 @@ void MoveCollisionComponent::Update() {
 							MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 							MV1RefreshCollInfo(Handle);
 
+							if (sqrtFlag == TRUE) {
+								tmpMesh;
+								sqrtFlag = FALSE;
+
+								move = VNorm(VSub(oldPos, tmpMesh.HitPosition));
+								if (VDot(move, tmpMesh.Normal) < 0) {
+									continue;
+								}
+								if (VDot(move, tmp) > 0) {
+									continue;
+								}
+								if (VSize(move) != 0) {
+									length = 0;
+									
+
+									v = VDot(move, OldMove);
+
+									if (v < 0) {
+										move = VSub(move, VScale(OldMove, v));
+										move = VNorm(move);
+
+									}
+									judge = VDot(move, tmpMesh.Normal);
+
+									if( VEqual(tmpMesh.HitPosition, tmpMesh.Position[0])==FALSE&&
+										VEqual(tmpMesh.HitPosition, tmpMesh.Position[1]) == FALSE&&
+										VEqual(tmpMesh.HitPosition, tmpMesh.Position[2]) == FALSE) {
+
+										float a = VDot(tmp, move);
+										if (a < 0) { a *= -1; }
+										float b = VSize(VSub(tmpMesh.HitPosition, oldPos));
+										if (b < 0) { b *= -1; }
+										float c = coll[0]->GetSize().x;;
+										length = a - b + c;
+
+									}
+									else {
+										float dot = VDot(move, VSub(tmpMesh.HitPosition, coll[0]->GetPosition()));
+										float a = VSize(VSub(tmpMesh.HitPosition, coll[0]->GetPosition()));
+										float r = coll[0]->GetSize().x;
+										float debugSQRT = 4 * (dot * dot) - 4 * (a * a - r * r);
+										if (debugSQRT < 0) {
+											continue;
+										}
+										else {
+											length = (2 * dot + sqrt(debugSQRT)) / 2;
+										}
+									}
+									_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+									PushNum++;
+									tmp = VSub(coll[0]->GetOwner()->GetPosition(), oldPos);
+									OldMove = move;
+									devpos = VAdd(devpos, VScale(move, length));
+
+									MoveComponent* EnMoveCon = mcoll->GetOwner()->GetComponent<class MoveComponent>();
+									VECTOR EnMove;
+									if (EnMoveCon != nullptr) {
+										EnMove = EnMoveCon->GetVelocity();
+									}
+									else { EnMove = VGet(0, 0, 0); }
+									VECTOR velocity = MoveCom->GetVelocity();
+									if (VDot(move, velocity) < VDot(move, EnMove)) {
+										VECTOR velocity = VAdd(VSub(MoveCom->GetVelocity(), VScale(move, VDot(move, MoveCom->GetVelocity()))), VScale(move, VDot(move, EnMove)));
+										MoveCom->SetVelocity(velocity);
+									}
+
+
+									if (move.y >= cos(deg / 180 * atan(1) * 4)) {
+										MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
+										if (SelfMC != nullptr) {
+											SelfMC->SetStand(TRUE);
+										}
+									}
+
+									MV1SetPosition(Handle, GetPosition());
+									MV1SetScale(Handle, GetSize());
+									MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+									MV1RefreshCollInfo(Handle);
+								}
+							}
+
 						}
-					
+					}
+					if (PushNum == 0) {
+						int test = 0;
 					}
 
 					for (int i = 0; i < Presult.HitNum; i++) {
@@ -281,6 +390,10 @@ void MoveCollisionComponent::DebugDraw()
 		break;
 
 	}
+}
+
+void MoveCollisionComponent::Push()
+{
 }
 
 void MoveCollisionComponent::SetRotation(VECTOR rot)
