@@ -107,8 +107,9 @@ void ModelSpriteComponent::Draw()
 	_Owner->SetRotation2(rot2);
 	//*/
 
-
-	// モデルを描画する モデルコンポでよくないか…？
+	// デバッグ描画
+	_Owner->GetComponent<MoveCollisionComponent>()->DebugDraw();
+	
 	{
 		_Model->SetModelInfo();
 		// 描画

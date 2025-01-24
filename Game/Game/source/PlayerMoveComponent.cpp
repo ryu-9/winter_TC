@@ -120,7 +120,7 @@ void PlayerMoveComponent::ProcessInput()
 		v.y = 1;
 	}
 
-	// 移動量のセット
+	// 移動量からサイズを変更
 	float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition()))/10000;
 	//_pOwner->SetMove(v);
 	SetVelocity(v);

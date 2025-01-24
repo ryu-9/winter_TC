@@ -43,7 +43,7 @@ void MoveCollisionComponent::Update()
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 	MV1RefreshCollInfo(Handle);
 
-
+	
 	if (isActive == FALSE || isMove == FALSE) {
 		return;
 	}
