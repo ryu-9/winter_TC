@@ -5,7 +5,7 @@
 #include "nlohmann/json.hpp"
 #include <fstream>
 
-EnemyCreator* EnemyCreator::_lpInstance = nullptr;
+//EnemyCreator* EnemyCreator::_lpInstance = nullptr;
 
 EnemyCreator::EnemyCreator() {
 
@@ -17,6 +17,7 @@ EnemyCreator::~EnemyCreator() {
 }
 
 void EnemyCreator::Init() {
+/*
 	std::array<std::string, ENEMY_SHAPE> shape;
 	std::array<std::string, ENEMY_COL> col;
 	shape[0] = "corn";
@@ -51,7 +52,7 @@ void EnemyCreator::Init() {
 		}
 		i++;
 	}
-			
+		*/	
 }
 
 EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col) {

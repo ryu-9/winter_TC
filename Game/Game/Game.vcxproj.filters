@@ -112,7 +112,7 @@
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
     <ClCompile Include="source\BulletComponent.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +180,7 @@
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
     <ClInclude Include="source\BulletComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
