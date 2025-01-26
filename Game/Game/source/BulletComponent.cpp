@@ -2,7 +2,7 @@
 #include "EnemyActor.h"
 
 BulletComponent::BulletComponent(ActorClass* owner)
-	:Component(owner)
+	:MoveComponent(owner)
 {
 	_StartPos = owner->GetPosition();
 }
@@ -15,10 +15,9 @@ void BulletComponent::ProcessInput() {
 	// ƒS[ƒ‹‚ÉŒü‚¯‚ÄˆÚ“®
 	VECTOR dir = VSub(_GoalPos, _StartPos);
 	_Dir = VNorm(dir);
-	_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm())/1000)));
-
-
+	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	SetVelocity(v);
+	// ‚±‚Ì‚Ü‚Ü‚¾‚Æ‚ß‚Á‚¿‚á—‰º‚·‚é‚Ì‚Å—vC³
+	// Update‚ğoverride‚·‚ê‚Î‚¢‚¢
 }
 
-void BulletComponent::Update() {
-}
