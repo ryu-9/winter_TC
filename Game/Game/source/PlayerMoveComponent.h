@@ -10,11 +10,14 @@ public:
 	void ProcessInput() override;
 
 	void Receive(int message);
+
+	VECTOR GetDashDir() const { return _DashDir; }
 private:
 	class PlayerActor* _pOwner;
 	int _DashTime;
 	VECTOR _DashDir;
 	float _colSubY;	// コリジョン判定時のY補正(腰位置）
+
 
 };
 
