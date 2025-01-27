@@ -1,39 +1,46 @@
+// MoveCollisionComponent.cpp
 #include "MoveCollisionComponent.h"
 #include "ActorClass.h"
 #include "ModelComponent.h"
 #include "MoveComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
 
-MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner,ModelComponent* model,  VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
-	:Component(owner)
-	,_Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
-	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0))
+// コンストラクタ
+MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
+	: Component(owner)
+	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
+	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0)), OldMove(VGet(0, 0, 0)), devpos(VGet(0, 0, 0))
+	, flag(false), shomen(false)
 {
+	// モードにこのコンポーネントを追加
 	_Owner->GetMode()->AddMCollision(this);
 
+	// 移動可能な場合、MoveComponentを取得
 	if (isMove == TRUE) {
 		MoveComponent* moveComp = _Owner->GetComponent<MoveComponent>();
 	}
 
-
+	// タイプが2以下の場合は初期化を終了
 	if (type <= 2) { return; }
-	
+
+	// モデルコンポーネントを取得し、ハンドルを設定
 	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
-	if(Handle==-1&&modelComp!=nullptr){
+	if (Handle == -1 && modelComp != nullptr) {
 		Handle = modelComp->GetHandle();
 	}
-	//*/
-	MV1SetPosition(Handle,GetPosition());
+
+	// モデルの位置、スケール、回転を設定し、衝突情報をセットアップ
+	MV1SetPosition(Handle, GetPosition());
 	MV1SetScale(Handle, GetSize());
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 	MV1SetupCollInfo(Handle);
-
 }
 
-
+// デストラクタ
 MoveCollisionComponent::~MoveCollisionComponent()
 {
-_Owner->GetMode()->RemoveMCollision(this);
+	// モードからこのコンポーネントを削除
+	_Owner->GetMode()->RemoveMCollision(this);
 }
 
 void MoveCollisionComponent::Update() {
@@ -56,7 +63,7 @@ void MoveCollisionComponent::Update() {
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 		VECTOR oldmove = VGet(0, 0, 0);
 		if (mcoll->GetIsActive() == TRUE) {
-			if (mcoll != this) {
+ 			if (mcoll != this) {
 
 				int typeSum = 0;
 				VECTOR move = VGet(0, 0, 0);
@@ -139,6 +146,9 @@ void MoveCollisionComponent::Update() {
 
 					for (auto& m : mesh) {
 						move = VNorm(VSub(oldPos, m.HitPosition));
+						if (VSize(move) == 0) {
+							move = m.Normal;
+						}
 						if (VDot(move, m.Normal) < 0) {
 							continue;
 						}
@@ -182,7 +192,7 @@ void MoveCollisionComponent::Update() {
 									continue;
 								}
 								else {
-									length = (2 * dot + sqrt(debugSQRT)) / 2;
+									length = (2.0f * dot + sqrt(debugSQRT)) / 2.0f;
 								}
 							}
 							_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
@@ -222,6 +232,9 @@ void MoveCollisionComponent::Update() {
 								sqrtFlag = FALSE;
 
 								move = VNorm(VSub(oldPos, tmpMesh.HitPosition));
+								if (VSize(move) == 0) {
+									move = tmpMesh.Normal;
+								}
 								if (VDot(move, tmpMesh.Normal) < 0) {
 									continue;
 								}
@@ -262,7 +275,7 @@ void MoveCollisionComponent::Update() {
 											continue;
 										}
 										else {
-											length = (2 * dot + sqrt(debugSQRT)) / 2;
+											length = (2.0f * dot + sqrt(debugSQRT)) / 2.0f;
 										}
 									}
 									_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
@@ -298,20 +311,6 @@ void MoveCollisionComponent::Update() {
 								}
 							}
 
-						}
-					}
-					if (PushNum == 0) {
-						int test = 0;
-					}
-
-					for (int i = 0; i < Presult.HitNum; i++) {
-						for (int j = 0; j < polyList.size(); j++) {
-							if (VEqual(polyList[j].Position[0], Presult.Dim[i].Position[0]) == TRUE&&
-								VEqual(polyList[j].Position[1], Presult.Dim[i].Position[1]) == TRUE&&
-								VEqual(polyList[j].Position[2], Presult.Dim[i].Position[2]) == TRUE) {
-								
-
-							}
 						}
 					}
 
