@@ -21,6 +21,9 @@
     <Filter Include="SoundServer\SourceVoice">
       <UniqueIdentifier>{2351554b-8283-4f27-8aca-368ac465eb16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ModeServer\sprite">
+      <UniqueIdentifier>{151f0079-8f34-42b2-a5c2-f3dcd438c162}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\appframe.h" />
@@ -34,9 +37,6 @@
       <Filter>ModeServer</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeServer\Component.h">
-      <Filter>ModeServer</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeServer\SpriteComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeServer\ModeServer.h">
@@ -60,9 +60,6 @@
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeServer\ModelComponent.h">
-      <Filter>ModeServer</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeServer\MoveComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
@@ -81,6 +78,15 @@
     <ClInclude Include="source\SoundServer\SourceVoiceEffect.h">
       <Filter>SoundServer\SourceVoice</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\SpriteComponent.h">
+      <Filter>ModeServer\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ModelComponent.h">
+      <Filter>ModeServer\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\EffectComponent.h">
+      <Filter>ModeServer\sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -96,9 +102,6 @@
       <Filter>ModeServer</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeServer\Component.cpp">
-      <Filter>ModeServer</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeServer\SpriteComponent.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeServer\ModeServer.cpp">
@@ -119,9 +122,6 @@
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeServer\ModelComponent.cpp">
-      <Filter>ModeServer</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeServer\MoveComponent.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
@@ -139,6 +139,15 @@
     </ClCompile>
     <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp">
       <Filter>SoundServer\SourceVoice</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\SpriteComponent.cpp">
+      <Filter>ModeServer\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ModelComponent.cpp">
+      <Filter>ModeServer\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\EffectComponent.cpp">
+      <Filter>ModeServer\sprite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

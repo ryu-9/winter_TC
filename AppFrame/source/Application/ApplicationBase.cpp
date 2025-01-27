@@ -1,4 +1,4 @@
-
+#include "EffekseerForDXLib.h"
 #include "ApplicationBase.h"
 #include <vector>
 
@@ -21,11 +21,26 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 	SetZBufferBitDepth(32);	// Zバッファのビット深度を24bitに設定
 
+	// Effekseer用にDirectX11を使用する
+	SetUseDirect3DVersion(DX_DIRECT3D_11);
+
 	if (DxLib_Init() == -1)
 	{	// エラーが起きたら直ちに終了
 		return false;
 	}
 	SetDrawScreen(DX_SCREEN_BACK);		// 描画先画面を裏画面にセット
+
+	// Effekseerを初期化する。
+	// 引数には画面に表示する最大パーティクル数を設定する。
+	if (Effekseer_Init(8000) == -1)
+	{
+		DxLib_End();
+		return -1;
+	}
+
+	// フルスクリーンウインドウの切り替えでリソースが消えるのを防ぐ。
+	// Effekseerを使用する場合は必ず設定する。
+	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
 	// 乱数初期化
 	srand((unsigned int)time(NULL));
@@ -39,6 +54,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 }
 
 bool ApplicationBase::Terminate() {
+	Effkseer_End();// Effekseer終了
 	// DXライブラリ開放
 	DxLib_End();
 

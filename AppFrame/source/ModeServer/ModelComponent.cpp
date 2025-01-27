@@ -86,27 +86,6 @@ ModelSpriteComponent::~ModelSpriteComponent()
 void ModelSpriteComponent::Draw()
 {
 	
-	/*
-	// 速度を取得
-	VECTOR v =_Owner -> GetMove();
-	// 角度を取得
-	VECTOR rot = _Owner->GetRotation();
-	VECTOR rot2 = _Owner->GetRotation2();
-
-	//	速度から角度を算出
-	rot = VTransform(rot, MGetRotX(v.z/100 / _Owner->GetSize().x / 2));
-	rot = VTransform(rot, MGetRotZ(-v.x/100 / _Owner->GetSize().x / 2));
-	rot2 = VTransform(rot2, MGetRotX(v.z / 100 / _Owner->GetSize().x / 2));
-	rot2 = VTransform(rot2, MGetRotZ(-v.x / 100 / _Owner->GetSize().x / 2));
-
-	//	角度をセット
-
-	MV1SetRotationZYAxis(_Model->GetHandle(),rot,rot2,0);
-
-	_Owner->SetRotation(rot);
-	_Owner->SetRotation2(rot2);
-	//*/
-
 	// デバッグ描画
 	//_Owner->GetComponent<MoveCollisionComponent>()->DebugDraw();
 	

@@ -27,7 +27,9 @@ void EnemyAttackComponent::Update() {
 		_Interval = INTERVAL;
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
-		auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
+		//auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
+		auto m = new ModelComponent(ac, "");
+		new EffectComponent(ac, "res/effect/fire_mini_002.efkefc");
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition(),1000);
 		

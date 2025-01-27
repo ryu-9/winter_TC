@@ -11,6 +11,7 @@
 
 #include <fstream>
 #include "nlohmann/json.hpp"
+#include "EffekseerForDXLib.h"
 
 class MenuItemViewCameraInfo : public MenuItemBase {
 public:
@@ -93,7 +94,7 @@ bool ModeGame::Process() {
 bool ModeGame::Update()
 {
 	base::Update();
-	
+	UpdateEffekseer3D();
 	return false;
 }
 
@@ -107,6 +108,9 @@ bool ModeGame::Render() {
 
 	
 	SetUseLighting(TRUE);
+
+
+	Effekseer_Sync3DSetting();
 #if 1	
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
@@ -136,9 +140,9 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 	
-
+	
 	base::Render();
-
+	DrawEffekseer3D();
 	return true;
 }
 
