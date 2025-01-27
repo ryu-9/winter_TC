@@ -97,9 +97,7 @@ bool ModeStage::LoadStage(const std::string path, const std::string jsname) {
 			auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
 			auto ac = new ActorClass(this);
-			if (name == "sharima") {
-				int test = 0;
-			}
+			auto file = path + "model/" + name + ".mv1";
 			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
 			new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
 			ac->SetPosition(pos);

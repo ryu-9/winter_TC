@@ -24,8 +24,26 @@ int ModelServer::Add(const TCHAR *filename)
 		}
 	}
 	_Models.emplace_back();
-	_Models.back().filepass = filename;
 	handle = MV1LoadModel(filename);
+	_Models.back().filepass = filename;
+	_Models.back().handle.emplace_back(handle);
+
+	return handle;
+}
+
+int ModelServer::Add(std::string filename)
+{
+	int handle;
+	for (auto& model : _Models) {
+		if (model.filepass == filename) {
+			handle = MV1DuplicateModel(*model.handle.begin());
+			model.handle.emplace_back(handle);
+			return handle;
+		}
+	}
+	_Models.emplace_back();
+	handle = MV1LoadModel(filename.c_str());
+	_Models.back().filepass = filename;
 	_Models.back().handle.emplace_back(handle);
 
 	return handle;

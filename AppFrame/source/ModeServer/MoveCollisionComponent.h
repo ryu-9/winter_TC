@@ -43,6 +43,8 @@ public:
 
 	bool GetFlag() const { return flag; }
 
+	void Push();
+
 	void SetRotation(VECTOR rot);
 
 private:
@@ -69,8 +71,10 @@ private:
 	int Handle;
 
 	bool flag;
+	bool shomen;
+	VECTOR OldMove;
 
-	VECTOR devpos[3];
+	VECTOR devpos;
 
 	class ModelComponent* _Model;
 };

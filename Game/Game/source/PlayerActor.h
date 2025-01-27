@@ -21,6 +21,8 @@ public:
 	bool IsChangeStatus() const { return _Status != _OldStatus; }
 	void SetOldStatus() { _OldStatus = _Status; }
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode);}
+
+	int GetModeNum() const { return _ModeNum; }
 	
 	void SetInput(class PlayerMoveComponent* input) { delete _Input; _Input = input; }
 
@@ -32,5 +34,7 @@ private:
 
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
+
+	int _ModeNum; // 0:í èÌ 1:â∫îºêgÅ@2:è„îºêg
 };
 
