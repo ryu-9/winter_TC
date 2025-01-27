@@ -57,6 +57,12 @@ bool ModeGame::Initialize() {
 	_Player = new PlayerActor(this);
 	_Player->SetPosition(VGet(800, 200, 100));
 	new EnemyActor(this);
+	auto e = new EnemyActor(this);
+	e->SetPosition(VGet(2200, 200, -500));
+	e = new EnemyActor(this);
+	e->SetPosition(VGet(2000, 200, 1200));
+	e = new EnemyActor(this);
+	e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
