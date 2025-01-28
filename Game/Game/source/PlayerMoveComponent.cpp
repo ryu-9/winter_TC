@@ -19,8 +19,9 @@ PlayerMoveComponent::~PlayerMoveComponent()
 
 void PlayerMoveComponent::ProcessInput()
 {
-	int key = ApplicationMain::GetInstance()->GetKey(0);
-	int trg = ApplicationMain::GetInstance()->GetTrg(0);
+	int pn = _pOwner->GetPlayerNo();
+	int key = ApplicationMain::GetInstance()->GetKey(pn);
+	int trg = ApplicationMain::GetInstance()->GetTrg(pn);
 
 	
 
@@ -41,7 +42,7 @@ void PlayerMoveComponent::ProcessInput()
 	if (key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
-	GetJoypadDirectInputState(DX_INPUT_KEY_PAD1 , &input);
+	GetJoypadDirectInputState(pn, &input);
 	v.x = (float)input.Y / 1000;
 	v.z = (float)input.X / 1000;
 
@@ -102,17 +103,17 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_4 && _DashTime <= 0) {
+		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
 			_DashTime = 100;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_3) {
+		if (trg & PAD_INPUT_3) {
 			v.y = 50;
 			_DashTime = 0;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
+		if (trg & PAD_INPUT_2) {
 			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
+		if (key & PAD_INPUT_1) {
 			v.y = 1;
 		}
 
@@ -151,7 +152,7 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 		else {
-			_DashTime--;
+			_DashTime-=5;
 			v = VScale(_DashDir, _DashTime);
 		}
 
@@ -189,7 +190,7 @@ void PlayerMoveComponent::ProcessInput()
 			_DashTime = 0;
 		}
 		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
-			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
+			//_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
 		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
 			v.y = 1;
@@ -206,6 +207,12 @@ void PlayerMoveComponent::ProcessInput()
 		break;
 
 	case 2:
+
+		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
+		VECTOR v = _pOwner->GetFriend()->GetPosition();
+		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetSize().y) * 100, v.z));
+		
+
 		break;
 	}
 

@@ -76,7 +76,8 @@ void CameraComponent::Update()
 	float dist = VSize(VSub(pos[0], pos[1])) + 100;
 	if (dist < 1000) { dist = 1000; }
 	v = VScale(v, 0.5f);
-
+	_Owner->SetDirection(v);
+	_Owner->SetPosition(VGet(v.x + dist, v.y + dist, v.z));
 	SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
 	//SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
