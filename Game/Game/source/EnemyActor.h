@@ -23,7 +23,7 @@ public:
 	enum class STATUS {
 		NONE,
 		WAIT,
-		WALK,
+		MOVE,
 		_EOT_
 	};
 

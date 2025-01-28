@@ -1,6 +1,7 @@
 #include "EnemyMoveComponent.h"
 #include "ModeGame.h"
 #include "PlayerActor.h"
+#include "EnemyActor.h"
 
 
 EnemyMoveComponent::EnemyMoveComponent(ActorClass* owner)
@@ -13,6 +14,7 @@ EnemyMoveComponent::~EnemyMoveComponent()
 }
 
 void EnemyMoveComponent::ProcessInput() {
+
 	auto pPos = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition();
 	auto ePos = _Owner->GetPosition();
 	VECTOR move = VSub(pPos, ePos);

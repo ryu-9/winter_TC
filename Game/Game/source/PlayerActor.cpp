@@ -4,8 +4,6 @@
 
 PlayerActor::PlayerActor(ModeBase* mode)
 	:ActorClass(mode)
-	,_Status(STATUS::NONE)
-	,_OldStatus(STATUS::NONE)
 	,_ModeNum(1)
 {
 	_Model = new ModelComponent(this, "res/Debug/chinpo.mv1");
@@ -26,7 +24,6 @@ PlayerActor::~PlayerActor()
 
 void PlayerActor::UpdateActor()
 {
-	SetOldStatus();
 
 	VECTOR v;
 
