@@ -50,6 +50,12 @@ bool SoundServer::Add(std::string path,std::string name) {
 	return true;
 }
 
+bool SoundServer::Create(SEComponent* secon, std::string name) {
+	auto sv = new SourceVoiceItem(name);
+	secon->SetSourceVoice(sv);
+	return true;
+}
+
 bool SoundServer::Create(class ActorClass* actor, std::string name,int seflag) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;
 	if (_m.count(name) == 0) { return false; }

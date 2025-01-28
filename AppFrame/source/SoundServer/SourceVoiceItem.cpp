@@ -52,6 +52,10 @@ void SourceVoiceItem::SetVolume(float vol) {
 	}
 }
 
+void SourceVoiceItem::SetVolumeDB(float db) {
+	XAudio2DecibelsToAmplitudeRatio(db);
+}
+
 float SourceVoiceItem::GetPitch() {
 	return _Pitch;
 }

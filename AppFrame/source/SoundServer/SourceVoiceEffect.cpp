@@ -24,3 +24,15 @@ void SVFade::Update() {
 	_SV->SetVolume(tmvl);
 }
 
+SV3DPan::SV3DPan()
+{
+}
+
+void SV3DPan::Set(float pan, int tm)
+{
+}
+
+void SV3DPan::Update()
+{
+}
+

@@ -29,7 +29,7 @@ void EnemyAttackComponent::Update() {
 		ac->SetPosition(_Owner->GetPosition());
 		auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
-		new BulletComponent(ac, static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition(),1000);
+		new BulletComponent(ac, static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition(),1500);
 		
 
 	}
