@@ -116,7 +116,7 @@ bool	ModeBase::Render()
 
 	if (_DrawCollision) {
 		for (auto mc : _MCollision) {
-			mc->DebugDraw();
+			//mc->DebugDraw();
 		}
 	}
 	return	true;

@@ -6,7 +6,7 @@ PlayerActor::PlayerActor(ModeBase* mode)
 	:ActorClass(mode)
 	,_Status(STATUS::NONE)
 	,_OldStatus(STATUS::NONE)
-	,_ModeNum(1)
+	,_ModeNum(0)
 {
 	_Model = new ModelComponent(this, "res/Debug/chinpo.mv1");
 	//_MCollision = new MoveCollisionComponent(this);

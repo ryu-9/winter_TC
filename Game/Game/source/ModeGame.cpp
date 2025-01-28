@@ -56,6 +56,9 @@ bool ModeGame::Initialize() {
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
 	_Player->SetPosition(VGet(800, 200, 100));
+	auto player2 = new PlayerActor(this);
+	player2->SetPosition(VGet(800, 200, 100));
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, player2);
 	new EnemyActor(this);
 	auto e = new EnemyActor(this);
 	e->SetPosition(VGet(2200, 200, -500));

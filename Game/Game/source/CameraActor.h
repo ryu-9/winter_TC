@@ -14,6 +14,7 @@ public:
 	 void SetClipFar(float clipFar) { _clipFar = clipFar; }
 	 void SetFollow(class ActorClass* ac) { _Follow = ac; }
 	 class ActorClass* GetFollow() { return _Follow; }
+
 private:
 //	VECTOR	_vTarget;				// ‹——£
 	float	_clipNear, _clipFar;	// ƒNƒŠƒbƒv
@@ -29,7 +30,11 @@ public:
 	void ProcessInput() override;
 	void Update() override;
 
+	void SetPlayer(class PlayerActor* player1 , class PlayerActor* player2) 
+	{ _Player[0] = player1 , _Player[1] = player2; };
+
 private:
 	class CameraActor* _cOwner;
+	class PlayerActor* _Player[2];
 	
 };

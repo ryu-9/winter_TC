@@ -1,4 +1,5 @@
 #include "CameraActor.h"
+#include "PlayerActor.h"
 
 CameraActor::CameraActor(ModeBase* mode)
 	:ActorClass(mode)
@@ -32,9 +33,8 @@ CameraComponent::~CameraComponent()
 
 void CameraComponent::ProcessInput()
 {
-
-	// アナログスティック対応
-	DINPUT_JOYSTATE di;
+	/*
+		DINPUT_JOYSTATE di;
 	GetJoypadDirectInputState(DX_INPUT_PAD1, &di);
 	float lx, ly, rx, ry;	// 左右アナログスティックの座標
 	float analogMin = 0.3f;	// アナログ閾値
@@ -55,6 +55,9 @@ void CameraComponent::ProcessInput()
 	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f , _cOwner->GetPosition().z));}
 	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
+	*/
+	// アナログスティック対応
+
 	
 
 }
@@ -62,6 +65,19 @@ void CameraComponent::ProcessInput()
 void CameraComponent::Update()
 {
 	// カメラ設定更新
-	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	VECTOR pos[2] = { VGet(0,0,0),VGet(0,0,0) };
+	if (_Player[0] != nullptr) {
+		pos[0] = _Player[0]->GetPosition();
+	}
+	if (_Player[1] != nullptr) {
+		pos[1] = _Player[1]->GetPosition();
+	}
+	VECTOR v = VAdd(pos[0], pos[1]);
+	float dist = VSize(VSub(pos[0], pos[1])) + 100;
+	if (dist < 1000) { dist = 1000; }
+	v = VScale(v, 0.5f);
+
+	SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
+	//SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
 }
