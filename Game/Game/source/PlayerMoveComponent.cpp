@@ -19,8 +19,8 @@ PlayerMoveComponent::~PlayerMoveComponent()
 
 void PlayerMoveComponent::ProcessInput()
 {
-	int key = ApplicationMain::GetInstance()->GetKey();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
+	int key = ApplicationMain::GetInstance()->GetKey(0);
+	int trg = ApplicationMain::GetInstance()->GetTrg(0);
 
 	
 
@@ -102,17 +102,17 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_4 && _DashTime <= 0) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_4 && _DashTime <= 0) {
 			_DashTime = 100;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_3) {
 			v.y = 50;
 			_DashTime = 0;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_2) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
 			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (ApplicationMain::GetInstance()->GetKey() & PAD_INPUT_1) {
+		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
 			v.y = 1;
 		}
 
@@ -181,17 +181,17 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_4 && _DashTime <= 0) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_4 && _DashTime <= 0) {
 			_DashTime = 100;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_3) {
 			v.y = 50;
 			_DashTime = 0;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_2) {
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
 			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (ApplicationMain::GetInstance()->GetKey() & PAD_INPUT_1) {
+		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
 			v.y = 1;
 		}
 

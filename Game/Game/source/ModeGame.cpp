@@ -82,8 +82,8 @@ bool ModeGame::Terminate() {
 bool ModeGame::Process() {
 	base::Process();
 
-	int key = ApplicationMain::GetInstance()->GetKey();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
+	int key = ApplicationMain::GetInstance()->GetKey(0);
+	int trg = ApplicationMain::GetInstance()->GetTrg(0);
 
 	
 	if (trg & PAD_INPUT_9) {

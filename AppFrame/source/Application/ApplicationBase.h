@@ -25,14 +25,14 @@ public:
 	virtual int DispSizeH() { return 480; }
 
 	static	ApplicationBase	*GetInstance() { return _lpInstance; }
-	virtual int GetKey() { return _gKey; }
-	virtual int GetTrg() { return _gTrg; }
-	virtual int GetRel() { return _gRel; }
+	virtual int GetKey(int n = 0) { return _gKey[n]; }
+	virtual int GetTrg(int n = 0) { return _gTrg[n]; }
+	virtual int GetRel(int n = 0) { return _gRel[n]; }
 
 protected:
 	static	ApplicationBase	*_lpInstance;
 
-	int		_gKey, _gTrg, _gRel;
+	int		_gKey[2], _gTrg[2], _gRel[2];
 
 	ModeServer* _serverMode;
 	ModelServer* _serverModel;
