@@ -24,6 +24,7 @@ public:
 
 	virtual float GetVolume();
 	virtual void SetVolume(float vol);
+	virtual void SetVolumeDB(float db);
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 

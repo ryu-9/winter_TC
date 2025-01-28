@@ -6,15 +6,16 @@
 
 class SEComponent : public Component {
 public:
-	SEComponent(class ActorClass* owner, int seflag,int updateOrder = 100);
+	SEComponent(class ActorClass* owner, ActorClass* listner, int seflag,int updateOrder = 100);
 	virtual ~SEComponent();
 
 	void Update() override;
 
 	void Receive(int message) override;
+	void SetSourceVoice(SourceVoiceItem* sv) { _SV = sv; }
 private:
 	
-	int _SEFlag;
-	std::vector<SourceVoiceItem*> _SEvec;
+	SourceVoiceItem* _SV;
+	ActorClass* _Listener;
 };
 
