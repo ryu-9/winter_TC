@@ -1,6 +1,7 @@
 #include "EnemyActor.h"
 #include "EnemyMoveComponent.h"
 #include "EnemyAttackComponent.h"
+#include "EnemyComponent.h"
 
 EnemyActor::EnemyActor(ModeBase* mode)
 	:ActorClass(mode)
@@ -10,8 +11,9 @@ EnemyActor::EnemyActor(ModeBase* mode)
 	
 	SetPosition(VGet(1000, 300, 1000));
 	SetSize(VGet(2, 2, 2));
-	_Input = new EnemyMoveComponent(this);
+	_Input = new MoveComponent(this);
 	new EnemyAttackComponent(this);
+	new EnemyComponent(this);
 }
 
 EnemyActor::~EnemyActor()
@@ -20,5 +22,8 @@ EnemyActor::~EnemyActor()
 
 void EnemyActor::UpdateActor() {
 	SetOldStatus();
+
+	//auto model = GetComponent<ModelComponent>();
+	//model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.01, 0)));
 }
 
