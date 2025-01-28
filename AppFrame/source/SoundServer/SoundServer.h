@@ -9,6 +9,7 @@
 #include <map>
 #include "WAVRead.h"
 #include "../ModeServer/ActorClass.h"
+#include "SEComponent.h"
 
 class SoundServer {
 public:

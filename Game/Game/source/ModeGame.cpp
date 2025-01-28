@@ -73,6 +73,7 @@ bool ModeGame::Initialize() {
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
+	
 	return true;
 }
 

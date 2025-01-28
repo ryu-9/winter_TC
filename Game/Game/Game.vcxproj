@@ -159,6 +159,7 @@
   <ItemGroup>
     <ClCompile Include="source\ApplicationGlobal.cpp" />
     <ClCompile Include="source\ApplicationMain.cpp" />
+    <ClCompile Include="source\BGMComponent.cpp" />
     <ClCompile Include="source\BulletComponent.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
     <ClCompile Include="source\EnemyActor.cpp" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
+    <ClInclude Include="source\BGMComponent.h" />
     <ClInclude Include="source\BulletComponent.h" />
     <ClInclude Include="source\CameraActor.h" />
     <ClInclude Include="source\EnemyActor.h" />

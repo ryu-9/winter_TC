@@ -84,6 +84,9 @@
     <ClInclude Include="source\ModeServer\HitCollisionComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\SoundServer\SoundComponent.h">
+      <Filter>SoundServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\HitCollisionComponent.cpp">
       <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundServer\SoundComponent.cpp">
+      <Filter>SoundServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

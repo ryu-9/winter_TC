@@ -1,6 +1,7 @@
 #include "SoundServer.h"
 #include <mmsystem.h>
 #include "SEComponent.h"
+#include "SoundComponent.h"
 #pragma comment(lib, "winmm.lib")
 
 
