@@ -10,4 +10,11 @@ SoundComponent::~SoundComponent() {
 }
 
 void SoundComponent::Update() {
+	for (auto sv : _SV) {
+		sv->Update();
+	}
+}
+
+void SoundComponent::SetSourceVoice(SourceVoiceItem* sv) {
+	_SV.push_back(sv);
 }

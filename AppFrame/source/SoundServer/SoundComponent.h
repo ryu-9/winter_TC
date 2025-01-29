@@ -12,9 +12,9 @@ public:
 
 	void Update() override;
 
-	void SetSourceVoice(SourceVoiceItem* sv) { _SV = sv; }
+	void SetSourceVoice(SourceVoiceItem* sv);
 
-private:
-	SourceVoiceItem* _SV;
+protected:
+	std::vector<SourceVoiceItem*> _SV;
 };
 

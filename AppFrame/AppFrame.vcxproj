@@ -182,7 +182,6 @@
     <ClInclude Include="source\SoundServer\SoundComponent.h" />
     <ClInclude Include="source\SoundServer\SEComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
-    <ClInclude Include="source\SoundServer\SourceVoiceEffect.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
     <ClInclude Include="source\SoundServer\WAVRead.h" />
   </ItemGroup>
@@ -205,7 +204,6 @@
     <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
     <ClCompile Include="source\SoundServer\SEComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
-    <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
     <ClCompile Include="source\SoundServer\WAVRead.cpp" />
   </ItemGroup>

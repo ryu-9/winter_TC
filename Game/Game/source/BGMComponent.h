@@ -10,5 +10,8 @@ public:
 
 	void Update() override;
 
+private:
+	class ModeGame* _Mode;
+	int _Playnum;
 };
 

@@ -78,9 +78,6 @@
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h">
       <Filter>SoundServer\SourceVoice</Filter>
     </ClInclude>
-    <ClInclude Include="source\SoundServer\SourceVoiceEffect.h">
-      <Filter>SoundServer\SourceVoice</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeServer\HitCollisionComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
@@ -141,9 +138,6 @@
       <Filter>SoundServer</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp">
-      <Filter>SoundServer\SourceVoice</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp">
       <Filter>SoundServer\SourceVoice</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeServer\HitCollisionComponent.cpp">

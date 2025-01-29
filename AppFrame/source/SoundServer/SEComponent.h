@@ -4,6 +4,7 @@
 #include "SoundServer.h"
 #include <vector>
 
+class SourceVoiceItem;
 class SEComponent : public Component {
 public:
 	SEComponent(class ActorClass* owner, ActorClass* listner, int seflag,int updateOrder = 100);

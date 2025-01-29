@@ -80,9 +80,10 @@ bool SoundServer::Create(class ActorClass* actor, std::string name,int seflag) {
 	return true;
 }
 
-bool SoundServer::Create(std::string name, IXAudio2SourceVoice* sv) {
+bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv) {
+	IXAudio2SourceVoice* sourceVoice = nullptr;
 	if (_m.count(name) == 0) { return false; }
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sv, &_m[name].wFormat);
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
 		return false;
@@ -95,7 +96,8 @@ bool SoundServer::Create(std::string name, IXAudio2SourceVoice* sv) {
 	xAudio2Buffer.AudioBytes = _m[name].size;
 	
 	xAudio2Buffer.LoopCount = 0;
-	sv->SubmitSourceBuffer(&xAudio2Buffer);
+	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
+	sv = sourceVoice;
 	return true;
 };
 

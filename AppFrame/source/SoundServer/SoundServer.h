@@ -23,7 +23,7 @@ public:
 	bool Add(std::string path,std::string name);
 	bool Create(class SEComponent* owner, std::string name);
 	bool Create(class ActorClass* owner,std::string name,int seflag);
-	bool Create(std::string name,IXAudio2SourceVoice* sv);
+	bool Create(std::string name,IXAudio2SourceVoice*& sv);
 	bool Del(std::string name);
 
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "SoundServer.h"
-#include "SourceVoiceEffect.h"
 #include <string>
 #include <memory>
 
@@ -31,14 +30,10 @@ public:
 	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
 	virtual bool IsToDestroy() { return _ToDestroy; }
 
-	virtual void AddEffect(std::string name, std::shared_ptr<SourceVoiceEffectBase> effect);
-	virtual void RemoveEffect(std::string name);
-	virtual std::shared_ptr<SourceVoiceEffectBase> GetEffect(std::string name);
 
 	void Update();
 
 private:
-	std::map<std::string, std::shared_ptr<SourceVoiceEffectBase>> _Effects;
 	IXAudio2SourceVoice* _SV;
 
 	float _Volume;
