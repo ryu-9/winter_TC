@@ -7,12 +7,12 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz)
 	, _Pitch(1.0f)
 {
 	// ƒTƒEƒ“ƒh‚Ìì¬
-	if (SoundServer::GetInstance()->Create(wavname, _SV,44100 * 3) == false) {
+	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz) == false) {
 		printf("CreateSourceVoice failed\n");
 		delete this;
 	}
 	_SV->SetVolume(_Volume);
-	_SV->SetFrequencyRatio(_Pitch);
+//	_SV->SetFrequencyRatio(_Pitch);
 }
 
 SourceVoiceItem::~SourceVoiceItem() {

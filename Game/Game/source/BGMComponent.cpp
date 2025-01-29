@@ -7,7 +7,7 @@ BGMComponent::BGMComponent(ActorClass* owner)
 {
 	_Mode = dynamic_cast<ModeGame*>(owner->GetMode());
 	SetSourceVoice(new SourceVoiceItem("bgm1"));
-	SetSourceVoice(new SourceVoiceItem("bgm2"));
+	SetSourceVoice(new SourceVoiceItem("bgm2",44100*3));
 	_SV[0]->Play();
 	_Playnum = 0;
 }
