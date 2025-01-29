@@ -13,7 +13,7 @@ public:
 
 	};
 
-	SourceVoiceItem(std::string wavname);
+	SourceVoiceItem(std::string wavname,int playhz = 0);
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
