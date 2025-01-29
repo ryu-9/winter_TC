@@ -72,8 +72,8 @@ bool ModeGame::Initialize() {
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
-	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
-	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
+	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
+	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	new BGMComponent(_Camera);
