@@ -21,10 +21,11 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModel->SetVisible(false);
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
-	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
+	_Input = new PlayerMoveComponent(this);
+	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 0, true, true);
 	int n = rand() % 2;
 	
-		_Input = new PlayerMoveComponent(this);
+
 	
 		SetPosition(VGet(0, 1000, 0));
 

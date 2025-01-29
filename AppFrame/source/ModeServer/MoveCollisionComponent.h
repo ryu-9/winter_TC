@@ -2,7 +2,10 @@
 #include "ModeBase.h"
 #include "Component.h"
 
-
+struct poly{
+	MV1_COLL_RESULT_POLY mesh;
+	class MoveCollisionComponent* mc;
+};
 class MoveCollisionComponent : public	Component
 {
 public:
@@ -12,6 +15,8 @@ public:
 	~MoveCollisionComponent() override;
 
 	void Update() override;
+
+	void Process();
 
 	VECTOR GetPosition();
 	VECTOR GetSize();
@@ -40,6 +45,8 @@ public:
 	void SetHandle(int handle) { Handle = handle; }
 
 	void DebugDraw();
+
+	void CollisionUpdate();
 
 	bool GetFlag() const { return flag; }
 
@@ -76,6 +83,12 @@ private:
 
 	VECTOR devpos;
 
+	float length;
+	float movedLength;
+
+	VECTOR OldPos;
+
 	class ModelComponent* _Model;
+	class MoveComponent* _Move;
 };
 
