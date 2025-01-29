@@ -74,6 +74,7 @@ bool ModeGame::Initialize() {
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
+	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	new BGMComponent(_Camera);
 	return true;

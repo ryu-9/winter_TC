@@ -1,9 +1,9 @@
 #pragma once
 
-#include "SourceVoiceItem.h"
 #include "SoundServer.h"
 #include <vector>
 
+class SourceVoiceItem;
 class SoundComponent : public Component {
 public:
 	SoundComponent(ActorClass* owner);

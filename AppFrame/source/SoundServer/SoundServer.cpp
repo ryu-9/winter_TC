@@ -39,14 +39,13 @@ void SoundServer::Clear()
 }
 
 bool SoundServer::Add(std::string path,std::string name) {
-	if (_m.count(name)) {
-		return true;
-	}
+	// サウンドの読み込み
+	// もうあったら作らない
+	if (_m.count(name)) { return true; }
 	else {
 		if (WAVRead::Read(path.c_str(), &_m[name]) == false) {
 			return false;
 		}
-	
 	}
 	return true;
 }
@@ -57,28 +56,6 @@ bool SoundServer::Create(SEComponent* secon, std::string name) {
 	return true;
 }
 
-bool SoundServer::Create(class ActorClass* actor, std::string name,int seflag) {
-	IXAudio2SourceVoice* sourceVoice = nullptr;
-	if (_m.count(name) == 0) { return false; }
-	
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat);
-	if (FAILED(hr)) {
-		printf("CreateSourceVoice failed: %#X\n", hr);
-		return false;
-	}
-
-	// 音声データの設定
-	XAUDIO2_BUFFER xAudio2Buffer{};
-	xAudio2Buffer.pAudioData = (BYTE*)_m[name].sBuffer;
-	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
-	xAudio2Buffer.AudioBytes = _m[name].size;
-
-	xAudio2Buffer.LoopCount = 0;
-	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
-
-//	new SoundComponent(actor, sourceVoice);
-	return true;
-}
 
 bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;

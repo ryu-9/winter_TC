@@ -2,7 +2,6 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 
-
 BGMComponent::BGMComponent(ActorClass* owner)
 	:SoundComponent(owner)
 {

@@ -1,5 +1,5 @@
 #include "SoundComponent.h"
-
+#include "SourceVoiceItem.h"
 SoundComponent::SoundComponent(ActorClass* owner)
 	:Component(owner)
 {

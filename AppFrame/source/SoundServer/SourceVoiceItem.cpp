@@ -54,7 +54,8 @@ void SourceVoiceItem::SetVolume(float vol) {
 }
 
 void SourceVoiceItem::SetVolumeDB(float db) {
-	XAudio2DecibelsToAmplitudeRatio(db);
+	_Volume = XAudio2DecibelsToAmplitudeRatio(db);
+	_VolumeChanged = true;
 }
 
 float SourceVoiceItem::GetPitch() {
@@ -76,14 +77,17 @@ void SourceVoiceItem::Update() {
 	}
 
 	// 音量の更新
+	// SetVolumeが重いらしいので、変更があった時だけ呼ぶ
 	if (_VolumeChanged == false) {
 		return;
 	}
+	/*
 	auto vol = _Volume;
-	if (vol >= 1.0) {
+	if (vol <= 1.0) {
 		vol *= _Volume;
 	}
-	_SV->SetVolume(vol);
+	*/
+	_SV->SetVolume(_Volume);
 
 	_VolumeChanged = false;
 }
