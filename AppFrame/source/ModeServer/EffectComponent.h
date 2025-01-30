@@ -4,7 +4,7 @@
 
 class EffectComponent : public Component {
 public:
-	EffectComponent(class ActorClass* owner, const char* file);
+	EffectComponent(class ActorClass* owner, const char* file,float size= 1);
 	virtual ~EffectComponent();
 
 	void Update() override;

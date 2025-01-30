@@ -139,6 +139,7 @@ void PlayerActor::ChangeMode(int mode)
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 100;
+		new EffectComponent(this, "res/effect/tatsumaki/Tatsumaki_002.efkefc");
 		break;
 
 	case 2:
