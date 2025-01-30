@@ -123,8 +123,8 @@ bool ModeGame::Render() {
 	
 	SetUseLighting(TRUE);
 #if 1	
-	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(-1, -1, 0));
+	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
+	//ChangeLightTypeDir(VGet(-1, -1, 0));
 #endif
 #if 0	
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));

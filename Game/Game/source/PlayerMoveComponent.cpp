@@ -118,7 +118,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 		// �ړ��ʂ̃Z�b�g
-		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000;
+		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000 /_pOwner->GetSize().x;
 		//_pOwner->SetMove(v);
 		SetVelocity(v);
 		if (GetStand() == TRUE) {
@@ -129,7 +129,6 @@ void PlayerMoveComponent::ProcessInput()
 		break;
 
 	case 1:		// �����g�̈ړ�
-
 	{
 
 		float length = 0.f;
@@ -182,17 +181,17 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_4 && _DashTime <= 0) {
+		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
 			_DashTime = 100;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_3) {
+		if (trg & PAD_INPUT_3) {
 			v.y = 50;
 			_DashTime = 0;
 		}
-		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
+		if (trg & PAD_INPUT_2) {
 			//_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
+		if (key & PAD_INPUT_1) {
 			v.y = 1;
 		}
 

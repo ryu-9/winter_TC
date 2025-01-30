@@ -34,7 +34,11 @@ CameraComponent::~CameraComponent()
 void CameraComponent::ProcessInput()
 {
 	/*
-		DINPUT_JOYSTATE di;
+
+	*/
+	// アナログスティック対応
+
+	DINPUT_JOYSTATE di;
 	GetJoypadDirectInputState(DX_INPUT_PAD1, &di);
 	float lx, ly, rx, ry;	// 左右アナログスティックの座標
 	float analogMin = 0.3f;	// アナログ閾値
@@ -50,15 +54,11 @@ void CameraComponent::ProcessInput()
 	float length = sqrt(sz * sz + sx * sx);
 	if (rx > analogMin) { rad -= 0.05f; }
 	if (rx < -analogMin) { rad += 0.05f; }
-	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length,_cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
+	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
 	// Y位置
-	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f , _cOwner->GetPosition().z));}
+	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
 	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
-	*/
-	// アナログスティック対応
-
-	
 
 }
 
@@ -79,6 +79,6 @@ void CameraComponent::Update()
 	_Owner->SetDirection(v);
 	_Owner->SetPosition(VGet(v.x + dist, v.y + dist, v.z));
 	SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
-	//SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
 }
