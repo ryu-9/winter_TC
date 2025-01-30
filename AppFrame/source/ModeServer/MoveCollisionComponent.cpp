@@ -72,7 +72,7 @@ void MoveCollisionComponent::Update() {
 		while (VSize(VScale(_Move->GetVelocity(), length)) > 0.1f) {
 			Process();
 			num++;
-			if (num > 10) {
+			if (num > 1) {
 				break;
 			}
 		}
@@ -426,32 +426,73 @@ void MoveCollisionComponent::Process()
 	{
 		bool flag = false;
 		float tmp = 0;
-		float r = GetSize().x;
+		float r = GetSize().x / 2;
 		for (auto p : polyList) {
-			float judge = VDot(VSub(p.mesh.Position[0], GetPosition()), p.mesh.Normal);
-			judge += r;
-			judge /= VDot(VScale(moved, -1), p.mesh.Normal);
-			if (judge > tmp) {
-				tmp = judge;
-				tmpoly = p;
-				flag = true;
+			float tmpdist = VDot(VSub(GetPosition(), p.mesh.Position[0]),p.mesh.Normal);
+			float tmpR = r - tmpdist;
+			MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(p.mc->GetHandle(), -1, GetPosition(), tmpR);
+			for (int i = 0; i < result.HitNum; i++) {
+				if (VEqual(p.mesh.Position[0], result.Dim[i].Position[0]) == TRUE &&
+					VEqual(p.mesh.Position[1], result.Dim[i].Position[1]) == TRUE &&
+					VEqual(p.mesh.Position[2], result.Dim[i].Position[2]) == TRUE) {
+					VECTOR tmpV = VSub(VAdd(GetPosition(), VScale(VNorm(moved), tmpdist)), result.Dim[i].HitPosition);
+					float a = VSize(tmpV);
+					float dot = VDot(VNorm(moved), tmpV);
+					float Sqrt = 4 * (dot * dot) - 4 * (a * a - r * r);
+					float judge = (2.0f * dot - sqrt(Sqrt)) / 2.0f;
+					judge += tmpdist;
+
+					if (judge < tmp) {
+						tmp = judge;
+						tmpoly = p;
+						flag = true;
+					}
+				}
+
 			}
+			MV1CollResultPolyDimTerminate(result);
 		}
 		if (flag == false) { return; }
-		if (dist > tmp) {
-			_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(moved), dist)));
+		if (dist < tmp) {
+			//_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(moved), dist)));
 		
 		
 		
 		}
 		else {
-			_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(moved, -tmp)));
+			_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(moved), tmp)));
+
+			movedLength -= tmp;
+
+			VECTOR move = VNorm(VSub(GetPosition(), tmpoly.mesh.HitPosition));
+			MoveComponent* EnMoveCon = tmpoly.mc->GetOwner()->GetComponent<class MoveComponent>();
+			VECTOR EnMove;
+			if (EnMoveCon != nullptr) {
+				EnMove = EnMoveCon->GetVelocity();
+			}
+			else { EnMove = VGet(0, 0, 0); }
+			VECTOR velocity = _Move->GetVelocity();
+			movedLength /= VSize(velocity);
+			if (velocity.x > 1) {
+				int test = 0;
+			}
+			if (VDot(move, velocity) < VDot(move, EnMove)) {
+				velocity = VSub(velocity, VScale(move, VDot(velocity, move)));
+				velocity = VAdd(velocity, VScale(move, VDot(move, EnMove)));
+				_Move->SetVelocity(velocity);
+			}
+			movedLength *= VSize(velocity);
+			_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(velocity), movedLength)));
+
+			return;
+			 
+			movedLength *= VSize(velocity);
 			length = tmp * length;
 			MV1_COLL_RESULT_POLY_DIM result;
-			{
-				float tmpR = GetSize().x * VSize(moved) / -VDot(moved, tmpoly.mesh.Normal);
-				result = MV1CollCheck_Sphere(tmpoly.mc->GetHandle(), -1, GetPosition(), tmpR);
-			}
+
+			float tmpR = GetSize().x * VSize(moved) / -VDot(moved, tmpoly.mesh.Normal);
+			result = MV1CollCheck_Sphere(tmpoly.mc->GetHandle(), -1, GetPosition(), tmpR);
+
 			VECTOR pos;
 			for (int i = 0; i < result.HitNum; i++) {
 				if (VEqual(tmpoly.mesh.Position[0], result.Dim[i].Position[0]) == TRUE &&
@@ -468,29 +509,20 @@ void MoveCollisionComponent::Process()
 					if (debugSQRT > 0) {
 						movelength = (2.0f * dot - sqrt(debugSQRT)) / 2.0f;
 					}
-
-					_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, movelength)));
-					length -= movelength / movedLength;
-
-					move = VNorm(VSub(GetPosition(), result.Dim[i].HitPosition));
-					MoveComponent* EnMoveCon = tmpoly.mc->GetOwner()->GetComponent<class MoveComponent>();
-					VECTOR EnMove;
-					if (EnMoveCon != nullptr) {
-						EnMove = EnMoveCon->GetVelocity();
-					}
-					else { EnMove = VGet(0, 0, 0); }
-					VECTOR velocity = _Move->GetVelocity();
-					movedLength /= VSize(velocity);
-					if (velocity.x > 1) {
+					if (movelength > 1) {
 						int test = 0;
 					}
-					if (VDot(move, velocity) < VDot(move, EnMove)) {
-						velocity = VSub(velocity, VScale(move, VDot(velocity, move)));
-						velocity = VAdd(velocity, VScale(move, VDot(move, EnMove)));
-						_Move->SetVelocity(velocity);
+
+					//_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, movelength)));
+					length -= movelength / movedLength;
+					if (movelength > 500) {
+						int test = 0;
 					}
-					movedLength *= VSize(velocity);
-					_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(velocity), movedLength * length)));
+
+
+					//_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(VNorm(velocity), movedLength * length)));
+
+					break;
 				}
 			}
 			MV1CollResultPolyDimTerminate(result);

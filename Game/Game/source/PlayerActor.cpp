@@ -29,7 +29,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	
 		SetPosition(VGet(0, 1000, 0));
 
-		SetSize(VGet(2,2,2));
+		//SetSize(VGet(2,2,2));
 }
 
 PlayerActor::~PlayerActor()
