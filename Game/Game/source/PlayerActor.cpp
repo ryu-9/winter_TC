@@ -12,7 +12,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BallModel->SetScale(VGet(4, 4, 4));
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
-	_TopModel->SetPosition(VGet(0, -400, 0));
+	_TopModel->SetPosition(VGet(0, -180, 0));
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetVisible(false);
@@ -132,8 +132,8 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 	case 1:
 		_ModeNum = 1;
-		//_BottomModel->SetVisible(true);
-		_TopModel->SetVisible(true);
+		_BottomModel->SetVisible(true);
+		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 100;
@@ -141,8 +141,8 @@ void PlayerActor::ChangeMode(int mode)
 
 	case 2:
 		_ModeNum = 2;
-		//_TopModel->SetVisible(true);
-		_BottomModel->SetVisible(true);
+		_TopModel->SetVisible(true);
+		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 100;
 		break;

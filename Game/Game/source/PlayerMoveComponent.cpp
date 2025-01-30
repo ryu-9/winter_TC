@@ -113,12 +113,12 @@ void PlayerMoveComponent::ProcessInput()
 		if (trg & PAD_INPUT_2) {
 			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (key & PAD_INPUT_1) {
-			v.y = 1;
+		if (trg & PAD_INPUT_1) {
+			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
 		}
 
 		// �ړ��ʂ̃Z�b�g
-		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000 /_pOwner->GetSize().x;
+		float size = 4 * VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000 /_pOwner->GetSize().x;
 		//_pOwner->SetMove(v);
 		SetVelocity(v);
 		if (GetStand() == TRUE) {
@@ -209,7 +209,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
 		VECTOR v = _pOwner->GetFriend()->GetPosition();
-		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetSize().y) * 100, v.z));
+		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 90, v.z));
 		
 
 		break;
