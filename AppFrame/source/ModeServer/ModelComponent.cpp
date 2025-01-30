@@ -11,6 +11,8 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	, _Front(VGet(0, 0, 1))
 	, _Up(VGet(0, 1, 0))
 	, _Rot(VGet(0, 0, 0))
+	, _Position(VGet(0, 0, 0))
+	, _Scale(VGet(1, 1, 1))
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
@@ -37,12 +39,12 @@ void ModelComponent::SetModelInfo()
 	// 再生時間をセットする
 	MV1SetAttachAnimTime(_Handle, _AttachIndex, _PlayTime);
 	// 位置
-	MV1SetPosition(_Handle,_Owner->GetPosition());
+	MV1SetPosition(_Handle,VAdd(_Owner->GetPosition(), _Position));
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
 	//MV1SetRotationXYZ(_Handle, vRot);
-	MV1SetScale(_Handle, _Owner->GetSize());
+	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
 }
 
 void ModelComponent::SetRotation(VECTOR rot)

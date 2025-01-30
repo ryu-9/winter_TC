@@ -173,15 +173,16 @@
     <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\EffectComponent.h" />
+    <ClInclude Include="source\ModeServer\HitCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\ModeBase.h" />
     <ClInclude Include="source\ModeServer\ModelComponent.h" />
     <ClInclude Include="source\ModeServer\ModeServer.h" />
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
+    <ClInclude Include="source\SoundServer\SoundComponent.h" />
     <ClInclude Include="source\SoundServer\SEComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
-    <ClInclude Include="source\SoundServer\SourceVoiceEffect.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
     <ClInclude Include="source\SoundServer\WAVRead.h" />
   </ItemGroup>
@@ -195,15 +196,16 @@
     <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\EffectComponent.cpp" />
+    <ClCompile Include="source\ModeServer\HitCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\ModeBase.cpp" />
     <ClCompile Include="source\ModeServer\ModelComponent.cpp" />
     <ClCompile Include="source\ModeServer\ModeServer.cpp" />
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
+    <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
     <ClCompile Include="source\SoundServer\SEComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
-    <ClCompile Include="source\SoundServer\SourceVoiceEffect.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
     <ClCompile Include="source\SoundServer\WAVRead.cpp" />
   </ItemGroup>

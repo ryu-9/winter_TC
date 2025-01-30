@@ -8,6 +8,7 @@
 #include "StageBox.h"
 #include "EnemyActor.h"
 #include "EnemyCreator.h"
+#include "BGMComponent.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -49,7 +50,7 @@ bool ModeGame::Initialize() {
 
 	_bUseCollision = TRUE;
 	_bViewCameraInfo = FALSE;
-	SetFogEnable(TRUE);
+//	SetFogEnable(TRUE);
 	SetFogStartEnd(200, 10000);
 	
 	SetDrawCollision(TRUE);
@@ -57,12 +58,26 @@ bool ModeGame::Initialize() {
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
 	_Player->SetPosition(VGet(800, 200, 100));
+	auto player2 = new PlayerActor(this , 2);
+	player2->SetPosition(VGet(1000, 200, 100));
+	_Player->SetFriend(player2);
+	player2->SetFriend(_Player);
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, player2);
 	new EnemyActor(this);
+	auto e = new EnemyActor(this);
+	e->SetPosition(VGet(2200, 200, -500));
+	e = new EnemyActor(this);
+	e->SetPosition(VGet(2000, 200, 1200));
+	e = new EnemyActor(this);
+	e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/", "chutorial2.json");
-	SoundServer::GetInstance()->Add("res/debug/sound/bomb.wav", "bgm2");
+	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
+	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
+	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
+	new BGMComponent(_Camera);
 	return true;
 }
 
@@ -74,8 +89,8 @@ bool ModeGame::Terminate() {
 bool ModeGame::Process() {
 	base::Process();
 
-	int key = ApplicationMain::GetInstance()->GetKey();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
+	int key = ApplicationMain::GetInstance()->GetKey(0);
+	int trg = ApplicationMain::GetInstance()->GetTrg(0);
 
 	
 	if (trg & PAD_INPUT_9) {

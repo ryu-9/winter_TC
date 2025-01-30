@@ -114,6 +114,9 @@
     <ClCompile Include="source\BulletComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\BGMComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -180,6 +183,9 @@
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
     <ClInclude Include="source\BulletComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BGMComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>

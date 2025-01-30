@@ -11,4 +11,7 @@
 #include "ModeServer/MoveCollisionComponent.h"
 #include "ModeServer/MoveComponent.h"
 #include "SoundServer/SoundServer.h"
+#include "SoundServer/SoundComponent.h"
+#include "SoundServer/SourceVoiceItem.h"
+#include "SoundServer/SEComponent.h"
 #include "ModeServer/EffectComponent.h"

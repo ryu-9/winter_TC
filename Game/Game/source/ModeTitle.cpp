@@ -22,7 +22,6 @@ bool ModeTitle::Initialize()
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
 	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
-	SoundServer::GetInstance()->Create(ac, "bgm1",0);
 	return true;
 }
 

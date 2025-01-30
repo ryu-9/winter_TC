@@ -1,6 +1,5 @@
 #pragma once
 #include "SoundServer.h"
-#include "SourceVoiceEffect.h"
 #include <string>
 #include <memory>
 
@@ -14,7 +13,7 @@ public:
 
 	};
 
-	SourceVoiceItem(std::string wavname);
+	SourceVoiceItem(std::string wavname,int playhz = 0);
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
@@ -24,20 +23,17 @@ public:
 
 	virtual float GetVolume();
 	virtual void SetVolume(float vol);
+	virtual void SetVolumeDB(float db);
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 
 	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
 	virtual bool IsToDestroy() { return _ToDestroy; }
 
-	virtual void AddEffect(std::string name, std::shared_ptr<SourceVoiceEffectBase> effect);
-	virtual void RemoveEffect(std::string name);
-	virtual std::shared_ptr<SourceVoiceEffectBase> GetEffect(std::string name);
 
 	void Update();
 
 private:
-	std::map<std::string, std::shared_ptr<SourceVoiceEffectBase>> _Effects;
 	IXAudio2SourceVoice* _SV;
 
 	float _Volume;

@@ -14,6 +14,7 @@ public:
 	void UpdateDir();
 private:
 	float _Speed;
+	float _Gravity;
 	VECTOR _Dir;
 	VECTOR _StartPos;
 	VECTOR _GoalPos;

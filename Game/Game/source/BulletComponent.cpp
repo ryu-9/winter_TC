@@ -19,6 +19,7 @@ void BulletComponent::ProcessInput() {
 	// ƒS[ƒ‹‚ÉŒü‚¯‚ÄˆÚ“®
 	
 	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	v.y -= _Gravity;
 	SetVelocity(v);
 
 }
@@ -34,10 +35,11 @@ void BulletComponent::Update() {
 	}
 	
 	if (GetStand() == TRUE) {
+		_Gravity = 0;
 		return;
 	}
 	if (GetStand() == FALSE) {
-		SetVelocity(VAdd(GetVelocity(), VGet(0, -0.5, 0)));
+		_Gravity += 0.5f;
 	}
 	SetStand(FALSE);
 	SetOldPosition(_Owner->GetPosition());

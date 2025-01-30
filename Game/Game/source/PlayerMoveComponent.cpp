@@ -7,6 +7,8 @@ PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	:MoveComponent(owner, updateOrder)
 	,_pOwner(owner)
 	,_colSubY(40.f)
+	,_DashTime(0)
+	,_DashDir(VGet(0,0,1))
 {
 
 }
@@ -17,17 +19,20 @@ PlayerMoveComponent::~PlayerMoveComponent()
 
 void PlayerMoveComponent::ProcessInput()
 {
-	int key = ApplicationMain::GetInstance()->GetKey();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
+	int pn = _pOwner->GetPlayerNo();
+	int key = ApplicationMain::GetInstance()->GetKey(pn);
+	int trg = ApplicationMain::GetInstance()->GetTrg(pn);
 
 	
 
-	// ƒJƒƒ‰‚ÌŒü‚¢‚Ä‚¢‚éŠp“x‚ğæ“¾
+	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌŒï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½pï¿½xï¿½ï¿½æ“¾
 	float sx = _pOwner->GetMode()->GetCamera()->GetPosition().x - _pOwner->GetMode()->GetCamera()->GetDirection().x;
 	float sz = _pOwner->GetMode()->GetCamera()->GetPosition().z - _pOwner->GetMode()->GetCamera()->GetDirection().z;
 	float camrad = atan2(sz, sx);
 
-	// ˆÚ“®•ûŒü‚ğŒˆ‚ß‚é
+
+
+	// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 	VECTOR v = { 0,0,0 };
 	float mvSpeed = 12.f;
 	DINPUT_JOYSTATE input;
@@ -37,96 +42,181 @@ void PlayerMoveComponent::ProcessInput()
 	if (key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
-	GetJoypadDirectInputState(DX_INPUT_KEY_PAD1 , &input);
+	GetJoypadDirectInputState(pn, &input);
 	v.x = (float)input.Y / 1000;
 	v.z = (float)input.X / 1000;
 
 
-	// v‚ğrad•ª‰ñ“]‚³‚¹‚é
-	float length = 0.f;
-	if (VSize(v) > 0.f) { 
-		if (VSize(v) > 1) {
-			length = mvSpeed;
+
+
+	switch (_pOwner->GetModeNum()) {
+	case 0:		// ï¿½Êï¿½Ú“ï¿½
+	{
+		// vï¿½ï¿½radï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		float length = 0.f;
+		if (VSize(v) > 0.f) {
+			if (VSize(v) > 1) {
+				length = mvSpeed;
+			}
+			else {
+				length = mvSpeed * VSize(v);
+			}
 		}
 		else {
-			length = mvSpeed * VSize(v);
 		}
-	}
-	else {
-	}
-	float rad = atan2(v.z, v.x);
-	v.x = cos(rad + camrad) * length;
-	v.z = sin(rad + camrad) * length;
-
-	// ˆÚ“®‘O‚ÌˆÊ’u‚ğ•Û‘¶
-	VECTOR oldvPos = _pOwner->GetPosition();
-	VECTOR oldv = _pOwner->GetMove();
-	
-	/*
-		// ƒRƒŠƒWƒ‡ƒ“”»’è‚Åˆø‚Á‚©‚©‚Á‚½‚ÉAescapeTbl[]‡‚ÉŠp“x‚ğ•Ï‚¦‚Ä‰ñ”ğ‚ğ‚İ‚é
-	float escapeTbl[] = {
-		0, -10, 10, -20, 20, -30, 30, -40, 40, -50, 50, -60, 60, -70, 70, -80, 80,
-	};
-	for (int i = 0; i < sizeof(escapeTbl) / sizeof(escapeTbl[0]); i++) {
-		// escapeTbl[i]‚Ì•ª‚¾‚¯ˆÚ“®—Êv‰ñ“]
-		float escape_rad = DEG2RAD(escapeTbl[i]);
-		v.x = cos(rad + camrad + escape_rad) * length;
-		v.z = sin(rad + camrad + escape_rad) * length;
-		
-		// v‚Ì•ªˆÚ“®
-		//_pOwner->SetPosition(VAdd(_pOwner->GetPosition(), v));
-
-		// ƒRƒŠƒWƒ‡ƒ“ˆ—‚µ‚È‚¢‚È‚çƒ‹[ƒv‚©‚ç”²‚¯‚é
-		if (!_pOwner->GetMode()->GetUseCollision()) {
-			// ƒJƒƒ‰‚àˆÚ“®‚·‚é
-			_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
-			break;
+		float rad = atan2(v.z, v.x);
+		v.x = cos(rad + camrad) * length;
+		v.z = sin(rad + camrad) * length;
+		if (_DashTime <= 0) {
+			if (v.x != 0 || v.z != 0) {
+				_DashDir = VNorm(v);
+			}
+		}
+		else {
+			_DashTime--;
+			v = VScale(_DashDir, _DashTime);
 		}
 
-		// Stage‚Æ‚ÌƒRƒŠƒWƒ‡ƒ“”»’è
-		// ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğæ“¾
-		VECTOR pos = _pOwner->GetPosition();
-		
-		// ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğŒ³‚ÉA‚Ç‚ÌƒuƒƒbƒN‚Æ“–‚½‚Á‚Ä‚¢‚é‚©‚ğŒvZ
+		// ï¿½Ú“ï¿½ï¿½Oï¿½ÌˆÊ’uï¿½ï¿½Û‘ï¿½
+		VECTOR oldvPos = _pOwner->GetPosition();
+		VECTOR oldv = _pOwner->GetMove();
+
+
+		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+			//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
+			//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
+
+		}
+		{
+			VECTOR old = GetOldPosition();
+			VECTOR vector = VSub(_pOwner->GetPosition(), old);
+			VECTOR dist = VSub(_pOwner->GetMode()->GetCamera()->GetPosition(), _pOwner->GetMode()->GetCamera()->GetDirection());
+			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
+			float height = dist.y;
+			dist.y = 0;
+			dist = VScale(VNorm(dist), VSize(_pOwner->GetSize()) * 200);
+			dist = VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), dist);
+			VECTOR campos = VGet(dist.x, dist.y + height, dist.z);
+			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
+		}
+
+		v.y = GetVelocity().y;
+
+		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
+			_DashTime = 100;
+		}
+		if (trg & PAD_INPUT_3) {
+			v.y = 50;
+			_DashTime = 0;
+		}
+		if (trg & PAD_INPUT_2) {
+			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
+		}
+		if (key & PAD_INPUT_1) {
+			v.y = 1;
+		}
+
+		// ï¿½Ú“ï¿½ï¿½Ê‚ÌƒZï¿½bï¿½g
+		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000;
+		//_pOwner->SetMove(v);
+		SetVelocity(v);
+		if (GetStand() == TRUE) {
+			_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
+		}
+	}
 	
 		break;
-		
-	}
-	*/
 
-	if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
-		// “–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚çAƒJƒƒ‰‚àˆÚ“®‚·‚é
-		//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-		//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
+	case 1:		// ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ÌˆÚ“ï¿½
 
-	}
 	{
-		VECTOR old = GetOldPosition();
-		VECTOR vector = VSub(_pOwner->GetPosition(), old);
-		_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), vector));
-		_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
+
+		float length = 0.f;
+		if (VSize(v) > 0.f) {
+			if (VSize(v) > 1) {
+				length = mvSpeed;
+			}
+			else {
+				length = mvSpeed * VSize(v);
+			}
+		}
+		else {
+		}
+		float rad = atan2(v.z, v.x);
+		v.x = cos(rad + camrad) * length;
+		v.z = sin(rad + camrad) * length;
+		if (_DashTime <= 0) {
+			if (v.x != 0 || v.z != 0) {
+				_DashDir = VNorm(v);
+			}
+		}
+		else {
+			_DashTime-=5;
+			v = VScale(_DashDir, _DashTime);
+		}
+
+		// ï¿½Ú“ï¿½ï¿½Oï¿½ÌˆÊ’uï¿½ï¿½Û‘ï¿½
+		VECTOR oldvPos = _pOwner->GetPosition();
+		VECTOR oldv = _pOwner->GetMove();
+
+
+		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+			//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
+			//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
+
+		}
+		{
+			VECTOR old = GetOldPosition();
+			VECTOR vector = VSub(_pOwner->GetPosition(), old);
+			VECTOR dist = VSub(_pOwner->GetMode()->GetCamera()->GetPosition(), _pOwner->GetMode()->GetCamera()->GetDirection());
+			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
+			float height = dist.y;
+			dist.y = 0;
+			dist = VScale(VNorm(dist), VSize(_pOwner->GetSize()) * 200);
+			dist = VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), dist);
+			VECTOR campos = VGet(dist.x, dist.y + height, dist.z);
+			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
+		}
+
+		v.y = GetVelocity().y;
+
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_4 && _DashTime <= 0) {
+			_DashTime = 100;
+		}
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_3) {
+			v.y = 50;
+			_DashTime = 0;
+		}
+		if (ApplicationMain::GetInstance()->GetTrg(0) & PAD_INPUT_2) {
+			//_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
+		}
+		if (ApplicationMain::GetInstance()->GetKey(0) & PAD_INPUT_1) {
+			v.y = 1;
+		}
+
+		//_pOwner->SetMove(v);
+		SetVelocity(v);
+
+
+		}
+		// vï¿½ï¿½radï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+	
+		break;
+
+	case 2:
+
+		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
+		VECTOR v = _pOwner->GetFriend()->GetPosition();
+		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetSize().y) * 100, v.z));
+		
+
+		break;
 	}
 
-	v.y = GetVelocity().y;
 
-	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_3) {
-		v.y = 50;
-	}
-	if (ApplicationMain::GetInstance()->GetTrg() & PAD_INPUT_2) {
-		_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
-	}
-	if (ApplicationMain::GetInstance()->GetKey() & PAD_INPUT_1) {
-		v.y = 1;
-	}
-
-	// ˆÚ“®—Ê‚©‚çƒTƒCƒY‚ğ•ÏX
-	float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition()))/10000;
-	//_pOwner->SetMove(v);
-	SetVelocity(v);
-	if (GetStand() == TRUE) {
-		_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
-	}
 	//
 
 }
