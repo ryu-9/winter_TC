@@ -16,14 +16,11 @@ EnemyActor::EnemyActor(ModeBase* mode)
 	new EnemyComponent(this);
 }
 
-EnemyActor::~EnemyActor()
-{
-}
+EnemyActor::~EnemyActor() {}
 
 void EnemyActor::UpdateActor() {
 	SetOldStatus();
 
-	//auto model = GetComponent<ModelComponent>();
-	//model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.01, 0)));
+
 }
 

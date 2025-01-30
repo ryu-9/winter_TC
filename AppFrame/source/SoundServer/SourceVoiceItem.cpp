@@ -97,7 +97,7 @@ void SourceVoiceItem::Update() {
 	if (_VolumeChanged == false) {
 		return;
 	}
-	/*
+	/* //•Ê‚ÌêŠ‚ÉˆÚ“®—\’è
 	auto vol = _Volume;
 	if (vol <= 1.0) {
 		vol *= _Volume;

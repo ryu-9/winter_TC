@@ -22,7 +22,7 @@ public:
 
 	enum class STATUS {
 		NONE,
-		WAIT,
+		SEARCH,
 		MOVE,
 		_EOT_
 	};
@@ -36,6 +36,7 @@ public:
 	void SetInput(class MoveComponent* input) { delete _Input; _Input = input; }
 
 	void SetParam(PARAM param) { _Param = param; }
+	
 private:
 	STATUS _Status;
 	STATUS _OldStatus;
@@ -46,5 +47,6 @@ private:
 	class MoveCollisionComponent* _MCollision;
 
 	PARAM _Param;
+	uint_fast8_t _SearchFlag;
 };
 

@@ -20,12 +20,9 @@ void EnemyComponent::ProcessInput() {
 	
 	if (rotflag == 0){
 		if (rand() % 300 < 1) {
-			if (rand() % 2 == 0) {
-				rotflag = 1;
-			}
-			else {
-				rotflag = -1;
-			}rottm = rand() % 100+60;
+			if (rand() % 2 == 0) { rotflag = 1; }
+			else { rotflag = -1; }
+			rottm = rand() % 100+60;
 		}
 	}
 	else{

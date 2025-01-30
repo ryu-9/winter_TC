@@ -115,6 +115,7 @@ bool ModeGame::Update()
 bool ModeGame::Render() {
 
 	
+
 	
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
@@ -123,10 +124,10 @@ bool ModeGame::Render() {
 	
 	SetUseLighting(TRUE);
 #if 1	
-	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
+	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
 #endif
-#if 0	
+#if 0
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypePoint(VAdd(_vPos, VGet(0, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
 #endif

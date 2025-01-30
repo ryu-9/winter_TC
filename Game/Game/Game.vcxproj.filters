@@ -52,6 +52,12 @@
     <Filter Include="ソース ファイル\Mode\Game\Enemy">
       <UniqueIdentifier>{001afc1f-0ab7-4afe-b14d-6c97ad8096d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Mode\Game\Enemy\component">
+      <UniqueIdentifier>{319efdba-0302-4d5b-8334-8d22c9b0399e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Mode\Game\Enemy\Component">
+      <UniqueIdentifier>{38aaa1e3-1c78-4002-a570-56ceb850176a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -111,23 +117,26 @@
     <ClCompile Include="source\EnemyCreator.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyMoveComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EnemyAttackComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EnemyActor.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="source\EnemyController.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EnemyComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="source\BGMComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemyActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemyAttackComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemyComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemyMoveComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EnemySearchComponent.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,17 +203,20 @@
     <ClInclude Include="source\EnemyActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyMoveComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EnemyAttackComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EnemyComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
-		</ClInclude>
     <ClInclude Include="source\BGMComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyAttackComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyMoveComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemySearchComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
