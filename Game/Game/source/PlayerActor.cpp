@@ -4,8 +4,6 @@
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
-	,_Status(STATUS::NONE)
-	,_OldStatus(STATUS::NONE)
 	,_ModeNum(0)
 	, _PlayerNo(playerNo)
 	, _ChangeTime(0)

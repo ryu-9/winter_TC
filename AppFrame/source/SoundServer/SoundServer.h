@@ -25,7 +25,7 @@ public:
 	bool Create(std::string name,IXAudio2SourceVoice*& sv,int hz = 0);
 	bool Del(std::string name);
 
-
+	bool ResetBuffer(std::string name);
 protected:
 	bool Init();
 	IXAudio2* _XAudio2;

@@ -5,6 +5,7 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
 	, _Pitch(1.0f)
+	, _WavName(wavname)
 {
 	// サウンドの作成
 	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz) == false) {
@@ -71,6 +72,15 @@ float SourceVoiceItem::GetPitch() {
 void SourceVoiceItem::SetPitch(float pitch) {
 	_Pitch = pitch;
 	_SV->SetFrequencyRatio(pitch);
+}
+
+void SourceVoiceItem::ResetPlayTm(int playhz) {
+	// サウンドの作成
+	if (SoundServer::GetInstance()->Create(_WavName, _SV, playhz) == false) {
+		printf("CreateSourceVoice failed\n");
+		delete this;
+	}
+	_SV->SetVolume(_Volume);
 }
 
 void SourceVoiceItem::Update() {

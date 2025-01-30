@@ -85,6 +85,8 @@ bool SoundServer::Del(std::string name)
 	return false;
 }
 
+
+
 bool SoundServer::Init() {
 	// XAudio2‚Ì‰Šú‰»
 	

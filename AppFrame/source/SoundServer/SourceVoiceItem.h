@@ -30,10 +30,12 @@ public:
 	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
 	virtual bool IsToDestroy() { return _ToDestroy; }
 
+	virtual void ResetPlayTm(int playhz);
 
 	void Update();
 
 private:
+	std::string _WavName;
 	IXAudio2SourceVoice* _SV;
 
 	float _Volume;

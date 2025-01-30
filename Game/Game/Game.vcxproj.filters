@@ -202,6 +202,7 @@
     </ClInclude>
     <ClInclude Include="source\EnemyComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
+		</ClInclude>
     <ClInclude Include="source\BGMComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
