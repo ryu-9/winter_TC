@@ -1,16 +1,18 @@
 #include "SourceVoiceItem.h"
 
-SourceVoiceItem::SourceVoiceItem(std::string wavname)
+SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz)
 	:_SV(nullptr)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
+	, _Pitch(1.0f)
 {
 	// サウンドの作成
-	if (SoundServer::GetInstance()->Create(wavname, _SV) == false) {
+	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz) == false) {
 		printf("CreateSourceVoice failed\n");
 		delete this;
 	}
-	AddEffect("fade", std::make_shared<SVFade>());
+	_SV->SetVolume(_Volume);
+//	_SV->SetFrequencyRatio(_Pitch);
 }
 
 SourceVoiceItem::~SourceVoiceItem() {
@@ -34,6 +36,7 @@ bool SourceVoiceItem::IsPlay() {
 }
 
 void SourceVoiceItem::Stop() {
+	_SV->Stop();
 }
 
 void SourceVoiceItem::ForceStop() {
@@ -45,11 +48,20 @@ float SourceVoiceItem::GetVolume() {
 	return _Volume;
 }
 
+// ボリュームを0.0f～1.0fで設定
 void SourceVoiceItem::SetVolume(float vol) {
 	if (_Volume != vol) {
 		_Volume = vol;
 		_VolumeChanged = true;
 	}
+}
+
+// ボリュームをデシベルで設定
+void SourceVoiceItem::SetVolumeDB(float db) {
+	//auto tmp = XAudio2AmplitudeRatioToDecibels(_Volume);
+//	if (tmp == db) { return; }
+	_Volume = XAudio2DecibelsToAmplitudeRatio(db);
+	_VolumeChanged = true;
 }
 
 float SourceVoiceItem::GetPitch() {
@@ -61,30 +73,6 @@ void SourceVoiceItem::SetPitch(float pitch) {
 	_SV->SetFrequencyRatio(pitch);
 }
 
-void SourceVoiceItem::AddEffect(std::string name, std::shared_ptr<SourceVoiceEffectBase> effect) {
-	if (_Effects.count(name)) {
-		// すでに登録されている
-		return;
-	}
-	_Effects[name] = effect;
-	
-}
-
-void SourceVoiceItem::RemoveEffect(std::string name) {
-	if (_Effects.count(name)) {
-		_Effects.erase(name);
-	}
-
-}
-
-std::shared_ptr<SourceVoiceEffectBase> SourceVoiceItem::GetEffect(std::string name)
-{
-	if (_Effects.count(name)) {
-		return _Effects[name];
-	}
-	return nullptr;
-}
-
 void SourceVoiceItem::Update() {
 	if (_Volume == 0.0f) {
 		_SV->Stop();
@@ -93,20 +81,19 @@ void SourceVoiceItem::Update() {
 		}
 		return;
 	}
-	// エフェクトの更新
-	for (auto&& e : _Effects) {
-		e.second->Update();
-	}
 
 	// 音量の更新
+	// SetVolumeが重いらしいので、変更があった時だけ呼ぶ
 	if (_VolumeChanged == false) {
 		return;
 	}
+	/*
 	auto vol = _Volume;
-	if (vol >= 1.0) {
+	if (vol <= 1.0) {
 		vol *= _Volume;
 	}
-	_SV->SetVolume(vol);
+	*/
+	_SV->SetVolume(_Volume);
 
 	_VolumeChanged = false;
 }

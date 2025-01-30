@@ -48,10 +48,20 @@ bool ApplicationBase::Terminate() {
 
 bool ApplicationBase::Input() {
 	// キーの入力、トリガ入力を得る
-	int keyold = _gKey;
-	_gKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	_gTrg = (_gKey ^ keyold) & _gKey;	// キーのトリガ情報生成（押した瞬間しか反応しないキー情報）
-	_gRel = (_gKey ^ keyold) & keyold;	// キーのリリース情報生成（離した瞬間しか反応しないキー情報）
+	{
+		int keyold = _gKey[0];
+		_gKey[0] = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+		_gTrg[0] = (_gKey[0] ^ keyold) & _gKey[0];	// キーのトリガ情報生成（押した瞬間しか反応しないキー情報）
+		_gRel[0] = (_gKey[0] ^ keyold) & keyold;	// キーのリリース情報生成（離した瞬間しか反応しないキー情報）
+	}
+
+	{
+		int keyold = _gKey[1];
+		_gKey[1] = GetJoypadInputState(DX_INPUT_PAD2);
+		_gTrg[1] = (_gKey[1] ^ keyold) & _gKey[1];	// キーのトリガ情報生成（押した瞬間しか反応しないキー情報）
+		_gRel[1] = (_gKey[1] ^ keyold) & keyold;	// キーのリリース情報生成（離した瞬間しか反応しないキー情報）
+	}
+	
 	return true;
 }
 
