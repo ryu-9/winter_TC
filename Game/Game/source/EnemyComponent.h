@@ -12,5 +12,7 @@ public:
 private:
 	EnemyActor* _EnOwner;
 
+	int rottm;
+	int rotflag;
 };
 
