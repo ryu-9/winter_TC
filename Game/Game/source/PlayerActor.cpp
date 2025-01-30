@@ -80,7 +80,7 @@ void PlayerActor::UpdateActor()
 		_BallModel->SetFront(rot);
 		_BallModel->SetUp(rot2);
 
-
+		if (_Friend == nullptr) { break; }
 		friSize = _Friend->GetSize().y;
 		if (friSize >= 1 && GetSize().y >= 1) {
 			dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
