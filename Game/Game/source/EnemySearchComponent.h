@@ -1,9 +1,11 @@
-#pragma once
+//
+// @file EnemySearchComponent.h
+// @brief 距離と角度を基準にアクタを探すコンポーネント
+// 
 
-//
-// @explanation:
-// エネミーが探索を行うコンポーネント
-//
+
+#pragma once
+#include "EnemyStruct.h"
 
 #include "appframe.h"
 class EnemySearchComponent : public Component {
@@ -13,13 +15,9 @@ public:
 
 	void ProcessInput() override;
 
-	struct SEARCH
-	{
-		float dist;		// 探索範囲
-		float angle;	// 探索角度
-	};
+
 
 private:
-	SEARCH _SearchRef;
+	Enemy::SEARCH _SearchRef;
 };
 

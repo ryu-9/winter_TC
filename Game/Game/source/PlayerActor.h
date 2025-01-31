@@ -23,6 +23,8 @@ public:
 
 	void ChangeMode(int mode);
 
+	bool IsMoved();
+
 private:
 
 

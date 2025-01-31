@@ -55,13 +55,13 @@ bool ModeGame::Initialize() {
 	SetDrawCollision(TRUE);
 
 	_Camera = new CameraActor(this);
-	_Player = new PlayerActor(this);
-	_Player->SetPosition(VGet(800, 200, 100));
-	auto player2 = new PlayerActor(this , 2);
-	player2->SetPosition(VGet(1000, 200, 100));
-	_Player->SetFriend(player2);
-	player2->SetFriend(_Player);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, player2);
+	_Player[0] = new PlayerActor(this);
+	_Player[0]->SetPosition(VGet(800, 200, 100));
+	_Player[1] = new PlayerActor(this, 2);
+	_Player[1]->SetPosition(VGet(1000, 200, 100));
+	_Player[0]->SetFriend(_Player[1]);
+	_Player[1]->SetFriend(_Player[0]);
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
 	new EnemyActor(this);
 	auto e = new EnemyActor(this);
 	e->SetPosition(VGet(2200, 200, -500));
@@ -71,6 +71,7 @@ bool ModeGame::Initialize() {
 	e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
+//	LoadStage("res/Stage/", "map_1-1/1-1_5bunno1.json");
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
@@ -156,6 +157,11 @@ bool ModeGame::Render() {
 	base::Render();
 
 	return true;
+}
+
+PlayerActor* ModeGame::GetPlayer(int n) {
+	if (n < 0 || n>1) { return nullptr; }
+	return _Player[n];
 }
 
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {

@@ -197,6 +197,7 @@
     <ClInclude Include="source\EnemyCreator.h" />
     <ClInclude Include="source\EnemyMoveComponent.h" />
     <ClInclude Include="source\EnemySearchComponent.h" />
+    <ClInclude Include="source\EnemyStruct.h" />
     <ClInclude Include="source\ioJson.h" />
     <ClInclude Include="source\ioJsonText.h" />
     <ClInclude Include="source\ModeGame.h" />

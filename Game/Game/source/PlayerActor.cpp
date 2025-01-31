@@ -147,3 +147,7 @@ void PlayerActor::ChangeMode(int mode)
 	
 	}
 }
+
+bool PlayerActor::IsMoved() {
+	return VEqual(GetComponent<MoveComponent>()->GetOldPosition(), GetPosition());
+}

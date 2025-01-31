@@ -136,7 +136,7 @@
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\EnemySearchComponent.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +216,10 @@
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemySearchComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyStruct.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

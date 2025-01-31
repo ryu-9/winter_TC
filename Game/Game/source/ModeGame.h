@@ -28,11 +28,11 @@ public:
 	int GetMapHandle() { return _handleMap; }
 	int GetFrameMapCollision() { return _frameMapCollision; }
 	class CameraActor* GetCamera() { return _Camera; }
-	class PlayerActor* GetPlayer() { return _Player; }
+	class PlayerActor* GetPlayer(int n = 0);
 protected:
 
 	class CameraActor* _Camera;
-	class PlayerActor* _Player;
+	class PlayerActor* _Player[2];
 
 
 	int _handleMap;

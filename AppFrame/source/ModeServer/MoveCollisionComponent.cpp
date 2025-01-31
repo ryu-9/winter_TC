@@ -61,7 +61,6 @@ void MoveCollisionComponent::Update() {
 	OldMove = VGet(0, 0, 0);
 	bool sqrtFlag = FALSE;
 	for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
-		VECTOR oldmove = VGet(0, 0, 0);
 		if (mcoll->GetIsActive() == TRUE) {
  			if (mcoll != this) {
 

@@ -79,7 +79,6 @@ void PlayerMoveComponent::ProcessInput()
 
 		// �ړ��O�̈ʒu��ۑ�
 		VECTOR oldvPos = _pOwner->GetPosition();
-		VECTOR oldv = _pOwner->GetMove();
 
 
 		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
@@ -118,7 +117,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 		// �ړ��ʂ̃Z�b�g
-		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000;
+		float size = VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000/ _pOwner->GetSize().x;
 		//_pOwner->SetMove(v);
 		SetVelocity(v);
 		if (GetStand() == TRUE) {
@@ -158,7 +157,6 @@ void PlayerMoveComponent::ProcessInput()
 
 		// �ړ��O�̈ʒu��ۑ�
 		VECTOR oldvPos = _pOwner->GetPosition();
-		VECTOR oldv = _pOwner->GetMove();
 
 
 		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
