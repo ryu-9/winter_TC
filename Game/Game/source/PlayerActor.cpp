@@ -7,10 +7,15 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	,_ModeNum(0)
 	, _PlayerNo(playerNo)
 	, _ChangeTime(0)
+	, _Animation(1)
+	, _AnimTime(0)
+	, _AnimTotalTime(0)
+	, _AnimIndex(-1)
 {
 	_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
 	_BallModel->SetScale(VGet(4, 4, 4));
-	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	//_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -180, 0));
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
@@ -22,11 +27,13 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
 	int n = rand() % 2;
 	
-		_Input = new PlayerMoveComponent(this);
+	_Input = new PlayerMoveComponent(this);
 	
-		SetPosition(VGet(0, 1000, 0));
+	SetPosition(VGet(0, 1000, 0));
 
-		SetSize(VGet(2,2,2));
+	SetSize(VGet(2,2,2));
+
+	_AnimationModel = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 }
 
 PlayerActor::~PlayerActor()
@@ -46,13 +53,13 @@ void PlayerActor::UpdateActor()
 	float dist;
 
 	if (_ChangeTime > 0) {
-		_ChangeTime--;
+		_ChangeTime-=FpsController::GetInstance()->GetDeltaTime();
 		if (_ChangeTime == 0) {
 			ChangeMode(0);
 		}
 	}
 
-
+	int animOrder = (int)anim::Wait;
 
 
 
@@ -84,11 +91,15 @@ void PlayerActor::UpdateActor()
 			if (dist < (friSize + GetSize().y) * 100) {
 				if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
 					ChangeMode(2);
+					ChangeAnim((int)anim::Change);
 					_Friend->ChangeMode(1);
+					_Friend->ChangeAnim((int)anim::Change);
 				}
 				else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
 					ChangeMode(1);
+					ChangeAnim((int)anim::Change);
 					_Friend->ChangeMode(2);
+					_Friend->ChangeAnim((int)anim::Change);
 				}
 			}
 		}
@@ -107,6 +118,30 @@ void PlayerActor::UpdateActor()
 
 	case 2:
 		break;
+	
+	}
+
+	if (_ModeNum != 0) {
+		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 100;
+		//ChangeAnim(animOrder);
+		//_Friend->ChangeAnim(animOrder);
+		if (_AnimTime > _AnimTotalTime) {
+			ChangeAnim((int)anim::Wait);
+			_AnimTime = 0;
+		}
+		else {
+			switch (_ModeNum) {
+			case 1:
+				MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
+				break;
+
+			case 2:
+				MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
+				break;
+			}
+			
+		}
+
 	
 	}
 
@@ -148,4 +183,25 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 	
 	}
+}
+
+void PlayerActor::ChangeAnim(int a)
+{
+	if(_Animation == a) { return; }
+	_Animation = a;
+	_AnimTime = 0;
+	int index = -1;
+	switch (_Animation) {
+	
+	case (int)anim::Change:
+		index = MV1GetAnimIndex(_AnimationModel, "modelmotion");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel, FALSE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel, FALSE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+
+		break;
+
+
+	}
+
 }

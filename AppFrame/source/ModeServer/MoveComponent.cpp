@@ -1,4 +1,6 @@
 #include "MoveComponent.h"
+#include "../ModeServer/Fpscontroller.h"
+
 
 MoveComponent::MoveComponent(ActorClass* owner, int	updateOrder)
 	:Component(owner, updateOrder)
@@ -18,5 +20,6 @@ void MoveComponent::Update()
 	}
 	_Stand = FALSE;
 	_OldPosition = _Owner->GetPosition();
-	_Owner->SetPosition(VAdd(_Owner->GetPosition(), _Velocity));
+	float deltaTime = FpsController::GetInstance()->GetDeltaTime();
+	_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(_Velocity,deltaTime / 20)));
 }

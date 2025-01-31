@@ -67,7 +67,7 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = cos(rad + camrad) * length;
 		v.z = sin(rad + camrad) * length;
-		if (_DashTime <= 0) {
+		if (_DashTime <= mvSpeed) {
 			if (v.x != 0 || v.z != 0) {
 				_DashDir = VNorm(v);
 			}
@@ -103,7 +103,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
+		if (trg & PAD_INPUT_4 && _DashTime <= mvSpeed) {
 			_DashTime = 100;
 		}
 		if (trg & PAD_INPUT_3) {

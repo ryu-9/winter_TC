@@ -23,8 +23,17 @@ public:
 
 	void ChangeMode(int mode);
 
+	void ChangeAnim(int a);
+
 private:
 
+	enum class anim {
+		Change,
+		Wait,
+		Walk,
+		Dash,
+		Punch,
+	};
 
 	class PlayerMoveComponent* _Input;
 
@@ -40,5 +49,11 @@ private:
 	int _ModeNum; // 0:í èÌ 1:â∫îºêgÅ@2:è„îºêg
 
 	int _ChangeTime;
+
+	int _Animation;
+	float _AnimTime;
+	float _AnimTotalTime;
+	int _AnimIndex;
+	int _AnimationModel;
 };
 

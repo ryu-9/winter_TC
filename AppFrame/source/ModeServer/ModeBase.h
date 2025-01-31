@@ -8,6 +8,7 @@
 #include "SpriteComponent.h"
 #include "MoveCollisionComponent.h"
 #include "ActorClass.h"
+#include "FpsController.h"
 
 class ModeServer;
 

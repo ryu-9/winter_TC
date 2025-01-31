@@ -10,6 +10,7 @@
 #include "ModeServer/ModelComponent.h"
 #include "ModeServer/MoveCollisionComponent.h"
 #include "ModeServer/MoveComponent.h"
+#include "ModeServer/FpsController.h"
 #include "SoundServer/SoundServer.h"
 #include "SoundServer/SoundComponent.h"
 #include "SoundServer/SourceVoiceItem.h"

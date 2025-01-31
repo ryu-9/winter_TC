@@ -59,11 +59,6 @@ void CameraComponent::ProcessInput()
 	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
 	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
-
-}
-
-void CameraComponent::Update()
-{
 	// ÉJÉÅÉâê›íËçXêV
 	VECTOR pos[2] = { VGet(0,0,0),VGet(0,0,0) };
 	if (_Player[0] != nullptr) {
@@ -74,11 +69,27 @@ void CameraComponent::Update()
 	}
 	VECTOR v = VAdd(pos[0], pos[1]);
 	float dist = VSize(VSub(pos[0], pos[1])) + 100;
+	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
+	angle = VNorm(angle);
+
+	angle = VTransform(angle, MGetRotY(rx/1000));
+	float camrad = atan2(angle.y, VSize(VGet(angle.x, 0, angle.z)));
+	camrad += ry / 1000;
+	angle.y = sin(camrad);
+
 	if (dist < 1000) { dist = 1000; }
 	v = VScale(v, 0.5f);
 	_Owner->SetDirection(v);
-	_Owner->SetPosition(VGet(v.x + dist, v.y + dist, v.z));
-	SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
+
+	_Owner->SetPosition(VAdd(v, VScale(angle, dist)));
+	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
 	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
+
+
+}
+
+void CameraComponent::Update()
+{
+
 }
