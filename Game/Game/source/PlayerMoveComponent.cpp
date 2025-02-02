@@ -46,7 +46,7 @@ void PlayerMoveComponent::ProcessInput()
 	v.x = (float)input.Y / 1000;
 	v.z = (float)input.X / 1000;
 
-
+	VECTOR velocity = GetVelocity();
 
 
 	switch (_pOwner->GetModeNum()) {
@@ -77,37 +77,38 @@ void PlayerMoveComponent::ProcessInput()
 			v = VScale(_DashDir, _DashTime);
 		}
 
-		// �ړ��O�̈ʒu��ۑ�
-		VECTOR oldvPos = _pOwner->GetPosition();
-		VECTOR oldv = _pOwner->GetMove();
-
-
-		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
-			// �������Ă��Ȃ�������A�J������ړ�����
-			//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-			//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
-
-		}
 		{
-			VECTOR old = GetOldPosition();
-			VECTOR vector = VSub(_pOwner->GetPosition(), old);
-			VECTOR dist = VSub(_pOwner->GetMode()->GetCamera()->GetPosition(), _pOwner->GetMode()->GetCamera()->GetDirection());
-			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
-			float height = dist.y;
-			dist.y = 0;
-			dist = VScale(VNorm(dist), VSize(_pOwner->GetSize()) * 200);
-			dist = VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), dist);
-			VECTOR campos = VGet(dist.x, dist.y + height, dist.z);
-			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
+			int dt = FpsController::GetInstance()->GetDeltaTime();
+			if (v.x > 0) {
+				if (v.x > velocity.x) {
+					velocity.x += v.x / 100 * dt;
+				}
+			}
+			else {
+				if (v.x < velocity.x) {
+					velocity.x += v.x / 100 * dt;
+				}
+			}
+			if (v.z > 0) {
+				if (v.z > velocity.z) {
+					velocity.z += v.z / 100 * dt;
+				}
+			}
+			else {
+				if (v.z < velocity.z) {
+					velocity.z += v.z / 100 * dt;
+				}
+			}
+		
 		}
 
-		v.y = GetVelocity().y;
+
 
 		if (trg & PAD_INPUT_4 && _DashTime <= mvSpeed) {
 			_DashTime = 100;
 		}
 		if (trg & PAD_INPUT_3) {
-			v.y = 50;
+			velocity.y = 50;
 			_DashTime = 0;
 		}
 		if (trg & PAD_INPUT_2) {
@@ -117,13 +118,7 @@ void PlayerMoveComponent::ProcessInput()
 			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
 		}
 
-		// �ړ��ʂ̃Z�b�g
-		float size = 4 * VSize(VSub(_pOwner->GetPosition(), GetOldPosition())) / 10000 /_pOwner->GetSize().x;
-		//_pOwner->SetMove(v);
-		SetVelocity(v);
-		if (GetStand() == TRUE) {
-			_pOwner->SetSize(VAdd(_pOwner->GetSize(), VGet(size, size, size)));
-		}
+		SetVelocity(velocity);
 	}
 	
 		break;

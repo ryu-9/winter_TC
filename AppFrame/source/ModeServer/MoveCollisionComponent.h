@@ -73,6 +73,7 @@ private:
 	bool flag;
 	bool shomen;
 	VECTOR OldMove;
+	VECTOR OldPos;
 
 	VECTOR devpos;
 

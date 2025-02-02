@@ -14,8 +14,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 {
 	_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
 	_BallModel->SetScale(VGet(4, 4, 4));
-	//_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
-	_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
+	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -180, 0));
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
@@ -51,10 +51,11 @@ void PlayerActor::UpdateActor()
 
 	float friSize;
 	float dist;
+	int dt = FpsController::GetInstance()->GetDeltaTime();
 
 	if (_ChangeTime > 0) {
-		_ChangeTime-=FpsController::GetInstance()->GetDeltaTime();
-		if (_ChangeTime == 0) {
+		_ChangeTime-=dt;
+		if (_ChangeTime <= 0) {
 			ChangeMode(0);
 		}
 	}
@@ -65,8 +66,21 @@ void PlayerActor::UpdateActor()
 
 	switch (_ModeNum) {
 	case 0:
-		// ���x��擾
+
+	{
 		v = _Input->GetVelocity();
+		// �ړ��ʂ̃Z�b�g
+		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
+		tmp.y = 0;
+		float size = 4 * VSize(tmp) / 10000 / GetSize().x;
+		if (_Input->GetStand() == TRUE) {
+			SetSize(VAdd(GetSize(), VGet(size, size, size)));
+			
+			v = VSub(v,VScale(v, 0.001 * dt));
+			_Input->SetVelocity(v);
+		}
+	}
+
 		// �p�x��擾
 		rot = _BallModel->GetFront();
 		rot2 = _BallModel->GetUp();
@@ -96,10 +110,11 @@ void PlayerActor::UpdateActor()
 					_Friend->ChangeAnim((int)anim::Change);
 				}
 				else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
-					ChangeMode(1);
-					ChangeAnim((int)anim::Change);
 					_Friend->ChangeMode(2);
 					_Friend->ChangeAnim((int)anim::Change);
+					ChangeMode(1);
+					ChangeAnim((int)anim::Change);
+
 				}
 			}
 		}
@@ -154,16 +169,22 @@ void PlayerActor::ChangeMode(int mode)
 	switch (mode) {
 	case 0:
 		if (_ModeNum == 1) {
-			dist = GetSize().x * 100 * 2;
+			dist = GetSize().x * 50 * 2 - 50;
 			SetPosition(VAdd(GetPosition(), VGet(dist, 0, 0)));
 			_Friend->SetPosition(VAdd(GetPosition(), VGet( - 2 * dist, 0, 0)));
 		}
+		_MCollision->SetIsActive(true);
 		_ModeNum = 0;
 		_Friend->ChangeMode(0);
 		SetSize(VGet(0.5, 0.5, 0.5));
+		//SetSize(VGet(2, 2, 2));
 		_BallModel->SetVisible(true);
 		_TopModel->SetVisible(false);
 		_BottomModel->SetVisible(false);
+		if (_MCollision2 != nullptr) {
+			delete _MCollision2;
+			_MCollision2 = nullptr;
+		}
 		break;
 	case 1:
 		_ModeNum = 1;
@@ -171,7 +192,8 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 100;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
 	case 2:
@@ -179,7 +201,8 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 100;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_MCollision->SetIsActive(false);
 		break;
 	
 	}
