@@ -34,7 +34,7 @@ void PlayerMoveComponent::ProcessInput()
 
 	// �ړ���������߂�
 	VECTOR v = { 0,0,0 };
-	float mvSpeed = 12.f;
+	float mvSpeed = 24.f;
 	DINPUT_JOYSTATE input;
 	/*
 	if (key & PAD_INPUT_DOWN) { v.x = 1; }
