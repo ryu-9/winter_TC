@@ -4,20 +4,20 @@
 EnemyComponent::EnemyComponent(ActorClass* owner)
 	:Component(owner)
 {
+	_En = dynamic_cast<EnemyActor*>(owner);
+
+	_SearchRef.dist = 1000;
+	_SearchRef.angle = 60;
 }
 
 EnemyComponent::~EnemyComponent() {
 }
 
 void EnemyComponent::ProcessInput() {
-	// 索敵
-	auto epos = _Owner->GetPosition();
-	auto ppos = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition();
-	auto dist = VSize(VSub(ppos, epos));
-	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
 
+	/*
 	//とりあえずランダムで回転
-	
+	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
 	if (rotflag == 0){
 		if (rand() % 300 < 1) {
 			if (rand() % 2 == 0) { rotflag = 1; }
@@ -35,21 +35,32 @@ void EnemyComponent::ProcessInput() {
 		rotflag = 0;
 	}
 	}
-
-	// 一定距離内にプレイヤーがいるか判断
-	if (dist < 1000) {
-		if (dist < 200) {
-			rot.y = atan2(epos.x - ppos.x, epos.z - ppos.z);
-			
-		}
-		//プレイヤーが視界に入っていたら
-		if (VDot(VGet(0, 0, 1), VGet(ppos.x - epos.x, 0, ppos.z - epos.z)) < 0.5) {
-			
-		}
-	}
 	_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
+	*/
+	// 一定距離内にプレイヤーがいるか判断
+
+	// 索敵
+	Search(_Target);
+
+	// プレイヤーがいる場合
+	auto rnd = rand() % 10;
+	
+
 }
 
 void EnemyComponent::Update() {
 
+}
+
+bool EnemyComponent::Search(std::vector<ActorClass*> target) {
+	auto epos = _En->GetPosition();
+	for (auto t : target) {
+		auto ppos = t->GetPosition();
+		auto dist = VSize(VSub(ppos, epos));
+		if (dist < _SearchRef.dist) {
+			if (VDot(VGet(0, 0, 1), VGet(ppos.x - epos.x, 0, ppos.z - epos.z)) < cosf(_SearchRef.angle)) {
+				return true;
+			}
+		}
+	}
 }

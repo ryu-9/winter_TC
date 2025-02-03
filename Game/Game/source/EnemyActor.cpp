@@ -20,30 +20,12 @@ EnemyActor::EnemyActor(ModeBase* mode)
 EnemyActor::~EnemyActor() {}
 
 void EnemyActor::Init() {
-	_Status = STATUS::SEARCH;
-	_OldStatus = STATUS::NONE;
 
-	_SearchRef.dist = 1000;
-	_SearchRef.angle = 60;
+
 }
 
 void EnemyActor::UpdateActor() {
-	SetOldStatus();
 
 
-}
-
-bool EnemyActor::Search() {
-	auto epos = GetPosition();
-	auto ppos = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition();
-
-	auto dist = VSize(VSub(ppos, epos));
-
-	if (dist < _SearchRef.dist) {
-		if (VDot(VGet(0, 0, 1), VGet(ppos.x - epos.x, 0, ppos.z - epos.z)) < cosf(_SearchRef.angle)) {
-			
-		}
-	}
-	return false;
 }
 

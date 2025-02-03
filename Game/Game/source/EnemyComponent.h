@@ -9,10 +9,15 @@ public:
 	void ProcessInput();
 	void Update();
 
-private:
-	EnemyActor* _EnOwner;
 
-	int rottm;
-	int rotflag;
+
+private:
+
+	bool Search(std::vector<ActorClass*> target);
+
+	EnemyActor* _En;
+
+	std::vector<ActorClass*> _Target;
+	Enemy::SEARCH _SearchRef;
 };
 
