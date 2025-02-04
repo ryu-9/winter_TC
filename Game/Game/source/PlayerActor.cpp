@@ -12,8 +12,15 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _AnimTotalTime(0)
 	, _AnimIndex(-1)
 {
-	_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
-	_BallModel->SetScale(VGet(4, 4, 4));
+	if (_PlayerNo == 1) {
+		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
+		_BallModel->SetScale(VGet(4, 4, 4));
+	}
+	else {
+		_BallModel = new ModelComponent(this, "res/model/Yukidama_sis/Yukidama_Sis.mv1");
+		_BallModel->SetScale(VGet(4, 4, 4));
+	}
+
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
@@ -31,7 +38,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	
 	SetPosition(VGet(0, 1000, 0));
 
-	SetSize(VGet(2,2,2));
+	SetSize(VGet(0.1, 0.1, 0.1));
 
 	_AnimationModel = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 }
@@ -72,7 +79,7 @@ void PlayerActor::UpdateActor()
 		// �ړ��ʂ̃Z�b�g
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
-		float size = 4 * VSize(tmp) / 10000 / GetSize().x;
+		float size = VSize(tmp) / 10000 / GetSize().x;
 		if (_Input->GetStand() == TRUE) {
 			SetSize(VAdd(GetSize(), VGet(size, size, size)));
 			

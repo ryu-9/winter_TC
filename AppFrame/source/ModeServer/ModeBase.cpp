@@ -115,12 +115,12 @@ bool ModeBase::Update()
 bool	ModeBase::Render()
 {
 	for (auto sprite : _Sprites) {
-	//	sprite->Draw();
+			sprite->Draw();
 	}
 
 	if (_DrawCollision) {
 		for (auto mc : _MCollision) {
-			mc->DebugDraw();
+		//	mc->DebugDraw();
 		}
 	}
 	return	true;
@@ -179,6 +179,18 @@ void ModeBase::RemoveMCollision(MoveCollisionComponent* mc)
 {
 	auto iter = std::find(_MCollision.begin(), _MCollision.end(), mc);
 	_MCollision.erase(iter);
+}
+
+void ModeBase::AddHCollision(HitCollisionComponent* hc)
+{
+	auto iter = _HCollision.begin();
+	_HCollision.insert(iter, hc);
+}
+
+void ModeBase::RemoveHCollision(HitCollisionComponent* hc)
+{
+	auto iter = std::find(_HCollision.begin(), _HCollision.end(), hc);
+	_HCollision.erase(iter);
 }
 
 // ŽžŠÔŒo‰ß‚ð‚³‚¹‚é

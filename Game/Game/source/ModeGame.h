@@ -33,7 +33,7 @@ protected:
 
 	class CameraActor* _Camera;
 	class PlayerActor* _Player;
-
+	class PlayerActor* _Player2;
 
 	int _handleMap;
 	int _handleSkySphere;

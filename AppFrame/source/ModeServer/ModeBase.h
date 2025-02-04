@@ -7,6 +7,7 @@
 
 #include "SpriteComponent.h"
 #include "MoveCollisionComponent.h"
+#include "HitCollisionComponent.h"
 #include "ActorClass.h"
 #include "FpsController.h"
 
@@ -49,6 +50,10 @@ public:
 	void RemoveMCollision(class MoveCollisionComponent* mc);
 	std::deque<MoveCollisionComponent*>& GetMCollision() { return _MCollision; }
 
+	void AddHCollision(class HitCollisionComponent* hc);
+	void RemoveHCollision(class HitCollisionComponent* hc);
+	std::deque<HitCollisionComponent*>& GetHCollision() { return _HCollision; }
+
 	bool GetIsUpdate() const { return _IsUpdate; };
 	void SetIsUpdate(const bool flag) { _IsUpdate = flag; };
 
@@ -70,7 +75,8 @@ protected:
 	// 移動判定用コンポーネント
 	std::deque<class MoveCollisionComponent*> _MCollision;
 
-
+	// 当たり判定用コンポーネント
+	std::deque<class HitCollisionComponent*> _HCollision;
 
 private:
 	friend	ModeServer;

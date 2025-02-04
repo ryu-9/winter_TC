@@ -13,6 +13,8 @@ public:
 
 	void Update() override;
 
+	void RefleshCollInfo();
+
 	VECTOR GetPosition();
 	VECTOR GetSize();
 

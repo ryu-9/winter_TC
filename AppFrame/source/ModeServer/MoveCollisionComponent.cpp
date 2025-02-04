@@ -21,7 +21,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 	}
 	OldPos = GetPosition();
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��
-	if (type <= 2) { return; }
+	if (type == 2) { return; }
 
 	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
 	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
@@ -46,15 +46,15 @@ MoveCollisionComponent::~MoveCollisionComponent()
 
 void MoveCollisionComponent::Update() {
 
-	MV1SetPosition(Handle, GetPosition());
-	MV1SetScale(Handle, GetSize());
-	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-	MV1RefreshCollInfo(Handle);
 
 	devpos = VGet(0, 0, 0);
 
 	if (isActive == TRUE && isMove == TRUE) {
 
+		MV1SetPosition(Handle, GetPosition());
+		MV1SetScale(Handle, GetSize());
+		MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+		MV1RefreshCollInfo(Handle);
 
 
 		flag = FALSE;
@@ -352,6 +352,15 @@ void MoveCollisionComponent::Update() {
 
 	OldPos = GetPosition();
 
+}
+
+void MoveCollisionComponent::RefleshCollInfo()
+{
+	MV1SetPosition(Handle, GetPosition());
+	VECTOR size = GetSize();
+	MV1SetScale(Handle, GetSize());
+	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1SetupCollInfo(Handle);
 }
 
 

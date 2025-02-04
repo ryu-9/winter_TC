@@ -57,11 +57,11 @@ bool ModeGame::Initialize() {
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
 	_Player->SetPosition(VGet(800, 200, 100));
-	auto player2 = new PlayerActor(this , 2);
-	player2->SetPosition(VGet(1000, 200, 100));
-	_Player->SetFriend(player2);
-	player2->SetFriend(_Player);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, player2);
+	_Player2 = new PlayerActor(this , 2);
+	_Player2->SetPosition(VGet(1000, 200, 100));
+	_Player->SetFriend(_Player2);
+	_Player2->SetFriend(_Player);
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, _Player2);
 	//new EnemyActor(this);
 	//auto e = new EnemyActor(this);
 	//e->SetPosition(VGet(2200, 200, -500));
@@ -71,7 +71,7 @@ bool ModeGame::Initialize() {
 	//e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/", "chutorial2.json");
+	LoadStage("res/Stage/", "BIGkaridayo.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
@@ -178,8 +178,14 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetPosition(pos);
 			box->SetDirection(rot);
 			box->SetSize(scale);
+			box->GetMCollision()->RefleshCollInfo();
 		}
-	
+		if (name == "BP_Bro_spawn") {
+			_Player->SetPosition(pos);
+		}
+		if (name == "BP_Sis_spawn") {
+			_Player2->SetPosition(pos);
+		}
 	}
 	return true;
 }

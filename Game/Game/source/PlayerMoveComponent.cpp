@@ -34,7 +34,7 @@ void PlayerMoveComponent::ProcessInput()
 
 	// �ړ���������߂�
 	VECTOR v = { 0,0,0 };
-	float mvSpeed = 24.f;
+	float mvSpeed = 6.f;
 	DINPUT_JOYSTATE input;
 	/*
 	if (key & PAD_INPUT_DOWN) { v.x = 1; }
@@ -108,11 +108,11 @@ void PlayerMoveComponent::ProcessInput()
 			_DashTime = 100;
 		}
 		if (trg & PAD_INPUT_3) {
-			velocity.y = 50;
+			velocity.y = 10;
 			_DashTime = 0;
 		}
 		if (trg & PAD_INPUT_2) {
-			_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
+			_pOwner->SetSize(VGet(0.1, 0.1, 0.1));
 		}
 		if (trg & PAD_INPUT_1) {
 			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
