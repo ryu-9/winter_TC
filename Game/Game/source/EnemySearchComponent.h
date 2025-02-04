@@ -13,7 +13,7 @@ public:
 	EnemySearchComponent(class ActorClass* owner,int updateOrder = 20);
 	virtual ~EnemySearchComponent();
 
-	void ProcessInput() override;
+	virtual void ProcessInput() override;
 
 
 

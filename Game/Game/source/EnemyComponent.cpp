@@ -39,11 +39,7 @@ void EnemyComponent::ProcessInput() {
 	*/
 	// 一定距離内にプレイヤーがいるか判断
 
-	// 索敵
-	Search(_Target);
-
-	// プレイヤーがいる場合
-	auto rnd = rand() % 10;
+	
 	
 
 }
@@ -53,14 +49,32 @@ void EnemyComponent::Update() {
 }
 
 bool EnemyComponent::Search(std::vector<ActorClass*> target) {
+	_Index.clear();
+	bool f = false;
 	auto epos = _En->GetPosition();
-	for (auto t : target) {
-		auto ppos = t->GetPosition();
+	for (auto i = 0; i < target.size();i++) {
+		auto ppos = target[i]->GetPosition();
 		auto dist = VSize(VSub(ppos, epos));
 		if (dist < _SearchRef.dist) {
 			if (VDot(VGet(0, 0, 1), VGet(ppos.x - epos.x, 0, ppos.z - epos.z)) < cosf(_SearchRef.angle)) {
-				return true;
+				_Index.push_back(i);
+				f = true;
 			}
 		}
 	}
+	return f;
+}
+
+bool EnemyComponent::Turn() {
+
+	return true;
+}
+
+bool EnemyComponent::SetVelocity() {
+	return false;
+}
+
+bool EnemyComponent::Move()
+{
+	return true;
 }

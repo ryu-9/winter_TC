@@ -162,6 +162,7 @@
     <ClCompile Include="source\BGMComponent.cpp" />
     <ClCompile Include="source\BulletComponent.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
+    <ClCompile Include="source\ECornComponent.cpp" />
     <ClCompile Include="source\EnemyActor.cpp" />
     <ClCompile Include="source\EnemyAttackComponent.cpp" />
     <ClCompile Include="source\EnemyComponent.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="source\BGMComponent.h" />
     <ClInclude Include="source\BulletComponent.h" />
     <ClInclude Include="source\CameraActor.h" />
+    <ClInclude Include="source\ECornComponent.h" />
     <ClInclude Include="source\EnemyActor.h" />
     <ClInclude Include="source\EnemyAttackComponent.h" />
     <ClInclude Include="source\EnemyComponent.h" />

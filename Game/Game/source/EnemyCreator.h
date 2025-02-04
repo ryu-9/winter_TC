@@ -24,6 +24,6 @@ protected:
 	void Import();
 
 
-	std::array<std::array<EnemyActor::PARAM, ENEMY_COL>, ENEMY_SHAPE> _Data;
+	//std::array<std::array<EnemyActor::PARAM, ENEMY_COL>, ENEMY_SHAPE> _Data;
 };
 

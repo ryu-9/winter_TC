@@ -1,7 +1,7 @@
 #include "EnemyActor.h"
 #include "EnemyMoveComponent.h"
 #include "EnemyAttackComponent.h"
-#include "EnemyComponent.h"
+#include "ECornComponent.h"
 #include "PlayerActor.h"
 
 EnemyActor::EnemyActor(ModeBase* mode)
@@ -12,9 +12,9 @@ EnemyActor::EnemyActor(ModeBase* mode)
 	
 	SetPosition(VGet(1000, 300, 1000));
 	SetSize(VGet(2, 2, 2));
-	new MoveComponent(this);
-	new EnemyAttackComponent(this);
-	new EnemyComponent(this);
+	_Input = new MoveComponent(this);
+//	new EnemyAttackComponent(this);
+	new ECornComponent(this);
 }
 
 EnemyActor::~EnemyActor() {}

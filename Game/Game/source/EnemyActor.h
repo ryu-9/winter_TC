@@ -16,12 +16,13 @@ public:
 
 	
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode); }
+	class MoveComponent* GetInput() { return _Input; }
 
-	bool Search(std::vector<ActorClass*> target);
+	
 private:
 
 
-
+	class MoveComponent* _Input;
 	
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
