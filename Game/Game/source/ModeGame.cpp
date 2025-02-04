@@ -71,7 +71,7 @@ bool ModeGame::Initialize() {
 	//e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/", "BIGkaridayo.json");
+	LoadStage("res/Stage/", "CUBEtouitukarikari.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
