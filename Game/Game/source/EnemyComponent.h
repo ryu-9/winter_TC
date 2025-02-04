@@ -43,7 +43,8 @@ protected:
 	std::vector<int> _Index;
 	Enemy::SEARCH _SearchRef;
 
-
+	//ˆÚ“®
+	float _MoveDist;
 
 	// d‚İ•t‚«’Š‘I
 	template<class... Args>

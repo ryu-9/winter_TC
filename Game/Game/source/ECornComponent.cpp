@@ -6,7 +6,8 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	:EnemyComponent(owner)
 {
 	_Duration = 1000;
-	_Status = EnemyComponent::WAIT;
+	_Status = EnemyComponent::SEARCH;
+
 	_Target.push_back(static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer(0));
 	_Target.push_back(static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer(1));
 
@@ -23,13 +24,15 @@ void ECornComponent::ProcessInput() {
 		break; 
 	case STATUS::SEARCH: {
 		if (Search(_Target)) { _Status = STATUS::DISCOVERY; }
-		else { _Status = STATUS::WAIT; }
+		else { _Status = STATUS::WAIT;
+		auto n = Drawing(4, 1, 3);
+		_WaitAction = static_cast<WAIT_ACTION>(n);
+		}
 
 		break;
 	}
 	case STATUS::WAIT: {
-		auto n = Drawing(4, 4, 3);
-		switch (n) {
+		switch (_WaitAction) {
 		case 1:
 			// ˆÚ“®
 			Move();
@@ -38,6 +41,14 @@ void ECornComponent::ProcessInput() {
 			Jump();
 			break;
 		case 0:
+			if (_CurrentTime == 0) { _Duration = 2000; }
+			_CurrentTime += _Owner->GetMode()->GetStepTm();
+			if (_CurrentTime > _Duration) {
+				_CurrentTime = 0;
+				auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
+				_Owner->GetComponent<ModelComponent>()->SetRotation(VGet(0, rot.y + 0.3, 0));
+				_Status = STATUS::SEARCH;
+			}
 			break;
 		default:
 			break;
@@ -46,6 +57,7 @@ void ECornComponent::ProcessInput() {
 		break;
 	case STATUS::DISCOVERY:
 		_Status = STATUS::ATTACK;
+		_CurrentTime = 0;
 		break;
 	case STATUS::ATTACK: {
 		flag = Attack();
@@ -55,21 +67,57 @@ void ECornComponent::ProcessInput() {
 		break;
 	}
 	
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
+	
 	if (flag == true) {
 	//	_Status = STATUS::SEARCH;
 	}
 }
 
 bool ECornComponent::Attack() {
-	auto ac = new ActorClass(_Owner->GetMode());
-	ac->SetPosition(_Owner->GetPosition());
-	auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
-	new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
-	new BulletComponent(ac, static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition(), 1500);
-	auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
-	new SEComponent(ac, game->GetPlayer());
-	_Status = STATUS::SEARCH;
+	if (_CurrentTime == 0) {
+		_Duration = 4000;
+		auto ac = new ActorClass(_Owner->GetMode());
+		ac->SetPosition(_Owner->GetPosition());
+		auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
+		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
+		new BulletComponent(ac, _Target[_Index[0]]->GetPosition(), 1500);
+		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
+		// TODO: new SEComponent(ac,cam);
+		new SEComponent(ac, game->GetPlayer());
+	}
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
+
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_Status = STATUS::SEARCH;
+	}
+	return true;
+}
+
+bool ECornComponent::Move() {
+	if (_CurrentTime == 0) {
+		_MoveDist = 10;
+		_Duration = 1000;
+	}
+	
+	auto d = _MoveDist * (_Owner->GetMode()->GetStepTm() / (float)_Duration);
+	auto front = _Owner->GetComponent<ModelComponent>()->GetFront();
+	// TODO: ƒ‚ƒfƒ‹‚ÌŒü‚«’²®
+	// ‰¼‚Åƒtƒƒ“ƒg‚ð”½“]
+	front = VScale(front, -1);
+	
+	auto vel = _En->GetInput()->GetVelocity();
+	vel = VAdd(vel, VScale(front, d));
+	_En->GetInput()->SetVelocity(vel);
+
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
+		_Status = STATUS::SEARCH;
+	}
+	
+
 	return true;
 }
 
@@ -77,6 +125,8 @@ void ECornComponent::Jump() {
 	if (_CurrentTime == 0) {
 		_En->GetInput()->SetVelocity(VGet(0, 10, 0));
 	}
+
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
 		_Status = STATUS::SEARCH;
