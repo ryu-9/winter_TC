@@ -141,6 +141,9 @@
     <ClCompile Include="source\ECornComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\EBoxComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -225,6 +228,9 @@
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="source\ECornComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EBoxComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
     </ClInclude>
   </ItemGroup>

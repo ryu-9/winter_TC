@@ -8,8 +8,8 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	_Duration = 1000;
 	_Status = EnemyComponent::SEARCH;
 
-	_Target.push_back(static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer(0));
-	_Target.push_back(static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer(1));
+	_Target.push_back(_En->GetMode()->GetPlayer(0));
+	_Target.push_back(_En->GetMode()->GetPlayer(1));
 
 }
 
@@ -23,7 +23,7 @@ void ECornComponent::ProcessInput() {
 	case STATUS::NON:
 		break; 
 	case STATUS::SEARCH: {
-		if (Search(_Target)) { _Status = STATUS::DISCOVERY; }
+		if (Search(_Target)) { _Status = STATUS::DISCOVER; }
 		else { _Status = STATUS::WAIT;
 		auto n = Drawing(4, 1, 3);
 		_WaitAction = static_cast<WAIT_ACTION>(n);
@@ -55,7 +55,7 @@ void ECornComponent::ProcessInput() {
 		}
 	}
 		break;
-	case STATUS::DISCOVERY:
+	case STATUS::DISCOVER:
 		_Status = STATUS::ATTACK;
 		_CurrentTime = 0;
 		break;
@@ -78,7 +78,7 @@ bool ECornComponent::Attack() {
 		_Duration = 4000;
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
-		auto m = new ModelComponent(ac, "res/model/Enemy_corn.mv1");
+		auto m = new ModelComponent(ac, "res/model/Enemy_corn/Enemy_corn.mv1");
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[0]]->GetPosition(), 1500);
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
@@ -96,22 +96,22 @@ bool ECornComponent::Attack() {
 
 bool ECornComponent::Move() {
 	if (_CurrentTime == 0) {
-		_MoveDist = 10;
 		_Duration = 1000;
+		_MoveDist = 200 / (float)_Duration;
 	}
-	
-	auto d = _MoveDist * (_Owner->GetMode()->GetStepTm() / (float)_Duration);
+	auto t = _Owner->GetMode()->GetStepTm();
+	auto d = _MoveDist * t;
 	auto front = _Owner->GetComponent<ModelComponent>()->GetFront();
 	// TODO: ƒ‚ƒfƒ‹‚ÌŒü‚«’²®
 	// ‰¼‚Åƒtƒƒ“ƒg‚ð”½“]
 	front = VScale(front, -1);
 	
 	auto vel = _En->GetInput()->GetVelocity();
-	vel = VAdd(vel, VScale(front, d));
+	vel = VAdd(VGet(0,vel.y,0), VScale(front, d));
 	_En->GetInput()->SetVelocity(vel);
 
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
-	if (_CurrentTime > _Duration) {
+	_CurrentTime += t;
+	if (_CurrentTime >= _Duration) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
 		_Status = STATUS::SEARCH;

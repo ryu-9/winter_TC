@@ -2,28 +2,28 @@
 #include "appframe.h"
 #include "EnemyActor.h"
 
-class EnemyComponent : public Component{
+class EnemyComponent : public Component {
 public:
 	EnemyComponent(ActorClass* owner);
 	~EnemyComponent();
-	void ProcessInput();
-	void Update();
+	void ProcessInput() {};
+	void Update() {};
 
 	enum  STATUS {
 		NON,
 		SEARCH,
 		WAIT,
-		DISCOVERY,
+		DISCOVER,
 		ATTACK,
 	};
 
 protected:
 	bool Search(std::vector<ActorClass*> target);
-	
+
 	// à⁄ìÆ
-	virtual bool Move();
-	virtual bool Turn();
-	virtual bool SetVelocity();
+	virtual bool Move() { return false; };
+	virtual bool Turn() { return false; };
+	virtual bool SetVelocity() { return false; };
 	
 	// çUåÇ
 	virtual bool Attack() { return false; };

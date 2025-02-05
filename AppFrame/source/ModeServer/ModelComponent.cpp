@@ -110,7 +110,7 @@ void ModelSpriteComponent::Draw()
 	//*/
 
 	// デバッグ描画
-	//_Owner->GetComponent<MoveCollisionComponent>()->DebugDraw();
+	_Owner->GetComponent<MoveCollisionComponent>()->DebugDraw();
 	
 	{
 		_Model->SetModelInfo();
