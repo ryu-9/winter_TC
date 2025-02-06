@@ -140,7 +140,7 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = cos(rad + camrad) * length;
 		v.z = sin(rad + camrad) * length;
-		if (_DashTime <= 0) {
+		if (_DashTime <= mvSpeed) {
 			if (v.x != 0 || v.z != 0) {
 				_DashDir = VNorm(v);
 			}

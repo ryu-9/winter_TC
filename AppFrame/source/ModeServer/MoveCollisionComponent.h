@@ -3,7 +3,7 @@
 #include "Component.h"
 
 struct CollResult {
-	MoveCollisionComponent* mc;
+	class MoveCollisionComponent* mc;
 	std::deque<MV1_COLL_RESULT_POLY> mesh;
 };
 
@@ -85,6 +85,7 @@ private:
 	VECTOR devpos;
 
 	class ModelComponent* _Model;
+	class MoveComponent* _Move;
 
 	std::deque<CollResult> _CollResult;
 };
