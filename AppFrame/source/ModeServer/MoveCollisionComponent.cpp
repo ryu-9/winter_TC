@@ -51,6 +51,8 @@ void MoveCollisionComponent::Update() {
 
 	if (isActive == TRUE && isMove == TRUE) {
 
+		_CollResult.clear();
+
 		MV1SetPosition(Handle, GetPosition());
 		MV1SetScale(Handle, GetSize());
 		MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
@@ -66,30 +68,99 @@ void MoveCollisionComponent::Update() {
 			if (mcoll->GetIsActive() == TRUE) {
 				if (mcoll->GetOwner() != _Owner) {
 
-					int typeSum = 0;
-					VECTOR move = VGet(0, 0, 0);
-					MoveCollisionComponent* coll[2];
-
-					typeSum += Type * Type;
-					if (typeSum < mcoll->GetType() * mcoll->GetType()) {
-						coll[0] = this; coll[1] = mcoll;
-					}
-					else {
-						coll[0] = mcoll; coll[1] = this;
-					}
-
-					MoveComponent* MoveCom = coll[0]->GetOwner()->GetComponent<class MoveComponent>();
-
 
 					VECTOR tmp = VSub(GetPosition(), OldPos);
 
-					typeSum += mcoll->GetType() * mcoll->GetType();
-					MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Capsule(coll[1]->GetHandle(), -1, coll[0]->GetPosition(), OldPos, coll[0]->GetSize().x);
+					MV1_COLL_RESULT_POLY_DIM result;
+					{
+						VECTOR size = GetSize();
+						float radian = size.x + size.y + size.z;
+						radian /= 3;
+						result = MV1CollCheck_Capsule(mcoll->GetHandle(), -1, mcoll->GetPosition(), OldPos, radian);
+					}
 					if (result.HitNum > 0) {
 
+						CollResult tmp_CollResult;
+						tmp_CollResult.mc = mcoll;
+						for (int i = 0; i < result.HitNum; i++) {
+							if (VDot(tmp, result.Dim[i].Normal) < 0) {
+								tmp_CollResult.mesh.push_front(result.Dim[i]);
+
+								flag = TRUE;
+							}
+						}
+						if (tmp_CollResult.mesh.size() > 0) {
+							_CollResult.push_front(tmp_CollResult);
+						}
 
 						flag = TRUE;
 						std::deque <MV1_COLL_RESULT_POLY> polyList;
+
+					}
+					MV1CollResultPolyDimTerminate(result);
+				}
+			}
+		}
+
+		std::deque<VECTOR> HitPos;
+		std::deque<VECTOR> HitNormal;
+		std::deque<float> dist;
+		for (auto r : _CollResult) {
+			MV1_COLL_RESULT_POLY_DIM Presult;
+			{
+				VECTOR tmp = VSub(GetPosition(), OldPos);
+				VECTOR size = GetSize();
+				float radian = size.x + size.y + size.z;
+				radian /= 3;
+				Presult = MV1CollCheck_Sphere(r.mc->GetHandle(), -1, OldPos, radian + VSize(tmp));
+			}
+			if (Presult.HitNum <= 0) {
+				continue;
+			}
+			VECTOR tmpHit = Presult.Dim[0].HitPosition;
+			VECTOR tmpNormal = Presult.Dim[0].Normal;
+			float tmpDist = VSize(VSub(OldPos, tmpHit));
+
+			for (int i = 0; i < Presult.HitNum; i++) {
+				float tmpDist2 = VSize(VSub(OldPos, Presult.Dim[i].HitPosition));
+				if (tmpDist2 < tmpDist) {
+					tmpHit = Presult.Dim[i].HitPosition;
+					tmpNormal = Presult.Dim[i].Normal;
+					tmpDist = tmpDist2;
+				}
+			}
+			if (dist.size() == 0) {
+				HitPos.push_front(tmpHit);
+				HitNormal.push_front(tmpNormal);
+				dist.push_front(tmpDist);
+			}
+			else {
+				for (int i = 0; i < dist.size(); i++) {
+					if (tmpDist < dist[i]) {
+						tmpHit = HitPos[i];
+						tmpNormal = HitNormal[i];
+						tmpDist = dist[i];
+						break;
+					}
+					else {
+						if (i == dist.size() - 1) {
+							HitPos.push_back(tmpHit);
+							HitNormal.push_back(tmpNormal);
+							dist.push_back(tmpDist);
+							break;
+						}
+					}
+				}
+			}
+			MV1CollResultPolyDimTerminate(Presult);
+		}
+
+		for (int i = 0; i < HitPos.size(); i++) {
+		
+		
+		
+		}
+
 
 
 						for (int i = 0; i < result.HitNum; i++) {
@@ -208,7 +279,7 @@ void MoveCollisionComponent::Update() {
 								OldMove = move;
 								devpos = VAdd(devpos, VScale(move, length));
 
-								if (move.y < -0.3) {
+								if (move.y < 0.3) {
 									int test = 0;
 								}
 
@@ -301,7 +372,7 @@ void MoveCollisionComponent::Update() {
 										OldMove = move;
 										devpos = VAdd(devpos, VScale(move, length));
 
-										if (move.y < -0.3) {
+										if (move.y < 0.3) {
 											int test = 0;
 										}
 
@@ -340,7 +411,7 @@ void MoveCollisionComponent::Update() {
 
 					}
 
-					MV1CollResultPolyDimTerminate(result);
+
 
 				}
 

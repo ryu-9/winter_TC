@@ -21,11 +21,11 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 		_BallModel->SetScale(VGet(4, 4, 4));
 	}
 
-	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Basecolor2.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -180, 0));
-	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
+	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Basecolor2.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetVisible(false);
 	_BottomModel->SetVisible(false);
@@ -225,8 +225,8 @@ void PlayerActor::ChangeAnim(int a)
 	
 	case (int)anim::Change:
 		index = MV1GetAnimIndex(_AnimationModel, "modelmotion");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel, FALSE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel, FALSE);
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel, TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel, TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 
 		break;

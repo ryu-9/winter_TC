@@ -2,6 +2,11 @@
 #include "ModeBase.h"
 #include "Component.h"
 
+struct CollResult {
+	MoveCollisionComponent* mc;
+	std::deque<MV1_COLL_RESULT_POLY> mesh;
+};
+
 
 class MoveCollisionComponent : public	Component
 {
@@ -80,5 +85,7 @@ private:
 	VECTOR devpos;
 
 	class ModelComponent* _Model;
+
+	std::deque<CollResult> _CollResult;
 };
 
