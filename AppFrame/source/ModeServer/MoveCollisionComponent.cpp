@@ -90,7 +90,7 @@ void MoveCollisionComponent::Update() {
 						CollResult tmp_CollResult;
 						tmp_CollResult.mc = mcoll;
 						for (int i = 0; i < result.HitNum; i++) {
-							if (VDot(tmp, result.Dim[i].Normal) < 0) {
+							if (VDot(tmp, result.Dim[i].Normal) <= 0) {
 								tmp_CollResult.mesh.push_front(result.Dim[i]);
 
 								flag = TRUE;
@@ -124,6 +124,7 @@ void MoveCollisionComponent::Update() {
 				Presult = MV1CollCheck_Sphere(r.mc->GetHandle(), -1, OldPos, radian + VSize(tmp));
 			}
 			if (Presult.HitNum <= 0) {
+				MV1CollResultPolyDimTerminate(Presult);
 				continue;
 			}
 			VECTOR tmpHit = Presult.Dim[0].HitPosition;
@@ -148,6 +149,13 @@ void MoveCollisionComponent::Update() {
 								HitNormal.insert(HitNormal.begin() + j, tmpNormal);
 								dist.insert(dist.begin() + j, tmpDist);
 								coll.insert(coll.begin() + j, r.mc);
+								break;
+							}
+							if (j == dist.size() - 1) {
+								HitPos.push_back(tmpHit);
+								HitNormal.push_back(tmpNormal);
+								dist.push_back(tmpDist);
+								coll.push_back(r.mc);
 								break;
 							}
 						}
@@ -183,18 +191,20 @@ void MoveCollisionComponent::Update() {
 
 
 				float v = VDot(move, OldMove);
+				float judge = VDot(move, HitNormal[i]);
+
 				move = VSub(move, VScale(OldMove, v));
 				if (VSize(move) == 0) {
 					move = HitNormal[i];
 				}
 				else { move = VNorm(move); }
-				float judge = VDot(move, HitNormal[i]);
+				
 
 				if (HitNormal[i].y > 0.7 && move.y < 0.01) {
 					int test = 0;
 				}
 
-				if (judge >= 0.98) {
+				if (judge >= 1){
 
 					float a = VDot(tmp, move);
 					if (a < 0) { a *= -1; }
@@ -206,9 +216,12 @@ void MoveCollisionComponent::Update() {
 						int test = 0;
 					}
 					if (-b > c) {
-						//continue;
+						continue;
 					}
-					if (move.y < 0.001) {
+					if (move.x < -0.5) {
+						int test = 0;
+					}
+					if (move.x > 0.5) {
 						int test = 0;
 					}
 				}
@@ -228,7 +241,7 @@ void MoveCollisionComponent::Update() {
 					else {
 						length = (2.0f * dot + sqrt(debugSQRT)) / 2.0f;
 					}
-					if (move.y > 0.1) {
+					if (move.x < -0.7) {
 						int test = 0;
 					}
 				}
@@ -239,7 +252,7 @@ void MoveCollisionComponent::Update() {
 				movedList.push_front(move);
 				tmp = VSub(GetPosition(), OldPos);
 				OldMove = move;
-				devpos = VAdd(devpos, VScale(move, length));
+				devpos = VAdd(devpos, move);
 
 				if (move.y < 0.3) {
 					int test = 0;
@@ -319,7 +332,7 @@ void MoveCollisionComponent::Update() {
 						movedList.push_front(move);
 						tmp = VSub(GetPosition(), OldPos);
 						OldMove = move;
-						devpos = VAdd(devpos, VScale(move, length));
+						devpos = VAdd(devpos, move);
 
 						if (move.y < 0.3) {
 							int test = 0;
@@ -359,7 +372,7 @@ void MoveCollisionComponent::Update() {
 		if (devpos.y > radius && _CollResult.size() > 0) {
 			int test = 0;
 		}
-		if (devpos.y < 0.01 && radius > 10 && dist.size()>1) {
+		if (devpos.y < 0.95 && radius > 10 && dist.size()>1) {
 			int test = 0;
 		}
 		if ( ApplicationBase::GetInstance()->GetKey(1)& PAD_INPUT_4) {
