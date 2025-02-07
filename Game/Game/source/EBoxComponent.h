@@ -11,8 +11,10 @@ public:
 	};
 
 protected:
+	bool Attack() override;
 	bool Move() override;
 	bool Roll();
 	WAIT_ACTION _WaitAction;
+	VECTOR _MoveDir;
 };
 
