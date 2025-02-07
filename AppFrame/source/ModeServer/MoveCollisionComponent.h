@@ -83,6 +83,7 @@ private:
 	VECTOR OldPos;
 
 	VECTOR devpos;
+	VECTOR drawpos[2];
 
 	class ModelComponent* _Model;
 	class MoveComponent* _Move;

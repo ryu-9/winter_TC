@@ -4,10 +4,10 @@ StageBox::StageBox(ModeBase* mode)
 	:ActorClass(mode)
 {
 	auto m = new ModelComponent(this, "res/model/Mapchip/Mapchip.mv1");
-	m->SetScale(VGet(4,4,4));
-	m->SetPosition(VGet(0, -200, 0));
+	m->SetScale(VGet(2,2,2));
+	m->SetPosition(VGet(0, -150, 0));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this, m, VGet(0,-100,0), VGet(1,1,1),6, false, true, handle);
+	_MCollision = new MoveCollisionComponent(this, m, VGet(0,-100,0), VGet(0.5,0.5,0.5),6, false, true, handle);
 	//coll->SetRSize(VGet(0.1, 0.1, 0.1));
 
 }
