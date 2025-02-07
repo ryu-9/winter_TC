@@ -46,6 +46,8 @@ private:
 	class MoveCollisionComponent* _MCollision;
 	class MoveCollisionComponent* _MCollision2;
 
+	class HitCollisionComponent* _HCollision;
+
 	int _PlayerNo;
 
 	int _ModeNum; // 0:í èÌ 1:â∫îºêgÅ@2:è„îºêg

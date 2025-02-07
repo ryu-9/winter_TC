@@ -32,6 +32,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
 	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
+	_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
 	int n = rand() % 2;
 	
 	_Input = new PlayerMoveComponent(this);

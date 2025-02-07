@@ -16,6 +16,7 @@ public:
 
 	VECTOR GetPosition();
 	VECTOR GetSize();
+	VECTOR GetOldPosition() const { return OldPos; }
 
 	VECTOR GetUp();
 	VECTOR GetFront();
@@ -44,7 +45,6 @@ public:
 
 	bool GetFlag() const { return flag; }
 
-	void Push();
 
 	void SetRotation(VECTOR rot);
 

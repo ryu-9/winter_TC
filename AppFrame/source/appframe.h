@@ -9,6 +9,7 @@
 #include "ModeServer/Actor/UIChipEffectComponent.h"
 #include "ModeServer/ModelComponent.h"
 #include "ModeServer/MoveCollisionComponent.h"
+#include "ModeServer/HitCollisionComponent.h"
 #include "ModeServer/MoveComponent.h"
 #include "ModeServer/FpsController.h"
 #include "SoundServer/SoundServer.h"

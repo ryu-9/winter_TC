@@ -89,5 +89,7 @@ private:
 	class MoveComponent* _Move;
 
 	std::deque<CollResult> _CollResult;
+
+	std::deque<VECTOR> debugpos;
 };
 

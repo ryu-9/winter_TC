@@ -14,6 +14,7 @@ HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelCompo
 
 
 	OldPos = GetPosition();
+	devpos = OldPos;
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��
 	if (type <= 2) { return; }
 
@@ -45,18 +46,57 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 
 	_IsHitList.clear();
 
+
 	for (auto hcoll : _Owner->GetMode()->GetHCollision())
 	{
 		if (hcoll->GetIsActive() == TRUE)
 		{
 			if (hcoll->GetOwner() != _Owner)
 			{
-				_IsHitList.insert(_IsHitList.begin(), hcoll);
+				if (HitCheck_Capsule_Capsule(GetPosition(), OldPos,GetSize().x, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x)) {
+					_IsHitList.insert(_IsHitList.begin(), hcoll);
+				}
+
 			}
 		}
 	}
 
+	devpos = OldPos;
+	OldPos = GetPosition();
 	return _IsHitList;
 	// TODO: return ステートメントをここに挿入します
 }
 
+VECTOR HitCollisionComponent::GetPosition()
+{
+	return VECTOR();
+}
+
+VECTOR HitCollisionComponent::GetSize()
+{
+	return VECTOR();
+}
+
+VECTOR HitCollisionComponent::GetUp()
+{
+	return VECTOR();
+}
+
+VECTOR HitCollisionComponent::GetFront()
+{
+	return VECTOR();
+}
+
+VECTOR HitCollisionComponent::GetRight()
+{
+	return VECTOR();
+}
+
+void HitCollisionComponent::DebugDraw()
+{
+	DrawCapsule3D(devpos, GetPosition(), GetSize().x, 5, GetColor(0,0,255), 0, false);
+}
+
+void HitCollisionComponent::SetRotation(VECTOR rot)
+{
+}

@@ -6,7 +6,7 @@ CameraActor::CameraActor(ModeBase* mode)
 {
 	// カメラの設定（わかりやすい位置に）
 	_Position = VGet(0, 90.f, -300.f);
-	_Direction = VGet(0, 60, 0);
+	_Direction = VGet(0, 0, 0);
 	_clipNear = 2.f;
 	_clipFar = 200000.f;
 	_Follow = nullptr;
@@ -25,6 +25,7 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 	:Component(owner, updateOrder)
 	, _cOwner(owner)
 {
+	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 }
 
 CameraComponent::~CameraComponent()

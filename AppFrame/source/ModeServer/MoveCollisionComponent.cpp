@@ -55,6 +55,7 @@ void MoveCollisionComponent::Update() {
 
 		int pushnum = 0;
 		_CollResult.clear();
+		debugpos.clear();
 
 		drawpos[0] = GetPosition();
 
@@ -169,6 +170,16 @@ void MoveCollisionComponent::Update() {
 								coll.insert(coll.begin() + k, r.mc);
 								break;
 							}
+							if (tmpDist == dist[k]) {
+								VECTOR tmpmove = VNorm(VSub(GetPosition(), OldPos));
+								if (VDot(tmpmove, r.mesh[j].Normal)>VDot(tmpmove, HitNormal[k])) {
+									HitPos.insert(HitPos.begin() + k, tmpHit);
+									HitNormal.insert(HitNormal.begin() + k, r.mesh[j].Normal);
+									dist.insert(dist.begin() + k, tmpDist);
+									coll.insert(coll.begin() + k, r.mc);
+									break;
+								}
+							}
 							if (k == dist.size() - 1) {
 								HitPos.push_back(tmpHit);
 								HitNormal.push_back(r.mesh[j].Normal);
@@ -194,14 +205,15 @@ void MoveCollisionComponent::Update() {
 				move = HitNormal[i];
 			}
 			move = VNorm(move);
-			if (VSize(move) == 0) {
+			if (VSize(move) <= 0) {
+				continue;
 				move = HitNormal[i];
 			}
 			if (VDot(move, HitNormal[i]) < 0) {
 				continue;
 			}
 			if (VDot(move, tmp) > 0) {
-				//continue;
+				continue;
 			}
 			if (VSize(move) != 0) {
 				float length = 0;
@@ -210,12 +222,18 @@ void MoveCollisionComponent::Update() {
 				float v = VDot(move, OldMove);
 				float judge = VDot(move, HitNormal[i]);
 
+	
 				move = VSub(move, VScale(OldMove, v));
-				if (VSize(move) == 0) {
+				if (VSize(move) <= 0.01) {
+					continue;
 					move = HitNormal[i];
 				}
 				else { move = VNorm(move); }
 				
+				if (move.z < -0.5) {
+					int test = 0;
+				}
+
 
 				if (HitNormal[i].y > 0.7 && move.y < 0.01) {
 					int test = 0;
@@ -265,11 +283,16 @@ void MoveCollisionComponent::Update() {
 					if (i == 0) {
 						int test = 0;
 					}
+					if (length < 0) {
+						//continue;
+					}
 				}
 
 
 				_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
 				pushnum++;
+
+				debugpos.push_front(GetPosition());
 
 				movedList.push_front(move);
 				tmp = VSub(GetPosition(), OldPos);
@@ -348,7 +371,10 @@ void MoveCollisionComponent::Update() {
 							}
 						}
 
-						//_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+						_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+
+						debugpos.push_front(GetPosition());
+
 						pushnum++;
 
 						movedList.push_front(move);
@@ -461,8 +487,10 @@ void MoveCollisionComponent::DebugDraw()
 		for (auto r : _CollResult) {
 			for (auto m : r.mesh) {
 				DrawTriangle3D(m.Position[0], m.Position[1], m.Position[2], GetColor(0, 255, 0), TRUE);
-				//DrawSphere3D(m.HitPosition, 1, 16, GetColor(0, 0, 255), GetColor(0, 0, 255), TRUE);
 			}
+		}
+		for (auto d : debugpos) {
+			DrawSphere3D(d, GetSize().x, 16, GetColor(0, 0, 255), GetColor(0, 0, 255), FALSE);
 		}
 	}
 
