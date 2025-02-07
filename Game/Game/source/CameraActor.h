@@ -30,11 +30,11 @@ public:
 	void ProcessInput() override;
 	void Update() override;
 
-	void SetPlayer(class PlayerActor* player1 , class PlayerActor* player2) 
-	{ _Player[0] = player1 , _Player[1] = player2; };
+	void SetPlayer(class PlayerActor* player1, class PlayerActor* player2);
 
 private:
 	class CameraActor* _cOwner;
 	class PlayerActor* _Player[2];
+	class ShadowMapSpriteComponent* _ShadowMap[3];
 	
 };

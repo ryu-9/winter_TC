@@ -284,7 +284,7 @@ void MoveCollisionComponent::Update() {
 						int test = 0;
 					}
 					if (length < 0) {
-						//continue;
+						continue;
 					}
 				}
 

@@ -16,3 +16,4 @@
 #include "SoundServer/SoundComponent.h"
 #include "SoundServer/SourceVoiceItem.h"
 #include "SoundServer/SEComponent.h"
+#include "ModeServer/ShadowMapSpriteComponent.h"

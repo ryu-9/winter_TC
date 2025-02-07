@@ -50,6 +50,8 @@ public:
 	void RemoveMCollision(class MoveCollisionComponent* mc);
 	std::deque<MoveCollisionComponent*>& GetMCollision() { return _MCollision; }
 
+	std::vector<class SpriteComponent*>& GetSprites() { return _Sprites; }
+
 	void AddHCollision(class HitCollisionComponent* hc);
 	void RemoveHCollision(class HitCollisionComponent* hc);
 	std::deque<HitCollisionComponent*>& GetHCollision() { return _HCollision; }

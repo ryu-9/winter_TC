@@ -179,6 +179,7 @@
     <ClInclude Include="source\ModeServer\ModeServer.h" />
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
+    <ClInclude Include="source\ModeServer\ShadowMapSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
     <ClInclude Include="source\SoundServer\SoundComponent.h" />
     <ClInclude Include="source\SoundServer\SEComponent.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="source\ModeServer\ModeServer.cpp" />
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
+    <ClCompile Include="source\ModeServer\ShadowMapSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
     <ClCompile Include="source\SoundServer\SEComponent.cpp" />

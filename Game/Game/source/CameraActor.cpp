@@ -26,6 +26,9 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 	, _cOwner(owner)
 {
 	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	_ShadowMap[0] = new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
+	_ShadowMap[1] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800);
+	_ShadowMap[2] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800);
 }
 
 CameraComponent::~CameraComponent()
@@ -81,6 +84,13 @@ void CameraComponent::ProcessInput()
 	if (dist < 1000) { dist = 1000; }
 	v = VScale(v, 0.5f);
 	_Owner->SetDirection(v);
+	_ShadowMap[0]->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
+	_ShadowMap[0]->SetMinLength(VGet(-dist, -dist, -dist));
+	_ShadowMap[0]->SetMaxLength(VGet(dist, dist, dist));
+	_ShadowMap[1]->SetTarget(_Player[0]->GetPosition());
+	_ShadowMap[1]->SetMinLength(VGet(-200, -_Player[0]->GetPosition().y, -200));
+	_ShadowMap[2]->SetTarget(_Player[1]->GetPosition());
+	_ShadowMap[2]->SetMinLength(VGet(-200, -_Player[1]->GetPosition().y, -200));
 
 	_Owner->SetPosition(VAdd(v, VScale(angle, dist)));
 	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
@@ -93,4 +103,12 @@ void CameraComponent::ProcessInput()
 void CameraComponent::Update()
 {
 
+}
+
+void CameraComponent::SetPlayer(PlayerActor* player1, PlayerActor* player2)
+{
+	_Player[0] = player1;
+	_Player[1] = player2;
+	_ShadowMap[1]->AddSprite(player1->GetComponent<SpriteComponent>());
+	_ShadowMap[2]->AddSprite(player2->GetComponent<SpriteComponent>());
 }
