@@ -57,11 +57,12 @@ bool ModeGame::Initialize() {
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);
 	_Player[0]->SetPosition(VGet(800, 200, 100));
-	_Player[1] = new PlayerActor(this, 2);
+	_Player[1] = new PlayerActor(this, 1);
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
+/*
 	new EnemyActor(this);
 	auto e = new EnemyActor(this);
 	e->SetPosition(VGet(2200, 200, -500));
@@ -69,14 +70,15 @@ bool ModeGame::Initialize() {
 	e->SetPosition(VGet(2000, 200, 1200));
 	e = new EnemyActor(this);
 	e->SetPosition(VGet(600, 200, -200));
+	*/
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/", "chutorial2.json");
+	LoadStage("res/Stage/map_1-1/", "moi.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 	auto ac = new ActorClass(this);
-	ac->SetSize(VGet(300, 300, 300));
+	ac->SetSize(VGet(100, 100, 100));
 	new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
 	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>(), VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
@@ -183,18 +185,19 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		/*		// アクタで読み込み　ちらつく
-		auto ac = new ActorClass(this);
-		auto file = path + "model/" + name + ".mv1";
-		auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
-		auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
-		ac->SetPosition(pos);
-		ac->SetDirection(rot);
-		ac->SetSize(scale);
-		mv->RefleshCollInfo();
-*/
+		/*
+		// アクタで読み込み　ちらつく
+				auto ac = new ActorClass(this);
+				auto file = path + "model/" + name + ".mv1";
+				auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+				auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
+				ac->SetPosition(pos);
+				ac->SetDirection(rot);
+				ac->SetSize(scale);
+				mv->RefleshCollInfo();
+		*/
 
-// ステージボックスで読み込み　ちらつかない
+		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
 			auto box = new StageBox(this);
 			box->SetPosition(pos);
@@ -209,7 +212,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			_Player[1]->SetPosition(pos);
 		}
 	}
-	
+
 	return true;
 }
 
