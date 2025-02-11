@@ -66,7 +66,7 @@ bool EBoxComponent::Attack() {
 		// ƒvƒŒƒCƒ„[‚Ì•û‚ÉŒü‚©‚¤
 		auto dir = VSub(_Target[0]->GetPosition(), _Owner->GetPosition());
 		dir = VNorm(dir);
-		if()
+		//if()
 	}
 
 	VECTOR pos = _Owner->GetPosition();
