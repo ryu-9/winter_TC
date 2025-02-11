@@ -7,6 +7,7 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 {
 	_Status = STATUS::SEARCH;
 	_Duration = 1000;
+	_CoolTime = 1000;
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
 
@@ -33,7 +34,7 @@ void EBoxComponent::ProcessInput() {
 		case 0:
 			if (_CurrentTime == 0) { _Duration = 2000; }
 			_CurrentTime += _Owner->GetMode()->GetStepTm();
-			if (_CurrentTime > _Duration) {
+			if (_CurrentTime > _Duration + _CoolTime) {
 				_CurrentTime = 0;
 				_Status = STATUS::SEARCH;
 			}
@@ -53,6 +54,7 @@ void EBoxComponent::ProcessInput() {
 		break;
 
 	case STATUS::ATTACK:
+		Attack();
 		break;
 	default:
 		break;
@@ -62,11 +64,26 @@ void EBoxComponent::ProcessInput() {
 
 bool EBoxComponent::Attack() {
 	if (_CurrentTime == 0) {
-		_Duration = 1000;
+		_Duration = 500;
 		// ƒvƒŒƒCƒ„[‚Ì•û‚ÉŒü‚©‚¤
 		auto dir = VSub(_Target[0]->GetPosition(), _Owner->GetPosition());
 		dir = VNorm(dir);
-		//if()
+		if (fabs(dir.x) > fabs(dir.z)) {
+			if (dir.x > 0) {
+				_MoveDir = VGet(1, 0, 0);
+			}
+			else {
+				_MoveDir = VGet(-1, 0, 0);
+			}
+		}
+		else {
+			if (dir.z > 0) {
+				_MoveDir = VGet(0, 0, 1);
+			}
+			else {
+				_MoveDir = VGet(0, 0, -1);
+			}
+		}
 	}
 
 	VECTOR pos = _Owner->GetPosition();
@@ -79,7 +96,7 @@ bool EBoxComponent::Attack() {
 
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
-	if (_CurrentTime > _Duration) {
+	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
 		_Status = STATUS::SEARCH;
@@ -116,7 +133,7 @@ bool EBoxComponent::Move() {
 
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
-	if (_CurrentTime > _Duration) {
+	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
 		_Status = STATUS::SEARCH;

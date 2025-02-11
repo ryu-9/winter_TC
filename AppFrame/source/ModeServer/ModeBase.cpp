@@ -123,7 +123,7 @@ bool	ModeBase::Render()
 			//mc->DebugDraw();
 		}
 		for (auto hc : _HCollision) {
-			//hc->DebugDraw();
+			hc->DebugDraw();
 		}
 	}
 	return	true;

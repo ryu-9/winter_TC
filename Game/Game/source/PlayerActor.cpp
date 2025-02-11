@@ -1,6 +1,7 @@
 #include "PlayerActor.h"
 #include "appframe.h"
 #include "PlayerMoveComponent.h"
+#include "EnemyActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -130,13 +131,23 @@ void PlayerActor::UpdateActor()
 		break;
 
 	case 1:
+	{
 		rot = _Input->GetDashDir();
-		rot2 = VGet(0,1,0);
+		rot2 = VGet(0, 1, 0);
 
 		MV1SetRotationZYAxis(_BottomModel->GetHandle(), rot, rot2, 0);
 
 		_BottomModel->SetFront(rot);
 		_BottomModel->SetUp(rot2);
+
+		auto hit = _HCollision->IsHit();
+		for (auto h : hit) {
+			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
+			if (enemy != nullptr) {
+				enemy->SetState(State::eDead);
+			}
+		}
+	}
 		break;
 
 	case 2:

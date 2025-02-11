@@ -7,7 +7,7 @@
 class EnemyActor : public ActorClass {
 public:
 
-	EnemyActor(class ModeBase* mode);
+	EnemyActor(class ModeBase* mode,VECTOR pos = VGet(0,0,0));
 	virtual ~EnemyActor();
 
 
@@ -26,7 +26,7 @@ private:
 	
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
-
+	class HitCollisionComponent* _HCollision;
 
 
 

@@ -15,6 +15,8 @@ protected:
 	bool Move() override;
 	bool Roll();
 	WAIT_ACTION _WaitAction;
+
+	// ˆÚ“®•ûŒü
 	VECTOR _MoveDir;
 };
 

@@ -67,14 +67,12 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 	// TODO: return ステートメントをここに挿入します
 }
 
-VECTOR HitCollisionComponent::GetPosition()
-{
-	return VECTOR();
+VECTOR HitCollisionComponent::GetPosition() {
+	return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize()));
 }
 
-VECTOR HitCollisionComponent::GetSize()
-{
-	return VECTOR();
+VECTOR HitCollisionComponent::GetSize() {
+	return VMulti(Size, _Owner->GetSize());
 }
 
 VECTOR HitCollisionComponent::GetUp()

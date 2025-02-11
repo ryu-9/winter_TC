@@ -34,7 +34,8 @@ protected:
 	// 全般
 	STATUS _Status;
 	int _CurrentTime;	// 経過時間
-	int _Duration;		// 持続時間
+	int _Duration;		// 行動時間
+	int _CoolTime;		// クールタイム
 	
 	EnemyActor* _En;
 

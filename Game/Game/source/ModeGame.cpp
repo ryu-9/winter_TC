@@ -57,20 +57,18 @@ bool ModeGame::Initialize() {
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);
 	_Player[0]->SetPosition(VGet(800, 200, 100));
-	_Player[1] = new PlayerActor(this, 1);
+	_Player[1] = new PlayerActor(this, 2);
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
-/*
-	new EnemyActor(this);
-	auto e = new EnemyActor(this);
-	e->SetPosition(VGet(2200, 200, -500));
-	e = new EnemyActor(this);
-	e->SetPosition(VGet(2000, 200, 1200));
-	e = new EnemyActor(this);
-	e->SetPosition(VGet(600, 200, -200));
-	*/
+
+	auto e = new EnemyActor(this, VGet(0, 200, 100));
+	e->SetPosition(VGet(0, 200, 100));
+	e = new EnemyActor(this, VGet(-10, 200, 0));
+	e = new EnemyActor(this, VGet(-100, 200, 200));
+	e = new EnemyActor(this, VGet(-100, 200, 400));
+	
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/map_1-1/", "moi.json");
