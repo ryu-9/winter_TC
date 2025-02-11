@@ -6,7 +6,7 @@ CameraActor::CameraActor(ModeBase* mode)
 {
 	// カメラの設定（わかりやすい位置に）
 	_Position = VGet(0, 90.f, -300.f);
-	_Direction = VGet(0, 60, 0);
+	_Direction = VGet(0, 0, 0);
 	_clipNear = 2.f;
 	_clipFar = 200000.f;
 	_Follow = nullptr;
@@ -25,6 +25,10 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 	:Component(owner, updateOrder)
 	, _cOwner(owner)
 {
+	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	_ShadowMap[0] = new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
+	_ShadowMap[1] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800);
+	_ShadowMap[2] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800);
 }
 
 CameraComponent::~CameraComponent()
@@ -34,7 +38,11 @@ CameraComponent::~CameraComponent()
 void CameraComponent::ProcessInput()
 {
 	/*
-		DINPUT_JOYSTATE di;
+
+	*/
+	// アナログスティック対応
+
+	DINPUT_JOYSTATE di;
 	GetJoypadDirectInputState(DX_INPUT_PAD1, &di);
 	float lx, ly, rx, ry;	// 左右アナログスティックの座標
 	float analogMin = 0.3f;	// アナログ閾値
@@ -50,20 +58,11 @@ void CameraComponent::ProcessInput()
 	float length = sqrt(sz * sz + sx * sx);
 	if (rx > analogMin) { rad -= 0.05f; }
 	if (rx < -analogMin) { rad += 0.05f; }
-	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length,_cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
+	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
 	// Y位置
-	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f , _cOwner->GetPosition().z));}
+	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
 	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
-	*/
-	// アナログスティック対応
-
-	
-
-}
-
-void CameraComponent::Update()
-{
 	// カメラ設定更新
 	VECTOR pos[2] = { VGet(0,0,0),VGet(0,0,0) };
 	if (_Player[0] != nullptr) {
@@ -74,11 +73,42 @@ void CameraComponent::Update()
 	}
 	VECTOR v = VAdd(pos[0], pos[1]);
 	float dist = VSize(VSub(pos[0], pos[1])) + 100;
+	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
+	angle = VNorm(angle);
+
+	angle = VTransform(angle, MGetRotY(rx/1000));
+	float camrad = atan2(angle.y, VSize(VGet(angle.x, 0, angle.z)));
+	camrad += ry / 1000;
+	angle.y = sin(camrad);
+
 	if (dist < 1000) { dist = 1000; }
 	v = VScale(v, 0.5f);
 	_Owner->SetDirection(v);
-	_Owner->SetPosition(VGet(v.x + dist, v.y + dist, v.z));
-	SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
-	//SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	_ShadowMap[0]->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
+	_ShadowMap[0]->SetMinLength(VGet(-dist, -dist, -dist));
+	_ShadowMap[0]->SetMaxLength(VGet(dist, dist, dist));
+	_ShadowMap[1]->SetTarget(_Player[0]->GetPosition());
+	_ShadowMap[1]->SetMinLength(VGet(-200, -_Player[0]->GetPosition().y, -200));
+	_ShadowMap[2]->SetTarget(_Player[1]->GetPosition());
+	_ShadowMap[2]->SetMinLength(VGet(-200, -_Player[1]->GetPosition().y, -200));
+
+	_Owner->SetPosition(VAdd(v, VScale(angle, dist)));
+	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
+	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
+
+
+}
+
+void CameraComponent::Update()
+{
+
+}
+
+void CameraComponent::SetPlayer(PlayerActor* player1, PlayerActor* player2)
+{
+	_Player[0] = player1;
+	_Player[1] = player2;
+	_ShadowMap[1]->AddSprite(player1->GetComponent<SpriteComponent>());
+	_ShadowMap[2]->AddSprite(player2->GetComponent<SpriteComponent>());
 }

@@ -9,7 +9,9 @@ public:
 
 	void UpdateActor() override;
 
-private:
+	class MoveCollisionComponent* GetMCollision() { return _MCollision; }
 
+private:
+	class MoveCollisionComponent* _MCollision;
 };
 

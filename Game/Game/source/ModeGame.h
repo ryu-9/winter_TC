@@ -4,12 +4,12 @@
 #include <string>
 #include "ModeMenu.h"
 
-// ŒvZ—pƒ}ƒNƒ
+// ï¿½vï¿½Zï¿½pï¿½}ï¿½Nï¿½ï¿½
 #define	PI	(3.1415926535897932386f)
 #define	DEG2RAD(x)			( ((x) / 180.0f ) * PI )
 #define	RAD2DEG(x)			( ((x) * 180.0f ) / PI )
 
-// ƒ‚[ƒh
+// ï¿½ï¿½ï¿½[ï¿½h
 class ModeGame : public ModeBase
 {
 	typedef ModeBase base;
@@ -34,12 +34,11 @@ protected:
 	class CameraActor* _Camera;
 	class PlayerActor* _Player[2];
 
-
 	int _handleMap;
 	int _handleSkySphere;
 	int _frameMapCollision;
 
-	// ƒfƒoƒbƒO—p
+	// ï¿½fï¿½oï¿½bï¿½Oï¿½p
 	bool	_bViewCameraInfo;
 	bool	_bUseCollision;
 

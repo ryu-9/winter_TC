@@ -61,8 +61,8 @@ bool ModeStage::Render() {
 
 	//SetUseLighting(FALSE);
 
-	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(-1, -1, 0));
+	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
+	//ChangeLightTypeDir(VGet(-1, -1, 0));
 
 	{
 		float linelength = 3000.f;

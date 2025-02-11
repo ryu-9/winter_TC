@@ -2,6 +2,11 @@
 #include "ModeBase.h"
 #include "Component.h"
 
+struct CollResult {
+	class MoveCollisionComponent* mc;
+	std::deque<MV1_COLL_RESULT_POLY> mesh;
+};
+
 
 class MoveCollisionComponent : public	Component
 {
@@ -12,6 +17,8 @@ public:
 	~MoveCollisionComponent() override;
 
 	void Update() override;
+
+	void RefleshCollInfo();
 
 	VECTOR GetPosition();
 	VECTOR GetSize();
@@ -73,9 +80,16 @@ private:
 	bool flag;
 	bool shomen;
 	VECTOR OldMove;
+	VECTOR OldPos;
 
 	VECTOR devpos;
+	VECTOR drawpos[2];
 
 	class ModelComponent* _Model;
+	class MoveComponent* _Move;
+
+	std::deque<CollResult> _CollResult;
+
+	std::deque<VECTOR> debugpos;
 };
 

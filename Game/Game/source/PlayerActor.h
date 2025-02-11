@@ -24,9 +24,17 @@ public:
 	void ChangeMode(int mode);
 
 	bool IsMoved();
+	void ChangeAnim(int a);
 
 private:
 
+	enum class anim {
+		Change,
+		Wait,
+		Walk,
+		Dash,
+		Punch,
+	};
 
 	class PlayerMoveComponent* _Input;
 
@@ -37,10 +45,20 @@ private:
 	class ModelComponent* _BottomModel;
 
 	class MoveCollisionComponent* _MCollision;
+	class MoveCollisionComponent* _MCollision2;
+
+	class HitCollisionComponent* _HCollision;
+
 	int _PlayerNo;
 
-	int _ModeNum; // 0:’Êí 1:‰º”¼g@2:ã”¼g
+	int _ModeNum; // 0:ï¿½Êï¿½ 1:ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½@2:ï¿½ã”¼ï¿½g
 
 	int _ChangeTime;
+
+	int _Animation;
+	float _AnimTime;
+	float _AnimTotalTime;
+	int _AnimIndex;
+	int _AnimationModel;
 };
 

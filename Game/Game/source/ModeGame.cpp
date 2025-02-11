@@ -59,9 +59,9 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetPosition(VGet(800, 200, 100));
 	_Player[1] = new PlayerActor(this, 2);
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
-	_Player[0]->SetFriend(_Player[1]);
 	_Player[1]->SetFriend(_Player[0]);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
+	_Player[0]->SetFriend(_Player[1]);
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, _Player2);
 	new EnemyActor(this);
 	auto e = new EnemyActor(this);
 	e->SetPosition(VGet(2200, 200, -500));
@@ -71,7 +71,6 @@ bool ModeGame::Initialize() {
 	e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-//	LoadStage("res/Stage/", "map_1-1/1-1_5bunno1.json");
 	LoadStage("res/Stage/", "chutorial2.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
@@ -130,7 +129,7 @@ bool ModeGame::Render() {
 	SetUseLighting(TRUE);
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(-1, -1, 0));
+	ChangeLightTypeDir(VGet(0, -1, -1));
 #endif
 #if 0
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
@@ -184,13 +183,31 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
+#if 0		// アクタで読み込み　ちらつく
+		auto ac = new ActorClass(this);
+		auto file = path + "model/" + name + ".mv1";
+		auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+		auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
+		ac->SetPosition(pos);
+		ac->SetDirection(rot);
+		ac->SetSize(scale);
+		mv->RefleshCollInfo();
+#endif
+#if 1		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube"|| name == "Cube") {
 			auto box = new StageBox(this);
 			box->SetPosition(pos);
 			box->SetDirection(rot);
 			box->SetSize(scale);
+			box->GetMCollision()->RefleshCollInfo();
 		}
-	
+		if (name == "BP_Bro_spawn") {
+			_Player->SetPosition(pos);
+		}
+		if (name == "BP_Sis_spawn") {
+			_Player2->SetPosition(pos);
+		}
+#endif
 	}
 	return true;
 }

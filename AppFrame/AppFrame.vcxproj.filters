@@ -84,6 +84,12 @@
     <ClInclude Include="source\SoundServer\SoundComponent.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\FpsController.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\ShadowMapSpriteComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -145,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="source\SoundServer\SoundComponent.cpp">
       <Filter>SoundServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\FpsController.cpp">
+      <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\ShadowMapSpriteComponent.cpp">
+      <Filter>ModeServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

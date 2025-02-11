@@ -39,7 +39,7 @@ void ModelComponent::SetModelInfo()
 	// 再生時間をセットする
 	MV1SetAttachAnimTime(_Handle, _AttachIndex, _PlayTime);
 	// 位置
-	MV1SetPosition(_Handle,VAdd(_Owner->GetPosition(), _Position));
+	MV1SetPosition(_Handle,VAdd(_Owner->GetPosition(), VMulti(_Position,_Owner->GetSize())));
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
