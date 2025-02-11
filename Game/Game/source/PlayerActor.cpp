@@ -216,14 +216,13 @@ void PlayerActor::ChangeMode(int mode)
 	}
 }
 
-void PlayerActor::ChangeAnim(int a)
-{
-	if(_Animation == a) { return; }
+void PlayerActor::ChangeAnim(int a) {
+	if (_Animation == a) { return; }
 	_Animation = a;
 	_AnimTime = 0;
 	int index = -1;
 	switch (_Animation) {
-	
+
 	case (int)anim::Change:
 		index = MV1GetAnimIndex(_AnimationModel, "modelmotion");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel, TRUE);
@@ -234,6 +233,7 @@ void PlayerActor::ChangeAnim(int a)
 
 
 	}
+}
 
 bool PlayerActor::IsMoved() {
 	return VEqual(GetComponent<MoveComponent>()->GetOldPosition(), GetPosition());

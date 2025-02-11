@@ -61,7 +61,7 @@ bool ModeGame::Initialize() {
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, _Player2);
+	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
 	new EnemyActor(this);
 	auto e = new EnemyActor(this);
 	e->SetPosition(VGet(2200, 200, -500));
@@ -183,7 +183,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(pos.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-#if 0		// アクタで読み込み　ちらつく
+		/*		// アクタで読み込み　ちらつく
 		auto ac = new ActorClass(this);
 		auto file = path + "model/" + name + ".mv1";
 		auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
@@ -192,9 +192,10 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		ac->SetDirection(rot);
 		ac->SetSize(scale);
 		mv->RefleshCollInfo();
-#endif
-#if 1		// ステージボックスで読み込み　ちらつかない
-		if (name == "SM_Cube"|| name == "Cube") {
+*/
+
+// ステージボックスで読み込み　ちらつかない
+		if (name == "SM_Cube" || name == "Cube") {
 			auto box = new StageBox(this);
 			box->SetPosition(pos);
 			box->SetDirection(rot);
@@ -202,13 +203,13 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->GetMCollision()->RefleshCollInfo();
 		}
 		if (name == "BP_Bro_spawn") {
-			_Player->SetPosition(pos);
+			_Player[0]->SetPosition(pos);
 		}
 		if (name == "BP_Sis_spawn") {
-			_Player2->SetPosition(pos);
+			_Player[1]->SetPosition(pos);
 		}
-#endif
 	}
+	
 	return true;
 }
 
