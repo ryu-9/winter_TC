@@ -82,6 +82,7 @@ bool EBoxComponent::Attack() {
 				_MoveDir = VGet(0, 0, -1);
 			}
 		}
+
 	}
 	if (_CurrentTime > _Duration) {
 		VECTOR pos = _Owner->GetPosition();
@@ -90,6 +91,7 @@ bool EBoxComponent::Attack() {
 		auto vel = _En->GetInput()->GetVelocity();
 		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
 		_En->GetInput()->SetVelocity(vel);
+		//Roll();
 	}
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
@@ -118,6 +120,12 @@ bool EBoxComponent::Move() {
 			_MoveDir = VGet(-1, 0, 0);
 			break;
 		}
+
+		auto tmprot = 0.5 * PI;
+		auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
+		rot.x += tmprot;
+		// TODO:ƒ‚ƒfƒ‹‚ÌˆÊ’u’²®
+		_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
 	}
 	if (_CurrentTime > _Duration) {
 		VECTOR pos = _Owner->GetPosition();
@@ -126,6 +134,7 @@ bool EBoxComponent::Move() {
 		auto vel = _En->GetInput()->GetVelocity();
 		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
 		_En->GetInput()->SetVelocity(vel);
+	//	Roll();
 	}
 
 
@@ -140,6 +149,11 @@ bool EBoxComponent::Move() {
 }
 
 bool EBoxComponent::Roll() {
-
+	// —§•û‘Ì‚Ì‰ñ“]
+	auto tmprot = 0.5 * PI;
+	auto tmptm = 500 / _Owner->GetMode()->GetStepTm();
+	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
+	rot.x += tmprot * tmptm;
+	_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
 	return false;
 }

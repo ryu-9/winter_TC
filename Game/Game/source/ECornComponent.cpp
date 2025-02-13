@@ -84,8 +84,9 @@ bool ECornComponent::Attack() {
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[0]]->GetPosition(), 1500);
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
+		if (game != nullptr) { new SEComponent(ac, game->GetPlayer()); }
 		// TODO: new SEComponent(ac,cam);
-		new SEComponent(ac, game->GetPlayer());
+		
 	}
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 

@@ -3,7 +3,7 @@
 #include "ModeGame.h"
 #include "ModeResult.h"
 #include "ModeTitle.h"
-#include "ModeStage.h"
+#include "ModeTestStage.h"
 #include "ModeStageSelect.h"
 #include "EnemyCreator.h"
 
@@ -21,9 +21,9 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	new EnemyCreator();
 
 	// ƒ‚[ƒh‚Ì“o˜^
-	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 //	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-//	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "stage");
+	ModeServer::GetInstance()->Add(new ModeTestStage(), 1, "stage");
 	return true;
 }
 

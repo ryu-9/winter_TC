@@ -181,6 +181,7 @@
     <ClCompile Include="source\ModeStage.cpp" />
     <ClCompile Include="source\ModeStageSelect.cpp" />
     <ClCompile Include="source\ModeSynopsis.cpp" />
+    <ClCompile Include="source\ModeTestStage.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
     <ClCompile Include="source\PlayerMoveComponent.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="source\ModeStage.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeSynopsis.h" />
+    <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\PlayerMoveComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />

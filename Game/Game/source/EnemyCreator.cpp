@@ -78,8 +78,8 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec) 
 		new EBoxComponent(enemy);
 		auto m = new ModelComponent(enemy, "res/model/Enemy_Box/mouse_Open/Enemy_box.mv1");
 		enemy->SetModel(m);
-		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
-		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
+		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 13, 0), VGet(16, 16, 16), 2, true, true));
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true, true));
 	}	break;
 	default:
 		break;
