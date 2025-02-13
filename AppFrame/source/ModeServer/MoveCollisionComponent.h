@@ -54,6 +54,8 @@ public:
 
 	void SetRotation(VECTOR rot);
 
+	class MoveComponent* GetMove() const { return _Move; }
+
 private:
 	// ˆÊ’u
 	VECTOR Pos;

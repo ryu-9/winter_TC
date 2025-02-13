@@ -19,14 +19,22 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 
 	// �ړ��\�ȏꍇ�AMoveComponent��擾
 	if (isMove == TRUE) {
-		_Move = _Owner->GetComponent<MoveComponent>();
+		_Move = _Owner->GetComponent<MoveComponent>()[0];
 	}
 	OldPos = GetPosition();
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��
 	if (type == 2) { return; }
 
 	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
-	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
+	ModelComponent* modelComp;
+	if (model == nullptr)
+	{
+		modelComp = _Owner->GetComponent<ModelComponent>()[0];
+	}
+	else
+	{
+		modelComp = model;
+	}
 	if (Handle == -1 && modelComp != nullptr) {
 		Handle = modelComp->GetHandle();
 	}
@@ -60,7 +68,7 @@ void MoveCollisionComponent::Update() {
 		drawpos[0] = GetPosition();
 
 		if (_Move == nullptr) {
-			_Move = _Owner->GetComponent<MoveComponent>();
+			_Move = _Owner->GetComponent<MoveComponent>()[0];
 		}
 
 		MV1SetPosition(Handle, GetPosition());
@@ -303,7 +311,7 @@ void MoveCollisionComponent::Update() {
 					int test = 0;
 				}
 
-				MoveComponent* EnMoveCon = coll[i]->GetOwner()->GetComponent<class MoveComponent>();
+				MoveComponent* EnMoveCon = coll[i] -> GetMove();
 				VECTOR EnMove;
 				if (EnMoveCon != nullptr) {
 					EnMove = EnMoveCon->GetVelocity();
@@ -318,9 +326,8 @@ void MoveCollisionComponent::Update() {
 
 				float deg = 0;
 				if (move.y >= cos(deg / 180 * atan(1) * 4)) {
-					MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
-					if (SelfMC != nullptr) {
-						SelfMC->SetStand(TRUE);
+					if (_Move != nullptr) {
+						_Move->SetStand(TRUE);
 					}
 				}
 
@@ -386,7 +393,7 @@ void MoveCollisionComponent::Update() {
 							int test = 0;
 						}
 
-						MoveComponent* EnMoveCon = coll[sqrtnum]->GetOwner()->GetComponent<class MoveComponent>();
+						MoveComponent* EnMoveCon = coll[sqrtnum]->GetMove();
 						VECTOR EnMove;
 						if (EnMoveCon != nullptr) {
 							EnMove = EnMoveCon->GetVelocity();
@@ -400,9 +407,8 @@ void MoveCollisionComponent::Update() {
 
 
 						if (move.y >= cos(deg / 180 * atan(1) * 4)) {
-							MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
-							if (SelfMC != nullptr) {
-								SelfMC->SetStand(TRUE);
+							if (_Move != nullptr) {
+								_Move->SetStand(TRUE);
 							}
 						}
 
@@ -462,12 +468,12 @@ VECTOR MoveCollisionComponent::GetSize() {
 
 VECTOR MoveCollisionComponent::GetUp()
 {
-	return _Owner->GetComponent<ModelComponent>()->GetUp();
+	return _Model->GetUp();
 }
 
 VECTOR MoveCollisionComponent::GetFront()
 {
-	return _Owner->GetComponent<ModelComponent>()->GetFront();
+	return _Model->GetFront();
 }
 
 VECTOR MoveCollisionComponent::GetRight()

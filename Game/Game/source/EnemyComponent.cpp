@@ -14,7 +14,7 @@ void EnemyComponent::ProcessInput() {
 	auto epos = _Owner->GetPosition();
 	auto ppos = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"))->GetPlayer()->GetPosition();
 	auto dist = VSize(VSub(ppos, epos));
-	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
+	auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
 
 	//‚Æ‚è‚ ‚¦‚¸ƒ‰ƒ“ƒ_ƒ€‚Å‰ñ“]
 	
@@ -50,7 +50,7 @@ void EnemyComponent::ProcessInput() {
 			
 		}
 	}
-	_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
+	_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 }
 
 void EnemyComponent::Update() {

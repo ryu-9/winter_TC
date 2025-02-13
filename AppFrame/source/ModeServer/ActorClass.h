@@ -70,5 +70,8 @@ std::deque<T*> ActorClass::GetComponent()
 			ret.emplace_back(castedComp);
 		}
 	}
+	if (ret.size() <= 0) {
+		ret.emplace_back(nullptr);
+	}
 	return ret;
 }

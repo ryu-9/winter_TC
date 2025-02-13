@@ -99,6 +99,9 @@
     <ClInclude Include="source\EffectServer\EffectManager.h">
       <Filter>EffectServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\EffectServer\PlayerEmphasisEffect.h">
+      <Filter>EffectServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -171,6 +174,9 @@
       <Filter>EffectServer</Filter>
     </ClCompile>
     <ClCompile Include="source\EffectServer\EffectManager.cpp">
+      <Filter>EffectServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EffectServer\PlayerEmphasisEffect.cpp">
       <Filter>EffectServer</Filter>
     </ClCompile>
   </ItemGroup>

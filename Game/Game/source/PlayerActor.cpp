@@ -42,6 +42,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetSize(VGet(0.1, 0.1, 0.1));
 
 	_AnimationModel = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
+
+	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 }
 
 PlayerActor::~PlayerActor()

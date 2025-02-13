@@ -155,12 +155,6 @@ void PlayerMoveComponent::ProcessInput()
 		VECTOR oldv = _pOwner->GetMove();
 
 
-		if (_Owner->GetComponent<MoveCollisionComponent>()->GetFlag() == FALSE) {
-			// �������Ă��Ȃ�������A�J������ړ�����
-			//_pOwner->GetMode()->GetCamera()->SetPosition(VAdd(_pOwner->GetMode()->GetCamera()->GetPosition(), v));
-			//_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), v));
-
-		}
 		{
 			VECTOR old = GetOldPosition();
 			VECTOR vector = VSub(_pOwner->GetPosition(), old);

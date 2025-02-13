@@ -63,7 +63,7 @@ bool ModeGame::Initialize() {
 	_Player->SetFriend(_Player2);
 	_Player2->SetFriend(_Player);
 
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, _Player2);
+	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player, _Player2);
 	//new EnemyActor(this);
 	//auto e = new EnemyActor(this);
 	//e->SetPosition(VGet(2200, 200, -500));
@@ -155,9 +155,9 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 	
-	_EffectController -> Draw();
+	//_EffectController -> Draw();
 
-	//base::Render();
+	base::Render();
 
 	return true;
 }

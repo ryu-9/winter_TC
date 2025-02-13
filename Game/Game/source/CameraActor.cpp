@@ -130,10 +130,10 @@ void CameraComponent::SetPlayer(PlayerActor* player1, PlayerActor* player2)
 	_Player[1] = player2;
 	EffectController* ec = EffectController::GetInstance();
 	if (ec == nullptr) { return; }
-	ec->GetShadowMap(1)->AddSprite(player1->GetComponent<SpriteComponent>());
-	ec->GetShadowMap(0)->AddRemoveSprite(player1->GetComponent<SpriteComponent>());
-	ec->GetShadowMap(2)->AddSprite(player2->GetComponent<SpriteComponent>());
-	ec->GetShadowMap(0)->AddRemoveSprite(player2->GetComponent<SpriteComponent>());
+	ec->GetShadowMap(1)->AddSprite(player1->GetComponent<SpriteComponent>()[0]);
+	ec->GetShadowMap(0)->AddRemoveSprite(player1->GetComponent<SpriteComponent>()[0]);
+	ec->GetShadowMap(2)->AddSprite(player2->GetComponent<SpriteComponent>()[0]);
+	ec->GetShadowMap(0)->AddRemoveSprite(player2->GetComponent<SpriteComponent>()[0]);
 	
 	//_ShadowMap[1]->AddSprite(player1->GetComponent<SpriteComponent>());
 	//_ShadowMap[2]->AddSprite(player2->GetComponent<SpriteComponent>());

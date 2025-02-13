@@ -59,4 +59,10 @@ void EffectController::AddShadowMap(int size, VECTOR dir, VECTOR target, int ind
 
 }
 
+void EffectController::AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder)
+{
+	PlayerEmphasisEffect* effect = new PlayerEmphasisEffect(this, sprite, alpha, wide, height, draworder);
+	_EmphasisEffectList.emplace_back(effect);
+}
+
 
