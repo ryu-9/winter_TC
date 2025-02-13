@@ -40,4 +40,19 @@ void EffectController::DelEffect(EffectManager* effect)
 	}
 }
 
+void EffectController::AddShadowMap(int size, VECTOR dir, VECTOR target, int index, float length, int num, int drawOrder)
+{
+	int tmp = num;
+	if (num >= 0 && num < _ShadowMapList.size()) {
+		delete _ShadowMapList[num];
+			}
+	else {
+		num = _ShadowMapList.size();
+		_ShadowMapList.emplace_back(nullptr);
+	}
+	_ShadowMapList[num] = new ShadowMapSpriteComponent(this, size, dir, target, index, length, drawOrder);
+
+
+}
+
 

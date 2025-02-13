@@ -25,7 +25,13 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 	:Component(owner, updateOrder)
 	, _cOwner(owner)
 {
-	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	/*
+		SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	EffectController::GetInstance()->AddShadowMap(2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
+	EffectController::GetInstance()->AddShadowMap(1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800);
+	EffectController::GetInstance()->AddShadowMap(1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800);
+	*/
+
 	_ShadowMap[0] = new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
 	_ShadowMap[1] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800);
 	_ShadowMap[2] = new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800);
