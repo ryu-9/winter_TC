@@ -18,7 +18,10 @@ public:
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode); }
 	class MoveComponent* GetInput() { return _Input; }
 
-	
+	void SetInput(class MoveComponent* input) { delete _Input; _Input = input; }
+	void SetModel(class ModelComponent* model) { delete _Model; _Model = model; }
+	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
+	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 private:
 
 

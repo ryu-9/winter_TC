@@ -1,6 +1,15 @@
 #include "UIChipEffectComponent.h"
 
 
+float EasingInOutQuart(float cnt, float start, float end, float frames) {
+	cnt /= frames / 2.0;
+	if (cnt < 1) {
+		return (end - start) / 2.0 * cnt * cnt * cnt * cnt + start;
+	}
+	cnt -= 2;
+	return -(end - start) / 2.0 * (cnt * cnt * cnt * cnt - 2) + start;
+}
+
 UIChipEffectComponent::UIChipEffectComponent(ActorClass* owner, int updateOrder)
 	:Component(owner, updateOrder)
 {
@@ -118,7 +127,7 @@ UIChipMoveComponent::~UIChipMoveComponent()
 
 void UIChipMoveComponent::ProcessInput()
 {
-	if (_Data.cnt < _Data.tm) {
+	/*if (_Data.cnt < _Data.tm) {
 		_Data.cnt += _Owner->GetMode()->GetStepTm();
 		auto tmp = (VSub(_Data.end, _Data.start));
 		auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
@@ -131,6 +140,19 @@ void UIChipMoveComponent::ProcessInput()
 			_Owner->RemoveComponent(this);
 		}
 	}
+	*/
+	if (_Data.cnt < _Data.tm) {
+		_Data.cnt += _Owner->GetMode()->GetStepTm();
+		auto tmp = (VSub(_Data.end, _Data.start));
+		tmp.x = EasingInOutQuart(_Data.cnt, _Data.start.x, _Data.end.x, _Data.tm);
+		tmp.y = EasingInOutQuart(_Data.cnt, _Data.start.y, _Data.end.y, _Data.tm);
+		_UIChip->SetPosition(tmp);
+		if (_Data.cnt >= _Data.tm) {
+			_UIChip->SetPosition(_Data.end);
+			_Owner->RemoveComponent(this);
+		}
+	}
+	
 }
 
 void UIChipMoveComponent::Update()

@@ -63,12 +63,10 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
 
-	auto e = new EnemyActor(this, VGet(0, 200, 100));
-	e->SetPosition(VGet(0, 200, 100));
-	e = new EnemyActor(this, VGet(-10, 200, 0));
-	e = new EnemyActor(this, VGet(-100, 200, 200));
-	e = new EnemyActor(this, VGet(-100, 200, 400));
-	
+	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(0, 200, 0));
+	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(-10, 200, 0));
+	EnemyCreator::GetInstance()->Create(this, 1, 0, VGet(-100, 200, 200));
+	EnemyCreator::GetInstance()->Create(this, 1, 3, VGet(-100, 200, 400));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	LoadStage("res/Stage/map_1-1/", "moi.json");

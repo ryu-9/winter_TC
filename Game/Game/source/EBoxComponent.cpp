@@ -10,7 +10,8 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	_CoolTime = 1000;
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
-
+	_Weight.push_back(3);
+	_Weight.push_back(4);
 }
 
 
@@ -24,7 +25,7 @@ void EBoxComponent::ProcessInput() {
 	case STATUS::SEARCH: {
 		if (Search(_Target)) { _Status = STATUS::DISCOVER; } else {
 			_Status = STATUS::WAIT;
-			auto n = Drawing(4, 3);
+			auto n = Drawing(_Weight);
 			_WaitAction = static_cast<WAIT_ACTION>(n);
 		}
 		break;
@@ -66,9 +67,9 @@ bool EBoxComponent::Attack() {
 	if (_CurrentTime == 0) {
 		_Duration = 500;
 		// ƒvƒŒƒCƒ„[‚Ì•û‚ÉŒü‚©‚¤
-		auto dir = VSub(_Target[0]->GetPosition(), _Owner->GetPosition());
+		auto dir = VSub(_Target[_Index[0]]->GetPosition(), _Owner->GetPosition());
 		dir = VNorm(dir);
-		if (fabs(dir.x) > fabs(dir.z)) {
+		if (fabs(dir.x) < fabs(dir.z)) {
 			if (dir.x > 0) {
 				_MoveDir = VGet(1, 0, 0);
 			} else {

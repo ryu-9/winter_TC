@@ -1,6 +1,24 @@
 #pragma once
 #include "appframe.h"
 #include "EnemyActor.h"
+struct SEARCH {
+	float dist;
+	float angle;
+	int cooltime;
+};
+struct MOVE {
+	int duration;
+	int dur_rand;
+	int cooltime;
+	int cool_rand;
+	float dist;
+	float dist_rand;
+};
+struct EPARAM {
+	int damage;
+	int speed;
+	int serchdist;
+};
 
 class EnemyComponent : public Component {
 public:
@@ -30,14 +48,12 @@ protected:
 
 
 
-
+	EnemyActor* _En;
 	// 全般
 	STATUS _Status;
 	int _CurrentTime;	// 経過時間
 	int _Duration;		// 行動時間
 	int _CoolTime;		// クールタイム
-	
-	EnemyActor* _En;
 
 	// 索敵
 	std::vector<ActorClass*> _Target;
@@ -47,26 +63,26 @@ protected:
 	//移動
 	float _MoveDist;
 
+	// 重み
+	std::vector<int> _Weight;
+
 	// 重み付き抽選
-	template<class... Args>
-	int Drawing(Args... args) {
+	int Drawing(std::vector<int> w) {
 		int total = 0;
-		uint8_t l = sizeof...(args);
-		int data[] = { args... };
 		// 重みの合計を計算
-		for (auto i = 0; i < l; i++) {
-			total = total + data[i];
+		for (auto i = 0; i < w.size(); i++) {
+			total = total + w[i];
 		}
-			
-			int n = (rand() % total);
-			int sum = 0;
-			// 重みの合計を超えるまで足していく
-			for (auto i = 0; i < l; i++) {
-				sum = sum + data[i];
-				if (n - sum < 0) {
-					return i;
-				}
+
+		int n = (rand() % total);
+		int sum = 0;
+		// 重みの合計を超えるまで足していく
+		for (auto i = 0; i < w.size(); i++) {
+			sum = sum + w[i];
+			if (n - sum < 0) {
+				return i;
 			}
+		}
 	}
 
 };

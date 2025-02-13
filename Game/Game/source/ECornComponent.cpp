@@ -10,7 +10,9 @@ ECornComponent::ECornComponent(ActorClass* owner)
 
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
-
+	_Weight.push_back(4);
+	_Weight.push_back(4);
+	_Weight.push_back(2);
 }
 
 ECornComponent::~ECornComponent() {
@@ -25,7 +27,7 @@ void ECornComponent::ProcessInput() {
 	case STATUS::SEARCH: {
 		if (Search(_Target)) { _Status = STATUS::DISCOVER; }
 		else { _Status = STATUS::WAIT;
-		auto n = Drawing(4, 1, 3);
+		auto n = Drawing(_Weight);
 		_WaitAction = static_cast<WAIT_ACTION>(n);
 		}
 

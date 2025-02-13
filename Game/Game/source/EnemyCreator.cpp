@@ -1,11 +1,13 @@
 #include "EnemyCreator.h"
 #include "EnemyActor.h"
 #include "EnemyAttackComponent.h"
+#include "ECornComponent.h"
+#include "EBoxComponent.h"
 
 #include "nlohmann/json.hpp"
 #include <fstream>
 
-//EnemyCreator* EnemyCreator::_lpInstance = nullptr;
+EnemyCreator* EnemyCreator::_lpInstance = nullptr;
 
 EnemyCreator::EnemyCreator() {
 
@@ -52,21 +54,34 @@ void EnemyCreator::Init() {
 		}
 		i++;
 	}
-		*/	
+		*/
 }
 
-EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col) {
+EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec) {
 
-	EnemyActor* enemy = new EnemyActor(mode);
+	EnemyActor* enemy = new EnemyActor(mode,vec);
 	//enemy->SetParam(_Data[shape][col]);
 
-	switch (col)
+	switch (shape)
 	{
 	case 0:
-		new EnemyAttackComponent(enemy);
+	{
+		new ECornComponent(enemy);
+		auto m = new ModelComponent(enemy, "res/model/Enemy_Corn/Enemy_corn.mv1");
+		enemy->SetModel(m);
+		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
+	}
 		break;
+	case 1:
+	{
+		new EBoxComponent(enemy);
+		auto m = new ModelComponent(enemy, "res/model/Enemy_Box/mouse_Open/Enemy_box.mv1");
+		enemy->SetModel(m);
+		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true));
+	}	break;
 	default:
-		new EnemyAttackComponent(enemy);
 		break;
 	}
 	return nullptr;

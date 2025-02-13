@@ -4,6 +4,7 @@
 #include "ModeResult.h"
 #include "ModeTitle.h"
 #include "ModeStage.h"
+#include "ModeStageSelect.h"
 #include "EnemyCreator.h"
 
 // ŽÀ‘Ì
@@ -20,9 +21,9 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	new EnemyCreator();
 
 	// ƒ‚[ƒh‚Ì“o˜^
-//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-//	ModeServer::GetInstance()->Add(new ModeStage(), 1, "devstage");
+	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+//	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "stage");
 	return true;
 }
 

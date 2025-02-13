@@ -25,24 +25,23 @@ bool ModeStageSelect::Process() {
 	base::Process();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 	auto cur = _Cur;
-	if (trg & PAD_INPUT_LEFT) { cur--; 
-	for (auto i = 0; i < _UIChip.size(); i++) {
-		// TODO: 引数を座標から移動量に変更
-		new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(),VGet(1920,0,0)), 500);
-	}
-	}
-	if (trg & PAD_INPUT_RIGHT) { cur++; for (auto i = 0; i < _UIChip.size(); i++) {
-		new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 500);
-	}
-	}
+	if (trg & PAD_INPUT_LEFT) { cur--; }
+	if (trg & PAD_INPUT_RIGHT) { cur++; }
 	
-	// カーソル位置をループ
-	int itemNum = 4;
-	if (itemNum <= 0) {}
-	else {
-		_Cur = (_Cur + itemNum) % itemNum;
+	// カーソル位置修正
+	if (cur < 0) { cur = 0; }
+	if (cur >= _UIChip.size()) { cur = _UIChip.size() -1; }
+	if (cur > _Cur) {
+		for (auto i = 0; i < _UIChip.size(); i++) {
+			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 500);
+		}
 	}
-	
+	if (cur < _Cur) {
+		for (auto i = 0; i < _UIChip.size(); i++) {
+			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(1920, 0, 0)), 500);
+		}
+	}
+	_Cur = cur;
 
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択

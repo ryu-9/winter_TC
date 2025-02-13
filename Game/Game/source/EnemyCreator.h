@@ -17,13 +17,12 @@ public:
 	static EnemyCreator* GetInstance() { return (EnemyCreator*)_lpInstance; }
 	
 	void Init();
-	class EnemyActor* Create(ModeBase* mode,int shape, int col);
+	class EnemyActor* Create(ModeBase* mode,int shape, int col,VECTOR vec);
 	
 protected:
 
 	void Import();
 
 
-	//std::array<std::array<EnemyActor::PARAM, ENEMY_COL>, ENEMY_SHAPE> _Data;
 };
 
