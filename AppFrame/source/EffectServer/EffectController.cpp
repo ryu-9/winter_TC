@@ -1,10 +1,14 @@
 #include "EffectController.h"
 
 
+EffectController* EffectController::_lpInstance = nullptr;	
+
 EffectController::EffectController(ModeBase* mode)
 	:ActorClass(mode)
 	,_Mode(mode)
 {
+	_lpInstance = this;
+
 	for (auto sp : mode->GetSprites()) {
 		EffectManager* effect = new EffectManager(sp);
 		_EffectList.emplace_back(effect);
@@ -17,7 +21,7 @@ EffectController::~EffectController()
 
 void EffectController::Draw()
 {
-	for (auto itr : _EffectList)
+	for (auto itr : _Mode->GetSprites())
 	{
 		itr->Draw();
 	}
@@ -40,17 +44,17 @@ void EffectController::DelEffect(EffectManager* effect)
 	}
 }
 
-void EffectController::AddShadowMap(int size, VECTOR dir, VECTOR target, int index, float length, int num, int drawOrder)
+void EffectController::AddShadowMap(int size, VECTOR dir, VECTOR target, int index, float length, int drawOrder)
 {
-	int tmp = num;
-	if (num >= 0 && num < _ShadowMapList.size()) {
-		delete _ShadowMapList[num];
+	int tmp = index;
+	if (tmp >= 0 && tmp < _ShadowMapList.size()) {
+		delete _ShadowMapList[tmp];
 			}
 	else {
-		num = _ShadowMapList.size();
+		tmp = _ShadowMapList.size();
 		_ShadowMapList.emplace_back(nullptr);
 	}
-	_ShadowMapList[num] = new ShadowMapSpriteComponent(this, size, dir, target, index, length, drawOrder);
+	_ShadowMapList[tmp] = new ShadowMapSpriteComponent(this, size, dir, target, tmp, length, drawOrder);
 
 
 }

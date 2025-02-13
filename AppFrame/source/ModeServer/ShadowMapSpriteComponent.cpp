@@ -18,31 +18,76 @@ ShadowMapSpriteComponent::~ShadowMapSpriteComponent()
 
 void ShadowMapSpriteComponent::Draw()
 {
-	SetUseShadowMap(0, -1);
-	SetUseShadowMap(1, -1);
-	SetUseShadowMap(2, -1);
+	//SetUseShadowMap(0, -1);
+	//SetUseShadowMap(1, -1);
+	//SetUseShadowMap(2, -1);
 	SetShadowMapLightDirection(_Handle, _Direction);
 
 	SetShadowMapDrawArea(_Handle, VAdd(_Target, _MinLength), VAdd(_Target, _MaxLength));
 	ShadowMap_DrawSetup(_Handle);
 	if (_Sprites.size() > 0) {
 		for (auto sp : _Sprites) {
-			if (sp != this) {
+			if (sp->GetOwner() != _Owner) {
+				bool flag = false;
+				for (auto r : _RemoveSprites) {
+					if (sp == r) { 
+						flag = true;
+						break;
+					}
+				}
+				if (flag) { continue; }
 				sp->Draw();
 			}
 		}
 	}
 	else {
 		for (auto sp : _Owner->GetMode()->GetSprites()) {
-			if (sp != this) {
+			if (sp->GetOwner() != _Owner) {
+				bool flag = false;
+				for (auto r : _RemoveSprites) {
+					if (sp == r) { 
+						flag = true;
+						break;
+					}
+				}
+				if (flag) {continue;}
 				sp->Draw();
 			}
 		}
 	}
 
 	ShadowMap_DrawEnd();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	SetUseShadowMap(_Index, _Handle);
-	TestDrawShadowMap(_Handle, _Index * 128, 0, 128, 128);
+	TestDrawShadowMap(_Handle, _Index * 128, 0, (_Index + 1) * 128, 128);
+}
+
+void ShadowMapSpriteComponent::RemoveRemoveSprite(SpriteComponent* sprite)
+{
+	for (int i = 0; i < _RemoveSprites.size(); i++)
+	{
+		if (_RemoveSprites[i] == sprite) {
+			_RemoveSprites.erase(_RemoveSprites.begin() + i);
+			break;
+		}
+	}
 }
 
 void ShadowMapSpriteComponent::SwitchSprites(std::deque<class SpriteComponent*>& sprites)

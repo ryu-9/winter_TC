@@ -60,10 +60,6 @@ void ModelComponent::SetRotation(VECTOR rot)
 	up = VTransform(up, MGetRotY(rot.y));
 	up = VTransform(up, MGetRotZ(rot.z));
 	_Up = up;
-	auto mcoll = _Owner->GetComponent<MoveCollisionComponent>();
-	if (mcoll != nullptr) {
-		mcoll->SetRotation(_Rot);
-	}
 }
 
 void ModelComponent::SetRotationZY(VECTOR front, VECTOR up)

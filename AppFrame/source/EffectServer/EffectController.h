@@ -23,8 +23,9 @@ public:
 
 	EffectManager* GetEffectManager(SpriteComponent* sp);
 
-	void AddShadowMap(int size = 1024, VECTOR dir = VGet(0, -1, 0), VECTOR target = VGet(0, 0, 0), int index = 0, float length = 100, int num = 0, int drawOrder = -1000000);
+	void AddShadowMap(int size = 1024, VECTOR dir = VGet(0, -1, 0), VECTOR target = VGet(0, 0, 0), int index = -1, float length = 100, int drawOrder = -1000000);
 
+	ShadowMapSpriteComponent* GetShadowMap(int num) { return _ShadowMapList[num]; }
 
 private:
 	std::deque<EffectManager*> _EffectList;

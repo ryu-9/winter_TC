@@ -45,7 +45,7 @@ public:
 	void RemoveComponent(class Component* component);
 
 	template <typename T>
-	T* GetComponent();
+	std::deque<T*> GetComponent();
 
 	void Send(int message);
 protected:
@@ -61,13 +61,14 @@ protected:
 };
  
 template <typename T>
-T* ActorClass::GetComponent()
+std::deque<T*> ActorClass::GetComponent()
 {
+	std::deque<T*> ret;
 	for (auto& comp : _Components) {
 		T* castedComp = dynamic_cast<T*>(comp);
 		if (castedComp != nullptr) {
-			return castedComp;
+			ret.emplace_back(castedComp);
 		}
 	}
-	return nullptr;
+	return ret;
 }

@@ -54,6 +54,7 @@ bool ModeGame::Initialize() {
 	
 	SetDrawCollision(TRUE);
 
+	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
 	_Player = new PlayerActor(this);
 	_Player->SetPosition(VGet(800, 200, 100));
@@ -61,6 +62,7 @@ bool ModeGame::Initialize() {
 	_Player2->SetPosition(VGet(1000, 200, 100));
 	_Player->SetFriend(_Player2);
 	_Player2->SetFriend(_Player);
+
 	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player, _Player2);
 	//new EnemyActor(this);
 	//auto e = new EnemyActor(this);
@@ -77,7 +79,7 @@ bool ModeGame::Initialize() {
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	new BGMComponent(_Camera);
-	_EffectController = new EffectController(this);
+
 
 	return true;
 }
@@ -126,7 +128,7 @@ bool ModeGame::Render() {
 	SetUseLighting(TRUE);
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(0, -1, -1));
+	ChangeLightTypeDir(VGet(0.75, -1, 0.75));
 #endif
 #if 0	
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
@@ -155,9 +157,7 @@ bool ModeGame::Render() {
 	
 	_EffectController -> Draw();
 
-	return true;
-
-	base::Render();
+	//base::Render();
 
 	return true;
 }

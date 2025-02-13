@@ -19,7 +19,11 @@ HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelCompo
 	if (type <= 2) { return; }
 
 	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
-	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
+	ModelComponent* modelComp = model;
+	if (modelComp == nullptr) {
+		ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>()[0];
+	}
+
 	if (Handle == -1 && modelComp != nullptr) {
 		Handle = modelComp->GetHandle();
 	}
