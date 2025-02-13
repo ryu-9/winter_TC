@@ -144,6 +144,9 @@
     <ClCompile Include="source\EBoxComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\ModeEnemyCon.cpp">
+      <Filter>ソース ファイル\Dev</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="source\EBoxComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeEnemyCon.h">
+      <Filter>ヘッダー ファイル\Dev</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

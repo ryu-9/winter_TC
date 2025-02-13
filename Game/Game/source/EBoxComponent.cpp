@@ -34,7 +34,7 @@ void EBoxComponent::ProcessInput() {
 		case 0:
 			if (_CurrentTime == 0) { _Duration = 2000; }
 			_CurrentTime += _Owner->GetMode()->GetStepTm();
-			if (_CurrentTime > _Duration + _CoolTime) {
+			if (_CurrentTime > _Duration) {
 				_CurrentTime = 0;
 				_Status = STATUS::SEARCH;
 			}
@@ -71,34 +71,30 @@ bool EBoxComponent::Attack() {
 		if (fabs(dir.x) > fabs(dir.z)) {
 			if (dir.x > 0) {
 				_MoveDir = VGet(1, 0, 0);
-			}
-			else {
+			} else {
 				_MoveDir = VGet(-1, 0, 0);
 			}
-		}
-		else {
+		} else {
 			if (dir.z > 0) {
 				_MoveDir = VGet(0, 0, 1);
-			}
-			else {
+			} else {
 				_MoveDir = VGet(0, 0, -1);
 			}
 		}
 	}
-
-	VECTOR pos = _Owner->GetPosition();
-
-
-	auto vel = _En->GetInput()->GetVelocity();
-	vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
-	_En->GetInput()->SetVelocity(vel);
+	if (_CurrentTime > _Duration) {
+		VECTOR pos = _Owner->GetPosition();
 
 
+		auto vel = _En->GetInput()->GetVelocity();
+		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
+		_En->GetInput()->SetVelocity(vel);
+	}
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
-		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
+		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
 		_Status = STATUS::SEARCH;
 	}
 	return true;
@@ -106,7 +102,7 @@ bool EBoxComponent::Attack() {
 
 bool EBoxComponent::Move() {
 	if (_CurrentTime == 0) {
-		_Duration = 1000;
+		_Duration = 500;
 		switch (rand() % 4) {
 		case 0:
 			_MoveDir = VGet(0, 0, 1);
@@ -122,20 +118,20 @@ bool EBoxComponent::Move() {
 			break;
 		}
 	}
+	if (_CurrentTime > _Duration) {
+		VECTOR pos = _Owner->GetPosition();
 
-	VECTOR pos = _Owner->GetPosition();
-	
 
-	auto vel = _En->GetInput()->GetVelocity();
-	vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
-	_En->GetInput()->SetVelocity(vel);
-
+		auto vel = _En->GetInput()->GetVelocity();
+		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
+		_En->GetInput()->SetVelocity(vel);
+	}
 
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
-		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
+		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
 		_Status = STATUS::SEARCH;
 	}
 

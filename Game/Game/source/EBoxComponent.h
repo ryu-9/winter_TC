@@ -11,7 +11,7 @@ public:
 	};
 
 protected:
-	bool Attack() override;
+	bool Attack();
 	bool Move() override;
 	bool Roll();
 	WAIT_ACTION _WaitAction;
