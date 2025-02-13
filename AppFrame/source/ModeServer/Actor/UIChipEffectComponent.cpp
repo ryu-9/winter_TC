@@ -102,3 +102,37 @@ void UIChipFocusComponent::Receive(int message)
 		}
 	}
 }
+
+UIChipMoveComponent::UIChipMoveComponent(ActorClass* owner, VECTOR pos, int tm, int updateOrder)
+	:base(owner, updateOrder)
+{
+	_Data.start = _UIChip->GetPosition();
+	_Data.tm = tm;
+	_Data.end = pos;
+	_Data.cnt = 0;
+}
+
+UIChipMoveComponent::~UIChipMoveComponent()
+{
+}
+
+void UIChipMoveComponent::ProcessInput()
+{
+	if (_Data.cnt < _Data.tm) {
+		_Data.cnt += _Owner->GetMode()->GetStepTm();
+		auto tmp = (VSub(_Data.end, _Data.start));
+		auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
+		tmp.x = tmp.x * tmp2 + _Data.start.x;
+		tmp.y = tmp.y * tmp2 + _Data.start.y;
+		tmp.z = tmp.z;
+		_UIChip->SetPosition(tmp);
+		if (_Data.cnt >= _Data.tm) {
+			_UIChip->SetPosition(_Data.end);
+			_Owner->RemoveComponent(this);
+		}
+	}
+}
+
+void UIChipMoveComponent::Update()
+{
+}

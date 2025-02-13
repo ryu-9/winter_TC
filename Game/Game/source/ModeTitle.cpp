@@ -78,10 +78,11 @@ base::Process();
 	case 5:
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep++;
-			delete _UIChip.front();
 			_UIChip.clear();
-			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/title/title.png"));
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 820, 1), "res/UI/UI_TITLE_ANY.png"));
 			new UIChipFadeComponent(_UIChip.front(), 255, 3000);
+			new UIChipFadeComponent(_UIChip.back(), 255, 3000);
 
 		}
 		break;
@@ -92,12 +93,18 @@ base::Process();
 		break;
 	case 7:
 		if (trg & PAD_INPUT_1) {
-			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
+			new UIChipFadeComponent(_UIChip.back(), 0, 2000,110);
+			newstep++;
 		}
-
-		_TitleTm += GetStepTm();
 		if (_TitleTm > 30 * 1000) {
 			newstep = 6;
+		}
+		
+		break;
+	case 8:
+		if (_TitleTm > 2000) {
+			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
+			newstep = 7;
 		}
 		break;
 	}

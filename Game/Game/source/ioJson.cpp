@@ -6,23 +6,7 @@
 
 namespace iojson {
 	
-	// 譜面ロード関数
-	bool InputScoreJson(const std::string path, int& bpm, std::vector<int>& score)
-	{
-		std::ifstream file(path + "_score.json");
-		nlohmann::json json;
-		file >> json;
 
-		json.at("bpm").get_to(bpm);
-		if (json.find("score") != json.end()) {
-			auto scores = json.at("score");
-			for (auto& sc : scores) {
-				// 元データに追加
-				score.emplace_back(sc);
-			}
-		}
-			return true;
-	}
 
 	bool InputMotionAttri(std::map<int, uint_fast8_t>& data)
 	{

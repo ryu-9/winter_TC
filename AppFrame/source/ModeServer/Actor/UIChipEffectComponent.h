@@ -34,12 +34,10 @@ private:
 	EASING _Data;
 };
 
-class UIChipFocusComponent : public UIChipEffectComponent
-{
+class UIChipFocusComponent : public UIChipEffectComponent {
 	typedef UIChipEffectComponent base;
 
-	struct  EASING
-	{
+	struct  EASING {
 		VECTOR start;
 		VECTOR end;
 		int cnt;
@@ -56,4 +54,24 @@ public:
 private:
 	EASING _Data;
 	bool _isFocus;
+};
+
+class UIChipMoveComponent : public UIChipEffectComponent {
+	typedef UIChipEffectComponent base;
+	struct  EASING {
+		VECTOR start;
+		VECTOR end;
+		int cnt;
+		int tm;
+	};
+
+public:
+	UIChipMoveComponent(class ActorClass* owner, VECTOR pos, int tm, int updateOrder = 100);
+	virtual ~UIChipMoveComponent();
+
+	void ProcessInput() override;
+	void Update() override;
+
+private:
+	EASING _Data;
 };

@@ -7,18 +7,12 @@ bool ModeStageSelect::Initialize() {
 
 	// セーブデータで分岐
 
-	_UIChip.push_back(new UIChipClass(this, VGet(200, 200, 0), "res/select/stage1.png", 0));
+	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_WORLD1.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
-	_UIChip.push_back(new UIChipClass(this, VGet(600, 200, 0), "res/select/stage2.png", 0));
-	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
+	_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 1), 540, 0), "res/UI/UI_WORLD2.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	_UIChip.push_back(new UIChipClass(this, VGet(200, 600, 0), "res/select/stage3.png", 0));
-	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
+	_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 2), 540, 0), "res/UI/UI_WORLD3.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	_UIChip.push_back(new UIChipClass(this, VGet(600, 600, 0), "res/select/stage4.png", 0));
-	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	new UIChipFocusComponent(_UIChip.back(), VGet(1.2, 1.2, 1.2), 300);
 	return true;
 }
 
@@ -31,22 +25,24 @@ bool ModeStageSelect::Process() {
 	base::Process();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 	auto cur = _Cur;
-	if (trg & PAD_INPUT_UP) { cur -= 2; }
-	if (trg & PAD_INPUT_DOWN) { cur += 2; }
-	if (trg & PAD_INPUT_LEFT) { cur--; }
-	if (trg & PAD_INPUT_RIGHT) { cur++; }
-
-	// カーソル位置を上下ループ
+	if (trg & PAD_INPUT_LEFT) { cur--; 
+	for (auto i = 0; i < _UIChip.size(); i++) {
+		// TODO: 引数を座標から移動量に変更
+		new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(),VGet(1920,0,0)), 500);
+	}
+	}
+	if (trg & PAD_INPUT_RIGHT) { cur++; for (auto i = 0; i < _UIChip.size(); i++) {
+		new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 500);
+	}
+	}
+	
+	// カーソル位置をループ
 	int itemNum = 4;
 	if (itemNum <= 0) {}
 	else {
 		_Cur = (_Cur + itemNum) % itemNum;
 	}
-	if (cur != _Cur) {
-		_UIChip[_Cur]->Send(0);
-		_Cur = cur;
-		_UIChip[_Cur]->Send(1);
-	}
+	
 
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択
