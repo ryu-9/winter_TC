@@ -25,6 +25,7 @@ bool ModeTestStage::Initialize() {
 	SetFogStartEnd(200, 10000);
 
 	SetDrawCollision(TRUE);
+	_EffectController = new EffectController(this);
 
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);

@@ -205,9 +205,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetSize(scale);
 			box->GetMCollision()->RefleshCollInfo();
 		} else if (name == "BP_Bro_spawn") {
-			_Player->SetPosition(pos);
+			_Player[0]->SetPosition(pos);
 		} else if (name == "BP_Sis_spawn") {
-			_Player2->SetPosition(pos);
+			_Player[1]->SetPosition(pos);
 		} else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";
