@@ -47,8 +47,8 @@ void ECornComponent::ProcessInput() {
 			_CurrentTime += _Owner->GetMode()->GetStepTm();
 			if (_CurrentTime > _Duration) {
 				_CurrentTime = 0;
-				auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
-				_Owner->GetComponent<ModelComponent>()->SetRotation(VGet(0, rot.y + 0.3, 0));
+				auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+				_Owner->GetComponent<ModelComponent>()[0]->SetRotation(VGet(0, rot.y + 0.3, 0));
 				_Status = STATUS::SEARCH;
 			}
 			break;
@@ -104,7 +104,7 @@ bool ECornComponent::Move() {
 	}
 	auto t = _Owner->GetMode()->GetStepTm();
 	auto d = _MoveDist * t;
-	auto front = _Owner->GetComponent<ModelComponent>()->GetFront();
+	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 	// TODO: ƒ‚ƒfƒ‹‚ÌŒü‚«’²®
 	// ‰¼‚Åƒtƒƒ“ƒg‚ğ”½“]
 	front = VScale(front, -1);

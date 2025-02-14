@@ -20,9 +20,9 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 		auto ppos = target[i]->GetPosition();
 		auto dist = VSize(VSub(ppos, epos));
 		if (dist < _SearchRef.dist) {
-			auto front = _Owner->GetComponent<ModelComponent>()->GetFront();
+			auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 			front = VScale(front, -1);
-			// ‚à‚µƒvƒŒƒCƒ„[‚ªŽ‹ŠE‚É“ü‚Á‚Ä‚¢‚é‚©
+			// ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½É“ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½é‚©
 			if (VDot(VNorm(VSub(ppos, epos)), front) > cosf(_SearchRef.angle * DX_PI / 180)) {
 				_Index.push_back(i);
 				f = true;

@@ -33,7 +33,7 @@ bool ModeTestStage::Initialize() {
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
+	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
 	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(0, 200, 0));
 	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(-10, 200, 0));
@@ -48,7 +48,7 @@ bool ModeTestStage::Initialize() {
 	auto ac = new ActorClass(this);
 	ac->SetSize(VGet(100, 100, 100));
 	new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
-	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>(), VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
+	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>()[0], VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
 
 	return true;
 }

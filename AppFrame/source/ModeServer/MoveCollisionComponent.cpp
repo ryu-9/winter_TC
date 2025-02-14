@@ -19,24 +19,29 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 
 	// �ړ��\�ȏꍇ�AMoveComponent��擾
 	if (isMove == TRUE) {
-		_Move = _Owner->GetComponent<MoveComponent>();
+		_Move = _Owner->GetComponent<MoveComponent>()[0];
 	}
 	OldPos = GetPosition();
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��
 	if (type == 2) { return; }
 
 	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
-	ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>();
+	ModelComponent* modelComp;
+	if (model == nullptr)
+	{
+		modelComp = _Owner->GetComponent<ModelComponent>()[0];
+	}
+	else
+	{
+		modelComp = model;
+	}
 	if (Handle == -1 && modelComp != nullptr) {
 		Handle = modelComp->GetHandle();
 	}
 
 
 	// ���f���̈ʒu�A�X�P�[���A��]��ݒ肵�A�Փˏ���Z�b�g�A�b�v
-	MV1SetPosition(Handle, GetPosition());
-	MV1SetScale(Handle, GetSize());
-	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-	MV1SetupCollInfo(Handle);
+	RefleshCollInfo();
 }
 
 // �f�X�g���N�^
@@ -60,13 +65,10 @@ void MoveCollisionComponent::Update() {
 		drawpos[0] = GetPosition();
 
 		if (_Move == nullptr) {
-			_Move = _Owner->GetComponent<MoveComponent>();
+			_Move = _Owner->GetComponent<MoveComponent>()[0];
 		}
 
-		MV1SetPosition(Handle, GetPosition());
-		MV1SetScale(Handle, GetSize());
-		MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-		MV1RefreshCollInfo(Handle);
+
 
 
 		flag = FALSE;
@@ -303,7 +305,7 @@ void MoveCollisionComponent::Update() {
 					int test = 0;
 				}
 
-				MoveComponent* EnMoveCon = coll[i]->GetOwner()->GetComponent<class MoveComponent>();
+				MoveComponent* EnMoveCon = coll[i] -> GetMove();
 				VECTOR EnMove;
 				if (EnMoveCon != nullptr) {
 					EnMove = EnMoveCon->GetVelocity();
@@ -318,16 +320,12 @@ void MoveCollisionComponent::Update() {
 
 				float deg = 0;
 				if (move.y >= cos(deg / 180 * atan(1) * 4)) {
-					MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
-					if (SelfMC != nullptr) {
-						SelfMC->SetStand(TRUE);
+					if (_Move != nullptr) {
+						_Move->SetStand(TRUE);
 					}
 				}
 
-				MV1SetPosition(Handle, GetPosition());
-				MV1SetScale(Handle, GetSize());
-				MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-				MV1RefreshCollInfo(Handle);
+				RefleshCollInfo();
 
 				if (sqrtFlag == TRUE) {
 					sqrtFlag = FALSE;
@@ -369,6 +367,9 @@ void MoveCollisionComponent::Update() {
 							if (move.y > 0.1) {
 								int test = 0;
 							}
+							if (length < 0) {
+								continue;
+							}
 						}
 
 						_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
@@ -386,7 +387,7 @@ void MoveCollisionComponent::Update() {
 							int test = 0;
 						}
 
-						MoveComponent* EnMoveCon = coll[sqrtnum]->GetOwner()->GetComponent<class MoveComponent>();
+						MoveComponent* EnMoveCon = coll[sqrtnum]->GetMove();
 						VECTOR EnMove;
 						if (EnMoveCon != nullptr) {
 							EnMove = EnMoveCon->GetVelocity();
@@ -400,16 +401,11 @@ void MoveCollisionComponent::Update() {
 
 
 						if (move.y >= cos(deg / 180 * atan(1) * 4)) {
-							MoveComponent* SelfMC = _Owner->GetComponent<MoveComponent>();
-							if (SelfMC != nullptr) {
-								SelfMC->SetStand(TRUE);
+							if (_Move != nullptr) {
+								_Move->SetStand(TRUE);
 							}
 						}
-
-						MV1SetPosition(Handle, GetPosition());
-						MV1SetScale(Handle, GetSize());
-						MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-						MV1RefreshCollInfo(Handle);
+						RefleshCollInfo();
 					}
 				}
 
@@ -438,6 +434,8 @@ void MoveCollisionComponent::Update() {
 
 		drawpos[1] = OldPos;
 		OldPos = GetPosition();
+
+		RefleshCollInfo();
 	}
 
 }
@@ -447,13 +445,18 @@ void MoveCollisionComponent::RefleshCollInfo()
 	MV1SetPosition(Handle, GetPosition());
 	VECTOR size = GetSize();
 	MV1SetScale(Handle, GetSize());
-	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1SetRotationXYZ(Handle, GetRotation());
 	MV1SetupCollInfo(Handle);
 }
 
 
 VECTOR MoveCollisionComponent::GetPosition() {
-	return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize())); 
+	VECTOR pos = VMulti(Pos, _Owner->GetSize());
+	VECTOR dir = _Owner->GetDirection();
+	pos = VTransform(pos, MGetRotX(dir.x));
+	pos = VTransform(pos, MGetRotY(dir.y));
+	pos = VTransform(pos, MGetRotZ(dir.z));
+	return VAdd(_Owner->GetPosition(), pos); 
 }
 
 VECTOR MoveCollisionComponent::GetSize() {
@@ -462,17 +465,22 @@ VECTOR MoveCollisionComponent::GetSize() {
 
 VECTOR MoveCollisionComponent::GetUp()
 {
-	return _Owner->GetComponent<ModelComponent>()->GetUp();
+	return _Model->GetUp();
 }
 
 VECTOR MoveCollisionComponent::GetFront()
 {
-	return _Owner->GetComponent<ModelComponent>()->GetFront();
+	return _Model->GetFront();
 }
 
 VECTOR MoveCollisionComponent::GetRight()
 {
 	return VCross(GetUp(),GetFront());
+}
+
+VECTOR MoveCollisionComponent::GetRotation()
+{
+	return VAdd(Rot, _Owner->GetDirection());
 }
 
 void MoveCollisionComponent::DebugDraw()

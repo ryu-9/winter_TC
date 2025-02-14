@@ -21,6 +21,9 @@
     <Filter Include="SoundServer\SourceVoice">
       <UniqueIdentifier>{2351554b-8283-4f27-8aca-368ac465eb16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EffectServer">
+      <UniqueIdentifier>{744f18b5-1e29-44b8-8329-b743f8bcd112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\appframe.h" />
@@ -90,6 +93,15 @@
     <ClInclude Include="source\ModeServer\ShadowMapSpriteComponent.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\EffectServer\EffectController.h">
+      <Filter>EffectServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EffectServer\EffectManager.h">
+      <Filter>EffectServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EffectServer\PlayerEmphasisEffect.h">
+      <Filter>EffectServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -157,6 +169,15 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\ShadowMapSpriteComponent.cpp">
       <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EffectServer\EffectController.cpp">
+      <Filter>EffectServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EffectServer\EffectManager.cpp">
+      <Filter>EffectServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EffectServer\PlayerEmphasisEffect.cpp">
+      <Filter>EffectServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

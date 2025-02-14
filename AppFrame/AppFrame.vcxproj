@@ -166,6 +166,9 @@
     <ClInclude Include="source\appframe.h" />
     <ClInclude Include="source\Application\ApplicationBase.h" />
     <ClInclude Include="source\Application\UtilMacro.h" />
+    <ClInclude Include="source\EffectServer\EffectManager.h" />
+    <ClInclude Include="source\EffectServer\EffectController.h" />
+    <ClInclude Include="source\EffectServer\PlayerEmphasisEffect.h" />
     <ClInclude Include="source\ModelServer\ModelServer.h" />
     <ClInclude Include="source\ModeServer\ActorClass.h" />
     <ClInclude Include="source\ModeServer\Actor\UIChipClass.h" />
@@ -190,6 +193,9 @@
   <ItemGroup>
     <ClCompile Include="source\Application\ApplicationBase.cpp" />
     <ClCompile Include="source\Application\WinMain.cpp" />
+    <ClCompile Include="source\EffectServer\EffectManager.cpp" />
+    <ClCompile Include="source\EffectServer\EffectController.cpp" />
+    <ClCompile Include="source\EffectServer\PlayerEmphasisEffect.cpp" />
     <ClCompile Include="source\ModelServer\ModelServer.cpp" />
     <ClCompile Include="source\ModeServer\ActorClass.cpp" />
     <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp" />

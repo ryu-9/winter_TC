@@ -21,6 +21,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_sis/Yukidama_Sis.mv1");
 		_BallModel->SetScale(VGet(4, 4, 4));
 	}
+	_BallModel->SetIndipendent(true);
 
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
@@ -43,6 +44,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetSize(VGet(0.1, 0.1, 0.1));
 
 	_AnimationModel = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
+
+	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 }
 
 PlayerActor::~PlayerActor()
@@ -104,8 +107,9 @@ void PlayerActor::UpdateActor()
 
 		MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
-		_BallModel->SetFront(rot);
-		_BallModel->SetUp(rot2);
+		//_BallModel->SetFront(rot);
+		//_BallModel->SetUp(rot2);
+		_BallModel->SetRotationZY(rot, rot2);
 
 		if (_Friend == nullptr) { break; }
 		friSize = _Friend->GetSize().y;
@@ -247,5 +251,5 @@ void PlayerActor::ChangeAnim(int a) {
 }
 
 bool PlayerActor::IsMoved() {
-	return VEqual(GetComponent<MoveComponent>()->GetOldPosition(), GetPosition());
+	return VEqual(GetComponent<MoveComponent>()[0]->GetOldPosition(), GetPosition());
 }

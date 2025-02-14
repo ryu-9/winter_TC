@@ -34,6 +34,8 @@ protected:
 	class CameraActor* _Camera;
 	class PlayerActor* _Player[2];
 
+	class EffectController* _EffectController;
+
 	int _handleMap;
 	int _handleSkySphere;
 	int _frameMapCollision;

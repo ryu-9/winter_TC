@@ -30,6 +30,8 @@ public:
 	VECTOR GetRPosition() const { return Pos; }
 	VECTOR GetRSize() const { return Size; }
 
+	VECTOR GetRotation();
+
 	void SetRPosition(VECTOR pos) { Pos = pos; }
 	void SetRSize(VECTOR size) { Size = size; }
 
@@ -53,6 +55,8 @@ public:
 	void Push();
 
 	void SetRotation(VECTOR rot);
+
+	class MoveComponent* GetMove() const { return _Move; }
 
 private:
 	// ˆÊ’u

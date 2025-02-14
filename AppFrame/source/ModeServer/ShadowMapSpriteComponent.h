@@ -19,6 +19,9 @@ public:
 	void AddSprite(class SpriteComponent* sprite) { _Sprites.push_front(sprite); }
 	void RemoveSprite(class SpriteComponent* sprite);
 
+	void AddRemoveSprite(class SpriteComponent* sprite) { _RemoveSprites.push_front(sprite); }
+	void RemoveRemoveSprite(class SpriteComponent* sprite);
+
 	void SwitchSprites(std::deque<class SpriteComponent*>& sprites);
 
 	int GetHandle() const { return _Handle; }
@@ -42,5 +45,6 @@ private:
 	VECTOR _Direction;
 	VECTOR _Target;
 	std::deque<class SpriteComponent*> _Sprites;
+	std::deque<class SpriteComponent*> _RemoveSprites;
 };
 

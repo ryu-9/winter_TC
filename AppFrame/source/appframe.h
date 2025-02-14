@@ -16,4 +16,7 @@
 #include "SoundServer/SoundComponent.h"
 #include "SoundServer/SourceVoiceItem.h"
 #include "SoundServer/SEComponent.h"
+#include "EffectServer/EffectManager.h"
+#include "EffectServer/EffectController.h"
 #include "ModeServer/ShadowMapSpriteComponent.h"
+#include "EffectServer/PlayerEmphasisEffect.h"

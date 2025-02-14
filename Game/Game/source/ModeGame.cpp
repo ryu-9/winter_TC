@@ -54,6 +54,7 @@ bool ModeGame::Initialize() {
 	
 	SetDrawCollision(TRUE);
 
+	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);
 	_Player[0]->SetPosition(VGet(800, 200, 100));
@@ -61,7 +62,7 @@ bool ModeGame::Initialize() {
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
-	_Camera->GetComponent<CameraComponent>()->SetPlayer(_Player[0], _Player[1]);
+	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
 	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(0, 200, 0));
 	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(-10, 200, 0));
@@ -76,9 +77,11 @@ bool ModeGame::Initialize() {
 	auto ac = new ActorClass(this);
 	ac->SetSize(VGet(100, 100, 100));
 	new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
-	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>(), VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
+	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>()[0], VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
 //	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	new BGMComponent(_Camera);
+
+
 	return true;
 }
 
@@ -127,7 +130,7 @@ bool ModeGame::Render() {
 	SetUseLighting(TRUE);
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(0, -1, -1));
+	ChangeLightTypeDir(VGet(0.75, -1, 0.75));
 #endif
 #if 0
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
@@ -154,6 +157,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 	
+	//_EffectController -> Draw();
 
 	base::Render();
 
@@ -176,9 +180,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
-		rot.x = DEG2RAD(pos.x);
-		rot.y = DEG2RAD(pos.y);
-		rot.z = DEG2RAD(pos.z);
+		rot.x = DEG2RAD(rot.x);
+		rot.y = DEG2RAD(rot.y);
+		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
 		/*
@@ -200,13 +204,21 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetDirection(rot);
 			box->SetSize(scale);
 			box->GetMCollision()->RefleshCollInfo();
+		} else if (name == "BP_Bro_spawn") {
+			_Player->SetPosition(pos);
+		} else if (name == "BP_Sis_spawn") {
+			_Player2->SetPosition(pos);
+		} else {
+			auto ac = new ActorClass(this);
+			auto file = path + "model/" + name + ".mv1";
+			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+			auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
+			ac->SetPosition(pos);
+			ac->SetDirection(rot);
+			ac->SetSize(scale);
+			mv->RefleshCollInfo();
 		}
-		if (name == "BP_Bro_spawn") {
-			_Player[0]->SetPosition(pos);
-		}
-		if (name == "BP_Sis_spawn") {
-			_Player[1]->SetPosition(pos);
-		}
+
 	}
 
 	return true;

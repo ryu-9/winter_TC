@@ -152,8 +152,8 @@ bool EBoxComponent::Roll() {
 	// —§•û‘Ì‚Ì‰ñ“]
 	auto tmprot = 0.5 * PI * 0.002;
 	auto tmptm = _Owner->GetMode()->GetStepTm();
-	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
+	auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
 	rot.x += tmprot * tmptm;
-	_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
+	_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 	return false;
 }

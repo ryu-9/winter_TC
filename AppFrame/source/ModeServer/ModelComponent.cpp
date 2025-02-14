@@ -4,6 +4,7 @@
 
 ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	:Component(owner)
+	, _Indipendent(false)
 	// 再生時間の初期化
 	,_TotalTime(0.f)
 	,_PlayTime(0.0f)
@@ -43,14 +44,16 @@ void ModelComponent::SetModelInfo()
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
-	//MV1SetRotationXYZ(_Handle, vRot);
+	//MV1SetRotationXYZ(_Handle, GetRotation());
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
+
 }
 
 void ModelComponent::SetRotation(VECTOR rot)
 {
 	_Rot = rot;
-	MV1SetRotationXYZ(_Handle, _Rot);
+	VECTOR Rot = VAdd(rot, _Owner->GetDirection());
+	//MV1SetRotationXYZ(_Handle, Rot);
 	VECTOR front = VGet(0, 0, 1), up = VGet(0, 1, 0);
 	front = VTransform(front, MGetRotX(rot.x));
 	front = VTransform(front, MGetRotY(rot.y));
@@ -60,10 +63,15 @@ void ModelComponent::SetRotation(VECTOR rot)
 	up = VTransform(up, MGetRotY(rot.y));
 	up = VTransform(up, MGetRotZ(rot.z));
 	_Up = up;
-	auto mcoll = _Owner->GetComponent<MoveCollisionComponent>();
-	if (mcoll != nullptr) {
-		mcoll->SetRotation(_Rot);
+}
+
+VECTOR ModelComponent::GetRotation()
+{
+	VECTOR rot = _Rot;
+	if (!_Indipendent) {
+		rot = VAdd(rot, _Owner->GetDirection());
 	}
+	return rot;
 }
 
 void ModelComponent::SetRotationZY(VECTOR front, VECTOR up)
@@ -110,7 +118,7 @@ void ModelSpriteComponent::Draw()
 	//*/
 
 	// デバッグ描画
-	_Owner->GetComponent<MoveCollisionComponent>()->DebugDraw();
+	_Owner->GetComponent<MoveCollisionComponent>()[0]->DebugDraw();
 	
 	{
 		_Model->SetModelInfo();
