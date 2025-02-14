@@ -68,7 +68,6 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 	devpos = OldPos;
 	OldPos = GetPosition();
 	return _IsHitList;
-	// TODO: return ステートメントをここに挿入します
 }
 
 VECTOR HitCollisionComponent::GetPosition() {

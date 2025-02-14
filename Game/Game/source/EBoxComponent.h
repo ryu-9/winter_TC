@@ -11,12 +11,22 @@ public:
 	};
 
 protected:
-	bool Attack();
+	bool Attack() override;
 	bool Move() override;
-	bool Roll();
+	bool Rotate_Move();
 	WAIT_ACTION _WaitAction;
 
-	// ˆÚ“®•ûŒü
-	VECTOR _MoveDir;
+	
+	VECTOR _MoveDir;	// ˆÚ“®•ûŒü
+	VECTOR _MFront;		// ‘O•ûŒü
+	VECTOR _MUp;		// ã•ûŒü
+
+
+	float _RollAngle;	// ‰ñ“]Šp“x
+	int _RMTime;		// ‰ñ“]•b”
+
+	
+	float _HalfSize;
+	float _Slanting;
 };
 

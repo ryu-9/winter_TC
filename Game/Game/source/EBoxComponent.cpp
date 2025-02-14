@@ -8,6 +8,8 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	_Status = STATUS::SEARCH;
 	_Duration = 1000;
 	_CoolTime = 1000;
+	_MFront = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
+	_RollAngle = 0.0f;
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
 	_Weight.push_back(3);
@@ -86,8 +88,6 @@ bool EBoxComponent::Attack() {
 	}
 	if (_CurrentTime < _Duration) {
 		VECTOR pos = _Owner->GetPosition();
-
-
 		auto vel = _En->GetInput()->GetVelocity();
 		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
 		_En->GetInput()->SetVelocity(vel);
@@ -106,26 +106,30 @@ bool EBoxComponent::Attack() {
 bool EBoxComponent::Move() {
 	if (_CurrentTime == 0) {
 		_Duration = 500;
+		// ˆÚ“®•ûŒü‚ðMfrontŠî€‚Åƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ’è
+
 		switch (rand() % 4) {
 		case 0:
-			_MoveDir = VGet(0, 0, 1);
+			_MoveDir = _MFront;
 			break;
 		case 1:
-			_MoveDir = VGet(0, 0, -1);
+			// —§•û‘Ì‚ð‰E‚É90“x‰ñ“]
+			_MoveDir = VGet(-_MFront.z, 0, _MFront.x);
+			_MFront = _MoveDir;
 			break;
 		case 2:
-			_MoveDir = VGet(1, 0, 0);
+			// ¶‚É90“x‰ñ“]
+			_MoveDir = VGet(_MFront.z, 0, -_MFront.x);
+			_MFront = _MoveDir;
 			break;
 		case 3:
-			_MoveDir = VGet(-1, 0, 0);
+			// ‹t•ûŒü
+			_MoveDir = VScale(_MFront, -1);
+			_MFront = _MoveDir;
 			break;
 		}
 
-	//	auto tmprot = 0.5 * PI;
-	//	auto rot = _Owner->GetComponent<ModelComponent>()->GetRotation();
-	//	rot.x += tmprot;
-		
-	//	_Owner->GetComponent<ModelComponent>()->SetRotation(rot);
+
 	}
 	if (_CurrentTime < _Duration) {
 		VECTOR pos = _Owner->GetPosition();
@@ -134,7 +138,7 @@ bool EBoxComponent::Move() {
 		auto vel = _En->GetInput()->GetVelocity();
 		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
 		_En->GetInput()->SetVelocity(vel);
-		Roll();
+		Rotate_Move();
 	}
 
 
@@ -148,12 +152,27 @@ bool EBoxComponent::Move() {
 	return false;
 }
 
-bool EBoxComponent::Roll() {
+
+bool EBoxComponent::Rotate_Move() {
 	// —§•û‘Ì‚Ì‰ñ“]
 	auto tmprot = 0.5 * PI * 0.002;
+	// TODO: ‰ñ“]•b”‚ð‰Â•Ï‚É
 	auto tmptm = _Owner->GetMode()->GetStepTm();
-	auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
-	rot.x += tmprot * tmptm;
-	_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
+	auto tmpangle = _RollAngle + (tmprot * tmptm);
+	if (tmpangle > 0.5 * PI) {
+		_RollAngle = 0.0f;
+	} else {
+		auto vecAxiz = VGet(0,0,0);
+		if (_MFront.x != 0) {
+			vecAxiz = VGet(0, 0, 1);
+		}
+		if (_MFront.z != 0) {
+			vecAxiz = VGet(1, 0, 0);
+		}
+		auto rot = VTransform(_Owner->GetComponent<ModelComponent>()[0]->GetFront(), MGetRotAxis(vecAxiz, tmprot));
+		_RollAngle = tmpangle;
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
+	}
+	
 	return false;
 }
