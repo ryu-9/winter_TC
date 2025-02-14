@@ -87,7 +87,7 @@ bool ModeTestStage::Render() {
 	SetUseLighting(TRUE);
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(0, -1, -1));
+	ChangeLightTypeDir(VGet(0.7, -1, 0.7));
 #endif
 #if 0
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
