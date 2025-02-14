@@ -31,7 +31,9 @@ public:
 	VECTOR GetScale() const { return _Scale; }
 
 	void SetRotation(VECTOR rot);
-	VECTOR GetRotation() const { return _Rot; }
+	VECTOR GetRotation();
+
+	void SetIndipendent(bool indipendent) { _Indipendent = indipendent; }
 
 	void SetRotationZY(VECTOR front, VECTOR up);
 
@@ -50,6 +52,8 @@ private:
 
 	VECTOR _Position;
 	VECTOR _Scale;
+
+	bool _Indipendent;
 };
 
 class ModelSpriteComponent : public SpriteComponent

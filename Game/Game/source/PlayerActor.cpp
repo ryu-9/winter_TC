@@ -20,6 +20,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_sis/Yukidama_Sis.mv1");
 		_BallModel->SetScale(VGet(4, 4, 4));
 	}
+	_BallModel->SetIndipendent(true);
 
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
@@ -105,8 +106,9 @@ void PlayerActor::UpdateActor()
 
 		MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
-		_BallModel->SetFront(rot);
-		_BallModel->SetUp(rot2);
+		//_BallModel->SetFront(rot);
+		//_BallModel->SetUp(rot2);
+		_BallModel->SetRotationZY(rot, rot2);
 
 		if (_Friend == nullptr) { break; }
 		friSize = _Friend->GetSize().y;
