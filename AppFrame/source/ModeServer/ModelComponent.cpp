@@ -45,8 +45,34 @@ void ModelComponent::SetModelInfo()
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
 	//MV1SetRotationXYZ(_Handle, GetRotation());
+	MV1SetRotationZYAxis(_Handle, GetFront(), GetUp(), 0);
+
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
 
+}
+
+VECTOR ModelComponent::GetFront()
+{
+	VECTOR front = _Front;
+	if (!_Indipendent) {
+		VECTOR Rot = _Owner->GetDirection();
+		front = VTransform(front, MGetRotX(Rot.x));
+		front = VTransform(front, MGetRotY(Rot.y));
+		front = VTransform(front, MGetRotZ(Rot.z));
+	}
+	return front;
+}
+
+VECTOR ModelComponent::GetUp()
+{
+	VECTOR up = _Up;
+	if (!_Indipendent) {
+		VECTOR Rot = _Owner->GetDirection();
+		up = VTransform(up, MGetRotX(Rot.x));
+		up = VTransform(up, MGetRotY(Rot.y));
+		up = VTransform(up, MGetRotZ(Rot.z));
+	}
+	return up;
 }
 
 void ModelComponent::SetRotation(VECTOR rot)
@@ -118,7 +144,7 @@ void ModelSpriteComponent::Draw()
 	//*/
 
 	// デバッグ描画
-	_Owner->GetComponent<MoveCollisionComponent>()[0]->DebugDraw();
+	//_Owner->GetComponent<MoveCollisionComponent>()[0]->DebugDraw();
 	
 	{
 		_Model->SetModelInfo();

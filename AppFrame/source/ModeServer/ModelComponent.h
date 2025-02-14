@@ -16,10 +16,10 @@ public:
 
 	int GetHandle() const { return _Handle; }
 
-	VECTOR GetFront() const { return _Front; }
+	VECTOR GetFront();
 	void SetFront(VECTOR front) { _Front = front; }
 
-	VECTOR GetUp() const { return _Up; }
+	VECTOR GetUp();
 	void SetUp(VECTOR up) { _Up = up; }
 	
 	void SetVisible(bool visible) { MV1SetVisible(_Handle, visible); }
