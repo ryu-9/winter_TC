@@ -11,6 +11,8 @@ CameraActor::CameraActor(ModeBase* mode)
 	_clipFar = 200000.f;
 	_Follow = nullptr;
 	new CameraComponent(this);
+	_SkySphere = new ModelComponent(this, "res/Stage/model/Dorm_Haikei.mv1");
+	_SkySphere->SetIndipendent(true);
 }
 
 CameraActor::~CameraActor()
@@ -90,8 +92,9 @@ void CameraComponent::ProcessInput()
 	angle.y = sin(camrad);
 
 	if (dist < 1000) { dist = 1000; }
+	if (dist > 10000) { dist = 10000; }
 	v = VScale(v, 0.5f);
-	_Owner->SetDirection(v);
+
 	EffectController::GetInstance()->GetShadowMap(0)->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
 	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-dist, -dist, -dist));
 	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(dist, dist, dist));
@@ -109,11 +112,13 @@ void CameraComponent::ProcessInput()
 	_ShadowMap[2]->SetTarget(_Player[1]->GetPosition());
 	_ShadowMap[2]->SetMinLength(VGet(-200, -_Player[1]->GetPosition().y, -200));
 	*/
-
-
-	_Owner->SetPosition(VAdd(v, VScale(angle, dist)));
+	//auto cam = dynamic_cast<CameraActor*>(_Owner);
+	//cam->SetTarget(VAdd(v, VScale(angle, dist)));
+	_Owner->SetPosition(v);
+	_Owner->SetDirection(VAdd(v, VScale(angle, dist)));
+	_Owner->SetSize(VScale(VGet(0.1, 0.1, 0.1), dist));
 	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
-	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
+	SetCameraPositionAndTarget_UpVecY(_Owner->GetDirection(), _cOwner->GetPosition());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
 
 

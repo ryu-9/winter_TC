@@ -14,11 +14,15 @@ public:
 	 void SetClipFar(float clipFar) { _clipFar = clipFar; }
 	 void SetFollow(class ActorClass* ac) { _Follow = ac; }
 	 class ActorClass* GetFollow() { return _Follow; }
+	 void SetTarget(VECTOR target) { _Taeget = target; }
+	 VECTOR GetTarget() { return _Taeget; }
 
 private:
 //	VECTOR	_vTarget;				// 距離
 	float	_clipNear, _clipFar;	// クリップ
 	class ActorClass* _Follow;		// 追従するアクター
+	class ModelComponent* _SkySphere;		// スカイスフィア
+	VECTOR _Taeget;
 };
 
 class CameraComponent : public Component

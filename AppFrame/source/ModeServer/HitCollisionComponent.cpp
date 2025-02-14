@@ -65,10 +65,14 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 		}
 	}
 
-	devpos = OldPos;
-	OldPos = GetPosition();
 	return _IsHitList;
 	// TODO: return ステートメントをここに挿入します
+}
+
+void HitCollisionComponent::Update()
+{
+	OldPos = devpos;
+	devpos = GetPosition();
 }
 
 VECTOR HitCollisionComponent::GetPosition() {
@@ -96,9 +100,18 @@ VECTOR HitCollisionComponent::GetRight()
 
 void HitCollisionComponent::DebugDraw()
 {
-	DrawCapsule3D(devpos, GetPosition(), GetSize().x, 5, GetColor(0,0,255), 0, false);
+	DrawCapsule3D(OldPos, GetPosition(), GetSize().x, 5, GetColor(0,0,255), 0, false);
 }
 
 void HitCollisionComponent::SetRotation(VECTOR rot)
 {
+}
+
+void HitCollisionComponent::RefleshCollInfo()
+{
+	MV1SetPosition(Handle, GetPosition());
+	VECTOR size = GetSize();
+	MV1SetScale(Handle, GetSize());
+	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1SetupCollInfo(Handle);
 }

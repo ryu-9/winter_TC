@@ -48,7 +48,7 @@ bool ModeTestStage::Initialize() {
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 	auto ac = new ActorClass(this);
 	ac->SetSize(VGet(100, 100, 100));
-	new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
+	//new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
 	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>()[0], VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
 
 	return true;

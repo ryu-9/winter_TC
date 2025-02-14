@@ -25,15 +25,22 @@ public:
 	EffectManager* GetEffectManager(SpriteComponent* sp);
 
 	void AddShadowMap(int size = 1024, VECTOR dir = VGet(0, -1, 0), VECTOR target = VGet(0, 0, 0), int index = -1, float length = 100, int drawOrder = -1000000);
+	void SetShadowMapUse(int num, bool flag);
+
+	void SetFlag(SpriteComponent* sp, std::string flagname, bool flag);
 
 	void AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder = 200);
 
 	ShadowMapSpriteComponent* GetShadowMap(int num) { return _ShadowMapList[num]; }
 
+
+	bool SearchFlag(std::map<std::string, bool>* flagList, std::string flagname);
+
 private:
 	std::deque<EffectManager*> _EffectList;
 	ModeBase* _Mode;
 	std::deque<ShadowMapSpriteComponent*> _ShadowMapList;
+	std::deque<bool> _ShadowMapFlagList;
 	std::deque<PlayerEmphasisEffect*> _EmphasisEffectList;
 
 };
