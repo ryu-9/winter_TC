@@ -45,12 +45,15 @@ void ModelComponent::SetModelInfo()
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// ƒ‚ƒfƒ‹‚ª•W€‚Å‚Ç‚¿‚ç‚ðŒü‚¢‚Ä‚¢‚é‚©‚ÅŽ®‚ª•Ï‚í‚é(‚±‚ê‚Í-z‚ðŒü‚¢‚Ä‚¢‚éê‡)
 	//MV1SetRotationXYZ(_Handle, vRot);
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
+
+	SetRotation(_Rot);
 }
 
 void ModelComponent::SetRotation(VECTOR rot)
 {
 	_Rot = rot;
-	MV1SetRotationXYZ(_Handle, _Rot);
+	VECTOR Rot = VAdd(rot, _Owner->GetDirection());
+	MV1SetRotationXYZ(_Handle, Rot);
 	VECTOR front = VGet(0, 0, 1), up = VGet(0, 1, 0);
 	front = VTransform(front, MGetRotX(rot.x));
 	front = VTransform(front, MGetRotY(rot.y));

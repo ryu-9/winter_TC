@@ -73,7 +73,7 @@ bool ModeGame::Initialize() {
 	//e->SetPosition(VGet(600, 200, -200));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/", "moi.json");
+	LoadStage("res/Stage/", "1-1V2.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
@@ -173,9 +173,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
-		rot.x = DEG2RAD(pos.x);
-		rot.y = DEG2RAD(pos.y);
-		rot.z = DEG2RAD(pos.z);
+		rot.x = DEG2RAD(rot.x);
+		rot.y = DEG2RAD(rot.y);
+		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
 #if 0		// アクタで読み込み　ちらつく
@@ -196,11 +196,21 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetSize(scale);
 			box->GetMCollision()->RefleshCollInfo();
 		}
-		if (name == "BP_Bro_spawn") {
+		else if (name == "BP_Bro_spawn") {
 			_Player->SetPosition(pos);
 		}
-		if (name == "BP_Sis_spawn") {
+		else if (name == "BP_Sis_spawn") {
 			_Player2->SetPosition(pos);
+		}
+		else {
+			auto ac = new ActorClass(this);
+			auto file = path + "model/" + name + ".mv1";
+			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
+			auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
+			ac->SetPosition(pos);
+			ac->SetDirection(rot);
+			ac->SetSize(scale);
+			mv->RefleshCollInfo();
 		}
 #endif
 	}
