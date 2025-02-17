@@ -1,4 +1,5 @@
 #include "StageBox.h"
+#include "SnowComponent.h"
 
 StageBox::StageBox(ModeBase* mode)
 	:ActorClass(mode)
@@ -22,4 +23,17 @@ void StageBox::UpdateActor()
 {
 	//auto model = GetComponent<ModelComponent>();
 	//model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.001, 0)));
+}
+
+void StageBox::Init()
+{
+	MV1_COLL_RESULT_POLY_DIM p = MV1CollCheck_Sphere(_MCollision->GetHandle(), -1, _MCollision->GetPosition(), 10000);
+	for (int i = 0; i < p.HitNum; i++)
+	{
+		if (p.Dim[i].Normal.y > 0.5)
+		{
+			_Poly.push_back(p.Dim[i]);
+			new SnowComponent(this, p.Dim[i]);
+		}
+	}
 }

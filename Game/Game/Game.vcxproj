@@ -186,6 +186,7 @@
     <ClCompile Include="source\ModeTitleMenu.cpp" />
     <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
+    <ClCompile Include="source\SnowComponent.cpp" />
     <ClCompile Include="source\StageBox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +220,7 @@
     <ClInclude Include="source\PlayerMoveComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />
     <ClInclude Include="source\PlayerActor.h" />
+    <ClInclude Include="source\SnowComponent.h" />
     <ClInclude Include="source\StageBox.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

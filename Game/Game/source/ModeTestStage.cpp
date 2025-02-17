@@ -130,6 +130,7 @@ bool ModeTestStage::LoadStage(const std::string path, const std::string jsname) 
 	auto b = new StageBox(this);
 	b->SetSize(VGet(100, 1, 100));
 	b->GetMCollision()->RefleshCollInfo();
+	b->Init();
 	return true;
 }
 
