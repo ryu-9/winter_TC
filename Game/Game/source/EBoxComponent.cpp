@@ -5,10 +5,12 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	:EnemyComponent(owner)
 	, _WaitAction(WAIT_ACTION::NON)
 {
+	_SearchRef.dist = 10;
 	_Status = STATUS::SEARCH;
 	_Duration = 1000;
 	_CoolTime = 1000;
 	_MFront = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
+	_MUp = _Owner->GetComponent<ModelComponent>()[0]->GetUp();
 	_RollAngle = 0.0f;
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
@@ -107,28 +109,19 @@ bool EBoxComponent::Move() {
 	if (_CurrentTime == 0) {
 		_Duration = 500;
 		// ˆÚ“®•ûŒü‚ðMfrontŠî€‚Åƒ‰ƒ“ƒ_ƒ€‚ÉŒˆ’è
-
-		switch (rand() % 4) {
+		auto dir = rand() % 4;
+		auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+		switch (dir %2) {
 		case 0:
-			_MoveDir = _MFront;
+			rot = VAdd(rot, VScale(_MFront, (dir - 1) *0.5 * PI));
+			_MUp = VTransform(_MUp, MGetRotAxis(_MFront, (dir - 1) * 0.5 * PI));
 			break;
 		case 1:
-			// —§•û‘Ì‚ð‰E‚É90“x‰ñ“]
-			_MoveDir = VGet(-_MFront.z, 0, _MFront.x);
-			_MFront = _MoveDir;
-			break;
-		case 2:
-			// ¶‚É90“x‰ñ“]
-			_MoveDir = VGet(_MFront.z, 0, -_MFront.x);
-			_MFront = _MoveDir;
-			break;
-		case 3:
-			// ‹t•ûŒü
-			_MoveDir = VScale(_MFront, -1);
-			_MFront = _MoveDir;
+			auto v = VCross(_MFront, _MUp);
+			rot = VAdd(rot, VScale(v, (dir - 2) * 0.5 * PI));
 			break;
 		}
-
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 
 	}
 	if (_CurrentTime < _Duration) {
@@ -138,7 +131,7 @@ bool EBoxComponent::Move() {
 		auto vel = _En->GetInput()->GetVelocity();
 		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
 		_En->GetInput()->SetVelocity(vel);
-		Rotate_Move();
+//		Rotate_Move();
 	}
 
 
