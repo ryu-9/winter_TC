@@ -9,9 +9,13 @@ class TMenuItemStart : public MenuItemBase
 public:
 	TMenuItemStart(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		_vAct.push_back(new UIChipClass(mdTm, VGet(300, 600, 0), "res/title/start.png",110));
-		new UIChipFadeComponent(_vAct.back(), 255, 250);
-		new UIChipFocusComponent(_vAct.back(), VGet(1.2,1.2,1.2),300);
+		auto ui = new UIChipClass(mdTm, VGet(2000, 550, 0), "res/UI/UI_START_ORIGIN.png", 110);
+		_vAct.push_back(ui);
+		ui->AddImage("res/UI/UI_START_ORIGIN_PICK.png");
+		ui->ChangeImage(1);
+		new UIChipMoveComponent(_vAct.back(), VGet(1529, 550, 0), 250);
+	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
+	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2,1.2,1.2),300);
 	}
 	virtual int Selected()
 	{
@@ -27,9 +31,12 @@ class TMenuItemContinue : public MenuItemBase {
 public:
 	TMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		_vAct.push_back(new UIChipClass(mdTm, VGet(720, 600, 0), "res/title/continue.png", 110));
-		new UIChipFadeComponent(_vAct.back(), 255, 250);
-		new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
+		auto ui = new UIChipClass(mdTm, VGet(2000, 800, 0), "res/UI/UI_START_LOAD.png", 110);
+		_vAct.push_back(ui);
+		ui->AddImage("res/UI/UI_START_LOAD_PICK.png");
+		new UIChipMoveComponent(_vAct.back(), VGet(1529, 800, 0), 250);
+	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
+	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
 	}
 	virtual int Selected() {
 		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
@@ -43,9 +50,12 @@ class TMenuItemExit : public MenuItemBase {
 public:
 	TMenuItemExit(void* param, std::string text) : MenuItemBase(param, text) {
 		ModeTitleMenu* mdTm = static_cast<ModeTitleMenu*>(_param);
-		_vAct.push_back( new UIChipClass(mdTm, VGet(1200, 600, 0), "res/title/exit.png", 110));
-		new UIChipFadeComponent(_vAct.back(), 255, 250);
-		new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
+		auto ui = new UIChipClass(mdTm, VGet(2100, 1000, 0), "res/UI/UI_START_END.png", 110);
+		_vAct.push_back(ui);
+		ui->AddImage("res/UI/UI_START_END_PICK.png");
+		new UIChipMoveComponent(_vAct.back(), VGet(1677, 1000, 0), 250);
+	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
+	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
 	}
 	virtual int Selected() {
 		ApplicationMain::GetInstance()->Terminate();
@@ -55,6 +65,8 @@ public:
 
 bool ModeTitleMenu::Initialize()
 {
+	new UIChipClass(this, VGet(1446, 540, 0), "res/UI/UI_START_BACKGROUND.png", 110);
+	new UIChipClass(this, VGet(1518, 270, 0), "res/UI/UI_START_MENU.png", 110);
 	Add(new TMenuItemStart(this, "はじめから"));
 	// if(もしセーブデータがあったら)
 	Add(new TMenuItemContinue(this, "つづきから"));
@@ -82,8 +94,8 @@ bool ModeTitleMenu::Process()
 
 	bool close = false;
 	auto cur = _Cur;
-	if (trg & PAD_INPUT_LEFT) { cur--; }
-	if (trg & PAD_INPUT_RIGHT) {cur++;	}
+	if (trg & PAD_INPUT_UP) { cur--; }
+	if (trg & PAD_INPUT_DOWN) {cur++;	}
 	// カーソル位置を上下ループ
 	int itemNum = _vItems.size();
 	if (itemNum <= 0) {}
@@ -99,9 +111,9 @@ bool ModeTitleMenu::Process()
 		}
 	}
 	if (cur != _Cur) {
-		_vItems[_Cur]->Send(0);
+		dynamic_cast<UIChipClass*>(_vItems[_Cur]->_vAct[0])->ChangeImage(0);
 		_Cur = cur;
-		_vItems[_Cur]->Send(1);
+		dynamic_cast<UIChipClass*>(_vItems[_Cur]->_vAct[0])->ChangeImage(1);
 	}
 	// メニューを閉じる
 	if (close) {

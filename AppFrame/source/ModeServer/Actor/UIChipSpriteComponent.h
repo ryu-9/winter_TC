@@ -9,6 +9,8 @@ public:
 	UIChipSpriteComponent(class UIChipClass* owner, int drawOrder = 100);
 	void Draw() override;
 	void SetImage(const TCHAR* filename);
+
+	void Receive(int message) override;
 protected:
 
 	class UIChipClass* _UIc;

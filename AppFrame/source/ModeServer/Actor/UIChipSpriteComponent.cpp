@@ -62,3 +62,6 @@ void UIChipSpriteComponent::SetImage(const TCHAR* filename)
 	GetGraphSize(tmp.handle, &tmp.width, &tmp.height);
 	_CGData.emplace_back(tmp);
 }
+
+void UIChipSpriteComponent::Receive(int message) {
+}

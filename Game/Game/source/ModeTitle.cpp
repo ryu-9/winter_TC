@@ -81,8 +81,8 @@ base::Process();
 			_UIChip.clear();
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 820, 1), "res/UI/UI_TITLE_ANY.png"));
-			new UIChipFadeComponent(_UIChip.front(), 255, 3000);
-			new UIChipFadeComponent(_UIChip.back(), 255, 3000);
+			new UIChipFadeComponent(_UIChip.front(), 255, 2000);
+			new UIChipFadeComponent(_UIChip.back(), 255, 2000);
 
 		}
 		break;
@@ -93,7 +93,8 @@ base::Process();
 		break;
 	case 7:
 		if (trg & PAD_INPUT_1) {
-			new UIChipFadeComponent(_UIChip.back(), 0, 2000,110);
+			new UIChipFadeComponent(_UIChip.back(), 0, 500,110);
+			new UIChipMoveComponent(_UIChip.front(), VGet(560, 500, 1), 500, 110);
 			newstep++;
 		}
 		if (_TitleTm > 30 * 1000) {
@@ -102,7 +103,7 @@ base::Process();
 		
 		break;
 	case 8:
-		if (_TitleTm > 2000) {
+		if (_TitleTm > 500) {
 			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
 			newstep = 7;
 		}

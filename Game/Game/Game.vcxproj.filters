@@ -150,6 +150,9 @@
     <ClCompile Include="source\ModeTestStage.cpp">
       <Filter>ソース ファイル\Dev</Filter>
     </ClCompile>
+    <ClCompile Include="source\ModeScenario.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeTestStage.h">
       <Filter>ヘッダー ファイル\Dev</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeScenario.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
