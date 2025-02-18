@@ -22,7 +22,7 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 		if (dist < _SearchRef.dist) {
 			auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 			front = VScale(front, -1);
-			// ����v���C���[�����E�ɓ����Ă��邩
+			
 			if (VDot(VNorm(VSub(ppos, epos)), front) > cosf(_SearchRef.angle * DX_PI / 180)) {
 				_Index.push_back(i);
 				f = true;

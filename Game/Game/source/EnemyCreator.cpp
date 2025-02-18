@@ -87,6 +87,7 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec) 
 		break;
 	}
 	return nullptr;
+	// TODO: エネミーの情報を良い感じにとれるように
 }
 
 

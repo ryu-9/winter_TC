@@ -5,23 +5,28 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	:EnemyComponent(owner)
 	, _WaitAction(WAIT_ACTION::NON)
 {
-	_SearchRef.dist = 10;
+	_SearchRef.dist = 500;
 	_Status = STATUS::SEARCH;
 	_Duration = 1000;
 	_CoolTime = 1000;
 	_MFront = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
-	_MUp = _Owner->GetComponent<ModelComponent>()[0]->GetUp();
+	_MLeft = VCross(_MFront, VGet(0, 1, 0));
 	_RollAngle = 0.0f;
 	_Target.push_back(_En->GetMode()->GetPlayer(0));
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
 	_Weight.push_back(3);
 	_Weight.push_back(4);
+	_HalfSize = 0;
 }
 
 
 EBoxComponent::~EBoxComponent() {}
 
 void EBoxComponent::ProcessInput() {
+	if (_HalfSize == 0&& _Owner->GetComponent<MoveComponent>()[0]->GetStand()) {
+		_HalfSize = _Owner->GetPosition().y;
+		_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
+	}
 	bool flag = false;
 	switch (_Status) {
 	case STATUS::NON:
@@ -70,68 +75,119 @@ void EBoxComponent::ProcessInput() {
 bool EBoxComponent::Attack() {
 	if (_CurrentTime == 0) {
 		_Duration = 500;
-		// プレイヤーの方に向かう
-		auto dir = VSub(_Target[_Index[0]]->GetPosition(), _Owner->GetPosition());
-		dir = VNorm(dir);
-		if (fabs(dir.x) < fabs(dir.z)) {
-			if (dir.x > 0) {
+		// 移動方向をランダムに決定
+		auto dir = rand() % 4;
+		_StartRot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+		switch (dir % 2) {
+		case 0:		// 左右
+			_RollAngle = 0;
+			_AddRot = VScale(_MFront, (dir - 1) * 0.5 * PI);
+			_MLeft = VTransformSR(_MLeft, MGetRotAxis(_MFront, -1 * (dir - 1) * 0.5 * PI));
+			_MLeft = VNorm(_MLeft);
+
+			if (dir == 0) {
 				_MoveDir = VGet(1, 0, 0);
 			} else {
 				_MoveDir = VGet(-1, 0, 0);
 			}
-		} else {
-			if (dir.z > 0) {
+			break;
+		case 1:		// 前後
+			_AddRot = VScale(_MLeft, (dir - 2) * 0.5 * PI);
+
+			if (dir == 1) {
 				_MoveDir = VGet(0, 0, 1);
 			} else {
 				_MoveDir = VGet(0, 0, -1);
 			}
+			break;
 		}
+	}
+
+	if (_CurrentTime < _Duration) {
+		auto tm = _Owner->GetMode()->GetStepTm();
+		// イージング回転
+
+		auto rot = VAdd(_StartRot, VScale(_AddRot, (float)_CurrentTime / (float)_Duration));
+		_RollAngle = ((float)_CurrentTime / (float)_Duration) * (0.5 * PI);
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
+
+
+		// 移動
+		auto vel = _En->GetInput()->GetVelocity();
+		// 回転移動分のベクトルを加算
+		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
+
+		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / _Duration) * tm));
+		_En->GetInput()->SetVelocity(vel);
+		auto pos = _Owner->GetPosition();
+		pos.y = y * 0.8;
+		_Owner->SetPosition(pos);
 
 	}
-	if (_CurrentTime < _Duration) {
-		VECTOR pos = _Owner->GetPosition();
-		auto vel = _En->GetInput()->GetVelocity();
-		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
-		_En->GetInput()->SetVelocity(vel);
-		//Roll();
-	}
+
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(VAdd(_StartRot, _AddRot));
 		_Status = STATUS::SEARCH;
 	}
-	return true;
+
+	return false;
 }
 
 bool EBoxComponent::Move() {
 	if (_CurrentTime == 0) {
-		_Duration = 500;
+		_Duration = 1000;
 		// 移動方向をMfront基準でランダムに決定
 		auto dir = rand() % 4;
-		auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
-		switch (dir %2) {
-		case 0:
-			rot = VAdd(rot, VScale(_MFront, (dir - 1) *0.5 * PI));
-			_MUp = VTransform(_MUp, MGetRotAxis(_MFront, (dir - 1) * 0.5 * PI));
+		_StartRot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+		switch (dir % 2) {
+		case 0:		// 左右
+			_RollAngle = 0;
+			_AddRot = VScale(_MFront, (dir - 1) * 0.5 * PI);
+			_MLeft = VTransformSR(_MLeft, MGetRotAxis(_MFront, -1 * (dir - 1) * 0.5 * PI));
+			_MLeft = VNorm(_MLeft);
+
+			if (dir == 0) {
+				_MoveDir = VGet(1, 0, 0);
+			} else {
+				_MoveDir = VGet(-1, 0, 0);
+			}
 			break;
-		case 1:
-			auto v = VCross(_MFront, _MUp);
-			rot = VAdd(rot, VScale(v, (dir - 2) * 0.5 * PI));
+		case 1:		// 前後
+			_AddRot = VScale(_MLeft, (dir - 2) * 0.5 * PI);
+
+			if (dir == 1) {
+				_MoveDir = VGet(0, 0, 1);
+			} else {
+				_MoveDir = VGet(0, 0, -1);
+			}
 			break;
 		}
+	}
+
+	if (_CurrentTime < _Duration) {
+		auto tm = _Owner->GetMode()->GetStepTm();
+		// イージング回転
+
+		auto rot = VAdd(_StartRot, VScale(_AddRot, (float)_CurrentTime / (float)_Duration));
+		_RollAngle = ((float)_CurrentTime / (float)_Duration) * (0.5 * PI);
 		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 
-	}
-	if (_CurrentTime < _Duration) {
-		VECTOR pos = _Owner->GetPosition();
 
-
+		// 移動
 		auto vel = _En->GetInput()->GetVelocity();
-		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, 3));
+		// 回転移動分のベクトルを加算
+		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
+
+		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / _Duration) * tm));
 		_En->GetInput()->SetVelocity(vel);
-//		Rotate_Move();
+		auto pos = _Owner->GetPosition();
+		pos.y = y * 0.8;
+		_Owner->SetPosition(pos);
+
 	}
 
 
@@ -139,6 +195,7 @@ bool EBoxComponent::Move() {
 	if (_CurrentTime > _Duration + _CoolTime) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(VAdd(_StartRot, _AddRot));
 		_Status = STATUS::SEARCH;
 	}
 
@@ -146,26 +203,3 @@ bool EBoxComponent::Move() {
 }
 
 
-bool EBoxComponent::Rotate_Move() {
-	// 立方体の回転
-	auto tmprot = 0.5 * PI * 0.002;
-	// TODO: 回転秒数を可変に
-	auto tmptm = _Owner->GetMode()->GetStepTm();
-	auto tmpangle = _RollAngle + (tmprot * tmptm);
-	if (tmpangle > 0.5 * PI) {
-		_RollAngle = 0.0f;
-	} else {
-		auto vecAxiz = VGet(0,0,0);
-		if (_MFront.x != 0) {
-			vecAxiz = VGet(0, 0, 1);
-		}
-		if (_MFront.z != 0) {
-			vecAxiz = VGet(1, 0, 0);
-		}
-		auto rot = VTransform(_Owner->GetComponent<ModelComponent>()[0]->GetFront(), MGetRotAxis(vecAxiz, tmprot));
-		_RollAngle = tmpangle;
-		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
-	}
-	
-	return false;
-}

@@ -44,7 +44,7 @@ void ModelComponent::SetModelInfo()
 	// Œü‚«‚©‚çYŽ²‰ñ“]‚ðŽZo
 	VECTOR vRot = { 0,0,0 };
 	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// ƒ‚ƒfƒ‹‚ª•W€‚Å‚Ç‚¿‚ç‚ðŒü‚¢‚Ä‚¢‚é‚©‚ÅŽ®‚ª•Ï‚í‚é(‚±‚ê‚Í-z‚ðŒü‚¢‚Ä‚¢‚éê‡)
-	//MV1SetRotationXYZ(_Handle, GetRotation());
+	MV1SetRotationXYZ(_Handle, GetRotation());
 	MV1SetRotationZYAxis(_Handle, GetFront(), GetUp(), 0);
 
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));

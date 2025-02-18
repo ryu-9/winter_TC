@@ -13,20 +13,20 @@ public:
 protected:
 	bool Attack() override;
 	bool Move() override;
-	bool Rotate_Move();
 	WAIT_ACTION _WaitAction;
 
 	
 	VECTOR _MoveDir;	// ˆÚ“®•ûŒü
 	VECTOR _MFront;		// ‘O•ûŒü
-	VECTOR _MUp;		// ã•ûŒü
-
-
-	float _RollAngle;	// ‰ñ“]Šp“x
-	int _RMTime;		// ‰ñ“]•b”
+	VECTOR _MLeft;		// ‰¡•ûŒü
 
 	
-	float _HalfSize;
-	float _Slanting;
+	VECTOR _StartRot;	// ‰ñ“]ŠJnŠp“x
+	VECTOR _AddRot;		// ‰ñ“]I—¹Šp“x
+	float _RollAngle;	// ‰ñ“]Šp“x
+
+	
+	float _HalfSize;	// •Ó‚Ì’·‚³‚Ì”¼•ª
+	float _Slanting;	// Î‚ß
 };
 
