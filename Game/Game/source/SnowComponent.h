@@ -8,10 +8,21 @@ public:
 	virtual ~SnowComponent();
 	void Draw() override;
 
+	void AddMoveCollision(MoveCollisionComponent* mc) { _MCList.push_back(mc); }
+
 private:
-	std::vector<VERTEX3D> _Snow;
-	std::deque<float> _Height;
+	VERTEX3D* _Snow;
+	int _SnowSize;
+	unsigned short* _Index;
+	int _IndexSize;
+	float* _Height;
 	VECTOR _Normal;
+	int _Longest;
+
+
+	std::vector<MoveCollisionComponent*> _MCList;
+
+	int _Split;
 
 };
 

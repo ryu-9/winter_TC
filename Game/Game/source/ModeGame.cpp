@@ -74,10 +74,6 @@ bool ModeGame::Initialize() {
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
-	auto ac = new ActorClass(this);
-	ac->SetSize(VGet(100, 100, 100));
-	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>()[0], VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
-//	EnemyCreator::GetInstance()->Create(this, 0, 0);
 	new BGMComponent(_Camera);
 
 
@@ -219,6 +215,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetDirection(rot);
 			box->SetSize(scale);
 			box->GetMCollision()->RefleshCollInfo();
+			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
 		} else if (name == "BP_Sis_spawn") {

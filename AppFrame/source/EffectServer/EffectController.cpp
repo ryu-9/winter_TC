@@ -50,7 +50,7 @@ void EffectController::AddEffect(EffectManager* effect)
 
 void EffectController::DelEffect(EffectManager* effect)
 {
-	for (int i = 0; _EffectList.size();i++)
+	for (int i = 0; i < _EffectList.size();i++)
 	{
 		if (_EffectList[i] == effect)
 		{

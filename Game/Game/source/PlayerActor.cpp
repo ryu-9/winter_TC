@@ -2,6 +2,7 @@
 #include "appframe.h"
 #include "PlayerMoveComponent.h"
 #include "EnemyActor.h"
+#include "SnowComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -55,6 +56,12 @@ PlayerActor::~PlayerActor()
 
 void PlayerActor::UpdateActor()
 {
+	for (auto mc : _MCollision->GetCollResult()) {
+		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
+		for (auto s : snow) {
+			s->AddMoveCollision(_MCollision);
+		}
+	}
 
 	VECTOR v;
 
