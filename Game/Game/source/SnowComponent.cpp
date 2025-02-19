@@ -1,5 +1,6 @@
 #include "SnowComponent.h"
 
+
 SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 	:SpriteComponent(owner)
 	, _Split(25)
@@ -42,15 +43,31 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 
 	int k = 0;
 	for (int i = 0; i <= num; i++) {
-		int n = k - i;
+		int n = k - i - 1;
 		for (int j = 0; j <= i; j++) {
 			
 			if (i != 0) {
-				if (j == 0) {}
+				if (j == 0) {
+					/*
+					index.emplace_back(n + 1);
+					index.emplace_back(n);
+					index.emplace_back(k + 1);
+					index.emplace_back(n);
+					index.emplace_back(k);
+					index.emplace_back(k + 1);
+					//*/
+				}
 				else if (i == j) {
 					index.emplace_back(n);
 					index.emplace_back(k - 1);
 					index.emplace_back(k);
+
+					index.emplace_back(n + 1);
+					index.emplace_back(n);
+					index.emplace_back(k);
+					index.emplace_back(k);
+					index.emplace_back(k + 1);
+					index.emplace_back(n + 1);
 				}
 				else{
 					index.emplace_back(n);
@@ -73,7 +90,21 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 			tmp.v = 0;
 			tmp.su = 1;
 			tmp.sv = 1;
-			snow.emplace_back(tmp);
+			if (j == 0) {
+				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+				snow.emplace_back(tmp);
+				k++;
+				tmp.pos = p;
+				snow.emplace_back(tmp);
+			}
+			else if (j == i) {
+				snow.emplace_back(tmp);
+				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+				snow.emplace_back(tmp);
+				k++;
+			
+			}
+			else { snow.emplace_back(tmp); }
 		}
 	}
 
@@ -128,6 +159,10 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 	}
 
 
+	EffectController* ec = EffectController::GetInstance();
+	if (ec != nullptr) {
+		ec->GetShadowMap(0)->AddRemoveSprite(this);
+	}
 
 }
 
