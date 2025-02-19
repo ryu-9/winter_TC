@@ -24,20 +24,11 @@ bool ModeScenario::Terminate() {
 bool ModeScenario::Process() {
 	_CurrentTime += GetStepTm();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
-	auto n = 0;
-	if (_CurrentTime > _Index * 50) {
-		n +=2;
+	if (_CurrentTime > _Index * 100) {
+		AddText();
 	}
-	if (_Index + n < _ScenarioData[0].text.size()) {
-		_Index += n;
-		// 改行時のずれを修正
-		if (_ScenarioData[0].text.substr(_Index, 1) == "\n") {
-			_Index++;
-		}
-		if (_ScenarioData[0].text.substr(_Index) == "<") {
-
-		}
-	} else {
+	
+		if (_ScenarioData[0].text.size() <= _Index) {
 		_Index = _ScenarioData[0].text.size();
 		if (trg & PAD_INPUT_1) {
 			_Index = 0;
@@ -55,8 +46,8 @@ bool ModeScenario::Render() {
 	base::Render();
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "Scenario");
 	DrawFormatString(0, 20, GetColor(255, 255, 255), _ScenarioData[_TextNum].name.c_str());
-	
-		std::string text = _ScenarioData[_TextNum].text.substr(0, _Index);
+	auto t = iojson::ConvertString(_ScenarioData[_TextNum].text.substr(0,_Index) + "\0");
+		auto text = t;
 		DrawFormatString(0, 40, GetColor(255, 255, 255),"%s", text.c_str());
 	
 	return true;
@@ -72,9 +63,40 @@ bool ModeScenario::LoadScenario(const char* filename) {
 	for (auto& s : scenario) {
 		SCENARIO_DATA data;
 		data.name = iojson::ConvertString(s["name"]);
-		data.text = iojson::ConvertString(s["text"]);
+		data.text = s["text"];
 		_ScenarioData.push_back(data);
 	}
 
+	return true;
+}
+
+int ModeScenario::Check(const unsigned char uc) {
+	if ((uc & 0x80) == 0x00) { return 1; }	// 0*** ****
+	if ((uc & 0xe0) == 0xc0) { return 2; }	// 110* ****
+	if ((uc & 0xf0) == 0xe0) { return 3; }	// 1110 ****
+	if ((uc & 0xf8) == 0xf0) { return 4; }	// 1111 0***
+	if ((uc & 0xfc) == 0xf8) { return 5; }	// 1111 10**
+	if ((uc & 0xfe) == 0xfc) { return 6; }	// 1111 110*
+	return 0;	// 1文字目じゃない	
+}
+
+bool ModeScenario::AddText() {
+	if (_Index < _ScenarioData[_TextNum].text.size()) {
+
+
+		auto s = _ScenarioData[_TextNum].text.substr(_Index);
+		auto n = Check(static_cast<unsigned char>(s[0]));
+		if (n > 0) {
+			_Index += n;
+		} else {
+			_Index += 1; // 1バイト文字の場合
+		}
+		//
+
+		if (_ScenarioData[0].text.substr(_Index) == "<") {
+			
+
+		}
+	}
 	return true;
 }

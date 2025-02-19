@@ -20,6 +20,8 @@ public:
 
 	bool LoadScenario(const char* filename);
 private:
+	bool AddText();
+	int Check(const unsigned char uc);
 	std::vector<UIChipClass*> _UIChip;
 	std::vector<SCENARIO_DATA> _ScenarioData;
 	std::vector<TEXT_DATA> _TextData;
