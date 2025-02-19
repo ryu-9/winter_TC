@@ -13,7 +13,7 @@ bool ModeScenario::Initialize() {
 	_Time = 0;
 	_Index = 0;
 	_TextNum = 0;
-
+	_TextData.push_back(TEXT_DATA());
 	return true;
 }
 
@@ -46,9 +46,8 @@ bool ModeScenario::Render() {
 	base::Render();
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "Scenario");
 	DrawFormatString(0, 20, GetColor(255, 255, 255), _ScenarioData[_TextNum].name.c_str());
-	auto t = iojson::ConvertString(_ScenarioData[_TextNum].text.substr(0,_Index) + "\0");
-		auto text = t;
-		DrawFormatString(0, 40, GetColor(255, 255, 255),"%s", text.c_str());
+	auto t = iojson::ConvertString(_TextData.back().text);
+	DrawFormatString(0, 40, GetColor(255, 255, 255), t.c_str());
 	
 	return true;
 }
@@ -87,11 +86,13 @@ bool ModeScenario::AddText() {
 		auto s = _ScenarioData[_TextNum].text.substr(_Index);
 		auto n = Check(static_cast<unsigned char>(s[0]));
 		if (n > 0) {
-			_Index += n;
+			//_Index += n;
 		} else {
-			_Index += 1; // 1ÉoÉCÉgï∂éöÇÃèÍçá
+			n++;
 		}
-		//
+		// TEXT_DATAÇ…àÍï∂éöí«â¡
+		_TextData.back().text += s.substr(_Index, n);
+		_Index += n;
 
 		if (_ScenarioData[0].text.substr(_Index) == "<") {
 			
