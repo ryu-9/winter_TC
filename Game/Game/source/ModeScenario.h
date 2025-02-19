@@ -7,6 +7,10 @@ class ModeScenario : public ModeBase {
 		std::string name;
 		std::string text;
 	};
+	struct TEXT_DATA {
+		std::string text;
+		int col;
+	};
 
 public:
 	virtual bool Initialize();
@@ -18,10 +22,10 @@ public:
 private:
 	std::vector<UIChipClass*> _UIChip;
 	std::vector<SCENARIO_DATA> _ScenarioData;
+	std::vector<TEXT_DATA> _TextData;
 	int _CurrentTime;
 	int _Time;
-	std::string _Text;
 	int _Index;		// 表示文字数
-	int _Line;		// 行数
+	int _TextNum;	// 表示テキスト数
 };
 
