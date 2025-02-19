@@ -15,7 +15,22 @@ bool ModeScenario::Terminate() {
 }
 
 bool ModeScenario::Process() {
-	_Tm += GetStepTm();
+	_CurrentTime += GetStepTm();
+	if (_CurrentTime > _Index * 100) {
+		_Index+= 2;
+		if (_Index > _ScenarioData[0].text.size()) {
+			_Index = _ScenarioData[0].text.size();
+		}
+	}
+
+	// ‰üs‚Ì‚¸‚ê‚ğC³
+	if (_ScenarioData[0].text.substr(_Index, 1) == "\n") {
+		_Index++;
+	}
+	if (_ScenarioData[0].text.substr(_Index) == "<") {
+		
+	}
+	
 	return true;
 }
 
@@ -23,10 +38,10 @@ bool ModeScenario::Render() {
 	base::Render();
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "Scenario");
 	DrawFormatString(0, 20, GetColor(255, 255, 255), _ScenarioData[0].name.c_str());
-	for (int i = 0; i < _Tm / 500; i++) {
-		auto t = _ScenarioData[0].text.c_str()[i];
-		DrawFormatString(20 * i , 40, GetColor(255, 255, 255), (const TCHAR*)t);
-	}
+	
+		std::string text = _ScenarioData[0].text.substr(0, _Index);
+		DrawFormatString(0, 40, GetColor(255, 255, 255),"%s", text.c_str());
+	
 	return true;
 }
 

@@ -18,8 +18,10 @@ public:
 private:
 	std::vector<UIChipClass*> _UIChip;
 	std::vector<SCENARIO_DATA> _ScenarioData;
-	int _Tm;
-	
-	int _Index;
+	int _CurrentTime;
+	int _Time;
+	std::string _Text;
+	int _Index;		// •\¦•¶š”
+	int _Line;		// s”
 };
 
