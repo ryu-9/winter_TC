@@ -20,7 +20,8 @@ private:
 	int _Longest;
 
 
-	std::vector<MoveCollisionComponent*> _MCList;
+	std::deque<MoveCollisionComponent*> _MCList;
+	std::deque<MoveCollisionComponent*> _OldMCList;
 
 	int _Split;
 

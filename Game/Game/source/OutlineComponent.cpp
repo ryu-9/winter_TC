@@ -18,6 +18,11 @@ OutlineComponent::OutlineComponent(ActorClass* owner, const TCHAR* file, class M
 		_Camera = dynamic_cast<ModeGame*>(owner->GetMode())->GetCamera()->GetComponent<CameraComponent>()[0];
 
 	}
+	auto ef = EffectController::GetInstance();
+	if (ef != nullptr) {
+		ef->GetShadowMap(1)->AddRemoveSprite(this);
+		ef->GetShadowMap(2)->AddRemoveSprite(this);
+	}
 }
 
 OutlineComponent::~OutlineComponent()
@@ -26,6 +31,12 @@ OutlineComponent::~OutlineComponent()
 
 void OutlineComponent::Draw()
 {
+	if (MV1GetVisible(_TargetHandle)) {
+		MV1SetVisible(_Handle, TRUE);
+	}
+	else {
+		MV1SetVisible(_Handle, FALSE);
+	}	
 	MV1SetPosition(_Handle, MV1GetPosition(_TargetHandle));
 	VECTOR scale = MV1GetScale(_TargetHandle);
 	scale = VAdd(scale, VScale(VGet(1, 1, 1), _Camera->GetDist() / 10000));

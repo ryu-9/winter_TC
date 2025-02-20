@@ -229,7 +229,26 @@ void SnowComponent::Draw()
 	//*/
 
 	if (_SnowSize < 3) { return; }
+	std::deque<MoveCollisionComponent*> mclist;
 	for (auto mc : _MCList) {
+		mclist.push_back(mc);
+	}
+	for (auto mc : _OldMCList) {
+		bool mcflag = false;
+		for (auto mc2 : _MCList) {
+			if (mc == mc2) {
+				mcflag = true;
+			}
+		}
+		if (!mcflag) {
+			mclist.push_back(mc);
+		}
+	}
+
+	for (auto mc : mclist) {
+		if(mc ==nullptr){
+			continue;
+		}
 		num = 0;
 		que = 0;
 		olddist = 1000000000;
@@ -292,6 +311,7 @@ void SnowComponent::Draw()
 	}
 
 	int debug = DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize/3, DX_NONE_GRAPH, FALSE);
+	//_OldMCList = _MCList;
 	_MCList.clear();
 	return;
 

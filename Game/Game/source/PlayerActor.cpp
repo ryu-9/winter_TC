@@ -171,6 +171,16 @@ void PlayerActor::UpdateActor()
 				enemy->SetState(State::eDead);
 			}
 		}
+		VECTOR v = _Input->GetOldPosition();
+		v = VSub(GetPosition(), v);
+		if (v.x != 0 || v.z != 0) {
+			ChangeAnim((int)anim::Walk);
+		}
+
+		else {
+			ChangeAnim((int)anim::Wait);
+
+		}
 	}
 		break;
 
@@ -187,14 +197,7 @@ void PlayerActor::UpdateActor()
 			ChangeAnim((int)anim::Wait);
 			_AnimTime = 0;
 		}
-		if (_Input->GetVelocity().x != 0 || _Input->GetVelocity().z != 0) {
-			ChangeAnim((int)anim::Walk);
-		}
-			
-		else {
-			ChangeAnim((int)anim::Wait);
-			
-		}
+
 		switch (_ModeNum) {
 		case 1:
 			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
@@ -240,8 +243,8 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 10000;
-		//_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
 	case 2:
@@ -249,7 +252,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 10000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
 		_MCollision->SetIsActive(false);
 		break;
 	
@@ -264,37 +267,48 @@ void PlayerActor::ChangeAnim(int a) {
 	_Friend->ChangeAnim(a);
 	int oldindex = _AnimIndex;
 	int index = -1;
-	switch (_Animation) {
+	bool changeSucFlag = false;
+	switch (a) {
 
 	case (int)anim::Change:
 		index = MV1GetAnimIndex(_AnimationModel[0], "modelmotion");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
-
+		changeSucFlag = true;
 		break;
 
 	case (int)anim::Wait:
-		index = MV1GetAnimIndex(_AnimationModel[1], "idle");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[1], TRUE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[1], TRUE);
-		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		if (_Animation == (int)anim::Walk || _AnimTime > _AnimTotalTime) {
+			index = MV1GetAnimIndex(_AnimationModel[1], "idle");
+			_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[1], TRUE);
+			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[1], TRUE);
+			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+			changeSucFlag = true;
+		}
 		break;
 
 	case (int)anim::Walk:
-		index = MV1GetAnimIndex(_AnimationModel[2], "move_motion");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[2], TRUE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[2], TRUE);
-		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
-		break;
+		if (_Animation == (int)anim::Wait || _AnimTime > _AnimTotalTime) {
+			index = MV1GetAnimIndex(_AnimationModel[2], "move_motion");
+			_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[2], TRUE);
+			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[2], TRUE);
+			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+			changeSucFlag = true;
+			break;
+		}
+
 
 
 	}
 	_AnimChangingflag = false;
-	MV1DetachAnim(_TopModel->GetHandle(), oldindex);
-	MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
-	_Animation = a;
-	_AnimTime = 0;
+	if (changeSucFlag) {
+		MV1DetachAnim(_TopModel->GetHandle(), oldindex);
+		MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+		_Animation = a;
+		_AnimTime = 0;
+	}
+
 }
 
 bool PlayerActor::IsMoved() {
