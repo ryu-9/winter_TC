@@ -4,16 +4,26 @@
 #include "ApplicationMain.h"
 #include <fstream>
 
+namespace {
+	int X = 650;			// X座標基準値
+	int Y = 900;			// Y座標基準値
+	int FONT_SIZE = 20;		// フォントサイズ
+	int TEXT_SPEED = 70;	// テキスト表示速度
+}
+
 
 bool ModeScenario::Initialize() {
 	if (!base::Initialize()) { return false; }
 	LoadScenario("res/New2.json");
-
+	SetFontSize(FONT_SIZE);
 	_CurrentTime = 0;
 	_Time = 0;
-	_Index = 0;
-	_TextNum = 0;
+	_StCount = 0;
+	_TextIndex = 0;
+	_TextCount = 0;
 	_TextData.push_back(TEXT_DATA());
+
+	new UIChipClass(this,VGet(960,965,0), "res/UI/UI_MESSAGE.png");
 	return true;
 }
 
@@ -24,31 +34,49 @@ bool ModeScenario::Terminate() {
 bool ModeScenario::Process() {
 	_CurrentTime += GetStepTm();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
-	if (_CurrentTime > _Index * 100) {
+	if (_CurrentTime > _TextCount * TEXT_SPEED) {
 		AddText();
 	}
-	
-		if (_ScenarioData[0].text.size() <= _Index) {
-		_Index = _ScenarioData[0].text.size();
-		if (trg & PAD_INPUT_1) {
-			_Index = 0;
+
+	if (trg & PAD_INPUT_1) {
+		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
+			_StCount = 0;
+			_TextCount = 0;
 			_CurrentTime = 0;
-			_TextNum++;
+			_TextIndex++;
+			if (_TextIndex >= _ScenarioData.size()) {
+				ModeServer::GetInstance()->Del(this);
+				return true;
+			}
+			
 			_TextData.clear();
+			_TextData.push_back(TEXT_DATA());
+		} else {
+			for (auto i = 0; i < _ScenarioData[_TextIndex].text.size(); i++) {
+				AddText();
+			}
 		}
+
 	}
-	
-	
-	
+
 	return true;
 }
 
 bool ModeScenario::Render() {
 	base::Render();
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "Scenario");
-	DrawFormatString(0, 20, GetColor(255, 255, 255), _ScenarioData[_TextNum].name.c_str());
-	auto t = iojson::ConvertString(_TextData.back().text) + "\n";
-	DrawFormatString(0, 40, GetColor(255, 255, 255), t.c_str());
+	int x = X;
+	int y = Y;
+	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
+	y += FONT_SIZE;
+	for (int i = 0; i < _TextData.size(); i++) {
+		auto text = iojson::ConvertString(_TextData[i].text);
+		if (_TextData[i].br) {
+			y += FONT_SIZE;
+			x = X;
+		}
+		DrawFormatString(x, y, _TextData[i].col, text.c_str());
+		x += GetDrawFormatStringWidth(text.c_str());
+	}
 	
 	return true;
 }
@@ -66,10 +94,11 @@ bool ModeScenario::LoadScenario(const char* filename) {
 		data.text = s["text"];
 		_ScenarioData.push_back(data);
 	}
-
+	// TODO: 状況に合わせたデータの読み込み
 	return true;
 }
 
+// 文字数チェック
 int ModeScenario::Check(const unsigned char uc) {
 	if ((uc & 0x80) == 0x00) { return 1; }	// 0*** ****
 	if ((uc & 0xe0) == 0xc0) { return 2; }	// 110* ****
@@ -80,25 +109,51 @@ int ModeScenario::Check(const unsigned char uc) {
 	return 0;	// 1文字目じゃない	
 }
 
+// 描画用テキスト追加
 bool ModeScenario::AddText() {
-	if (_Index < _ScenarioData[_TextNum].text.size()) {
-
-
-		auto s = _ScenarioData[_TextNum].text.substr(_Index);
-		auto n = Check(static_cast<unsigned char>(s[0]));
-		if (n > 0) {
-			//_Index += n;
-		} else {
-			n++;
+	if (_StCount < _ScenarioData[_TextIndex].text.size()) {
+		std::string s;
+		int n = 0;
+		
+		while (1) {
+			bool br = false;
+			s = _ScenarioData[_TextIndex].text.substr(_StCount);
+			n = Check(static_cast<unsigned char>(s[0]));
+			if (n > 0) {
+				//_Index += n;
+			} else {
+				n++;
+			}
+			if (s[0] == '<') {
+				_StCount++;
+				_TextData.push_back(TEXT_DATA());
+				if (s[1] == 'C') {
+					_StCount++;
+					_TextData.back().col = GetColor(225, 25, 25);
+				}
+				br = true;
+			}
+			if (s[0] == '>') {
+				_TextData.push_back(TEXT_DATA());
+				_StCount++;
+				br = true;
+			}
+			if (s[0] == '\n') {
+				_TextData.push_back(TEXT_DATA());
+				_TextData.back().br = true;
+				_StCount++;
+				br = true;
+			}
+			if (br == false) {
+				break;
+			}
 		}
+
 		// TEXT_DATAに一文字追加
 		_TextData.back().text += s.substr(0, n);
-		_Index += n;
-
-		if (_ScenarioData[0].text.substr(_Index) == "<") {
-			
-
-		}
+		_StCount += n;
+		_TextCount++;
+		
 	}
 	return true;
 }

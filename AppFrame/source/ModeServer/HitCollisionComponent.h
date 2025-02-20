@@ -12,6 +12,7 @@ public:
 
 	~HitCollisionComponent() override;
 
+
 	std::deque<HitCollisionComponent*>& IsHit();
 
 	VECTOR GetPosition();

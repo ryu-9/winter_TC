@@ -87,11 +87,11 @@ void PlayerActor::UpdateActor()
 		float size = VSize(tmp) / 10000 / GetSize().x;
 		if (_Input->GetStand() == TRUE) {
 			SetSize(VAdd(GetSize(), VGet(size, size, size)));
-			
-			v = VSub(v,VScale(v, 0.001 * dt));
+
+			v = VSub(v, VScale(v, 0.001 * dt));
 			_Input->SetVelocity(v);
 		}
-	}
+
 
 		// �p�x��擾
 		rot = _BallModel->GetFront();
@@ -121,8 +121,7 @@ void PlayerActor::UpdateActor()
 					ChangeAnim((int)anim::Change);
 					_Friend->ChangeMode(1);
 					_Friend->ChangeAnim((int)anim::Change);
-				}
-				else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
+				} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
 					_Friend->ChangeMode(2);
 					_Friend->ChangeAnim((int)anim::Change);
 					ChangeMode(1);
@@ -131,7 +130,15 @@ void PlayerActor::UpdateActor()
 				}
 			}
 		}
-
+		auto hit = _HCollision->IsHit();
+		for (auto h : hit) {
+			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
+			if (enemy != nullptr) {
+				enemy->SetState(State::eDead);
+				SetSize(VAdd(GetSize(), VGet(-0.1, -0.1, -0.1)));
+			}
+		}
+	}
 		break;
 
 	case 1:
@@ -149,6 +156,7 @@ void PlayerActor::UpdateActor()
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
+				
 			}
 		}
 	}

@@ -41,6 +41,8 @@ HitCollisionComponent::~HitCollisionComponent()
 	_Owner->GetMode()->RemoveHCollision(this);
 }
 
+
+
 std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 {
 	MV1SetPosition(Handle, GetPosition());
