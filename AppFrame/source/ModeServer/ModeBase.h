@@ -43,8 +43,8 @@ public:
 	void AddActor(class ActorClass* actor);
 	void RemoveActor(class ActorClass* actor);
 
-	void AddSprite(class SpriteComponent* sp);
-	void RemoveSprite(class SpriteComponent* sp);
+	virtual void AddSprite(class SpriteComponent* sp);
+	virtual void RemoveSprite(class SpriteComponent* sp);
 
 	void AddMCollision(class MoveCollisionComponent* mc);
 	void RemoveMCollision(class MoveCollisionComponent* mc);

@@ -25,6 +25,9 @@ public:
 	bool GetUseCollision() { return _bUseCollision; }
 	void SetUseCollision(bool b) { _bUseCollision = b; }
 
+	void AddSprite(class SpriteComponent* sp) override;
+	void RemoveSprite(class SpriteComponent* sp) override;
+
 	int GetMapHandle() { return _handleMap; }
 	int GetFrameMapCollision() { return _frameMapCollision; }
 	class CameraActor* GetCamera() { return _Camera; }

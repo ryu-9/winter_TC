@@ -19,7 +19,10 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 
 	// �ړ��\�ȏꍇ�AMoveComponent��擾
 	if (isMove == TRUE) {
-		_Move = _Owner->GetComponent<MoveComponent>()[0];
+		auto m = _Owner->GetComponent<MoveComponent>();
+		if (m.size() > 0) {
+			_Move = m[0];
+		}
 	}
 	OldPos = GetPosition();
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��

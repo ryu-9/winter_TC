@@ -46,10 +46,6 @@ bool ModeTestStage::Initialize() {
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
-	auto ac = new ActorClass(this);
-	ac->SetSize(VGet(100, 100, 100));
-	new ModelComponent(ac, "res/Stage/model/Dorm_Haikei.mv1");
-	new MoveCollisionComponent(ac, ac->GetComponent<ModelComponent>()[0], VGet(0, 0, 0), VGet(1, 1, 1), 0, false, false);
 
 	return true;
 }
@@ -130,6 +126,7 @@ bool ModeTestStage::LoadStage(const std::string path, const std::string jsname) 
 	auto b = new StageBox(this);
 	b->SetSize(VGet(100, 1, 100));
 	b->GetMCollision()->RefleshCollInfo();
+	b->Init();
 	return true;
 }
 

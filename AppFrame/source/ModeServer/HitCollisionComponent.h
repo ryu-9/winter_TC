@@ -14,6 +14,9 @@ public:
 
 
 	std::deque<HitCollisionComponent*>& IsHit();
+	void Update() override;
+
+	void RefleshCollInfo();
 
 	VECTOR GetPosition();
 	VECTOR GetSize();
@@ -45,7 +48,6 @@ public:
 	void DebugDraw();
 
 	bool GetFlag() const { return flag; }
-
 
 	void SetRotation(VECTOR rot);
 

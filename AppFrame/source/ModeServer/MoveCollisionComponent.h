@@ -58,6 +58,10 @@ public:
 
 	class MoveComponent* GetMove() const { return _Move; }
 
+	VECTOR GetDrawPos(int num = 0) const { return drawpos[num]; }
+
+	std::deque<CollResult> GetCollResult(int num = 0) const { return _CollResult; }
+
 private:
 	// ˆÊ’u
 	VECTOR Pos;
