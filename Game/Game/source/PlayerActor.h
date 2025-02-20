@@ -21,6 +21,10 @@ public:
 	void SetFriend(PlayerActor* fri) { _Friend = fri; }
 	PlayerActor* GetFriend() { return _Friend; }
 
+
+	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
+	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
+
 	void ChangeMode(int mode);
 
 	void Damage(float damage);

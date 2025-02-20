@@ -7,6 +7,7 @@
 #include "ModeServer/ActorClass.h"
 #include "ModeServer/Actor/UIChipClass.h"
 #include "ModeServer/Actor/UIChipEffectComponent.h"
+#include "ModeServer/Actor/UIChipSpriteComponent.h"
 #include "ModeServer/ModelComponent.h"
 #include "ModeServer/MoveCollisionComponent.h"
 #include "ModeServer/HitCollisionComponent.h"

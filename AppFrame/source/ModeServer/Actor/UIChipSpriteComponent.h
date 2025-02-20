@@ -17,6 +17,7 @@ protected:
 
 
 	struct CGData {
+		VECTOR pos = VGet(0,0,0);
 		int width;
 		int height;
 		int handle;

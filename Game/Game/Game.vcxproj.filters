@@ -58,6 +58,12 @@
     <Filter Include="ソース ファイル\Mode\Game\Enemy\Component">
       <UniqueIdentifier>{38aaa1e3-1c78-4002-a570-56ceb850176a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Mode\Game\UI">
+      <UniqueIdentifier>{8b005d18-d0b3-4454-aa2f-3e6d6aaaa303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Mode\Game\UI">
+      <UniqueIdentifier>{590a6886-499b-4ef2-8730-381d558cb992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -152,9 +158,18 @@
     </ClCompile>
     <ClCompile Include="source\SnowComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="source\ModeScenario.cpp">
       <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeGameOver.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeGameUI.cpp">
+      <Filter>ソース ファイル\Mode\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIPlayerHPClass.cpp">
+      <Filter>ソース ファイル\Mode\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +268,18 @@
     </ClInclude>
     <ClInclude Include="source\SnowComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="source\ModeScenario.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameOver.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameUI.h">
+      <Filter>ヘッダー ファイル\Mode\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIPlayerHPClass.h">
+      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

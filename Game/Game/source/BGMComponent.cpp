@@ -26,7 +26,7 @@ void BGMComponent::Update() {
 			_SV[_Playnum]->ResetPlayTm(44100 * 3);
 		}
 		_Playnum = n;
-		_SV[_Playnum]->Play();
+//		_SV[_Playnum]->Play();
 
 	}
 }

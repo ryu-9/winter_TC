@@ -57,9 +57,7 @@ bool ModeGame::Initialize() {
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);
-	_Player[0]->SetPosition(VGet(800, 200, 100));
 	_Player[1] = new PlayerActor(this, 2);
-	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
@@ -70,12 +68,13 @@ bool ModeGame::Initialize() {
 	EnemyCreator::GetInstance()->Create(this, 1, 3, VGet(-100, 200, 400));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/map_1-1/", "moi.json");
+	LoadStage("res/Stage/", "Stage2.json");
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 	new BGMComponent(_Camera);
 
+	
 
 	return true;
 }
@@ -218,8 +217,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
+			_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0],nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
+			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";

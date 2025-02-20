@@ -12,7 +12,6 @@ HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelCompo
 	// ���[�h�ɂ��̃R���|�[�l���g��ǉ�
 	_Owner->GetMode()->AddHCollision(this);
 
-
 	OldPos = GetPosition();
 	devpos = OldPos;
 	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��

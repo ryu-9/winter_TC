@@ -34,8 +34,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModel->SetVisible(false);
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
-	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
-	_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+//	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
+//	_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
 	int n = rand() % 2;
 	
 	_Input = new PlayerMoveComponent(this);
@@ -146,7 +146,7 @@ void PlayerActor::UpdateActor()
 			}
 		}
 	}
-		break;
+	break;
 
 	case 1:
 	{
@@ -163,15 +163,23 @@ void PlayerActor::UpdateActor()
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
-				
+
 			}
 		}
 	}
-		break;
+	break;
 
 	case 2:
 		break;
-	
+	case 3:
+	{
+		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
+		if (dist < 100) {
+			ChangeMode(0);
+		}
+
+		break;
+	}
 	}
 
 	if (_ModeNum != 0) {
@@ -242,7 +250,13 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
 		_MCollision->SetIsActive(false);
 		break;
-	
+	case 3:
+		_ModeNum = 3;
+		_BallModel->SetVisible(false);
+		_TopModel->SetVisible(false);
+		_BottomModel->SetVisible(false);
+		SetSize(VGet(0.1, 0.1, 0.1));
+		break;
 	}
 }
 
@@ -266,7 +280,12 @@ void PlayerActor::ChangeAnim(int a) {
 }
 
 void PlayerActor::Damage(float damage) {
-	SetSize(VAdd(GetSize(), VGet(-damage,-damage,-damage)));
+	if (_ModeNum == 0) {
+		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
+		if (VSize(GetSize()) < 0.1) {
+			ChangeMode(3);
+		}
+	}
 }
 
 bool PlayerActor::IsMoved() {

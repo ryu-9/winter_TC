@@ -24,8 +24,16 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 			front = VScale(front, -1);
 			
 			if (VDot(VNorm(VSub(ppos, epos)), front) > cosf(_SearchRef.angle * DX_PI / 180)) {
-				_Index.push_back(i);
-				f = true;
+				auto p = dynamic_cast<PlayerActor*>(target[i]);
+				if (p != nullptr) {
+					if (p->GetModeNum() == 0) {
+						_Index.push_back(i);
+						f = true;
+					}
+				} else {
+					_Index.push_back(i);
+					f = true;
+				}
 			}
 		}
 	}
