@@ -82,7 +82,7 @@ void CameraComponent::ProcessInput()
 		pos[1] = _Player[1]->GetPosition();
 	}
 	VECTOR v = VAdd(pos[0], pos[1]);
-	float dist = VSize(VSub(pos[0], pos[1])) + 100;
+	_Dist = VSize(VSub(pos[0], pos[1])) + 100;
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
 	angle = VNorm(angle);
 
@@ -91,17 +91,19 @@ void CameraComponent::ProcessInput()
 	camrad += ry / 1000;
 	angle.y = sin(camrad);
 
-	if (dist < 1000) { dist = 1000; }
-	if (dist > 10000) { dist = 10000; }
+	if (_Dist < 1000) { _Dist = 1000; }
+	if (_Dist > 10000) { _Dist = 10000; }
 	v = VScale(v, 0.5f);
 
 	EffectController::GetInstance()->GetShadowMap(0)->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-dist, -dist, -dist));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(dist, dist, dist));
+	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-_Dist, -_Dist, -_Dist));
+	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(_Dist, _Dist, _Dist));
 	EffectController::GetInstance()->GetShadowMap(1)->SetTarget(_Player[0]->GetPosition());
-	EffectController::GetInstance()->GetShadowMap(1)->SetMinLength(VGet(-800, -_Player[0]->GetPosition().y, -800));
+	EffectController::GetInstance()->GetShadowMap(1)->SetMinLength(VGet(-_Player[0]->GetSize().x * 200, -_Player[0]->GetPosition().y, -_Player[0]->GetSize().x * 200));
+	EffectController::GetInstance()->GetShadowMap(1)->SetMaxLength(VScale(_Player[0]->GetSize(), 200));
 	EffectController::GetInstance()->GetShadowMap(2)->SetTarget(_Player[1]->GetPosition());
-	EffectController::GetInstance()->GetShadowMap(2)->SetMinLength(VGet(-800, -_Player[1]->GetPosition().y, -800));
+	EffectController::GetInstance()->GetShadowMap(2)->SetMinLength(VGet(-_Player[1]->GetSize().x * 200, -_Player[1]->GetPosition().y, -_Player[1]->GetSize().x * 200));
+	EffectController::GetInstance()->GetShadowMap(2)->SetMaxLength(VScale(_Player[1]->GetSize(), 200));
 
 	/*
 		_ShadowMap[0]->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
@@ -115,8 +117,8 @@ void CameraComponent::ProcessInput()
 	//auto cam = dynamic_cast<CameraActor*>(_Owner);
 	//cam->SetTarget(VAdd(v, VScale(angle, dist)));
 	_Owner->SetPosition(v);
-	_Owner->SetDirection(VAdd(v, VScale(angle, dist)));
-	_Owner->SetSize(VScale(VGet(0.1, 0.1, 0.1), dist));
+	_Owner->SetDirection(VAdd(v, VScale(angle, _Dist)));
+	_Owner->SetSize(VScale(VGet(0.1, 0.1, 0.1), _Dist));
 	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
 	SetCameraPositionAndTarget_UpVecY(_Owner->GetDirection(), _cOwner->GetPosition());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());

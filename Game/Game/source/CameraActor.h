@@ -36,9 +36,12 @@ public:
 
 	void SetPlayer(class PlayerActor* player1, class PlayerActor* player2);
 
+	float GetDist() const { return _Dist; }
+
 private:
 	class CameraActor* _cOwner;
 	class PlayerActor* _Player[2];
 	class ShadowMapSpriteComponent* _ShadowMap[3];
+	float _Dist;
 	
 };

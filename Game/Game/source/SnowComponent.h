@@ -4,7 +4,7 @@
 class SnowComponent : public SpriteComponent
 {
 public:
-	SnowComponent(class ActorClass* owner, MV1_COLL_RESULT_POLY m);
+	SnowComponent(class ActorClass* owner, MV1_COLL_RESULT_POLY m, bool flag0, bool flag1, bool flag2);
 	virtual ~SnowComponent();
 	void Draw() override;
 

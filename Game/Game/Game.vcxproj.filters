@@ -153,6 +153,9 @@
     <ClCompile Include="source\SnowComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\OutlineComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -249,6 +252,9 @@
       <Filter>ヘッダー ファイル\Dev</Filter>
     </ClInclude>
     <ClInclude Include="source\SnowComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OutlineComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
