@@ -21,10 +21,14 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int dra
 	_CGData.clear();
 	SetImage("res/UI/UI_HP_LOW.png");
 	SetImage("res/UI/UI_HPBAR_LOW.png");
-	_CGData[1].pos = VGet(164, 66, 0);
+	_CGData.back().pos = VGet(164, 66, 0);
+//	SetImage("res/UI/JIN_ICON.png");
+//	_CGData.back().pos = VGet(20, 20, 0);
 	SetImage("res/UI/UI_HP_MARGE.png");
 	SetImage("res/UI/UI_HPBAR_MARGE.png");
-	_CGData[3].pos = VGet(164, 66, 0);
+	_CGData.back().pos = VGet(164, 66, 0);
+//	SetImage("res/UI/BEL_ICON.png");
+//	_CGData.back().pos = VGet(20, 20, 0);
 }
 
 UIPlayerHPSpriteComponent::~UIPlayerHPSpriteComponent() {
@@ -65,6 +69,7 @@ void UIPlayerHPSpriteComponent::Draw() {
 		SetDrawScreen(DX_SCREEN_BACK);
 		DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 1].pos.x, _UIc->GetPosition().y + _CGData[_Type + 1].pos.y + tmpy, _CGData[_Type + 1].handle, TRUE);
 		SetUseMaskScreenFlag(FALSE);
+	//	DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 2].pos.x, _UIc->GetPosition().y + _CGData[_Type + 2].pos.y + tmpy, _CGData[_Type + 2].handle, TRUE);
 		tmpy += 180;
 	}
 

@@ -289,7 +289,7 @@
     </ClInclude>
     <ClInclude Include="source\EnemySpawnerActor.h">
       <Filter>ヘッダー ファイル</Filter>
-      </ClCompile>
+	</ClInclude>
     <ClInclude Include="source\OutlineComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
