@@ -23,6 +23,7 @@ public:
 
 	void ChangeMode(int mode);
 
+	void Damage(float damage);
 	bool IsMoved();
 	void ChangeAnim(int a);
 

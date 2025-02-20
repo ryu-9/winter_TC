@@ -81,6 +81,7 @@ bool ECornComponent::Attack() {
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
 		auto m = new ModelComponent(ac, "res/model/Enemy_corn/Enemy_corn.mv1");
+		new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(30, 30, 30), 2, true);
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[0]]->GetPosition(), 1500);
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));

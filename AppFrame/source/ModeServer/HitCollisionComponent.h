@@ -13,6 +13,7 @@ public:
 	~HitCollisionComponent() override;
 
 
+
 	std::deque<HitCollisionComponent*>& IsHit();
 	void Update() override;
 

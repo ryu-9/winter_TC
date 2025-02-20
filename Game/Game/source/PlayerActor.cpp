@@ -142,7 +142,7 @@ void PlayerActor::UpdateActor()
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
-				SetSize(VAdd(GetSize(), VGet(-0.1, -0.1, -0.1)));
+				Damage(0.1);
 			}
 		}
 	}
@@ -263,6 +263,10 @@ void PlayerActor::ChangeAnim(int a) {
 
 
 	}
+}
+
+void PlayerActor::Damage(float damage) {
+	SetSize(VAdd(GetSize(), VGet(-damage,-damage,-damage)));
 }
 
 bool PlayerActor::IsMoved() {
