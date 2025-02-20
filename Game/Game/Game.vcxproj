@@ -188,6 +188,7 @@
     <ClCompile Include="source\ModeTestStage.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
+    <ClCompile Include="source\OutlineComponent.cpp" />
     <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
     <ClCompile Include="source\SnowComponent.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="source\ModeSynopsis.h" />
     <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />
+    <ClInclude Include="source\OutlineComponent.h" />
     <ClInclude Include="source\PlayerMoveComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />
     <ClInclude Include="source\PlayerActor.h" />

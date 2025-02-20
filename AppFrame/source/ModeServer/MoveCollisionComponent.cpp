@@ -58,11 +58,11 @@ void MoveCollisionComponent::Update() {
 
 
 	devpos = VGet(0, 0, 0);
+	_CollResult.clear();
 
 	if (isActive == TRUE && isMove == TRUE) {
 
 		int pushnum = 0;
-		_CollResult.clear();
 		debugpos.clear();
 
 		drawpos[0] = GetPosition();
@@ -497,7 +497,7 @@ void MoveCollisionComponent::DebugDraw()
 		DrawCapsule3D(drawpos[0], drawpos[1], GetSize().x, 5, GetColor(255, 0, 0), 0, false);
 		for (auto r : _CollResult) {
 			for (auto m : r.mesh) {
-				DrawTriangle3D(m.Position[0], m.Position[1], m.Position[2], GetColor(0, 255, 0), TRUE);
+				//DrawTriangle3D(m.Position[0], m.Position[1], m.Position[2], GetColor(0, 255, 0), TRUE);
 			}
 		}
 		for (auto d : debugpos) {

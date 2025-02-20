@@ -4,6 +4,7 @@
 #include "ECornComponent.h"
 #include "EBoxComponent.h"
 #include "PlayerActor.h"
+#include "SnowComponent.h"
 
 EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos)
 	:ActorClass(mode)
@@ -30,7 +31,12 @@ void EnemyActor::Init() {
 }
 
 void EnemyActor::UpdateActor() {
-	
+	for (auto mc : _MCollision->GetCollResult()) {
+		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
+		for (auto s : snow) {
+			s->AddMoveCollision(_MCollision);
+		}
+	}
 
 }
 

@@ -174,6 +174,9 @@
     <ClCompile Include="source\EnemySpawnerActor.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="source\OutlineComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -286,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="source\EnemySpawnerActor.h">
       <Filter>ヘッダー ファイル</Filter>
+      </ClCompile>
+    <ClInclude Include="source\OutlineComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

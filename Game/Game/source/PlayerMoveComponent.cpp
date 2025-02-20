@@ -138,8 +138,8 @@ void PlayerMoveComponent::ProcessInput()
 		else {
 		}
 		float rad = atan2(v.z, v.x);
-		v.x = cos(rad + camrad) * length;
-		v.z = sin(rad + camrad) * length;
+		v.x = -cos(rad + camrad) * length;
+		v.z = -sin(rad + camrad) * length;
 		if (_DashTime <= mvSpeed) {
 			if (v.x != 0 || v.z != 0) {
 				_DashDir = VNorm(v);
@@ -173,7 +173,7 @@ void PlayerMoveComponent::ProcessInput()
 			_DashTime = 100;
 		}
 		if (trg & PAD_INPUT_3) {
-			v.y = 50;
+			v.y = 10;
 			_DashTime = 0;
 		}
 		if (trg & PAD_INPUT_2) {
@@ -197,7 +197,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
 		VECTOR v = _pOwner->GetFriend()->GetPosition();
-		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 90, v.z));
+		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, v.z));
 		
 
 		break;

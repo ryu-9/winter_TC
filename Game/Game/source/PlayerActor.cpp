@@ -4,6 +4,7 @@
 #include "EnemyActor.h"
 #include "SnowComponent.h"
 #include "ApplicationGlobal.h"
+#include "OutlineComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -14,23 +15,31 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _AnimTime(0)
 	, _AnimTotalTime(0)
 	, _AnimIndex(-1)
+	, _AnimChangingflag(false)
 {
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
-		_BallModel->SetScale(VGet(4, 4, 4));
+		_BallModel->SetScale(VGet(3, 3, 3));
+		new OutlineComponent(this, "res/model/Yukidama_bro/Yukidama_Bro_Outline.mv1", _BallModel);
 	}
 	else {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_sis/Yukidama_Sis.mv1");
-		_BallModel->SetScale(VGet(4, 4, 4));
+		_BallModel->SetScale(VGet(3, 3, 3));
+		new OutlineComponent(this, "res/model/Yukidama_sis/Yukidama_Sis_Outline.mv1", _BallModel);
 	}
 	_BallModel->SetIndipendent(true);
 
+	float pi = 3.14159265358979323846;
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -180, 0));
+	_TopModel->SetRotation(VGet(0, pi, 0));
+
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
+	_BottomModel->SetPosition(VGet(0, -100, 0));
+	_BottomModel->SetRotation(VGet(0, pi, pi));
 	_TopModel->SetVisible(false);
 	_BottomModel->SetVisible(false);
 	//_MCollision = new MoveCollisionComponent(this);
@@ -44,8 +53,11 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
+	SetSize(VGet(2, 2, 2));
 
-	_AnimationModel = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
+	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
+	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
+	_AnimationModel[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_move_motion.mv1");
 
 	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 }
@@ -151,6 +163,7 @@ void PlayerActor::UpdateActor() {
 	case 1:
 	{
 		rot = _Input->GetDashDir();
+		rot = VScale(rot, -1);
 		rot2 = VGet(0, 1, 0);
 
 		MV1SetRotationZYAxis(_BottomModel->GetHandle(), rot, rot2, 0);
@@ -165,6 +178,16 @@ void PlayerActor::UpdateActor() {
 				enemy->SetState(State::eDead);
 
 			}
+		}
+		VECTOR v = _Input->GetOldPosition();
+		v = VSub(GetPosition(), v);
+		if (v.x != 0 || v.z != 0) {
+			ChangeAnim((int)anim::Walk);
+		}
+
+		else {
+			ChangeAnim((int)anim::Wait);
+
 		}
 	}
 	break;
@@ -190,17 +213,16 @@ void PlayerActor::UpdateActor() {
 		if (_AnimTime > _AnimTotalTime) {
 			ChangeAnim((int)anim::Wait);
 			_AnimTime = 0;
-		} else {
-			switch (_ModeNum) {
-			case 1:
-				MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
-				break;
+		}
 
-			case 2:
-				MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
-				break;
-			}
+		switch (_ModeNum) {
+		case 1:
+			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
 
+		case 2:
+			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
 		}
 
 
@@ -263,21 +285,54 @@ void PlayerActor::ChangeMode(int mode)
 
 void PlayerActor::ChangeAnim(int a) {
 	if (_Animation == a) { return; }
-	_Animation = a;
-	_AnimTime = 0;
+	if (_AnimChangingflag == true) { return; }
+
+	_AnimChangingflag = true;
+	_Friend->ChangeAnim(a);
+	int oldindex = _AnimIndex;
 	int index = -1;
-	switch (_Animation) {
+	bool changeSucFlag = false;
+	switch (a) {
 
 	case (int)anim::Change:
-		index = MV1GetAnimIndex(_AnimationModel, "modelmotion");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel, TRUE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel, TRUE);
+		index = MV1GetAnimIndex(_AnimationModel[0], "modelmotion");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[0], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
-
+		changeSucFlag = true;
 		break;
+
+	case (int)anim::Wait:
+		if (_Animation == (int)anim::Walk || _AnimTime > _AnimTotalTime) {
+			index = MV1GetAnimIndex(_AnimationModel[1], "idle");
+			_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[1], TRUE);
+			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[1], TRUE);
+			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+			changeSucFlag = true;
+		}
+		break;
+
+	case (int)anim::Walk:
+		if (_Animation == (int)anim::Wait || _AnimTime > _AnimTotalTime) {
+			index = MV1GetAnimIndex(_AnimationModel[2], "move_motion");
+			_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[2], TRUE);
+			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[2], TRUE);
+			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+			changeSucFlag = true;
+			break;
+		}
+
 
 
 	}
+	_AnimChangingflag = false;
+	if (changeSucFlag) {
+		MV1DetachAnim(_TopModel->GetHandle(), oldindex);
+		MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+		_Animation = a;
+		_AnimTime = 0;
+	}
+
 }
 
 void PlayerActor::Damage(float damage) {

@@ -1,7 +1,7 @@
 #include "SnowComponent.h"
 
 
-SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
+SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool flag0, bool flag1, bool flag2)
 	:SpriteComponent(owner)
 	, _Split(25)
 {
@@ -43,18 +43,22 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 
 	int k = 0;
 	for (int i = 0; i <= num; i++) {
-		int n = k - i - 1;
+		int n = k - i - flag1;
 		for (int j = 0; j <= i; j++) {
 			
 			if (i != 0) {
 				if (j == 0) {
-					/*
-					index.emplace_back(n + 1);
-					index.emplace_back(n);
-					index.emplace_back(k + 1);
-					index.emplace_back(n);
-					index.emplace_back(k);
-					index.emplace_back(k + 1);
+					if (flag0) {
+						index.emplace_back(n - 1);
+						index.emplace_back(k);
+						index.emplace_back(n);
+
+						index.emplace_back(n);
+						index.emplace_back(k);
+						index.emplace_back(k + 1);
+					}
+					
+
 					//*/
 				}
 				else if (i == j) {
@@ -62,12 +66,15 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 					index.emplace_back(k - 1);
 					index.emplace_back(k);
 
-					index.emplace_back(n + 1);
-					index.emplace_back(n);
-					index.emplace_back(k);
-					index.emplace_back(k);
-					index.emplace_back(k + 1);
-					index.emplace_back(n + 1);
+					if (flag1) {
+						index.emplace_back(n + 1);
+						index.emplace_back(n);
+						index.emplace_back(k);
+						index.emplace_back(k);
+						index.emplace_back(k + 1);
+						index.emplace_back(n + 1);
+					}
+					//*/
 				}
 				else{
 					index.emplace_back(n);
@@ -80,7 +87,7 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 			}
 			k++;
 			VECTOR p = VAdd(root, VAdd(VScale(a, (float)j / num), VScale(b, (float)(i - j) / num)));
-			p = VAdd(p, VGet(0, 30, 0));
+			p = VAdd(p, VGet(0, 15, 0));
 			VERTEX3D tmp;
 			tmp.pos = p;
 			tmp.norm = m.Normal;
@@ -90,21 +97,47 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 			tmp.v = 0;
 			tmp.su = 1;
 			tmp.sv = 1;
-			if (j == 0) {
+			if (j == 0 && flag0) {
 				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
 				snow.emplace_back(tmp);
 				k++;
 				tmp.pos = p;
-				snow.emplace_back(tmp);
 			}
-			else if (j == i) {
-				snow.emplace_back(tmp);
+			snow.emplace_back(tmp);
+			if (j == i && flag1) {
 				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
 				snow.emplace_back(tmp);
 				k++;
-			
 			}
-			else { snow.emplace_back(tmp); }
+
+			if (i == j &&i == num && flag2) {
+				for (int l = 0; l <= i; l++) {
+					tmp = snow[snow.size() - 1 - i - flag1];
+					tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+					snow.emplace_back(tmp);
+
+					index.emplace_back(k - i + l - 1);
+					index.emplace_back(k - i + l - 2);
+					index.emplace_back(k + l);
+					/**/
+					index.emplace_back(k - i + l - 1);
+					index.emplace_back(k + l);
+					index.emplace_back(k + l + 1);
+					//*/
+					if (l != 0) {
+
+
+					}
+					if (l != i) {
+						///*
+
+						//*/
+
+					}
+
+				}
+			}
+
 		}
 	}
 
@@ -112,30 +145,36 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m)
 		MV1_COLL_RESULT_POLY m1 = m;
 		MV1_COLL_RESULT_POLY m2 = m;
 		VECTOR v;
-
+		bool flag[2][3] = { { flag0, flag1, flag2 } , { flag0, flag1, flag2 } };
 		switch (longestnum) {
 		case 0:
 			v = VSub(m.Position[1], m.Position[0]);
 			m1.Position[1] = VAdd(m.Position[0], VScale(v, 0.5));
 			m2.Position[0] = VAdd(m.Position[0], VScale(v, 0.5));
+			//flag[0][2] = false;
+			//flag[1][2] = false;
 			break;
 		
 		case 1:
 			v = VSub(m.Position[2], m.Position[1]);
 			m1.Position[2] = VAdd(m.Position[1], VScale(v, 0.5));
 			m2.Position[1] = VAdd(m.Position[1], VScale(v, 0.5));
+			//flag[0][2] = false;
+			//flag[1][0] = false;
 			break;
 		
 		case 2:
 			v = VSub(m.Position[0], m.Position[2]);
 			m1.Position[2] = VAdd(m.Position[2], VScale(v, 0.5));
 			m2.Position[0] = VAdd(m.Position[2], VScale(v, 0.5));
+			//flag[0][1] = false;
+			//flag[1][2] = false;
 			break;
 		
 		}
 
-		new SnowComponent(owner, m1);
-		new SnowComponent(owner, m2);
+		new SnowComponent(owner, m1, flag[0][0], flag[0][1], flag[0][2]);
+		new SnowComponent(owner, m2, flag[1][0], flag[1][1], flag[1][2]);
 		delete this;
 	
 	}
@@ -190,7 +229,26 @@ void SnowComponent::Draw()
 	//*/
 
 	if (_SnowSize < 3) { return; }
+	std::deque<MoveCollisionComponent*> mclist;
 	for (auto mc : _MCList) {
+		mclist.push_back(mc);
+	}
+	for (auto mc : _OldMCList) {
+		bool mcflag = false;
+		for (auto mc2 : _MCList) {
+			if (mc == mc2) {
+				mcflag = true;
+			}
+		}
+		if (!mcflag) {
+			mclist.push_back(mc);
+		}
+	}
+
+	for (auto mc : mclist) {
+		if(mc ==nullptr){
+			continue;
+		}
 		num = 0;
 		que = 0;
 		olddist = 1000000000;
@@ -223,19 +281,23 @@ void SnowComponent::Draw()
 			calc--;
 			if (calc < 0) {
 				unsigned int nande = que * que * split;
-				if ((dist - size) > nande) {
+				if ((dist - size) > nande && flag) {
 					int t = dist - size;
-					t /= _Split;
+					t = sqrt(t);
 					t /= _Split;
 					t /= que + 1;
-					t /= 4;
-					i += t;
+					for (int j = 0; j < t; j++) {
+						i += que + j;
+					}
 					flag = false;
 					int test = 0;
 				}
 			}
 			else { calc = 100; }
 
+		}
+		if(debugnum > 5000){
+			int test = 0;
 		}
 		debugnum = 0;
 	}
@@ -249,6 +311,7 @@ void SnowComponent::Draw()
 	}
 
 	int debug = DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize/3, DX_NONE_GRAPH, FALSE);
+	//_OldMCList = _MCList;
 	_MCList.clear();
 	return;
 

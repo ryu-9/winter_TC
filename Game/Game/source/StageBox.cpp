@@ -33,7 +33,7 @@ void StageBox::Init()
 		if (p.Dim[i].Normal.y > 0.5)
 		{
 			_Poly.push_back(p.Dim[i]);
-			new SnowComponent(this, p.Dim[i]);
+			new SnowComponent(this, p.Dim[i], true, true, true);
 		}
 	}
 }
