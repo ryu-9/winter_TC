@@ -9,6 +9,7 @@
 #include "EnemyActor.h"
 #include "EnemyCreator.h"
 #include "BGMComponent.h"
+#include "ModeGameOver.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -107,7 +108,9 @@ bool ModeGame::Process() {
 bool ModeGame::Update()
 {
 	base::Update();
-	
+	if (_Player[0]->GetModeNum() == 3 && _Player[1]->GetModeNum() == 3) {
+		ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
+	}
 	return false;
 }
 

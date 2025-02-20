@@ -16,6 +16,8 @@ public:
 	void Draw() override;
 
 private:
-	int _Type;
+	int _Type;		// タイプ	
+	int _Mask;		// マスク
+	int _MaskHandle;	// マスクハンドル
 };
 

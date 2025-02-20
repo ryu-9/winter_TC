@@ -171,6 +171,7 @@
     <ClCompile Include="source\EnemyCreator.cpp" />
     <ClCompile Include="source\EnemyMoveComponent.cpp" />
     <ClCompile Include="source\EnemySearchComponent.cpp" />
+    <ClCompile Include="source\EnemySpawnerActor.cpp" />
     <ClCompile Include="source\ioJson.cpp" />
     <ClCompile Include="source\ioJsonText.cpp" />
     <ClCompile Include="source\ModeEnemyCon.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="source\EnemyCreator.h" />
     <ClInclude Include="source\EnemyMoveComponent.h" />
     <ClInclude Include="source\EnemySearchComponent.h" />
+    <ClInclude Include="source\EnemySpawnerActor.h" />
     <ClInclude Include="source\EnemyStruct.h" />
     <ClInclude Include="source\ioJson.h" />
     <ClInclude Include="source\ioJsonText.h" />

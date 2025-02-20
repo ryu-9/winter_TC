@@ -3,6 +3,7 @@
 #include "PlayerMoveComponent.h"
 #include "EnemyActor.h"
 #include "SnowComponent.h"
+#include "ApplicationGlobal.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -54,8 +55,7 @@ PlayerActor::~PlayerActor()
 
 }
 
-void PlayerActor::UpdateActor()
-{
+void PlayerActor::UpdateActor() {
 	for (auto mc : _MCollision->GetCollResult()) {
 		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
 		for (auto s : snow) {
@@ -73,7 +73,7 @@ void PlayerActor::UpdateActor()
 	int dt = FpsController::GetInstance()->GetDeltaTime();
 
 	if (_ChangeTime > 0) {
-		_ChangeTime-=dt;
+		_ChangeTime -= dt;
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
 		}
@@ -176,6 +176,7 @@ void PlayerActor::UpdateActor()
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
 		if (dist < 100) {
 			ChangeMode(0);
+			gGlobal._IsPlayerDead[_PlayerNo-1] = false;
 		}
 
 		break;
@@ -189,8 +190,7 @@ void PlayerActor::UpdateActor()
 		if (_AnimTime > _AnimTotalTime) {
 			ChangeAnim((int)anim::Wait);
 			_AnimTime = 0;
-		}
-		else {
+		} else {
 			switch (_ModeNum) {
 			case 1:
 				MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
@@ -200,12 +200,12 @@ void PlayerActor::UpdateActor()
 				MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
 				break;
 			}
-			
+
 		}
 
-	
-	}
 
+	}
+	gGlobal._PlayerHP[_PlayerNo -1] = VSize(GetSize());
 }
 
 void PlayerActor::ChangeMode(int mode)
@@ -256,6 +256,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(false);
 		_BottomModel->SetVisible(false);
 		SetSize(VGet(0.1, 0.1, 0.1));
+		gGlobal._IsPlayerDead[_PlayerNo-1] = TRUE;
 		break;
 	}
 }
