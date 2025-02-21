@@ -54,6 +54,8 @@ private:
 
 	class HitCollisionComponent* _HCollision;
 
+	class PlayerCursorComponent* _Cursor;
+
 	int _PlayerNo;
 
 	int _ModeNum; // 0:�ʏ� 1:�����g�@2:�㔼�g

@@ -228,6 +228,7 @@ void SnowComponent::Draw()
 	return;
 	//*/
 
+
 	if (_SnowSize < 3) { return; }
 	std::deque<MoveCollisionComponent*> mclist;
 	for (auto mc : _MCList) {
@@ -277,6 +278,7 @@ void SnowComponent::Draw()
 			if (depth < 0) {
 				flag = false;
 				depth = sqrt(-depth);
+				if (depth > 50) { depth = 50; }
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
 				_Height[i] = -depth;

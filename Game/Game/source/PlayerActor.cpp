@@ -5,6 +5,7 @@
 #include "SnowComponent.h"
 #include "ApplicationGlobal.h"
 #include "OutlineComponent.h"
+#include "PlayerCursorComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -33,8 +34,9 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
-	_TopModel->SetPosition(VGet(0, -180, 0));
+	_TopModel->SetPosition(VGet(0, -320, -80));
 	_TopModel->SetRotation(VGet(0, pi, 0));
+	_TopModel->SetCenter(VGet(0, 0, 1000));
 
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
@@ -46,7 +48,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	//_MCollision->SetIsMove(true);
 	//_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
 	//_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
-	int n = rand() % 2;
+	_Cursor = new PlayerCursorComponent(this, _PlayerNo);
 	
 	_Input = new PlayerMoveComponent(this);
 	
@@ -112,24 +114,28 @@ void PlayerActor::UpdateActor() {
 			_Input->SetVelocity(v);
 		}
 
+		if (!_Input->GetDashFlag()) {
+			// �p�x��擾
+			rot = _BallModel->GetFront();
+			rot2 = _BallModel->GetUp();
 
-		// �p�x��擾
-		rot = _BallModel->GetFront();
-		rot2 = _BallModel->GetUp();
+			//	���x����p�x��Z�o
+			rot = VTransform(rot, MGetRotX(v.z / 75 / GetSize().x / 2));
+			rot = VTransform(rot, MGetRotZ(-v.x / 75 / GetSize().x / 2));
+			rot2 = VTransform(rot2, MGetRotX(v.z / 75 / GetSize().x / 2));
+			rot2 = VTransform(rot2, MGetRotZ(-v.x / 75 / GetSize().x / 2));
 
-		//	���x����p�x��Z�o
-		rot = VTransform(rot, MGetRotX(v.z / 100 / GetSize().x / 2));
-		rot = VTransform(rot, MGetRotZ(-v.x / 100 / GetSize().x / 2));
-		rot2 = VTransform(rot2, MGetRotX(v.z / 100 / GetSize().x / 2));
-		rot2 = VTransform(rot2, MGetRotZ(-v.x / 100 / GetSize().x / 2));
+			//	�p�x��Z�b�g
 
-		//	�p�x��Z�b�g
+			MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
-		MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
+			//_BallModel->SetFront(rot);
+//_BallModel->SetUp(rot2);
+			_BallModel->SetRotationZY(rot, rot2);
+		}
 
-		//_BallModel->SetFront(rot);
-		//_BallModel->SetUp(rot2);
-		_BallModel->SetRotationZY(rot, rot2);
+
+
 
 		if (_Friend == nullptr) { break; }
 		friSize = _Friend->GetSize().y;
@@ -205,6 +211,14 @@ void PlayerActor::UpdateActor() {
 	break;
 
 	case 2:
+	{
+		VECTOR dir = _Cursor->GetTargetDir();
+		dir = VScale(dir, -1);
+		dir = VNorm(dir);
+		_TopModel->SetFront(dir);
+	
+	}
+
 		break;
 	case 3:
 	{
@@ -265,6 +279,7 @@ void PlayerActor::ChangeMode(int mode)
 			delete _MCollision2;
 			_MCollision2 = nullptr;
 		}
+		_Cursor->SetActiveFalse();
 		break;
 	case 1:
 		_ModeNum = 1;
@@ -272,7 +287,7 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
@@ -281,8 +296,9 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
+		_Cursor->Init();
 		break;
 	case 3:
 		_ModeNum = 3;

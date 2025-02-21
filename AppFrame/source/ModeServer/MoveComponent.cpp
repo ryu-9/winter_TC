@@ -15,7 +15,8 @@ MoveComponent::~MoveComponent()
 
 void MoveComponent::Update()
 {
-	SetVelocity(VAdd(GetVelocity(), VGet(0, -0.2, 0)));
+	float gravity = 0.04 * FpsController::GetInstance()->GetDeltaTime();
+	SetVelocity(VAdd(GetVelocity(), VGet(0, -gravity, 0)));
 	if (_Stand == FALSE) {
 	}
 	_Stand = FALSE;
