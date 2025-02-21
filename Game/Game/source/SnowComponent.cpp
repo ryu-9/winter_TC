@@ -273,10 +273,13 @@ void SnowComponent::Draw()
 				flag = true;
 			}
 
-			if (dist < size + 50) {
+			float depth = dist - size;
+			if (depth < 0) {
 				flag = false;
-				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0,- 50 -_Height[i], 0));
-				_Height[i] = -50;
+				depth = sqrt(-depth);
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
+				_Height[i] = -depth;
 			}
 			calc--;
 			if (calc < 0) {
