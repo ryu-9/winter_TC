@@ -60,7 +60,7 @@ bool SoundServer::Create(SEComponent* secon, std::string name) {
 bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;
 	if (_m.count(name) == 0) { return false; }
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat);
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat,XAUDIO2_VOICE_USEFILTER,16.0f);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
 		return false;

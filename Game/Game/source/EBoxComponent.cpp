@@ -117,7 +117,7 @@ bool EBoxComponent::Attack() {
 		// ‰ñ“]ˆÚ“®•ª‚ÌƒxƒNƒgƒ‹‚ð‰ÁŽZ
 		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
 
-		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / _Duration) * tm));
+		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / (float)_Duration) * (float)tm));
 		_En->GetInput()->SetVelocity(vel);
 		auto pos = _Owner->GetPosition();
 		pos.y = y * 0.8;
@@ -181,13 +181,16 @@ bool EBoxComponent::Move() {
 		auto vel = _En->GetInput()->GetVelocity();
 		// ‰ñ“]ˆÚ“®•ª‚ÌƒxƒNƒgƒ‹‚ð‰ÁŽZ
 		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
+		if (vel.y < -0.1) {
+			
+		} else {
+			vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / (float)_Duration) * (float)tm));
+			_En->GetInput()->SetVelocity(vel);
 
-		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / _Duration) * tm));
-		_En->GetInput()->SetVelocity(vel);
-		auto pos = _Owner->GetPosition();
-		pos.y = y * 0.8;
-		_Owner->SetPosition(pos);
-
+			auto pos = _Owner->GetPosition();
+			pos.y = y * 0.8;
+			_Owner->SetPosition(pos);
+		}
 	}
 
 

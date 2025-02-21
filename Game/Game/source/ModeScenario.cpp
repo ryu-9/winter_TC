@@ -33,6 +33,8 @@ bool ModeScenario::Terminate() {
 
 bool ModeScenario::Process() {
 	_CurrentTime += GetStepTm();
+	// このモードより下のレイヤーはProcess()を呼ばない
+	ModeServer::GetInstance()->SkipProcessUnderLayer();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 	if (_CurrentTime > _TextCount * TEXT_SPEED) {
 		AddText();

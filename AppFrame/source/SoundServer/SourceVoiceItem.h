@@ -26,6 +26,7 @@ public:
 	virtual void SetVolumeDB(float db);
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
+	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
 
 	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
 	virtual bool IsToDestroy() { return _ToDestroy; }

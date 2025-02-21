@@ -44,8 +44,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModel->SetVisible(false);
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
-//	_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
-//	_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+	//_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
+	//_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
 	int n = rand() % 2;
 	
 	_Input = new PlayerMoveComponent(this);
@@ -68,6 +68,7 @@ PlayerActor::~PlayerActor()
 }
 
 void PlayerActor::UpdateActor() {
+
 	for (auto mc : _MCollision->GetCollResult()) {
 		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
 		for (auto s : snow) {
@@ -157,7 +158,7 @@ void PlayerActor::UpdateActor() {
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a);
-				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+				s->SetSourceVoice(new SourceVoiceItem("KillEnemy2"));
 				s->Play(0);
 				s->SetTimer(500);
 				Damage(0.1);

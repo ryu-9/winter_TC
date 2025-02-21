@@ -37,9 +37,10 @@ UIPlayerHPSpriteComponent::~UIPlayerHPSpriteComponent() {
 
 
 void UIPlayerHPSpriteComponent::Draw() {
+	
 	auto tmpy = 0;
 	auto tmpx = 0;
-	for(auto i = 0; i < 2; i++){
+	for (auto i = 0; i < 2; i++) {
 		auto hp = gGlobal._PlayerHP[i];
 		if (hp > 1) {
 			_Type = 2;
@@ -48,28 +49,32 @@ void UIPlayerHPSpriteComponent::Draw() {
 			// 0‚©‚ç1‚Ü‚Å‚ÌŠÔ‚Å•Ï‰»
 			tmpx = (hp / (hp + 30)) * 256;
 
-			
-		} 
-		else {
+
+		} else {
 			_Type = 0;
 			tmpx = hp / 1.0f * 256;
 			if (tmpx > 256) {
 				tmpx = 256;
 			}
 		}
-		if (gGlobal._IsPlayerDead[i]==TRUE) {
+		if (gGlobal._IsPlayerDead[i] == TRUE) {
 			tmpx = -200;
 		}
-
+	
+		
 		DrawGraph(_UIc->GetPosition().x, _UIc->GetPosition().y + tmpy, _CGData[_Type].handle, TRUE);
 		SetUseMaskScreenFlag(TRUE);
 		FillMaskScreen(1);
+		auto pos = GetCameraPosition();
+		auto dir = GetCameraTarget();
 		SetDrawScreen(_Mask);
 		DrawMask(_UIc->GetPosition().x +_CGData[_Type + 1].pos.x  - 256 + tmpx, _UIc->GetPosition().y + _CGData[_Type + 1].pos.y + tmpy, _MaskHandle, DX_MASKTRANS_WHITE);
 		SetDrawScreen(DX_SCREEN_BACK);
+
 		DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 1].pos.x, _UIc->GetPosition().y + _CGData[_Type + 1].pos.y + tmpy, _CGData[_Type + 1].handle, TRUE);
 		SetUseMaskScreenFlag(FALSE);
-	//	DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 2].pos.x, _UIc->GetPosition().y + _CGData[_Type + 2].pos.y + tmpy, _CGData[_Type + 2].handle, TRUE);
+//		DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 2].pos.x, _UIc->GetPosition().y + _CGData[_Type + 2].pos.y + tmpy, _CGData[_Type + 2].handle, TRUE);
+		SetCameraPositionAndTarget_UpVecY(pos, dir);
 		tmpy += 180;
 	}
 

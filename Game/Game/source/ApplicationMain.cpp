@@ -25,9 +25,9 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	// ƒ‚[ƒh‚Ì“o˜^
 	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	ModeServer::GetInstance()->Add(new ModeGameUI(), 10, "gameui");
+	ModeServer::GetInstance()->Add(new ModeScenario(), 100, "scenario");
 //	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 //	ModeServer::GetInstance()->Add(new ModeTestStage(), 1, "stage");
-//	ModeServer::GetInstance()->Add(new ModeScenario(), 1, "scenario");
 //	ModeServer::GetInstance()->Add(new ModeGameOver(), 10, "gameover");
 	return true;
 }

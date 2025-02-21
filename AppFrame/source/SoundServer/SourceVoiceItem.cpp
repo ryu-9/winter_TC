@@ -74,6 +74,10 @@ void SourceVoiceItem::SetPitch(float pitch) {
 	_SV->SetFrequencyRatio(pitch);
 }
 
+void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
+	_SV->SetFilterParameters(&param);
+}
+
 void SourceVoiceItem::ResetPlayTm(int playhz) {
 	// ƒTƒEƒ“ƒh‚Ìì¬
 	if (SoundServer::GetInstance()->Create(_WavName, _SV, playhz) == false) {

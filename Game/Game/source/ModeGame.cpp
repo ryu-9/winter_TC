@@ -74,9 +74,10 @@ bool ModeGame::Initialize() {
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
+	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
 	new BGMComponent(_Camera);
 
-	new EnemySpawnerActor(this, VGet(0, 150, 500));
+	new EnemySpawnerActor(this, VGet(-200, 150, 1200));
 
 	return true;
 }
