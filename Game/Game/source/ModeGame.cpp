@@ -10,7 +10,7 @@
 #include "EnemyCreator.h"
 #include "BGMComponent.h"
 #include "ModeGameOver.h"
-
+#include "EnemySpawnerActor.h"
 #include <fstream>
 #include "nlohmann/json.hpp"
 
@@ -73,9 +73,10 @@ bool ModeGame::Initialize() {
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
+	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
 	new BGMComponent(_Camera);
 
-	
+	new EnemySpawnerActor(this, VGet(0, 150, 500));
 
 	return true;
 }

@@ -54,6 +54,10 @@ bool ModeGameOver::Process() {
 			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 		} else {
 			ModeServer::GetInstance()->Del(this);
+			auto g = ModeServer::GetInstance()->Get("game");
+			ModeServer::GetInstance()->Del(g);
+			 g = ModeServer::GetInstance()->Get("gameui");
+			ModeServer::GetInstance()->Del(g);
 			ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 		}
 	}

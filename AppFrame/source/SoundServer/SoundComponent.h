@@ -12,9 +12,12 @@ public:
 
 	void Update() override;
 
+	void Play(int index);
 	void SetSourceVoice(SourceVoiceItem* sv);
-
+	void SetTimer(int time);
 protected:
 	std::vector<SourceVoiceItem*> _SV;
+
+	int _Timer;
 };
 

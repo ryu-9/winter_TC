@@ -10,6 +10,8 @@ public:
 	void UpdateActor() override;
 
 private:
-
+	class PlayerActor* _Player[2];
+	int _Max;
+	int _CoolTime;
 };
 

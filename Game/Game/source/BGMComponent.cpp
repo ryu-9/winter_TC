@@ -20,13 +20,14 @@ void BGMComponent::Update() {
 	SoundComponent::Update();
 	auto n = _Mode->GetPlayer()->GetModeNum();
 	if (n == 2) { n = 1; }
+	if (n == 3) { n = 0; }
 	if (n != _Playnum) {
 		_SV[_Playnum]->Stop();
 		if (_Playnum == 1) {
 			_SV[_Playnum]->ResetPlayTm(44100 * 3);
 		}
 		_Playnum = n;
-//		_SV[_Playnum]->Play();
+		_SV[_Playnum]->Play();
 
 	}
 }

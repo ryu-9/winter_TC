@@ -154,6 +154,12 @@ void PlayerActor::UpdateActor() {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
+				auto a = new ActorClass(GetMode());
+				a->SetPosition(enemy->GetPosition());
+				auto s = new SoundComponent(a);
+				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+				s->Play(0);
+				s->SetTimer(500);
 				Damage(0.1);
 			}
 		}
@@ -176,7 +182,12 @@ void PlayerActor::UpdateActor() {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
-
+				auto a = new ActorClass(GetMode());
+				a->SetPosition(enemy->GetPosition());
+				auto s = new SoundComponent(a);
+				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+				s->Play(0);
+				s->SetTimer(500);
 			}
 		}
 		VECTOR v = _Input->GetOldPosition();
