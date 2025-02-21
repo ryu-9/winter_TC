@@ -60,7 +60,6 @@ void CameraComponent::ProcessInput()
 	lx = (float)di.X / 1000.f; ly = (float)di.Y / 100.f;
 	rx = (float)di.Z / 100.f; ry = -(float)di.Rz / 100.f;	// Y軸反転
 
-
 	// Y軸回転
 	float sx = _cOwner->GetPosition().x - _cOwner->GetDirection().x;
 	float sz = _cOwner->GetPosition().z - _cOwner->GetDirection().z;
@@ -68,10 +67,10 @@ void CameraComponent::ProcessInput()
 	float length = sqrt(sz * sz + sx * sx);
 	if (rx > analogMin) { rad -= 0.05f; }
 	if (rx < -analogMin) { rad += 0.05f; }
-	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
+	//_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
 	// Y位置
-	if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
-	if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
+	//if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
+	//if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
 
 	// カメラ設定更新
 	VECTOR pos[2] = { VGet(0,0,0),VGet(0,0,0) };

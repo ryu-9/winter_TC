@@ -99,7 +99,7 @@ bool ModeTestStage::Render() {
 
 
 
-	// 0,0,0’n“_‚Éƒ‰ƒCƒ“‚ð•`‰æ
+	// 0,0,0ï¿½nï¿½_ï¿½Éƒï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½
 	{
 		float linelength = 1000.f;
 		VECTOR v = { 0, 0, 0 };
@@ -108,7 +108,7 @@ bool ModeTestStage::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
-	// ƒJƒƒ‰‚Ìƒ^[ƒQƒbƒgˆÊ’u‚Éƒ‰ƒCƒ“‚ð•`‰æ
+	// ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ìƒ^ï¿½[ï¿½Qï¿½bï¿½gï¿½Ê’uï¿½Éƒï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½`ï¿½ï¿½
 	{
 		float linelength = 10.f;
 		VECTOR v = _Camera->GetDirection();

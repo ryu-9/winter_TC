@@ -9,7 +9,7 @@
 #include "ModeScenario.h"
 #include "ModeGameOver.h"
 #include "ModeGameUI.h"
-// ŽÀ‘Ì
+// ï¿½ï¿½ï¿½ï¿½
 ApplicationMain				g_oApplicationMain;
 
 
@@ -17,12 +17,12 @@ ApplicationMain				g_oApplicationMain;
 bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	if (!base::Initialize(hInstance)) { return false; }
 
-	// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒOƒ[ƒoƒ‹‚Ì‰Šú‰»
+	// ï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	gGlobal.Init();
 
 	new EnemyCreator();
 
-	// ƒ‚[ƒh‚Ì“o˜^
+	// ï¿½ï¿½ï¿½[ï¿½hï¿½Ì“oï¿½^
 	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	ModeServer::GetInstance()->Add(new ModeGameUI(), 10, "gameui");
 	ModeServer::GetInstance()->Add(new ModeScenario(), 100, "scenario");
