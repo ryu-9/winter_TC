@@ -4,7 +4,7 @@ class ECornComponent : public EnemyComponent {
 public:
 	ECornComponent(ActorClass* owner);
 	~ECornComponent();
-	void ProcessInput() override;
+	virtual void ProcessInput() override;
 
 	enum WAIT_ACTION {
 		NON,
@@ -14,8 +14,8 @@ public:
 protected:
 	virtual bool Attack() override;
 
-	bool Move() override;
-	void Jump();
+	virtual bool Move() override;
+	virtual void Jump();
 
 	WAIT_ACTION _WaitAction;
 

@@ -211,7 +211,7 @@ void PlayerActor::UpdateActor() {
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
 		if (dist < 100) {
 			ChangeMode(0);
-			gGlobal._IsPlayerDead[_PlayerNo-1] = false;
+			gGlobal._IsPlayerDead[_PlayerNo-1] = FALSE;
 		}
 
 		break;

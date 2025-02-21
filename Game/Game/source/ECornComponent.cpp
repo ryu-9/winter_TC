@@ -127,7 +127,7 @@ bool ECornComponent::Move() {
 
 void ECornComponent::Jump() {
 	if (_CurrentTime == 0) {
-		_En->GetInput()->SetVelocity(VGet(0, 10, 0));
+		_En->GetInput()->SetVelocity(VGet(0, 3, 0));
 	}
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();

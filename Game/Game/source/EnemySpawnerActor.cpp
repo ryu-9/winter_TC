@@ -9,8 +9,7 @@ EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos)
 	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
 	// プレイヤーの取得
 	auto g = dynamic_cast<ModeGame*>(mode);
-	_Player[0] = dynamic_cast<PlayerActor*>(g->GetPlayer(0));
-	_Player[1] = dynamic_cast<PlayerActor*>(g->GetPlayer(1));
+	
 	_CoolTime = 0;
 }
 
@@ -24,7 +23,7 @@ void EnemySpawnerActor::UpdateActor() {
 	// 一定距離内にプレイヤーがいたら敵を生成
 	_CoolTime += GetMode()->GetStepTm();
 	if (_CoolTime < 1000) { return; }
-	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
+/*	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
 	if (dist < 1000) {
 		// 敵生成
 		// 一定距離内に敵を生成
@@ -37,4 +36,5 @@ void EnemySpawnerActor::UpdateActor() {
 		
 		SetState(State::eDead);
 	}
+	*/
 }

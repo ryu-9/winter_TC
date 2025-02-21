@@ -52,13 +52,15 @@ void UIPlayerHPSpriteComponent::Draw() {
 
 		} else {
 			_Type = 0;
-			tmpx = hp / 1.0f * 256;
+			tmpx = hp * 256;
 			if (tmpx > 256) {
 				tmpx = 256;
 			}
 		}
 		if (gGlobal._IsPlayerDead[i] == TRUE) {
 			tmpx = -200;
+		} else {
+			tmpx += 0;
 		}
 	
 		

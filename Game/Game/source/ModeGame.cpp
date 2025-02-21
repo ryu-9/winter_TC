@@ -15,6 +15,7 @@
 #include "nlohmann/json.hpp"
 #include "ApplicationGlobal.h"
 #include "ModeStageSelect.h"
+#include "EnemyController.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -49,10 +50,13 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(0, 200, 0));
-	EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(-10, 200, 0));
-	EnemyCreator::GetInstance()->Create(this, 1, 0, VGet(-100, 200, 200));
-	EnemyCreator::GetInstance()->Create(this, 1, 3, VGet(-100, 200, 400));
+	{
+		EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(0, 200, 0));
+		EnemyCreator::GetInstance()->Create(this, 0, 0, VGet(-10, 200, 0));
+		EnemyCreator::GetInstance()->Create(this, 1, 0, VGet(-100, 200, 200));
+		EnemyCreator::GetInstance()->Create(this, 1, 3, VGet(-100, 200, 400));
+		
+	}
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
 	// 雑実装
@@ -70,14 +74,15 @@ bool ModeGame::Initialize() {
 		break;
 	}
 	
-	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
-	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
-	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
-	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
-	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
-	new BGMComponent(_Camera);
-
-	//new EnemySpawnerActor(this, VGet(-200, 150, 1200));
+	{
+		SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
+		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
+		SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
+		SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
+		new BGMComponent(_Camera);
+	}
+	
 
 	return true;
 }
@@ -185,6 +190,8 @@ PlayerActor* ModeGame::GetPlayer(int n) {
 }
 
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
+	auto con = new EnemyController(this);
+
 	std::ifstream file(path + jsname);
 	nlohmann::json json;
 	file >> json;
@@ -200,17 +207,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		/*
-		// アクタで読み込み　ちらつく
-				auto ac = new ActorClass(this);
-				auto file = path + "model/" + name + ".mv1";
-				auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
-				auto mv = new MoveCollisionComponent(ac, mc, VGet(0, 0, 0), VGet(1, 1, 1), 3, false, true);
-				ac->SetPosition(pos);
-				ac->SetDirection(rot);
-				ac->SetSize(scale);
-				mv->RefleshCollInfo();
-		*/
+
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
@@ -229,7 +226,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {
-			new EnemySpawnerActor(this, pos);
+			con->AddSpawner(0, pos);
 		} else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";
