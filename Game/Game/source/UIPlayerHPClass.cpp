@@ -42,12 +42,12 @@ void UIPlayerHPSpriteComponent::Draw() {
 	auto tmpx = 0;
 	for (auto i = 0; i < 2; i++) {
 		auto hp = gGlobal._PlayerHP[i];
-		if (hp > 1) {
+		if (hp >= 1) {
 			_Type = 2;
 			hp -= 1;
 			hp *= 10;
 			// 0‚©‚ç1‚Ü‚Å‚ÌŠÔ‚Å•Ï‰»
-			tmpx = (hp / (hp + 30)) * 256;
+			tmpx = (hp / (hp + 10)) * 256;
 
 
 		} else {

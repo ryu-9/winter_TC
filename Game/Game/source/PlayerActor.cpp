@@ -239,7 +239,7 @@ void PlayerActor::UpdateActor() {
 
 
 	}
-	gGlobal._PlayerHP[_PlayerNo -1] = VSize(GetSize());
+	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 }
 
 void PlayerActor::ChangeMode(int mode)
@@ -272,7 +272,7 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 10000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
@@ -281,7 +281,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 10000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
 		_MCollision->SetIsActive(false);
 		break;
 	case 3:

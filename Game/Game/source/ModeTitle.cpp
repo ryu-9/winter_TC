@@ -21,7 +21,7 @@ bool ModeTitle::Initialize()
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
-	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
+//	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
 	return true;
 }
 

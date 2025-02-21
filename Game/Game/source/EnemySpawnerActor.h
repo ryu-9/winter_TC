@@ -11,7 +11,7 @@ public:
 
 private:
 	class PlayerActor* _Player[2];
-	int _Max;
+	int _Cnt;
 	int _CoolTime;
 };
 

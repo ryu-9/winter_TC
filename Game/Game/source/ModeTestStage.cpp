@@ -10,6 +10,7 @@
 #include "EnemyActor.h"
 #include "EnemyCreator.h"
 #include "BGMComponent.h"
+#include "EnemySpawnerActor.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -52,6 +53,8 @@ bool ModeTestStage::Initialize() {
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
 	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
+
+	new EnemySpawnerActor(this, VGet(-200, 50, 1200));
 
 	return true;
 }

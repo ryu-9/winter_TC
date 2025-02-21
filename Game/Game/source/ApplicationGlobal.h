@@ -16,6 +16,7 @@ public:
 	// プレイヤーのHP(Size)
 	float	_PlayerHP[2] = {0.1,0.1};
 	bool	_IsPlayerDead[2] ;
+	int		_SelectStage;
 };
 
 // 他のソースでgGlobalを使えるように

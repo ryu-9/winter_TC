@@ -30,11 +30,11 @@ void EnemySpawnerActor::UpdateActor() {
 		// ˆê’è‹——£“à‚É“G‚ğ¶¬
 		auto pos = VAdd(GetPosition(), VScale(VGet(1, 0, 1), GetRand(50)));
 		EnemyCreator::GetInstance()->Create(GetMode(), rand()%2, 0, pos);
-		_Max++;
+		_Cnt++;
 		_CoolTime = 0;
 	}
-	if (_Max > 10) {
-		// 10‘ÌˆÈã‚É‚È‚Á‚½‚çíœ
+	if (_Cnt == 7) {
+		
 		SetState(State::eDead);
 	}
 }

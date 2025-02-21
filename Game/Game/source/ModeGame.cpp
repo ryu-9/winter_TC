@@ -13,36 +13,22 @@
 #include "EnemySpawnerActor.h"
 #include <fstream>
 #include "nlohmann/json.hpp"
+#include "ApplicationGlobal.h"
+#include "ModeStageSelect.h"
 
-class MenuItemViewCameraInfo : public MenuItemBase {
+class MenuItemOpenSelect : public MenuItemBase {
 public:
-	MenuItemViewCameraInfo(void* param, std::string text) : MenuItemBase(param, text) {}
-
+	MenuItemOpenSelect(void* param, std::string text) : MenuItemBase(param, text) {}
 	virtual int Selected() {
 		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		if (mdGame->GetDebugViewCameraInfo()) {
-			mdGame->GetCamera()->Send(1);
-		}
-		else {
-		}
-		mdGame->SetDebugViewCameraInfo(!mdGame->GetDebugViewCameraInfo());
-		return 0;
-	}
-};
-
-class MenuItemSetDashInput : public MenuItemBase {
-public:
-	MenuItemSetDashInput(void* param, std::string text) : MenuItemBase(param, text) {}
-
-	
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->GetPlayer()->Send(2);
+		ModeStageSelect* modeSelect = new ModeStageSelect();
+		ModeServer::GetInstance()->Del(mdGame);
+		auto ui = ModeServer::GetInstance()->Get("gameui");
+		ModeServer::GetInstance()->Del(ui);
+		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
 		return 1;
 	}
 };
-
-
 
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
@@ -69,7 +55,21 @@ bool ModeGame::Initialize() {
 	EnemyCreator::GetInstance()->Create(this, 1, 3, VGet(-100, 200, 400));
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
-	LoadStage("res/Stage/", "Stage2.json");
+	// 雑実装
+	switch (gGlobal._SelectStage) {
+	case 0:
+		LoadStage("res/Stage/", "Stage1.json");
+		break;
+	case 1:
+		LoadStage("res/Stage/", "Stage2.json");
+		break;
+	case 2:
+		LoadStage("res/Stage/", "Stage3.json");
+		break;
+	default:
+		break;
+	}
+	
 	SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
 	SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
@@ -77,7 +77,7 @@ bool ModeGame::Initialize() {
 	SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
 	new BGMComponent(_Camera);
 
-	new EnemySpawnerActor(this, VGet(-200, 150, 1200));
+	//new EnemySpawnerActor(this, VGet(-200, 150, 1200));
 
 	return true;
 }
@@ -90,17 +90,17 @@ bool ModeGame::Terminate() {
 bool ModeGame::Process() {
 	base::Process();
 
-	int key = ApplicationMain::GetInstance()->GetKey(0);
-	int trg = ApplicationMain::GetInstance()->GetTrg(0);
+	int key = ApplicationMain::GetInstance()->GetKey(1);
+	int trg = ApplicationMain::GetInstance()->GetTrg(1);
 
 	
 	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
 		
+		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
-		modeMenu->Add(new MenuItemViewCameraInfo(this, "ViewCameraInfo"));
-		modeMenu->Add(new MenuItemSetDashInput(this, "SetDashInput"));
+		
 	}
 
 
@@ -222,12 +222,14 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
-			_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0],nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
 			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+		} else if (name == "GroupAttack_EnemySpawn") {
+			new EnemySpawnerActor(this, pos);
 		} else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";
@@ -238,7 +240,6 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			ac->SetSize(scale);
 			mv->RefleshCollInfo();
 		}
-
 	}
 
 	return true;

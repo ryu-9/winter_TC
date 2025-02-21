@@ -2,6 +2,9 @@
 #include "ApplicationMain.h"
 #include "ModeGame.h"
 #include "ModeOption.h"
+#include "ModeGameUI.h"
+#include "ModeScenario.h"
+#include "ApplicationGlobal.h"
 
 bool ModeStageSelect::Initialize() {
 
@@ -45,7 +48,10 @@ bool ModeStageSelect::Process() {
 
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択
+		gGlobal._SelectStage = _Cur;
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
+		ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+		ModeServer::GetInstance()->Add(new ModeScenario(), 3, "scenario");
 		// このモードを削除する
 		ModeServer::GetInstance()->Del(this);
 	}
