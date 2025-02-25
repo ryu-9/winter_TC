@@ -24,7 +24,7 @@ EBoxComponent::~EBoxComponent() {}
 
 void EBoxComponent::ProcessInput() {
 	if (_HalfSize == 0&& _Owner->GetComponent<MoveComponent>()[0]->GetStand()) {
-		_HalfSize = _Owner->GetPosition().y;
+		_HalfSize = 15;
 		_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
 	}
 	bool flag = false;

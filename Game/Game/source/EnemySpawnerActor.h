@@ -31,5 +31,7 @@ private:
 	bool _GroupFlag;				// 集団戦フラグ
 	bool _ResetFlag;				// リセット有無フラグ
 	SPAWNER_DATA _Data;
+
+	std::vector<VECTOR> _SpawnerPos;
 };
 

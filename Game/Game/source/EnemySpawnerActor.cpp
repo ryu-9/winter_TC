@@ -43,6 +43,8 @@ void EnemySpawnerActor::UpdateActor() {
 		auto e =EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(GetPosition(), pos),this);
 		_PopCnt++;
 		_TotalPopCnt++;
+
+
 		_TmCnt = 0;
 	}
 	if (_TotalPopCnt >= _Data.max_pop){
