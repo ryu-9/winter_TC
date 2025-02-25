@@ -43,7 +43,7 @@ void ModelComponent::SetModelInfo()
 
 	// Œü‚«‚©‚çYŽ²‰ñ“]‚ðŽZo
 	VECTOR vRot = { 0,0,0 };
-	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// ƒ‚ƒfƒ‹‚ª•W€‚Å‚Ç‚¿‚ç‚ðŒü‚¢‚Ä‚¢‚é‚©‚ÅŽ®‚ª•Ï‚í‚é(‚±‚ê‚Í-z‚ðŒü‚¢‚Ä‚¢‚éê‡)
+	vRot = MV1GetRotationXYZ(_Handle);
 	MV1SetRotationXYZ(_Handle, GetRotation());
 	MV1SetRotationZYAxis(_Handle, GetFront(), GetUp(), 0);
 
@@ -51,9 +51,10 @@ void ModelComponent::SetModelInfo()
 		int test = 0;
 	}
 	VECTOR v = VScale(GetCenter(), -1);
-	v = VTransform(v, MGetRotX(vRot.y * 100));
-	v = VTransform(v, MGetRotY(vRot.y * 100));
-	v = VTransform(v, MGetRotZ(vRot.y * 100));
+	v = VTransform(v, MGetRotX(vRot.x));
+	v = VTransform(v, MGetRotY(vRot.y));
+	v = VTransform(v, MGetRotZ(vRot.z));
+	v = VAdd(v, GetCenter());
 	// ˆÊ’u
 	MV1SetPosition(_Handle, VAdd(VAdd(_Owner->GetPosition(), VMulti(_Position, _Owner->GetSize())), v));
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
@@ -122,6 +123,11 @@ void ModelComponent::SetRotationZY(VECTOR front, VECTOR up)
 	_Up = up;
 	MV1SetRotationZYAxis(_Handle, front, up, 0);
 	_Rot = MV1GetRotationXYZ(_Handle);
+}
+
+VECTOR ModelComponent::GetCenter()
+{
+	return VMulti(_Center, _Owner->GetSize());
 }
 
 

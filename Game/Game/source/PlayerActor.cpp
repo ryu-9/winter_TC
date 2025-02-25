@@ -34,9 +34,9 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
-	_TopModel->SetPosition(VGet(0, -320, -80));
+	_TopModel->SetPosition(VGet(0, -340, 0));
 	_TopModel->SetRotation(VGet(0, pi, 0));
-	_TopModel->SetCenter(VGet(0, 0, 1000));
+	_TopModel->SetCenter(VGet(0, 0 ,0 ));
 
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
@@ -60,6 +60,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
 	_AnimationModel[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_move_motion.mv1");
+	_AnimationModel[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dash_motion.mv1");
+	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 
 	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 }
@@ -107,7 +109,7 @@ void PlayerActor::UpdateActor() {
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
 		float size = VSize(tmp) / 10000 / GetSize().x;
-		if (_Input->GetStand() == TRUE) {
+		if (_Input->GetStand()&&!_Input->GetDashFlag()) {
 			SetSize(VAdd(GetSize(), VGet(size, size, size)));
 
 			v = VSub(v, VScale(v, 0.001 * dt));
@@ -213,9 +215,12 @@ void PlayerActor::UpdateActor() {
 	case 2:
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
-		dir = VScale(dir, -1);
+		dir = VSub(_Cursor->GetHitPos(), GetPosition());
+		//dir = VScale(dir, -1);
 		dir = VNorm(dir);
+		dir.y = 0;
 		_TopModel->SetFront(dir);
+		_TopModel->SetUp(VGet(0, 1, 0));
 	
 	}
 
@@ -233,7 +238,7 @@ void PlayerActor::UpdateActor() {
 	}
 
 	if (_ModeNum != 0) {
-		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 100;
+		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
 		//ChangeAnim(animOrder);
 		//_Friend->ChangeAnim(animOrder);
 		if (_AnimTime > _AnimTotalTime) {
@@ -247,6 +252,7 @@ void PlayerActor::UpdateActor() {
 			break;
 
 		case 2:
+			//if (_Animation == (int)anim::Punch)
 			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
 			break;
 		}
@@ -347,8 +353,19 @@ void PlayerActor::ChangeAnim(int a) {
 			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[2], TRUE);
 			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 			changeSucFlag = true;
-			break;
+
 		}
+		break;
+
+	case (int)anim::Punch:
+		index = MV1GetAnimIndex(_AnimationModel[4], "reizo-kou_down");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[4], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[4], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
+
+
 
 
 
@@ -365,6 +382,9 @@ void PlayerActor::ChangeAnim(int a) {
 
 void PlayerActor::Damage(float damage) {
 	if (_ModeNum == 0) {
+		if (_Input->GetDashFlag()) {
+			damage /= 2;
+		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
 		if (VSize(GetSize()) < 0.1) {
 			ChangeMode(3);

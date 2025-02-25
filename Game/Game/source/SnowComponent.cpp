@@ -6,7 +6,7 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	, _Split(25)
 {
 
-
+	_Handle = ModelServer::GetInstance()->AddGraph("res/Stage/Maptexture_ground.png");
 	float dist = 0;
 	int longestnum = 0;
 	float tmp = VSize(VSub(m.Position[0], m.Position[1]));
@@ -93,8 +93,10 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 			tmp.norm = m.Normal;
 			tmp.dif = GetColorU8(255, 255, 255, 255);
 			tmp.spc = GetColorU8(0, 0, 0, 0);
-			tmp.u = 0;
-			tmp.v = 0;
+			tmp.u = p.x / 500 - (int)(p.x / 500);
+			if (tmp.u < 0) { tmp.u += 1; }
+			tmp.v = p.z / 500 - (int)(p.z / 500);
+			if (tmp.v < 0) { tmp.v += 1; }
 			tmp.su = 1;
 			tmp.sv = 1;
 			if (j == 0 && flag0) {
@@ -315,7 +317,18 @@ void SnowComponent::Draw()
 		
 	}
 
-	int debug = DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize/3, DX_NONE_GRAPH, FALSE);
+	MATERIALPARAM MatParam;
+
+	MatParam.Diffuse = GetColorF(1, 1, 1, 1.0f);	// ディフューズカラーは白
+	MatParam.Ambient = GetColorF(1, 1, 1, 1.0f);	// アンビエントカラーは白( ライトのアンビエントカラーをそのまま反映する )
+	MatParam.Specular = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);	// スペキュラカラーは無し
+	MatParam.Emissive = GetColorF(0.1f, 0.1f, 0.2f, 0.5f);	// エミッシブカラー( 自己発光 )もなし
+	MatParam.Power = 0.0f;						// スペキュラはないので０
+
+	// マテリアルのパラメータをセット
+	SetMaterialParam(MatParam);
+
+	int debug = DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize/3, _Handle, FALSE);
 	//_OldMCList = _MCList;
 	_MCList.clear();
 	return;

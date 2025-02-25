@@ -66,7 +66,7 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[3];
+	int _AnimationModel[5];
 	bool _AnimChangingflag;
 };
 

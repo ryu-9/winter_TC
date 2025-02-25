@@ -208,6 +208,9 @@ void PlayerMoveComponent::ProcessInput()
 		VECTOR v = _pOwner->GetFriend()->GetPosition();
 		_pOwner->SetPosition(VAdd(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, v.z), VScale( VGet(0, 160, 0), _pOwner->GetSize().x)));
 		
+		if (trg & PAD_INPUT_3) {
+			_pOwner->ChangeAnim(4);
+		}
 
 		break;
 	}

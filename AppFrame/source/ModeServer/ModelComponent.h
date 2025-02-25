@@ -37,7 +37,7 @@ public:
 
 	void SetRotationZY(VECTOR front, VECTOR up);
 
-	VECTOR GetCenter() const { return _Center; }
+	VECTOR GetCenter();
 	void SetCenter(VECTOR center) { _Center = center; }
 
 private:

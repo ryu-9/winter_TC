@@ -31,23 +31,23 @@ int ModelServer::Add(const TCHAR *filename)
 	return handle;
 }
 
-int ModelServer::Add(std::string filename)
+int ModelServer::AddGraph(const TCHAR* filename)
 {
 	int handle;
-	for (auto& model : _Models) {
+	for (auto& model : _Graph) {
 		if (model.filepass == filename) {
-			handle = MV1DuplicateModel(*model.handle.begin());
-			model.handle.emplace_back(handle);
-			return handle;
+			handle = model.handle[0];
 		}
 	}
-	_Models.emplace_back();
-	handle = MV1LoadModel(filename.c_str());
-	_Models.back().filepass = filename;
-	_Models.back().handle.emplace_back(handle);
+	_Graph.emplace_back();
+	handle = LoadGraph(filename);
+	_Graph.back().filepass = filename;
+	_Graph.back().handle.emplace_back(handle);
 
 	return handle;
 }
+
+
 
 int ModelServer::Del(ModeBase* mode)
 {

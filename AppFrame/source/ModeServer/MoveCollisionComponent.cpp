@@ -293,6 +293,9 @@ void MoveCollisionComponent::Update() {
 					}
 				}
 
+				if (VDot(move, tmp) > 0) {
+					continue;
+				}
 
 				_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
 				pushnum++;

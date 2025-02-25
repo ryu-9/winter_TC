@@ -13,8 +13,11 @@ public:
 	void Init();
 
 	VECTOR GetTargetDir();
+	VECTOR GetHitPos();
 
 	void SetActiveFalse();
+
+	
 
 private:
 	int _PlayerNo;
@@ -35,6 +38,7 @@ public:
 
 	void SetActiveFlag(bool flag) { _ActiveFlag = flag; }
 
+	VECTOR debugpos[2];
 private:
 	int _Handle;
 	VECTOR _Position;

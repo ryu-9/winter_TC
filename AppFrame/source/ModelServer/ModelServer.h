@@ -11,7 +11,7 @@ class ModelServer
 
 	struct Model
 	{
-		std::list<int> handle;
+		std::vector<int> handle;
 		std::string filepass;
 	};
 
@@ -22,7 +22,8 @@ public:
 	static ModelServer* GetInstance() { return (ModelServer*)_lpInstance; }
 
 	int Add(const TCHAR *filename);		// “o˜^
-	int Add(std::string filename);		// “o˜^‚Í‚·‚é‚ªAˆê“xƒƒCƒ“‚ğ‰ñ‚³‚È‚¢‚Æ‚¢‚¯‚È‚¢
+	
+	int AddGraph(const TCHAR* filename);		// “o˜^
 
 	int Del(ModeBase* mode);		// íœ—\–ñ
 
@@ -30,6 +31,6 @@ public:
 private:
 	//std::map<std::string, std::list<int>> _Models;
 	std::list<Model> _Models;			// ƒ‚ƒfƒ‹ƒŠƒXƒg
-
+	std::list<Model> _Graph;
 };
 
