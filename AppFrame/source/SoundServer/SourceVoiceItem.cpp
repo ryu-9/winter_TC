@@ -1,6 +1,6 @@
 #include "SourceVoiceItem.h"
 
-SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz)
+SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz,int loop)
 	:_SV(nullptr)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
@@ -8,7 +8,7 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz)
 	, _WavName(wavname)
 {
 	// ƒTƒEƒ“ƒh‚Ìì¬
-	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz) == false) {
+	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz,loop) == false) {
 		printf("CreateSourceVoice failed\n");
 		delete this;
 	}

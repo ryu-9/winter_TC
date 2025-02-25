@@ -57,9 +57,9 @@ void EnemyCreator::Init() {
 		*/
 }
 
-EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec) {
+EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec,EnemySpawnerActor* es) {
 
-	EnemyActor* enemy = new EnemyActor(mode,vec);
+	EnemyActor* enemy = new EnemyActor(mode,vec,es);
 	//enemy->SetParam(_Data[shape][col]);
 
 	switch (shape)

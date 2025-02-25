@@ -1,6 +1,7 @@
 #pragma once
 #include "appframe.h"
 #include "EnemyActor.h"
+#include "EnemySpawnerActor.h"
 
 #include <array>
 
@@ -17,7 +18,7 @@ public:
 	static EnemyCreator* GetInstance() { return (EnemyCreator*)_lpInstance; }
 	
 	void Init();
-	class EnemyActor* Create(ModeBase* mode,int shape, int col,VECTOR vec);
+	class EnemyActor* Create(ModeBase* mode,int shape, int col,VECTOR vec,EnemySpawnerActor* es = nullptr);
 	
 protected:
 

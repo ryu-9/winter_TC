@@ -56,7 +56,7 @@ void EnemyController::UpdateActor() {
 					}
 				}
 				// ¶¬
-				EnemyCreator::GetInstance()->Create(GetMode(), 0, 0, f.spawner[max]);
+				//EnemyCreator::GetInstance()->Create(GetMode(), 0, 0, f.spawner[max]);
 				f.pop++;
 			}
 			break;

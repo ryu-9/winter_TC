@@ -2,39 +2,52 @@
 #include "PlayerActor.h"
 #include "EnemyCreator.h"
 
-EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos) 
+EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool groupflag, bool resetflag)
 	: ActorClass(mode)
+	, _TmCnt(0), _PopCnt(0), _GroupFlag(groupflag), _ResetFlag(resetflag)
 {
 	SetPosition(pos);
 	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
 	// プレイヤーの取得
-	auto g = dynamic_cast<ModeGame*>(mode);
-	
-	_CoolTime = 0;
+	auto game = static_cast<ModeGame*>(GetMode());
+	_Player[0] = game->GetPlayer(0);
+	_Player[1] = game->GetPlayer(1);
+	Init();
 }
 
 EnemySpawnerActor::~EnemySpawnerActor() {
 }
 
 void EnemySpawnerActor::Init() {
+	_Data.max_pop = 6;
+	_Data.max_popcount = 2;
+	_Data.pop_range = 100;
+	_Data.pop_time = 2000;
+	_Data.active_range = 1000;
 }
 
 void EnemySpawnerActor::UpdateActor() {
-	// 一定距離内にプレイヤーがいたら敵を生成
-	_CoolTime += GetMode()->GetStepTm();
-	if (_CoolTime < 1000) { return; }
-/*	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
-	if (dist < 1000) {
+	_TmCnt += GetMode()->GetStepTm();
+	
+	if (_TmCnt <_Data.pop_time) { return; }
+	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
+	auto dist2 = VSize(VSub(_Player[1]->GetPosition(), GetPosition()));
+	if (dist < _Data.active_range || dist2 < _Data.active_range) {
 		// 敵生成
+		if (_PopCnt >= _Data.max_popcount) { return; }
 		// 一定距離内に敵を生成
-		auto pos = VAdd(GetPosition(), VScale(VGet(1, 0, 1), GetRand(50)));
-		EnemyCreator::GetInstance()->Create(GetMode(), rand()%2, 0, pos);
-		_Cnt++;
-		_CoolTime = 0;
+		auto randdist = rand() % _Data.pop_range;
+		auto randangle = rand() % 360;
+		randangle = DEG2RAD(randangle);
+		auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
+		auto e =EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(GetPosition(), pos),this);
+		_PopCnt++;
+		_TotalPopCnt++;
+		_TmCnt = 0;
 	}
-	if (_Cnt == 7) {
-		
-		SetState(State::eDead);
+	if (_TotalPopCnt >= _Data.max_pop){
+		if (_ResetFlag == true) { _PopCnt = 0; }
+		else { SetState(State::eDead); }
 	}
-	*/
+	
 }

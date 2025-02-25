@@ -16,10 +16,12 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 	_Index.clear();
 	bool f = false;
 	auto epos = _En->GetPosition();
+	std::list<float> dist;
 	for (auto i = 0; i < target.size();i++) {
 		auto ppos = target[i]->GetPosition();
-		auto dist = VSize(VSub(ppos, epos));
-		if (dist < _SearchRef.dist) {
+		auto tdist = VSize(VSub(ppos, epos));
+		
+		if (tdist < _SearchRef.dist) {
 			auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 			front = VScale(front, -1);
 			
@@ -27,6 +29,7 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 				auto p = dynamic_cast<PlayerActor*>(target[i]);
 				if (p != nullptr) {
 					if (p->GetModeNum() == 0) {
+						
 						_Index.push_back(i);
 						f = true;
 					}

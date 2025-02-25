@@ -3,11 +3,12 @@
 #include "ModeGame.h"
 #include "EnemyStruct.h"
 
+class EnemySpawnerActor;
 
 class EnemyActor : public ActorClass {
 public:
 
-	EnemyActor(class ModeBase* mode,VECTOR pos = VGet(0,0,0));
+	EnemyActor(class ModeBase* mode,VECTOR pos = VGet(0,0,0), class EnemySpawnerActor* es = nullptr);
 	virtual ~EnemyActor();
 
 
@@ -31,7 +32,7 @@ private:
 	class MoveCollisionComponent* _MCollision;
 	class HitCollisionComponent* _HCollision;
 
-
+	class EnemySpawnerActor* _Spawner;
 
 };
 

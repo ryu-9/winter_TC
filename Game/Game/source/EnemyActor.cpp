@@ -5,9 +5,11 @@
 #include "EBoxComponent.h"
 #include "PlayerActor.h"
 #include "SnowComponent.h"
+#include "EnemySpawnerActor.h"
 
-EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos)
+EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	:ActorClass(mode)
+	, _Spawner(es)
 {
 	SetPosition(pos);
 	//_Model = new ModelComponent(this, "res/model/Enemy_Corn/Enemy_corn.mv1");
@@ -23,7 +25,11 @@ EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos)
 	//new EBoxComponent(this);
 }
 
-EnemyActor::~EnemyActor() {}
+EnemyActor::~EnemyActor() {
+	if (_Spawner != nullptr) {
+		_Spawner->DecrementPopCnt();
+	}
+}
 
 void EnemyActor::Init() {
 

@@ -30,21 +30,27 @@ bool ModeStageSelect::Process() {
 	auto cur = _Cur;
 	if (trg & PAD_INPUT_LEFT) { cur--; }
 	if (trg & PAD_INPUT_RIGHT) { cur++; }
-	
+
 	// カーソル位置修正
 	if (cur < 0) { cur = 0; }
-	if (cur >= _UIChip.size()) { cur = _UIChip.size() -1; }
-	if (cur > _Cur) {
-		for (auto i = 0; i < _UIChip.size(); i++) {
-			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 500);
+	if (cur >= _UIChip.size()) { cur = _UIChip.size() - 1; }
+	if (_Tm <= 0 && cur!=_Cur) {
+		if (cur > _Cur) {
+			for (auto i = 0; i < _UIChip.size(); i++) {
+				new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 500);
+			}
 		}
-	}
-	if (cur < _Cur) {
-		for (auto i = 0; i < _UIChip.size(); i++) {
-			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(1920, 0, 0)), 500);
+		if (cur < _Cur) {
+			for (auto i = 0; i < _UIChip.size(); i++) {
+				new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(1920, 0, 0)), 500);
+			}
 		}
+		_Cur = cur;
+		_Tm = 500;
+	} else {
+		_Tm -= GetStepTm();
 	}
-	_Cur = cur;
+	
 
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択

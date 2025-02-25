@@ -57,7 +57,7 @@ bool SoundServer::Create(SEComponent* secon, std::string name) {
 }
 
 
-bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz) {
+bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int loop) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;
 	if (_m.count(name) == 0) { return false; }
 	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat,XAUDIO2_VOICE_USEFILTER,16.0f);
@@ -73,7 +73,7 @@ bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz) {
 	xAudio2Buffer.AudioBytes = _m[name].size;
 	
 	xAudio2Buffer.PlayBegin = hz;
-	xAudio2Buffer.LoopCount = 0;
+	xAudio2Buffer.LoopCount = loop;
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 	sv = sourceVoice;
 	return true;
