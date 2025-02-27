@@ -15,6 +15,7 @@
 #include "nlohmann/json.hpp"
 #include "ApplicationGlobal.h"
 #include "ModeStageSelect.h"
+#include <EffekseerForDXLib.h>
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -125,6 +126,7 @@ bool ModeGame::Render() {
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
+	Effekseer_Sync3DSetting();
 	
 	SetUseLighting(TRUE);
 #if 1	

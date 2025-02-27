@@ -6,6 +6,7 @@
 #include "ApplicationGlobal.h"
 #include "OutlineComponent.h"
 #include "PlayerCursorComponent.h"
+#include "PunchActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -17,6 +18,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _AnimTotalTime(0)
 	, _AnimIndex(-1)
 	, _AnimChangingflag(false)
+	, _PunchFlag(false)
 {
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
@@ -223,6 +225,11 @@ void PlayerActor::UpdateActor() {
 		dir.y = 0;
 		_TopModel->SetFront(dir);
 		_TopModel->SetUp(VGet(0, 1, 0));
+		if (_Animation == (int)anim::Punch && _AnimTime > 5 && !_PunchFlag)
+		{
+			//new PunchActor(GetMode(), GetPosition(), VGet(0, 0, 0), VGet(0, 0, 0), 10);
+			_PunchFlag = true;
+		}
 	
 	}
 
@@ -378,6 +385,7 @@ void PlayerActor::ChangeAnim(int a) {
 		MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
 		_Animation = a;
 		_AnimTime = 0;
+		_PunchFlag = false;
 	}
 
 }

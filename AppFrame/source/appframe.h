@@ -21,3 +21,4 @@
 #include "EffectServer/EffectController.h"
 #include "ModeServer/ShadowMapSpriteComponent.h"
 #include "EffectServer/PlayerEmphasisEffect.h"
+#include "ModeServer/EffectSpriteComponent.h"

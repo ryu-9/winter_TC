@@ -180,6 +180,9 @@
     <ClCompile Include="source\PlayerCursorComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\PunchActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="source\PlayerCursorComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PunchActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

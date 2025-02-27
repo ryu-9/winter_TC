@@ -68,5 +68,7 @@ private:
 	int _AnimIndex;
 	int _AnimationModel[5];
 	bool _AnimChangingflag;
+
+	bool _PunchFlag;
 };
 

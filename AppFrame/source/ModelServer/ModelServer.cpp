@@ -1,10 +1,13 @@
 #include "ModelServer.h"
+#include <EffekseerForDXLib.h>
 
 /// インスタンス 
 ModelServer* ModelServer::_lpInstance = NULL;
 
 
 ModelServer::ModelServer()
+: _EffectNum(0)
+,_UpdatedEffectNum(0)
 {
 	_lpInstance = this;
 }
@@ -37,6 +40,7 @@ int ModelServer::AddGraph(const TCHAR* filename)
 	for (auto& model : _Graph) {
 		if (model.filepass == filename) {
 			handle = model.handle[0];
+			return handle;
 		}
 	}
 	_Graph.emplace_back();
@@ -45,6 +49,41 @@ int ModelServer::AddGraph(const TCHAR* filename)
 	_Graph.back().handle.emplace_back(handle);
 
 	return handle;
+}
+
+int ModelServer::AddEffect(const char* filename, float size)
+{
+	int handle;
+	_EffectNum++;
+	for (auto& model : _Effect) {
+		if (model.filepass == filename
+			) {
+			handle = model.handle[0];
+			return handle;
+		}
+	}
+	_Effect.emplace_back();
+	handle = LoadEffekseerEffect(filename, size);
+	_Effect.back().filepass = filename;
+	_Effect.back().handle.emplace_back(handle);
+
+	return handle;
+}
+
+void ModelServer::DelEffect(int handle)
+{
+	_EffectNum--;
+}
+
+void ModelServer::UpdateEffect()
+{
+	_UpdatedEffectNum++;
+	if (_UpdatedEffectNum >= _EffectNum)
+	{
+		_UpdatedEffectNum = 0;
+		UpdateEffekseer3D();
+		DrawEffekseer3D();
+	}
 }
 
 
