@@ -31,19 +31,21 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BallModel->SetIndipendent(true);
 
 	float pi = 3.14159265358979323846;
-	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	_TopModel = new ModelComponent(this, "res/model/Sundercross/Upbody_not outlined.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -340, 0));
 	_TopModel->SetRotation(VGet(0, pi, 0));
 	_TopModel->SetCenter(VGet(0, 0 ,0 ));
+	//new OutlineComponent(this, "res/model/Sundercross/Upbody_outlined.mv1", _TopModel);
 
-	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
+	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Downbody_not outlined.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
 	_BottomModel->SetPosition(VGet(0, -100, 0));
 	_BottomModel->SetRotation(VGet(0, pi, pi));
 	_TopModel->SetVisible(false);
 	_BottomModel->SetVisible(false);
+	//new OutlineComponent(this, "res/model/Sundercross/Downbody_outlined.mv1", _BottomModel);
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
 	//_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
@@ -216,7 +218,7 @@ void PlayerActor::UpdateActor() {
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
 		dir = VSub(_Cursor->GetHitPos(), GetPosition());
-		//dir = VScale(dir, -1);
+		dir = VScale(dir, -1);
 		dir = VNorm(dir);
 		dir.y = 0;
 		_TopModel->SetFront(dir);

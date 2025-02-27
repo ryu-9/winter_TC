@@ -54,8 +54,8 @@ VECTOR PlayerCursorComponent::GetHitPos()
 	bool flag = false;
 	for (auto mc : _Owner->GetMode()->GetMCollision())
 	{
-		if (mc->GetIsActive()) {
-			auto result = MV1CollCheck_Line(mc->GetHandle(), -1, campos, pos, 10);
+		if (mc->GetIsActive() && !mc->GetIsMove()) {
+			auto result = MV1CollCheck_Line(mc->GetHandle(), -1, campos, pos, -1);
 			if (result.HitFlag) {
 				float tmp = VSize(VSub(campos, result.HitPosition));
 				if (dist > tmp) {
@@ -95,8 +95,12 @@ PlayerCursorSpriteComponent::~PlayerCursorSpriteComponent()
 void PlayerCursorSpriteComponent::Draw()
 {
 	if (!_ActiveFlag) { return; }
-	DrawGraph(_Position.x - 258 /2, _Position.y - 237 /2, _Handle, TRUE);
-	DrawCapsule3D(debugpos[0], debugpos[1], 50, 5, GetColor(255, 0, 0), 0, false);
+	/*
+		DrawGraph(_Position.x - 258 /2, _Position.y - 237 /2, _Handle, TRUE);
+	DrawCapsule3D(_Owner->GetPosition(), debugpos[1], 15, 5, GetColor(255, 0, 0), 0, TRUE);
+	DrawCapsule3D(_Owner->GetPosition(), VAdd(_Owner->GetPosition(), VGet(0, -1000, 0)), 15, 5, GetColor(255, 0, 0), 0,TRUE);
 	DrawSphere3D(debugpos[1], 40, 5, GetColor(255, 0, 0), 0, true);
-	DrawLine3D(debugpos[0], debugpos[1], GetColor(255, 0, 0));
+	DrawLine3D(_Owner->GetPosition(), debugpos[1], GetColor(255, 0, 0));
+	*/
+
 }
