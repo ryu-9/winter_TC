@@ -178,6 +178,7 @@
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
     <ClCompile Include="source\ModeGameUI.cpp" />
+    <ClCompile Include="source\ModeLoading.cpp" />
     <ClCompile Include="source\ModeMenu.cpp" />
     <ClCompile Include="source\ModeOption.cpp" />
     <ClCompile Include="source\ModeResult.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameOver.h" />
     <ClInclude Include="source\ModeGameUI.h" />
+    <ClInclude Include="source\ModeLoading.h" />
     <ClInclude Include="source\ModeMenu.h" />
     <ClInclude Include="source\ModeOption.h" />
     <ClInclude Include="source\ModeResult.h" />
