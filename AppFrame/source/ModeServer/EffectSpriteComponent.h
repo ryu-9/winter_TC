@@ -21,5 +21,6 @@ private:
 	VECTOR _Rotation;
 	float _Count;
 	float _PlayTime;
+	VECTOR _Scale;
 };
 

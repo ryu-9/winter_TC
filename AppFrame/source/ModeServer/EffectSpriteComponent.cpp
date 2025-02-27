@@ -9,13 +9,14 @@ EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* fil
 	, _Rotation(rot)
 	, _Count(0)
 {
-	_SourceHandle = ModelServer::GetInstance()->AddEffect(file, size);
+	_SourceHandle = ModelServer::GetInstance()->AddEffect(file, 1);
 	_Handle = PlayEffekseer3DEffect(_SourceHandle);
+	_Scale = VGet(size, size, size);
 }
 
 EffectSpriteComponent::~EffectSpriteComponent()
 {
-	//ModelServer::GetInstance()->DelEffect(_Handle);
+	ModelServer::GetInstance()->DelEffect(_Handle);
 }
 
 void EffectSpriteComponent::Draw()
@@ -28,8 +29,12 @@ void EffectSpriteComponent::Draw()
 	VECTOR v = VAdd(_Position, _Owner->GetPosition());
 	SetPosPlayingEffekseer3DEffect(_Handle, v.x, v.y, v.z);
 	SetRotationPlayingEffekseer3DEffect(_Handle, _Rotation.x, _Rotation.y, _Rotation.z);
+	SetScalePlayingEffekseer3DEffect(_Handle, _Scale.x, _Scale.y, _Scale.z);
 
-	ModelServer::GetInstance()->UpdateEffect();
+	UpdateEffekseer3D();
+	int debug = DrawEffekseer3D_Begin();
+	debug = DrawEffekseer3D_Draw(_Handle);
+	debug = DrawEffekseer3D_End();
 }
 
 void EffectSpriteComponent::Play()

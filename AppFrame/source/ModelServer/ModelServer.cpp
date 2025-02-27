@@ -78,7 +78,7 @@ void ModelServer::DelEffect(int handle)
 void ModelServer::UpdateEffect()
 {
 	_UpdatedEffectNum++;
-	if (_UpdatedEffectNum >= _EffectNum)
+	if (_UpdatedEffectNum >= _EffectNum && _EffectNum)
 	{
 		_UpdatedEffectNum = 0;
 		UpdateEffekseer3D();

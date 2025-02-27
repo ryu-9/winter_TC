@@ -222,12 +222,11 @@ void PlayerActor::UpdateActor() {
 		dir = VSub(_Cursor->GetHitPos(), GetPosition());
 		dir = VScale(dir, -1);
 		dir = VNorm(dir);
-		dir.y = 0;
-		_TopModel->SetFront(dir);
+		_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 		_TopModel->SetUp(VGet(0, 1, 0));
 		if (_Animation == (int)anim::Punch && _AnimTime > 5 && !_PunchFlag)
 		{
-			//new PunchActor(GetMode(), GetPosition(), VGet(0, 0, 0), VGet(0, 0, 0), 10);
+			new PunchActor(GetMode(), GetPosition(), VScale(dir, -GetSize().x * 10), VGet(0, 0, 0), GetSize().x * 3);
 			_PunchFlag = true;
 		}
 	

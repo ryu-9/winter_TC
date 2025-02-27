@@ -19,8 +19,8 @@ void PlayerCursorComponent::Update()
 	DINPUT_JOYSTATE input;
 	GetJoypadDirectInputState(_PlayerNo, &input);
 
-	x = (float)input.X / 100;
-	y = (float)input.Y / 100;
+	x = (float)input.X / 100 * 1.5;
+	y = (float)input.Y / 100 * 1.5;
 
 	_Position = VAdd(_Position, VGet(x, y, 0));
 	if (_Position.x < 0) { _Position.x = 0; }
@@ -95,8 +95,9 @@ PlayerCursorSpriteComponent::~PlayerCursorSpriteComponent()
 void PlayerCursorSpriteComponent::Draw()
 {
 	if (!_ActiveFlag) { return; }
+	DrawGraph(_Position.x - 258 / 2, _Position.y - 237 / 2, _Handle, TRUE);
 	/*
-		DrawGraph(_Position.x - 258 /2, _Position.y - 237 /2, _Handle, TRUE);
+		
 	DrawCapsule3D(_Owner->GetPosition(), debugpos[1], 15, 5, GetColor(255, 0, 0), 0, TRUE);
 	DrawCapsule3D(_Owner->GetPosition(), VAdd(_Owner->GetPosition(), VGet(0, -1000, 0)), 15, 5, GetColor(255, 0, 0), 0,TRUE);
 	DrawSphere3D(debugpos[1], 40, 5, GetColor(255, 0, 0), 0, true);

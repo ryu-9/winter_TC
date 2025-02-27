@@ -35,7 +35,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 		return false;
 	}
 
-	//Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
 	// —”‰Šú‰»
 	srand((unsigned int)time(NULL));
@@ -50,6 +50,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 bool ApplicationBase::Terminate() {
 	// DXƒ‰ƒCƒuƒ‰ƒŠŠJ•ú
+	Effkseer_End();
 	DxLib_End();
 
 	return true;

@@ -83,6 +83,17 @@ bool	ModeBase::Process()
 
 bool ModeBase::Update()
 {
+	// アクタの削除
+	std::vector<ActorClass*> deadActors;
+	for (auto actor : _Actors) {
+		if (actor->GetState() == ActorClass::State::eDead) {
+			deadActors.emplace_back(actor);
+		}
+	}
+	for (auto actor : deadActors) {
+		delete actor;
+	}
+
 	// アクタのアップデート
 	_UpdatingActors = true;
 	for (int i = 0; i < _Actors.size(); i++) {
@@ -96,16 +107,7 @@ bool ModeBase::Update()
 	}
 	_PendingActors.clear();
 
-	// アクタの削除
-	std::vector<ActorClass*> deadActors;
-	for (auto actor : _Actors) {
-		if (actor->GetState() == ActorClass::State::eDead) {
-			deadActors.emplace_back(actor);
-		}
-	}
-	for (auto actor : deadActors) {
-		delete actor;
-	}
+
 	return false;
 }
 
