@@ -3,7 +3,7 @@
 
 bool ModeGameUI::Initialize() {
 	SetUseASyncLoadFlag(TRUE);
-	new UIPlayerHPClass(this, VGet(50, 600, 0), "res/UI/UI_HP.png");
+	new UIPlayerHPClass(this, VGet(30, 700, 0), "res/UI/UI_HP.png");
 	SetUseASyncLoadFlag(FALSE);
 	return false;
 }

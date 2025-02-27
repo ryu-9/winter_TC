@@ -77,7 +77,7 @@ void UIPlayerHPSpriteComponent::Draw() {
 		SetUseMaskScreenFlag(FALSE);
 //		DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 2].pos.x, _UIc->GetPosition().y + _CGData[_Type + 2].pos.y + tmpy, _CGData[_Type + 2].handle, TRUE);
 		SetCameraPositionAndTarget_UpVecY(pos, dir);
-		tmpy += 180;
+		tmpy += 160;
 	}
 
 	
