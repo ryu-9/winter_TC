@@ -19,8 +19,8 @@ EnemySpawnerActor::~EnemySpawnerActor() {
 }
 
 void EnemySpawnerActor::Init() {
-	_Data.max_pop = 6;
-	_Data.max_popcount = 2;
+	_Data.max_pop = 1;
+	_Data.max_popcount = 1;
 	_Data.pop_range = 100;
 	_Data.pop_time = 2000;
 	_Data.active_range = 1000;
