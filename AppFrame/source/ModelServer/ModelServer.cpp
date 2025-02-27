@@ -24,7 +24,9 @@ int ModelServer::Add(const TCHAR *filename)
 		}
 	}
 	_Models.emplace_back();
+	SetUseASyncLoadFlag(TRUE);
 	handle = MV1LoadModel(filename);
+	SetUseASyncLoadFlag(FALSE);
 	_Models.back().filepass = filename;
 	_Models.back().handle.emplace_back(handle);
 
@@ -42,7 +44,9 @@ int ModelServer::Add(std::string filename)
 		}
 	}
 	_Models.emplace_back();
+	SetUseASyncLoadFlag(TRUE);
 	handle = MV1LoadModel(filename.c_str());
+	SetUseASyncLoadFlag(FALSE);
 	_Models.back().filepass = filename;
 	_Models.back().handle.emplace_back(handle);
 

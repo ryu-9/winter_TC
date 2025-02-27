@@ -20,22 +20,28 @@ bool ModeLoading::Terminate() {
 
 bool ModeLoading::Process() {
 	base::Process();
+	ModeServer::GetInstance()->SkipProcessUnderLayer();
 	// 4•b‚²‚Æ‚É‰æ‘œ‚ğ•ÏX
 	_Tm += GetStepTm();
 	if (_Tm >= 4000) {
 		_Tm = 0;
+		/*
 		auto n = rand() % 6;
 		while (n == _UIChip.back()->GetImageNum()) {
 			n = rand() % 6;
 		}
 		_UIChip.back()->ChangeImage(n);
+		*/
+
+		ModeServer::GetInstance()->Del(this);
 	}
 
-	// ƒ[ƒh’†‚©‚Ç‚¤‚©
+	
 	return false;
 }
 
 bool ModeLoading::Render() {
 	base::Render();
+	ModeServer::GetInstance()->SkipRenderUnderLayer();
 	return false;
 }
