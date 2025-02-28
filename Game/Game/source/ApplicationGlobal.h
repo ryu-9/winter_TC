@@ -16,6 +16,8 @@ public:
 	// プレイヤーのHP(Size)
 	float	_PlayerHP[2] = {0.1,0.1};
 	bool	_IsPlayerDead[2] ;
+
+	// ステージ選択
 	int		_SelectStage;
 };
 
