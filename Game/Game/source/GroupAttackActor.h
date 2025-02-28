@@ -18,12 +18,14 @@ public:
 	void UpdateActor() override;
 	void DecrementPopCnt() { _PopCnt--; }
 	void SetData(SPAWNER_DATA data) { _Data = data; }
+	void AddPopPos(VECTOR pos) { _PopPos.push_back(pos); }
 
 private:
 	class PlayerActor* _Player[2];
 	int _TmCnt;						// éûä‘
 	int _PopCnt;					// ê∂ê¨êî
 	int _TotalPopCnt;				// ëçê∂ê¨êî
+	std::vector<VECTOR> _PopPos;	// ê∂ê¨à íu
 	SPAWNER_DATA _Data;
 };
 

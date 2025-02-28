@@ -13,6 +13,8 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	_Weight.push_back(4);
 	_Weight.push_back(4);
 	_Weight.push_back(2);
+
+	_AttackType = rand() % 3;
 }
 
 ECornComponent::~ECornComponent() {
@@ -62,34 +64,101 @@ void ECornComponent::ProcessInput() {
 		_CurrentTime = 0;
 		break;
 	case STATUS::ATTACK: {
-		flag = Attack();
+		switch (_AttackType) {
+		case 0:
+			NomalAttack();
+			break;
+		case 1:
+			JumpAttack();
+			break;
+		case 2:
+			FrontAttack();
+			break;
+		case 3:
+			BackAttack();
+			break;
+		default:
+			break;
+		}
 		break;
 	}
 	default:
 		break;
 	}
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	
-	
-	if (flag == true) {
-	//	_Status = STATUS::SEARCH;
-	}
 }
 
-bool ECornComponent::Attack() {
-	if (_CurrentTime == 0) {
-		_Duration = 4000;
+bool ECornComponent::Attack(int n) {
+	
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
 		auto m = new ModelComponent(ac, "res/model/Enemy_corn/Enemy_corn.mv1");
 		new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(30, 30, 30), 2, true);
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
-		new BulletComponent(ac, _Target[_Index[0]]->GetPosition(), 1500);
+		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
 		if (game != nullptr) { new SEComponent(ac, game->GetPlayer()); }
 		// TODO: new SEComponent(ac,cam);
-		
+
+
+	return true;
+}
+
+bool ECornComponent::NomalAttack() {
+	if (_CurrentTime == 0) {
+		_Duration = 4000;
+		Attack(0);
 	}
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
+
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_Status = STATUS::SEARCH;
+	}
+	return true;
+}
+
+bool ECornComponent::JumpAttack() {
+	if (_CurrentTime == 0) {
+		_Duration = 4000;
+		Jump();
+		Attack(0);
+	}
+	
+
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_Status = STATUS::SEARCH;
+	}
+	return true;
+}
+
+bool ECornComponent::FrontAttack() {
+	if (_CurrentTime == 0) {
+		_Duration = 4000;
+	}
+	if (_CurrentTime < 2000) {
+		if (GoTo(0)) { Attack(0); }
+	}
+	
+	
+
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_Status = STATUS::SEARCH;
+	}
+	return true;
+}
+
+bool ECornComponent::BackAttack() {
+	if (_CurrentTime == 0) {
+		_Duration = 4000;
+	}
+	if (_CurrentTime < 2000) {
+		if (GoTo(1)) { Attack(0); }
+	}
+	
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
@@ -119,10 +188,44 @@ bool ECornComponent::Move() {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
 		_Status = STATUS::SEARCH;
+		return true;
 	}
 	
 
-	return true;
+	return false;
+}
+
+bool ECornComponent::GoTo(int n) {
+	if (_CurrentTime == 0) {
+		_Duration = 1000;
+		_MoveDist = 200 / (float)_Duration;
+
+		// ƒvƒŒƒCƒ„[‚Ì•û‚ðŒü‚­
+		auto pos = _Owner->GetPosition();
+		auto target = _Target[n]->GetPosition();
+		auto dir = VSub(target, pos);
+		auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
+		auto rot = VGet(0, atan2(dir.x, dir.z), 0);
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
+	}
+
+	auto t = _Owner->GetMode()->GetStepTm();
+	auto d = _MoveDist * t;
+	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
+	if (n == 0) { front = VScale(front, -1); }
+	auto vel = _En->GetInput()->GetVelocity();
+	vel = VAdd(VGet(0, vel.y, 0), VScale(front, d));
+	_En->GetInput()->SetVelocity(vel);
+
+	
+	if (_CurrentTime >= _Duration) {
+		_CurrentTime = 0;
+		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
+		_Status = STATUS::SEARCH;
+		return true;
+	}
+
+	return false;
 }
 
 void ECornComponent::Jump() {
@@ -130,7 +233,7 @@ void ECornComponent::Jump() {
 		_En->GetInput()->SetVelocity(VGet(0, 3, 0));
 	}
 
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
+
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
 		_Status = STATUS::SEARCH;

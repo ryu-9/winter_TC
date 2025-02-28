@@ -58,7 +58,10 @@ void EnemyController::UpdateActor() {
 				// ¶¬
 				//EnemyCreator::GetInstance()->Create(GetMode(), 0, 0, f.spawner[max]);
 				f.pop++;
+				delete[] dist;
+				delete[] dist2;
 			}
+			
 			break;
 		}
 	}

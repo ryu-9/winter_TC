@@ -12,12 +12,18 @@ public:
 		JUMP,
 	};
 protected:
-	virtual bool Attack() override;
+	virtual bool Attack(int n);
+	virtual bool NomalAttack();
+	virtual bool JumpAttack();
+	virtual bool FrontAttack();
+	virtual bool BackAttack();
 
 	virtual bool Move() override;
+	virtual bool GoTo(int n);
 	virtual void Jump();
 
 	WAIT_ACTION _WaitAction;
+	int _AttackType;
 
 };
 
