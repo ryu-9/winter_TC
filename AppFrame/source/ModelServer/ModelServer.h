@@ -11,7 +11,7 @@ class ModelServer
 
 	struct Model
 	{
-		std::list<int> handle;
+		std::vector<int> handle;
 		std::string filepass;
 	};
 
@@ -22,7 +22,12 @@ public:
 	static ModelServer* GetInstance() { return (ModelServer*)_lpInstance; }
 
 	int Add(const TCHAR *filename);		// 登録
-	int Add(std::string filename);		// 登録はするが、一度メインを回さないといけない
+	
+	int AddGraph(const TCHAR* filename);		// 登録
+
+	int AddEffect(const char* filename, float size = 1.0f);		// 登録
+	void DelEffect(int handle);		// 削除
+	void UpdateEffect();		// 更新
 
 	int Del(ModeBase* mode);		// 削除予約
 
@@ -30,6 +35,9 @@ public:
 private:
 	//std::map<std::string, std::list<int>> _Models;
 	std::list<Model> _Models;			// モデルリスト
-
+	std::list<Model> _Graph;			// グラフィックリスト
+	std::list<Model> _Effect;			// エフェクトリスト
+	int _EffectNum;
+	int _UpdatedEffectNum;
 };
 

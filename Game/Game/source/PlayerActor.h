@@ -39,7 +39,11 @@ private:
 		Walk,
 		Dash,
 		Punch,
+		Num
 	};
+
+	std::map<int, float>_AnimationRate;
+
 
 	class PlayerMoveComponent* _Input;
 
@@ -54,6 +58,8 @@ private:
 
 	class HitCollisionComponent* _HCollision;
 
+	class PlayerCursorComponent* _Cursor;
+
 	int _PlayerNo;
 
 	int _ModeNum; // 0:�ʏ� 1:�����g�@2:�㔼�g
@@ -64,7 +70,12 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[3];
+	int _AnimationModel[5];
 	bool _AnimChangingflag;
+
+	int _PunchIndex[2];
+
+	bool _PunchFlag;
+	int _InvincibleTime;
 };
 

@@ -175,6 +175,7 @@
     <ClCompile Include="source\GroupAttackActor.cpp" />
     <ClCompile Include="source\ioJson.cpp" />
     <ClCompile Include="source\ioJsonText.cpp" />
+    <ClCompile Include="source\ItemActor.cpp" />
     <ClCompile Include="source\ModeEnemyCon.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
@@ -191,8 +192,10 @@
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
     <ClCompile Include="source\OutlineComponent.cpp" />
+    <ClCompile Include="source\PlayerCursorComponent.cpp" />
     <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
+    <ClCompile Include="source\PunchActor.cpp" />
     <ClCompile Include="source\SnowComponent.cpp" />
     <ClCompile Include="source\StageBox.cpp" />
     <ClCompile Include="source\UIPlayerHPClass.cpp" />
@@ -217,6 +220,7 @@
     <ClInclude Include="source\GroupAttackActor.h" />
     <ClInclude Include="source\ioJson.h" />
     <ClInclude Include="source\ioJsonText.h" />
+    <ClInclude Include="source\ItemActor.h" />
     <ClInclude Include="source\ModeEnemyCon.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameOver.h" />
@@ -232,9 +236,10 @@
     <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\OutlineComponent.h" />
-    <ClInclude Include="source\PlayerMoveComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />
     <ClInclude Include="source\PlayerActor.h" />
+    <ClInclude Include="source\PlayerCursorComponent.h" />
+    <ClInclude Include="source\PunchActor.h" />
     <ClInclude Include="source\SnowComponent.h" />
     <ClInclude Include="source\StageBox.h" />
     <ClInclude Include="source\UIPlayerHPClass.h" />

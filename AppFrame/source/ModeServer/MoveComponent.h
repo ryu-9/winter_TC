@@ -6,7 +6,7 @@
 class MoveComponent : public Component
 {
 public:
-	MoveComponent(class ActorClass* owner, int updateOrder = 100);
+	MoveComponent(class ActorClass* owner, bool gravity = TRUE, int updateOrder = 100);
 	virtual ~MoveComponent();
 
 	void Update();
@@ -25,6 +25,6 @@ private:
 	VECTOR _Velocity;
 
 	bool _Stand;
-
+	bool _Gravity;
 };
 

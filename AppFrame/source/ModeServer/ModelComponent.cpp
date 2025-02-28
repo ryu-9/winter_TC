@@ -14,6 +14,7 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	, _Rot(VGet(0, 0, 0))
 	, _Position(VGet(0, 0, 0))
 	, _Scale(VGet(1, 1, 1))
+	, _Center(VGet(0, 0, 0))
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
@@ -39,14 +40,23 @@ void ModelComponent::SetModelInfo()
 {
 	// 再生時間をセットする
 	MV1SetAttachAnimTime(_Handle, _AttachIndex, _PlayTime);
-	// 位置
-	MV1SetPosition(_Handle,VAdd(_Owner->GetPosition(), VMulti(_Position,_Owner->GetSize())));
+
 	// 向きからY軸回転を算出
 	VECTOR vRot = { 0,0,0 };
-	vRot.y = atan2(_Owner->GetDirection().x * -1, _Owner->GetDirection().z * -1);		// モデルが標準でどちらを向いているかで式が変わる(これは-zを向いている場合)
+	vRot = MV1GetRotationXYZ(_Handle);
 	MV1SetRotationXYZ(_Handle, GetRotation());
 	MV1SetRotationZYAxis(_Handle, GetFront(), GetUp(), 0);
 
+	if (_Front.z < 0.9 && _Front.z > -0.9) {
+		int test = 0;
+	}
+	VECTOR v = VScale(GetCenter(), -1);
+	v = VTransform(v, MGetRotX(vRot.x));
+	v = VTransform(v, MGetRotY(vRot.y));
+	v = VTransform(v, MGetRotZ(vRot.z));
+	v = VAdd(v, GetCenter());
+	// 位置
+	MV1SetPosition(_Handle, VAdd(VAdd(_Owner->GetPosition(), VMulti(_Position, _Owner->GetSize())), v));
 	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
 
 }
@@ -61,6 +71,13 @@ VECTOR ModelComponent::GetFront()
 		front = VTransform(front, MGetRotZ(Rot.z));
 	}
 	return front;
+}
+
+void ModelComponent::SetFront(VECTOR front)
+{
+	_Front = front;
+	MV1SetRotationZYAxis(_Handle, GetFront(), GetUp(), 0);
+	_Rot = MV1GetRotationXYZ(_Handle);
 }
 
 VECTOR ModelComponent::GetUp()
@@ -106,6 +123,11 @@ void ModelComponent::SetRotationZY(VECTOR front, VECTOR up)
 	_Up = up;
 	MV1SetRotationZYAxis(_Handle, front, up, 0);
 	_Rot = MV1GetRotationXYZ(_Handle);
+}
+
+VECTOR ModelComponent::GetCenter()
+{
+	return VMulti(_Center, _Owner->GetSize());
 }
 
 

@@ -5,6 +5,8 @@
 #include "SnowComponent.h"
 #include "ApplicationGlobal.h"
 #include "OutlineComponent.h"
+#include "PlayerCursorComponent.h"
+#include "PunchActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -16,6 +18,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _AnimTotalTime(0)
 	, _AnimIndex(-1)
 	, _AnimChangingflag(false)
+	, _PunchFlag(false)
+	, _InvincibleTime(0)
 {
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
@@ -30,36 +34,43 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BallModel->SetIndipendent(true);
 
 	float pi = 3.14159265358979323846;
-	_TopModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Upbody.mv1");
+	_TopModel = new ModelComponent(this, "res/model/Sundercross/Upbody_not outlined.mv1");
 	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
 	_TopModel->SetScale(VGet(2, 2, 2));
-	_TopModel->SetPosition(VGet(0, -180, 0));
+	_TopModel->SetPosition(VGet(0, -340, 0));
 	_TopModel->SetRotation(VGet(0, pi, 0));
+	_TopModel->SetCenter(VGet(0, 0 ,0 ));
+	//new OutlineComponent(this, "res/model/Sundercross/Upbody_outlined.mv1", _TopModel);
 
-	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Sundercross_Downbody.mv1");
+	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Downbody_not outlined.mv1");
 	_BottomModel->SetScale(VGet(2, 2, 2));
 	_BottomModel->SetPosition(VGet(0, -100, 0));
 	_BottomModel->SetRotation(VGet(0, pi, pi));
 	_TopModel->SetVisible(false);
 	_BottomModel->SetVisible(false);
+	//new OutlineComponent(this, "res/model/Sundercross/Downbody_outlined.mv1", _BottomModel);
 	//_MCollision = new MoveCollisionComponent(this);
 	//_MCollision->SetIsMove(true);
 	//_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
 	//_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
-	int n = rand() % 2;
+	_Cursor = new PlayerCursorComponent(this, _PlayerNo);
 	
 	_Input = new PlayerMoveComponent(this);
 	
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	SetSize(VGet(2, 2, 2));
+	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
 	_AnimationModel[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_move_motion.mv1");
+	_AnimationModel[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dash_motion.mv1");
+	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 
 	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
+
+	
 }
 
 PlayerActor::~PlayerActor()
@@ -85,6 +96,9 @@ void PlayerActor::UpdateActor() {
 	float dist;
 	int dt = FpsController::GetInstance()->GetDeltaTime();
 
+
+
+
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
 		if (_ChangeTime <= 0) {
@@ -94,42 +108,110 @@ void PlayerActor::UpdateActor() {
 
 	int animOrder = (int)anim::Wait;
 
+	if (_ModeNum != 0) {
+		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
+		//ChangeAnim(animOrder);
+		//_Friend->ChangeAnim(animOrder);
+		if (_AnimTime > _AnimTotalTime) {
+			if (_Animation == (int)anim::Walk) {
+				_AnimTime = 0;
+			}
+			else {
+				ChangeAnim((int)anim::Wait);
+				_AnimTime = 0;
+			}
 
+		}
+		{
+			int num = 0;
+			auto rate = _AnimationRate.begin();
+			while (rate != _AnimationRate.end()) {
+				num++;
+				if (num > _AnimationRate.size()) { break; }
+				if (rate->second < 1) {
+					if (rate->second <= 0) {
+						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
+						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
+						_AnimationRate.erase(rate++);
+						continue;
+					}
+					else if (rate->second > 0) {
+						rate->second -= 0.1;
+						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+					}
+				}
+				++rate;
+			}
+		}
+
+
+
+		switch (_ModeNum) {
+		case 1:
+			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
+
+		case 2:
+			//if (_Animation == (int)anim::Punch)
+			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
+		}
+
+
+	}
 
 	switch (_ModeNum) {
 	case 0:
 
 	{
+
+		if (_InvincibleTime > 0) {
+			_InvincibleTime -= dt;
+			if (_InvincibleTime / 50 % 2) {
+				_BallModel->SetVisible(false);
+			}
+			else {
+				_BallModel->SetVisible(true);
+			}
+		}
+		else {
+			_BallModel->SetVisible(true);
+		}
+
 		v = _Input->GetVelocity();
 		// �ړ��ʂ̃Z�b�g
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
 		float size = VSize(tmp) / 10000 / GetSize().x;
-		if (_Input->GetStand() == TRUE) {
+		if (_Input->GetStand()&&!_Input->GetDashFlag()) {
 			SetSize(VAdd(GetSize(), VGet(size, size, size)));
 
 			v = VSub(v, VScale(v, 0.001 * dt));
 			_Input->SetVelocity(v);
 		}
 
+		if (!_Input->GetDashFlag()) {
+			// �p�x��擾
+			rot = _BallModel->GetFront();
+			rot2 = _BallModel->GetUp();
 
-		// �p�x��擾
-		rot = _BallModel->GetFront();
-		rot2 = _BallModel->GetUp();
+			//	���x����p�x��Z�o
+			rot = VTransform(rot, MGetRotX(v.z / 75 / GetSize().x / 2));
+			rot = VTransform(rot, MGetRotZ(-v.x / 75 / GetSize().x / 2));
+			rot2 = VTransform(rot2, MGetRotX(v.z / 75 / GetSize().x / 2));
+			rot2 = VTransform(rot2, MGetRotZ(-v.x / 75 / GetSize().x / 2));
 
-		//	���x����p�x��Z�o
-		rot = VTransform(rot, MGetRotX(v.z / 100 / GetSize().x / 2));
-		rot = VTransform(rot, MGetRotZ(-v.x / 100 / GetSize().x / 2));
-		rot2 = VTransform(rot2, MGetRotX(v.z / 100 / GetSize().x / 2));
-		rot2 = VTransform(rot2, MGetRotZ(-v.x / 100 / GetSize().x / 2));
+			//	�p�x��Z�b�g
 
-		//	�p�x��Z�b�g
+			MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
-		MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
+			//_BallModel->SetFront(rot);
+//_BallModel->SetUp(rot2);
+			_BallModel->SetRotationZY(rot, rot2);
+		}
 
-		//_BallModel->SetFront(rot);
-		//_BallModel->SetUp(rot2);
-		_BallModel->SetRotationZY(rot, rot2);
+
+
 
 		if (_Friend == nullptr) { break; }
 		friSize = _Friend->GetSize().y;
@@ -154,7 +236,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				enemy->SetState(State::eDead);
+				h->GetOwner()->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a);
@@ -205,6 +287,21 @@ void PlayerActor::UpdateActor() {
 	break;
 
 	case 2:
+	{
+		VECTOR dir = _Cursor->GetTargetDir();
+		dir = VSub(_Cursor->GetHitPos(), GetPosition());
+		dir = VScale(dir, -1);
+		dir = VNorm(dir);
+		_TopModel->SetFront(VGet(dir.x, 0, dir.z));
+		_TopModel->SetUp(VGet(0, 1, 0));
+		if (_Animation == (int)anim::Punch && _AnimTime > 5 && !_PunchFlag)
+		{
+			new PunchActor(GetMode(), GetPosition(), VScale(dir, -GetSize().x * 10), VGet(0, 0, 0), GetSize().x * 3);
+			_PunchFlag = true;
+		}
+	
+	}
+
 		break;
 	case 3:
 	{
@@ -218,27 +315,7 @@ void PlayerActor::UpdateActor() {
 	}
 	}
 
-	if (_ModeNum != 0) {
-		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 100;
-		//ChangeAnim(animOrder);
-		//_Friend->ChangeAnim(animOrder);
-		if (_AnimTime > _AnimTotalTime) {
-			ChangeAnim((int)anim::Wait);
-			_AnimTime = 0;
-		}
 
-		switch (_ModeNum) {
-		case 1:
-			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
-			break;
-
-		case 2:
-			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
-			break;
-		}
-
-
-	}
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 }
 
@@ -265,6 +342,7 @@ void PlayerActor::ChangeMode(int mode)
 			delete _MCollision2;
 			_MCollision2 = nullptr;
 		}
+		_Cursor->SetActiveFalse();
 		break;
 	case 1:
 		_ModeNum = 1;
@@ -272,7 +350,7 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
@@ -281,8 +359,9 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 1000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
+		_Cursor->Init();
 		break;
 	case 3:
 		_ModeNum = 3;
@@ -331,24 +410,46 @@ void PlayerActor::ChangeAnim(int a) {
 			_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[2], TRUE);
 			_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 			changeSucFlag = true;
-			break;
+
 		}
+		break;
+
+	case (int)anim::Punch:
+		index = MV1GetAnimIndex(_AnimationModel[4], "reizo-kou_down");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[4], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[4], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
+
+
 
 
 
 	}
 	_AnimChangingflag = false;
 	if (changeSucFlag) {
-		MV1DetachAnim(_TopModel->GetHandle(), oldindex);
-		MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+
+
+		_AnimationRate[_AnimIndex] = 1;
+
+
+		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
+		//MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+		_AnimationRate[oldindex] = 0.99;
 		_Animation = a;
 		_AnimTime = 0;
+		_PunchFlag = false;
 	}
 
 }
 
 void PlayerActor::Damage(float damage) {
-	if (_ModeNum == 0) {
+	if (_ModeNum == 0 && _InvincibleTime <= 0) {
+		_InvincibleTime = 1000;
+		if (_Input->GetDashFlag()) {
+			damage /= 2;
+		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
 		if (VSize(GetSize()) < 0.1) {
 			ChangeMode(3);

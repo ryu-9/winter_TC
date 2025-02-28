@@ -1,6 +1,7 @@
 #include "SpriteComponent.h"
 #include "ActorClass.h"
 
+
 SpriteComponent::SpriteComponent(ActorClass* owner, int drawOrder)
 	:Component(owner)
 	, _DrawOrder(drawOrder)

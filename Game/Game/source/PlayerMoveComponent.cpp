@@ -9,6 +9,7 @@ PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	,_colSubY(40.f)
 	,_DashTime(0)
 	,_DashDir(VGet(0,0,1))
+	, _DashFlag(false)
 {
 
 }
@@ -67,14 +68,22 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = -cos(rad + camrad) * length;
 		v.z = -sin(rad + camrad) * length;
-		if (_DashTime <= mvSpeed) {
+		if (_DashTime <= 0) {
 			if (v.x != 0 || v.z != 0) {
-				_DashDir = VNorm(v);
+
+				_DashDir =v;
+				_DashDir.y = 0;
+				_DashDir = VNorm(_DashDir);
+			}
+			if (_DashFlag) {
+				_DashFlag = false;
+				velocity = VGet(0, 0, 0);
 			}
 		}
 		else {
-			_DashTime--;
-			v = VScale(_DashDir, _DashTime);
+			_DashFlag = true;
+			_DashTime -= FpsController::GetInstance()->GetDeltaTime();
+			velocity = VScale(_DashDir, 20);
 		}
 
 		{
@@ -105,7 +114,7 @@ void PlayerMoveComponent::ProcessInput()
 
 
 		if (trg & PAD_INPUT_4 && _DashTime <= mvSpeed) {
-			_DashTime = 100;
+			_DashTime = 500;
 		}
 		if (trg & PAD_INPUT_3) {
 			velocity.y = 10;
@@ -140,14 +149,14 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = -cos(rad + camrad) * length;
 		v.z = -sin(rad + camrad) * length;
-		if (_DashTime <= mvSpeed) {
+		if (_DashTime <= 0) {
 			if (v.x != 0 || v.z != 0) {
 				_DashDir = VNorm(v);
 			}
 		}
 		else {
-			_DashTime-=5;
-			v = VScale(_DashDir, _DashTime);
+			_DashTime-=FpsController::GetInstance()->GetDeltaTime();
+			v = VScale(_DashDir, 5);
 		}
 
 		// �ړ��O�̈ʒu��ۑ�
@@ -167,10 +176,11 @@ void PlayerMoveComponent::ProcessInput()
 			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
 		}
 
+		v = VScale(v, _Owner->GetSize().x / _pOwner->GetFriend()->GetSize().x);
 		v.y = GetVelocity().y;
 
 		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
-			_DashTime = 100;
+			_DashTime = 200;
 		}
 		if (trg & PAD_INPUT_3) {
 			v.y = 10;
@@ -184,6 +194,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 		//_pOwner->SetMove(v);
+
 		SetVelocity(v);
 
 
@@ -197,8 +208,11 @@ void PlayerMoveComponent::ProcessInput()
 
 		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
 		VECTOR v = _pOwner->GetFriend()->GetPosition();
-		_pOwner->SetPosition(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, v.z));
+		_pOwner->SetPosition(VAdd(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, v.z), VScale( VGet(0, 160, 0), _pOwner->GetSize().x)));
 		
+		if (trg & PAD_INPUT_3) {
+			_pOwner->ChangeAnim(4);
+		}
 
 		break;
 	}

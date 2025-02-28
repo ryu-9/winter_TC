@@ -1,6 +1,7 @@
 
 #include "ApplicationBase.h"
 #include <vector>
+#include <EffekseerForDXLib.h>
 
 ApplicationBase	*ApplicationBase::_lpInstance = NULL;
 
@@ -21,11 +22,20 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 	SetZBufferBitDepth(32);	// Zバッファのビット深度を24bitに設定
 
+	
+	SetUseDirect3DVersion(DX_DIRECT3D_11);	// Direct3D11を使用する
+
 	if (DxLib_Init() == -1)
 	{	// エラーが起きたら直ちに終了
 		return false;
 	}
 	SetDrawScreen(DX_SCREEN_BACK);		// 描画先画面を裏画面にセット
+
+	if (Effekseer_Init(8000) == -1) {
+		return false;
+	}
+
+	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
 	// 乱数初期化
 	srand((unsigned int)time(NULL));
@@ -40,6 +50,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 bool ApplicationBase::Terminate() {
 	// DXライブラリ開放
+	Effkseer_End();
 	DxLib_End();
 
 	return true;

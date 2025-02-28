@@ -17,7 +17,7 @@ public:
 	int GetHandle() const { return _Handle; }
 
 	VECTOR GetFront();
-	void SetFront(VECTOR front) { _Front = front; }
+	void SetFront(VECTOR front);
 
 	VECTOR GetUp();
 	void SetUp(VECTOR up) { _Up = up; }
@@ -37,6 +37,8 @@ public:
 
 	void SetRotationZY(VECTOR front, VECTOR up);
 
+	VECTOR GetCenter();
+	void SetCenter(VECTOR center) { _Center = center; }
 
 private:
 
@@ -52,6 +54,7 @@ private:
 
 	VECTOR _Position;
 	VECTOR _Scale;
+	VECTOR _Center;
 
 	bool _Indipendent;
 };

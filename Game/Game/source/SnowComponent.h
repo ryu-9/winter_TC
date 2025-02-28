@@ -24,6 +24,7 @@ private:
 	std::deque<MoveCollisionComponent*> _OldMCList;
 
 	int _Split;
+	int _Handle;
 
 };
 

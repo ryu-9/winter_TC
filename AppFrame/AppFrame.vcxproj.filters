@@ -102,6 +102,9 @@
     <ClInclude Include="source\EffectServer\PlayerEmphasisEffect.h">
       <Filter>EffectServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\EffectSpriteComponent.h">
+      <Filter>ModeServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -178,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="source\EffectServer\PlayerEmphasisEffect.cpp">
       <Filter>EffectServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\EffectSpriteComponent.cpp">
+      <Filter>ModeServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
