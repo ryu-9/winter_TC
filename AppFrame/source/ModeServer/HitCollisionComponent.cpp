@@ -115,3 +115,4 @@ void HitCollisionComponent::RefleshCollInfo()
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 	MV1SetupCollInfo(Handle);
 }
+

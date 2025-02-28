@@ -1,89 +1,91 @@
 #pragma once
 #include "ModeBase.h"
+#include "ActorClass.h"
 #include "Component.h"
+
 #include <deque>
 
 
-class HitCollisionComponent : public	Component
+class HitCollisionComponent : public Component
 {
 public:
-	HitCollisionComponent(class ActorClass* owner, class ModelComponent* model, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
-		, int type = 0, bool move = FALSE, bool active = TRUE, int handle = -1);
+    HitCollisionComponent(class ActorClass* owner, class ModelComponent* model, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
+        , int type = 0, bool move = FALSE, bool active = TRUE, int handle = -1);
 
-	~HitCollisionComponent() override;
+    ~HitCollisionComponent() override;
+
+    std::deque<HitCollisionComponent*>& IsHit();
 
 
+    void Update() override;
 
-	std::deque<HitCollisionComponent*>& IsHit();
-	void Update() override;
+    void RefleshCollInfo();
 
-	void RefleshCollInfo();
+    VECTOR GetPosition();
+    VECTOR GetSize();
+    VECTOR GetOldPosition() const { return OldPos; }
 
-	VECTOR GetPosition();
-	VECTOR GetSize();
-	VECTOR GetOldPosition() const { return OldPos; }
+    VECTOR GetUp();
+    VECTOR GetFront();
+    VECTOR GetRight();
 
-	VECTOR GetUp();
-	VECTOR GetFront();
-	VECTOR GetRight();
+    VECTOR GetRPosition() const { return Pos; }
+    VECTOR GetRSize() const { return Size; }
 
-	VECTOR GetRPosition() const { return Pos; }
-	VECTOR GetRSize() const { return Size; }
+    void SetRPosition(VECTOR pos) { Pos = pos; }
+    void SetRSize(VECTOR size) { Size = size; }
 
-	void SetRPosition(VECTOR pos) { Pos = pos; }
-	void SetRSize(VECTOR size) { Size = size; }
+    int GetType() const { return Type; }
+    void SetType(int type) { Type = type; }
+    // collisionの形　0: 球 1:線分 2:カプセル 3:メッシュ
 
-	int GetType() const { return Type; }
-	void SetType(int type) { Type = type; }
-	// collisionの形　0: 球 1:線分 2:カプセル 3:メッシュ
+    bool GetIsMove() const { return isMove; }
+    void SetIsMove(bool move) { isMove = move; }
 
-	bool GetIsMove() const { return isMove; }
-	void SetIsMove(bool move) { isMove = move; }
+    bool GetIsActive() const { return isActive; }
+    void SetIsActive(bool active) { isActive = active; }
 
-	bool GetIsActive() const { return isActive; }
-	void SetIsActive(bool active) { isActive = active; }
+    int GetHandle() const { return Handle; }
+    void SetHandle(int handle) { Handle = handle; }
 
-	int GetHandle() const { return Handle; }
-	void SetHandle(int handle) { Handle = handle; }
+    void DebugDraw();
 
-	void DebugDraw();
+    bool GetFlag() const { return flag; }
 
-	bool GetFlag() const { return flag; }
-
-	void SetRotation(VECTOR rot);
+    void SetRotation(VECTOR rot);
 
 private:
-	// 位置
-	VECTOR Pos;
+    // 位置
+    VECTOR Pos;
 
-	// サイズ
-	VECTOR Size;
+    // サイズ
+    VECTOR Size;
 
-	VECTOR Rot;
-	VECTOR Front;
-	VECTOR Up;
+    VECTOR Rot;
+    VECTOR Front;
+    VECTOR Up;
 
-	// collisionの形
-	int Type;
+    // collisionの形
+    int Type;
 
-	//	移動するか
-	bool isMove;
+    // 移動するか
+    bool isMove;
 
-	//	アクティブか
-	bool isActive;
+    // アクティブか
+    bool isActive;
 
-	//	モデルハンドル
-	int Handle;
+    // モデルハンドル
+    int Handle;
 
-	bool flag;
-	bool shomen;
-	VECTOR OldMove;
-	VECTOR OldPos;
+    bool flag;
+    bool shomen;
+    VECTOR OldMove;
+    VECTOR OldPos;
 
-	VECTOR devpos;
+    VECTOR devpos;
 
-	class ModelComponent* _Model;
+    class ModelComponent* _Model;
 
-	std::deque<HitCollisionComponent*> _IsHitList;
+    std::deque<HitCollisionComponent*> _IsHitList;
 };
 

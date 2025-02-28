@@ -39,7 +39,11 @@ private:
 		Walk,
 		Dash,
 		Punch,
+		Num
 	};
+
+	std::map<int, float>_AnimationRate;
+
 
 	class PlayerMoveComponent* _Input;
 
@@ -66,9 +70,12 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[5];
+	int _AnimationModel[6];
 	bool _AnimChangingflag;
 
+	int _PunchIndex[2];
+
 	bool _PunchFlag;
+	int _InvincibleTime;
 };
 
