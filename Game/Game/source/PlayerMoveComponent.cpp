@@ -176,6 +176,7 @@ void PlayerMoveComponent::ProcessInput()
 			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
 		}
 
+		v = VScale(v, _Owner->GetSize().x / _pOwner->GetFriend()->GetSize().x);
 		v.y = GetVelocity().y;
 
 		if (trg & PAD_INPUT_4 && _DashTime <= 0) {
@@ -193,6 +194,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 		//_pOwner->SetMove(v);
+
 		SetVelocity(v);
 
 

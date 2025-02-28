@@ -174,6 +174,7 @@
     <ClCompile Include="source\EnemySpawnerActor.cpp" />
     <ClCompile Include="source\ioJson.cpp" />
     <ClCompile Include="source\ioJsonText.cpp" />
+    <ClCompile Include="source\ItemActor.cpp" />
     <ClCompile Include="source\ModeEnemyCon.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="source\EnemyStruct.h" />
     <ClInclude Include="source\ioJson.h" />
     <ClInclude Include="source\ioJsonText.h" />
+    <ClInclude Include="source\ItemActor.h" />
     <ClInclude Include="source\ModeEnemyCon.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameOver.h" />

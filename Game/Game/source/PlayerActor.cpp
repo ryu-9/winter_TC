@@ -19,6 +19,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _AnimIndex(-1)
 	, _AnimChangingflag(false)
 	, _PunchFlag(false)
+	, _InvincibleTime(0)
 {
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
@@ -59,7 +60,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	SetSize(VGet(2, 2, 2));
+	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
@@ -68,6 +69,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 
 	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
+
+	
 }
 
 PlayerActor::~PlayerActor()
@@ -93,6 +96,9 @@ void PlayerActor::UpdateActor() {
 	float dist;
 	int dt = FpsController::GetInstance()->GetDeltaTime();
 
+
+
+
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
 		if (_ChangeTime <= 0) {
@@ -102,12 +108,76 @@ void PlayerActor::UpdateActor() {
 
 	int animOrder = (int)anim::Wait;
 
+	if (_ModeNum != 0) {
+		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
+		//ChangeAnim(animOrder);
+		//_Friend->ChangeAnim(animOrder);
+		if (_AnimTime > _AnimTotalTime) {
+			if (_Animation == (int)anim::Walk) {
+				_AnimTime = 0;
+			}
+			else {
+				ChangeAnim((int)anim::Wait);
+				_AnimTime = 0;
+			}
 
+		}
+		{
+			int num = 0;
+			auto rate = _AnimationRate.begin();
+			while (rate != _AnimationRate.end()) {
+				num++;
+				if (num > _AnimationRate.size()) { break; }
+				if (rate->second < 1) {
+					if (rate->second <= 0) {
+						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
+						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
+						_AnimationRate.erase(rate++);
+						continue;
+					}
+					else if (rate->second > 0) {
+						rate->second -= 0.1;
+						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+					}
+				}
+				++rate;
+			}
+		}
+
+
+
+		switch (_ModeNum) {
+		case 1:
+			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
+
+		case 2:
+			//if (_Animation == (int)anim::Punch)
+			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
+			break;
+		}
+
+
+	}
 
 	switch (_ModeNum) {
 	case 0:
 
 	{
+
+		if (_InvincibleTime > 0) {
+			_InvincibleTime -= dt;
+			if (_InvincibleTime / 50 % 2) {
+				_BallModel->SetVisible(false);
+			}
+			else {
+				_BallModel->SetVisible(true);
+			}
+		}
+		else {
+			_BallModel->SetVisible(true);
+		}
+
 		v = _Input->GetVelocity();
 		// �ړ��ʂ̃Z�b�g
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
@@ -166,7 +236,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				enemy->SetState(State::eDead);
+				h->GetOwner()->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a);
@@ -245,28 +315,7 @@ void PlayerActor::UpdateActor() {
 	}
 	}
 
-	if (_ModeNum != 0) {
-		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
-		//ChangeAnim(animOrder);
-		//_Friend->ChangeAnim(animOrder);
-		if (_AnimTime > _AnimTotalTime) {
-			ChangeAnim((int)anim::Wait);
-			_AnimTime = 0;
-		}
 
-		switch (_ModeNum) {
-		case 1:
-			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
-			break;
-
-		case 2:
-			//if (_Animation == (int)anim::Punch)
-			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
-			break;
-		}
-
-
-	}
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 }
 
@@ -380,8 +429,14 @@ void PlayerActor::ChangeAnim(int a) {
 	}
 	_AnimChangingflag = false;
 	if (changeSucFlag) {
-		MV1DetachAnim(_TopModel->GetHandle(), oldindex);
-		MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+
+
+		_AnimationRate[_AnimIndex] = 1;
+
+
+		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
+		//MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
+		_AnimationRate[oldindex] = 0.99;
 		_Animation = a;
 		_AnimTime = 0;
 		_PunchFlag = false;
@@ -390,7 +445,8 @@ void PlayerActor::ChangeAnim(int a) {
 }
 
 void PlayerActor::Damage(float damage) {
-	if (_ModeNum == 0) {
+	if (_ModeNum == 0 && _InvincibleTime <= 0) {
+		_InvincibleTime = 1000;
 		if (_Input->GetDashFlag()) {
 			damage /= 2;
 		}
