@@ -7,17 +7,17 @@
 
 #include "../Application/ApplicationBase.h"
 
-// �R���X�g���N�^
+
 MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	: Component(owner)
 	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0)), OldMove(VGet(0, 0, 0)), devpos(VGet(0, 0, 0))
 	, flag(false), shomen(false)
 {
-	// ���[�h�ɂ��̃R���|�[�l���g��ǉ�
+	// モードに追加
 	_Owner->GetMode()->AddMCollision(this);
 
-	// �ړ��\�ȏꍇ�AMoveComponent��擾
+	// 移動するならMoveComponentを取得
 	if (isMove == TRUE) {
 		auto m = _Owner->GetComponent<MoveComponent>();
 		if (m.size() > 0) {
@@ -25,10 +25,10 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 		}
 	}
 	OldPos = GetPosition();
-	// �^�C�v��2�ȉ��̏ꍇ�͏�������I��
+	
 	if (type == 2) { return; }
 
-	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
+	// modelがnullptrならModelComponentを取得
 	ModelComponent* modelComp;
 	if (model == nullptr)
 	{
