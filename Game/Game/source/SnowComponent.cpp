@@ -4,6 +4,7 @@
 SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool flag0, bool flag1, bool flag2)
 	:SpriteComponent(owner)
 	, _Split(25)
+	, _Flag(FALSE)
 {
 
 	_Handle = ModelServer::GetInstance()->AddGraph("res/Stage/Maptexture_ground.png");
@@ -15,18 +16,20 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	if (tmp > dist) { dist = tmp; longestnum = 1; }
 	tmp = VSize(VSub(m.Position[2], m.Position[0]));
 	if (tmp > dist) { dist = tmp; longestnum = 2; }
-
+	
 	std::vector<unsigned short> index;
 	std::vector<VERTEX3D> snow;
 	VECTOR root = m.Position[0];
 	VECTOR a = VSub(m.Position[1], root);
 	VECTOR b = VSub(m.Position[2], root);
+
+
 	if (root.z > a.z) { 
 		VECTOR tmpv = root;
 		root = VAdd(root, a);
 		a = VSub(tmpv, root);
 		b = VSub(VAdd(b, tmpv), root);
-			; }
+	}
 	if (root.z > b.z) {
 		VECTOR tmpv = root;
 		root = VAdd(root, b);
@@ -38,6 +41,15 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 		a = b;
 		b = tmpv;
 	}
+
+	int minx = m.Position[0].x;
+	if(minx > m.Position[1].x){ minx = m.Position[1].x; }
+	if(minx > m.Position[2].x){ minx = m.Position[2].x; }
+	minx /= 500;
+	int minz = m.Position[0].z;
+	if(minz > m.Position[1].z){ minz = m.Position[1].z; }
+	if(minz > m.Position[2].z){ minz = m.Position[2].z; }
+	minz /= 500;
 
 	int num = dist / _Split + 1;
 
@@ -93,10 +105,11 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 			tmp.norm = m.Normal;
 			tmp.dif = GetColorU8(255, 255, 255, 255);
 			tmp.spc = GetColorU8(0, 0, 0, 0);
-			tmp.u = p.x / 500 - (int)(p.x / 500);
-			if (tmp.u < 0) { tmp.u += 1; }
-			tmp.v = p.z / 500 - (int)(p.z / 500);
-			if (tmp.v < 0) { tmp.v += 1; }
+			tmp.u = p.x / 500 - minx + 1;
+			tmp.v = p.z / 500 - minz + 1;
+			if(tmp.u < 0 || tmp.v < 0){
+				int test = 0;
+			}
 			tmp.su = 1;
 			tmp.sv = 1;
 			if (j == 0 && flag0) {
@@ -205,6 +218,16 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 		ec->GetShadowMap(0)->AddRemoveSprite(this);
 	}
 
+	_LowSnow[0] = _Snow[1]; _LowSnow[1] = _Snow[0]; _LowSnow[2] = _Snow[_SnowSize - 2 * num - 3];
+	_LowSnow[3] = _Snow[_SnowSize - num - 1]; _LowSnow[4] = _Snow[_SnowSize - num - 3]; _LowSnow[5] = _Snow[_SnowSize - 1];
+
+	_LowIndex[0] = 0; _LowIndex[1] = 1; _LowIndex[2] = 2; _LowIndex[3] = 1; _LowIndex[4] = 3; _LowIndex[5] = 2;
+	_LowIndex[6] = 3; _LowIndex[7] = 4; _LowIndex[8] = 5; _LowIndex[9] = 3; _LowIndex[10] = 5; _LowIndex[11] = 2;
+	_LowIndex[12] = 4; _LowIndex[13] = 5; _LowIndex[14] = 0; _LowIndex[15] = 5; _LowIndex[16] = 1; _LowIndex[17] = 0;
+	_LowIndex[18] = 0; _LowIndex[19] = 2; _LowIndex[20] = 4;
+
+
+
 }
 
 SnowComponent::~SnowComponent()
@@ -223,7 +246,7 @@ void SnowComponent::Draw()
 	int calc = 0;
 	int split = 2 * _Split * _Split;
 
-
+	SetTextureAddressModeUV(DX_TEXADDRESS_WRAP, DX_TEXADDRESS_WRAP);
 	/*
 	DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, DX_NONE_GRAPH, FALSE);
 	_MCList.clear();
@@ -284,6 +307,7 @@ void SnowComponent::Draw()
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
 				_Height[i] = -depth;
+				_Flag = TRUE;
 			}
 			calc--;
 			if (calc < 0) {
@@ -309,13 +333,18 @@ void SnowComponent::Draw()
 		debugnum = 0;
 	}
 
-	for (int i = 0; i < _SnowSize; i++) {
-		if (_Height[i] < 0) {
-			_Height[i]+= 0.01;
-			_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, 0.01, 0));
+	if (_Flag) {
+		_Flag = FALSE;
+		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] < 0) {
+				_Height[i] += 0.01;
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, 0.01, 0));
+				_Flag = TRUE;
+			}
+
 		}
-		
 	}
+
 
 	MATERIALPARAM MatParam;
 
@@ -327,8 +356,9 @@ void SnowComponent::Draw()
 
 	// マテリアルのパラメータをセット
 	SetMaterialParam(MatParam);
+	if (_Flag) { DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, _Handle, FALSE); }
+	else { DrawPolygonIndexed3D(_LowSnow, 6, _LowIndex, 7, _Handle, FALSE); }
 
-	int debug = DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize/3, _Handle, FALSE);
 	//_OldMCList = _MCList;
 	_MCList.clear();
 	return;

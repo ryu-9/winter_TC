@@ -12,8 +12,10 @@ public:
 
 private:
 	VERTEX3D* _Snow;
+	VERTEX3D _LowSnow[6];
 	int _SnowSize;
 	unsigned short* _Index;
+	unsigned short _LowIndex[21];
 	int _IndexSize;
 	float* _Height;
 	VECTOR _Normal;
@@ -25,6 +27,8 @@ private:
 
 	int _Split;
 	int _Handle;
+
+	bool _Flag;
 
 };
 
