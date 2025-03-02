@@ -1,8 +1,9 @@
 #include "EffectManager.h"
 #include "EffectController.h"
 
-EffectManager::EffectManager(SpriteComponent* sp)
-	:_Sprite(sp)
+
+EffectManager::EffectManager(ActorClass* owner, int draworder)
+	:SpriteComponent(owner, draworder)
 {
 }
 
@@ -10,7 +11,10 @@ EffectManager::~EffectManager()
 {
 }
 
-void EffectManager::Draw()
+void EffectManager::SetIsUse(bool flag)
 {
-	_Sprite->Draw();
+	_IsUse = flag;
 }
+
+
+

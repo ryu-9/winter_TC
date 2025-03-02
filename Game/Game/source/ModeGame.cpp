@@ -129,6 +129,10 @@ bool ModeGame::Render() {
 	Effekseer_Sync3DSetting();
 	
 	SetUseLighting(TRUE);
+
+
+
+
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(0.75, -1, 0.75));
@@ -158,7 +162,9 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 	
-	//_EffectController -> Draw();
+	_EffectController -> Draw();
+
+	return true;
 
 	base::Render();
 

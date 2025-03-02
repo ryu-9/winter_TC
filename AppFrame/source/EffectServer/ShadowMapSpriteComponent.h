@@ -1,7 +1,8 @@
 #pragma once
-#include "Component.h"
+#include "../AppFrame/source/ModeServer/SpriteComponent.h"
 #include "Dxlib.h"
-#include "ModeBase.h"
+
+
 
 class ShadowMapSpriteComponent : public SpriteComponent
 {
@@ -35,10 +36,14 @@ public:
 	void SetMaxLength(VECTOR max) { _MaxLength = max; }
 	VECTOR GetMaxLength() const { return _MaxLength; }
 
+	void SetIsDraw(bool isDraw) { _IsDraw = isDraw; }
+	bool GetIsDraw() const { return _IsDraw; }
+
 
 
 private:
 	int _Index;
+	bool _IsDraw;
 	VECTOR _MinLength;
 	VECTOR _MaxLength;
 	int _Handle;

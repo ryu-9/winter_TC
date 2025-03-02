@@ -94,9 +94,9 @@ void CameraComponent::ProcessInput()
 	if (_Dist > 10000) { _Dist = 10000; }
 	v = VScale(v, 0.5f);
 
-	EffectController::GetInstance()->GetShadowMap(0)->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-_Dist, -_Dist, -_Dist));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(_Dist, _Dist, _Dist));
+	EffectController::GetInstance()->GetShadowMap(0)->SetTarget(VGet(v.x, -100, v.z));
+	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-_Dist, -_Dist, 0));
+	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(_Dist, _Dist, _Dist * 4));
 	EffectController::GetInstance()->GetShadowMap(1)->SetTarget(_Player[0]->GetPosition());
 	EffectController::GetInstance()->GetShadowMap(1)->SetMinLength(VGet(-_Player[0]->GetSize().x * 200, -_Player[0]->GetPosition().y, -_Player[0]->GetSize().x * 200));
 	EffectController::GetInstance()->GetShadowMap(1)->SetMaxLength(VScale(_Player[0]->GetSize(), 200));

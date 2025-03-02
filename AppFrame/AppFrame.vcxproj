@@ -169,6 +169,7 @@
     <ClInclude Include="source\EffectServer\EffectManager.h" />
     <ClInclude Include="source\EffectServer\EffectController.h" />
     <ClInclude Include="source\EffectServer\PlayerEmphasisEffect.h" />
+    <ClInclude Include="source\EffectServer\ShadowMapSpriteComponent.h" />
     <ClInclude Include="source\ModelServer\ModelServer.h" />
     <ClInclude Include="source\ModeServer\ActorClass.h" />
     <ClInclude Include="source\ModeServer\Actor\UIChipClass.h" />
@@ -183,7 +184,6 @@
     <ClInclude Include="source\ModeServer\ModeServer.h" />
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
-    <ClInclude Include="source\ModeServer\ShadowMapSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
     <ClInclude Include="source\SoundServer\SoundComponent.h" />
     <ClInclude Include="source\SoundServer\SEComponent.h" />
@@ -197,6 +197,7 @@
     <ClCompile Include="source\EffectServer\EffectManager.cpp" />
     <ClCompile Include="source\EffectServer\EffectController.cpp" />
     <ClCompile Include="source\EffectServer\PlayerEmphasisEffect.cpp" />
+    <ClCompile Include="source\EffectServer\ShadowMapSpriteComponent.cpp" />
     <ClCompile Include="source\ModelServer\ModelServer.cpp" />
     <ClCompile Include="source\ModeServer\ActorClass.cpp" />
     <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp" />
@@ -211,7 +212,6 @@
     <ClCompile Include="source\ModeServer\ModeServer.cpp" />
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
-    <ClCompile Include="source\ModeServer\ShadowMapSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
     <ClCompile Include="source\SoundServer\SEComponent.cpp" />

@@ -5,6 +5,7 @@ ShadowMapSpriteComponent::ShadowMapSpriteComponent(ActorClass* owner, int size, 
 	, _Direction(dir)
 	, _Target(target)
 	, _Index(index)
+	, _IsDraw(TRUE)
 {
 	_Handle = MakeShadowMap(size, size);
 	_MinLength = VGet(-length, -length, -length);

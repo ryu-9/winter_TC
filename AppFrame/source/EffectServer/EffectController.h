@@ -4,7 +4,6 @@
 #include "../ModeServer/ActorClass.h"
 #include "EffectManager.h"
 #include "../ModeServer/ModeBase.h"
-#include "../AppFrame/source/ModeServer/ShadowMapSpriteComponent.h"
 #include "PlayerEmphasisEffect.h"
 
 
@@ -22,7 +21,8 @@ public:
 	void AddEffect(EffectManager* effect);
 	void DelEffect(EffectManager* effect);
 
-	EffectManager* GetEffectManager(SpriteComponent* sp);
+	template <typename T>
+	std::deque<T*> GetEffect();
 
 	void AddShadowMap(int size = 1024, VECTOR dir = VGet(0, -1, 0), VECTOR target = VGet(0, 0, 0), int index = -1, float length = 100, int drawOrder = -1000000);
 	void SetShadowMapUse(int num, bool flag);
@@ -31,17 +31,48 @@ public:
 
 	void AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder = 200);
 
-	ShadowMapSpriteComponent* GetShadowMap(int num) { return _ShadowMapList[num]; }
+	class ShadowMapSpriteComponent* GetShadowMap(int num);
 
 
 	bool SearchFlag(std::map<std::string, bool>* flagList, std::string flagname);
 
 private:
 	std::deque<EffectManager*> _EffectList;
-	ModeBase* _Mode;
-	std::deque<ShadowMapSpriteComponent*> _ShadowMapList;
-	std::deque<bool> _ShadowMapFlagList;
-	std::deque<PlayerEmphasisEffect*> _EmphasisEffectList;
 
+	std::deque<PlayerEmphasisEffect*> _EmphasisEffectList;
+	std::map<SpriteComponent*, std::map<std::string, bool>> _FlagList;
+
+};
+
+template <typename T>
+std::deque<T*> EffectController::GetEffect()
+{
+	std::deque<T*> ret;
+	for (auto& em : _EffectList) {
+		T* castedComp = dynamic_cast<T*>(em);
+		if (castedComp != nullptr) {
+			ret.emplace_back(castedComp);
+		}
+	}
+	return ret;
+}
+
+
+class FogSpriteComponent : public SpriteComponent
+{
+public:
+	FogSpriteComponent(ActorClass* owner, int draworder = -1000000, unsigned int color, float mindist, float maxdist);
+	virtual ~FogSpriteComponent();
+
+	void Draw() override;
+
+	bool GetIsDraw() { return _IsDraw; }
+	void SetIsDraw(bool flag) { _IsDraw = flag; }
+
+private:
+	unsigned int _Color;
+	bool _IsDraw;
+	float _MinDist;
+	float _MaxDist;
 };
 

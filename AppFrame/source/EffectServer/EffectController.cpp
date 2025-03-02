@@ -5,7 +5,6 @@ EffectController* EffectController::_lpInstance = nullptr;
 
 EffectController::EffectController(ModeBase* mode)
 	:ActorClass(mode)
-	,_Mode(mode)
 {
 	_lpInstance = this;
 
@@ -21,7 +20,44 @@ EffectController::~EffectController()
 
 void EffectController::Draw()
 {
+	//エフェクトの描画
 	auto sp = _Mode->GetSprites();
+	for (int i = 0; i < sp.size(); i++)
+	{
+		auto iter = _FlagList.find(sp[i]);
+		if (iter == _FlagList.end()) {
+			for(int j = 0; j < _EffectList.size(); j++) {
+				_EffectList[i]->SetIsUse(_EffectList[i]->GetIsUse());
+			}
+		}
+		else {
+		
+		}
+		bool flag;
+
+		for (int j = 0; j < _EffectList.size(); j++) {
+			auto iter = _FlagList.find(sp[i]);
+			if (iter == _FlagList.end()) {
+				flag = _EffectList[j]->GetIsUse();
+			}
+			else {
+				auto iter2 = iter->second.find("ShadowMap" + std::to_string(j));
+				if (iter2 == iter->second.end()) {
+					flag = _ShadowMapList[j]->GetIsDraw();
+				}
+				else {
+					flag = iter2->second;
+				}
+			}
+			if (flag) {
+				SetUseShadowMap(j, _ShadowMapList[j]->GetHandle());
+			}
+		}
+		sp[i]->Draw();
+	}
+
+	/*
+		auto sp = _Mode->GetSprites();
 	for (int i = 0; i < sp.size(); i++)
 	{
 		if (i < _EffectList.size()) {
@@ -35,6 +71,8 @@ void EffectController::Draw()
 		}
 		sp[i]->Draw();
 	}
+	*/
+
 }
 
 void EffectController::AddEffect(EffectManager* effect)
@@ -111,3 +149,26 @@ bool EffectController::SearchFlag(std::map<std::string, bool>* flagList, std::st
 	}
 	return iter->second;
 }
+
+
+
+FogSpriteComponent::FogSpriteComponent(ActorClass* owner, int draworder, unsigned int color, float mindist, float maxdist)
+	:SpriteComponent(owner, draworder)
+	,_Color(color)
+	,_MinDist(mindist)
+	,_MaxDist(maxdist)
+	,_IsDraw(TRUE)
+{
+}
+
+FogSpriteComponent::~FogSpriteComponent()
+{
+}
+
+void FogSpriteComponent::Draw()
+{
+	SetFogEnable(TRUE);					// フォグを有効にする
+	SetFogColor(190, 200, 255);			// フォグの色
+	SetFogStartEnd(1000.0f, 6000.0f);	// フォグの適用距離
+}
+
