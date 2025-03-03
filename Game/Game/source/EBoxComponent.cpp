@@ -16,17 +16,15 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
 	_Weight.push_back(3);
 	_Weight.push_back(4);
-	_HalfSize = 0;
+	_HalfSize = 20;
+	_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
 }
 
 
 EBoxComponent::~EBoxComponent() {}
 
 void EBoxComponent::ProcessInput() {
-	if (_HalfSize == 0&& _Owner->GetComponent<MoveComponent>()[0]->GetStand()) {
-		_HalfSize = 15;
-		_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
-	}
+	
 	bool flag = false;
 	switch (_Status) {
 	case STATUS::NON:
@@ -101,6 +99,8 @@ bool EBoxComponent::Attack() {
 			}
 			break;
 		}
+
+		_MoveDist = ((float)_HalfSize * 2.0f) / (float)_Duration;
 	}
 
 	if (_CurrentTime < _Duration) {
@@ -117,14 +117,14 @@ bool EBoxComponent::Attack() {
 		// ‰ñ“]ˆÚ“®•ª‚ÌƒxƒNƒgƒ‹‚ð‰ÁŽZ
 		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
 
-		vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / (float)_Duration) * (float)tm));
+		vel = VAdd(VGet(0, vel.y, 0), VScale(_MoveDir, (_MoveDist * (float)tm)));
 		_En->GetInput()->SetVelocity(vel);
-		auto pos = _Owner->GetPosition();
-		pos.y = y * 0.8;
-		_Owner->SetPosition(pos);
+		
 
 	}
-
+	if (_CurrentTime > _Duration) {
+		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
+	}
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration + _CoolTime) {
@@ -166,6 +166,7 @@ bool EBoxComponent::Move() {
 			}
 			break;
 		}
+		_MoveDist = ((float)_HalfSize * 2.0f) / (float)_Duration;
 	}
 
 	if (_CurrentTime < _Duration) {
@@ -180,19 +181,15 @@ bool EBoxComponent::Move() {
 		// ˆÚ“®
 		auto vel = _En->GetInput()->GetVelocity();
 		// ‰ñ“]ˆÚ“®•ª‚ÌƒxƒNƒgƒ‹‚ð‰ÁŽZ
-		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)));
-		if (vel.y < -0.1) {
-			
-		} else {
-			vel = VAdd(VGet(0, 0, 0), VScale(_MoveDir, ((_HalfSize * 2) / (float)_Duration) * (float)tm));
-			_En->GetInput()->SetVelocity(vel);
-
-			auto pos = _Owner->GetPosition();
-			pos.y = y * 0.8;
-			_Owner->SetPosition(pos);
-		}
+		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)))-_HalfSize;
+		vel = VAdd(VGet(0, y, 0), VScale(_MoveDir, (_MoveDist * (float)tm)));
+		_En->GetInput()->SetVelocity(vel);
+		
+		// TODO: —Ž‰º’†‘Î‰ž
 	}
-
+	if (_CurrentTime > _Duration) {
+		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
+	}
 
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration + _CoolTime) {

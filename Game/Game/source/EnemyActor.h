@@ -27,7 +27,6 @@ private:
 
 
 	class MoveComponent* _Input;
-	
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
 	class HitCollisionComponent* _HCollision;
