@@ -1,6 +1,8 @@
 #include "ECornComponent.h"
 #include "BulletComponent.h"
 #include "PlayerActor.h"
+#include <iostream>
+
 
 ECornComponent::ECornComponent(ActorClass* owner)
 	:EnemyComponent(owner)
@@ -170,17 +172,20 @@ bool ECornComponent::BackAttack() {
 bool ECornComponent::Move() {
 	if (_CurrentTime == 0) {
 		_Duration = 1000;
-		_MoveDist = 200 / (float)_Duration;
+		float dur = static_cast<float>(_Duration);
+		_MoveDist = 200.0f / dur;
+		std::cout << "Duration: " << _Duration << ", MoveDist: " << _MoveDist << std::endl; // デバッグ用ログ
 	}
 	auto t = _Owner->GetMode()->GetStepTm();
+	std::cout << "StepTm: " << t << std::endl; // デバッグ用ログ
 	auto d = _MoveDist * t;
 	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 	// TODO: モデルの向き調整
 	// 仮でフロントを反転
 	front = VScale(front, -1);
-	
+
 	auto vel = _En->GetInput()->GetVelocity();
-	vel = VAdd(VGet(0,vel.y,0), VScale(front, d));
+	vel = VAdd(VGet(0, vel.y, 0), VScale(front, d));
 	_En->GetInput()->SetVelocity(vel);
 
 	_CurrentTime += t;
@@ -190,22 +195,22 @@ bool ECornComponent::Move() {
 		_Status = STATUS::SEARCH;
 		return true;
 	}
-	
 
 	return false;
 }
 
+
 bool ECornComponent::GoTo(int n) {
 	if (_CurrentTime == 0) {
 		_Duration = 1000;
-		_MoveDist = 200 / (float)_Duration;
+		_MoveDist = 200.0f / (float)_Duration;
 
 		// プレイヤーの方を向く
 		auto pos = _Owner->GetPosition();
 		auto target = _Target[n]->GetPosition();
-		auto dir = VSub(target, pos);
-		auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
-		auto rot = VGet(0, atan2(dir.x, dir.z), 0);
+		auto dir = VSub(pos,target);
+		auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+		rot.y = atan2(dir.x, dir.z);
 		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 	}
 
