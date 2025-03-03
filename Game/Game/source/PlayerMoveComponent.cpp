@@ -36,16 +36,15 @@ void PlayerMoveComponent::ProcessInput()
 	// �ړ���������߂�
 	VECTOR v = { 0,0,0 };
 	float mvSpeed = 6.f;
-	DINPUT_JOYSTATE input;
 	/*
 	if (key & PAD_INPUT_DOWN) { v.x = 1; }
 	if (key & PAD_INPUT_UP) { v.x = -1; }
 	if (key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
-	GetJoypadDirectInputState(pn, &input);
-	v.x = (float)input.Y / 1000;
-	v.z = (float)input.X / 1000;
+	GetJoypadDirectInputState(pn, &_Input);
+	v.x = (float)_Input.Y / 1000;
+	v.z = (float)_Input.X / 1000;
 
 	VECTOR velocity = GetVelocity();
 
@@ -82,9 +81,9 @@ void PlayerMoveComponent::ProcessInput()
 		}
 		else {
 			_DashFlag = true;
-			_DashTime -= FpsController::GetInstance()->GetDeltaTime();
 			velocity = VScale(_DashDir, 20);
 		}
+		_DashTime -= FpsController::GetInstance()->GetDeltaTime();
 
 		{
 			int dt = FpsController::GetInstance()->GetDeltaTime();
@@ -113,12 +112,23 @@ void PlayerMoveComponent::ProcessInput()
 
 
 
-		if (trg & PAD_INPUT_4 && _DashTime <= mvSpeed) {
+		if (GetStand()) {
+			_JumpFlag = true;
+			_pOwner->SetChangeFlag(false);
+		}
+		else if (!_pOwner->GetComponent<MoveCollisionComponent>()[0]->GetCollResult().size()) {
+			_JumpFlag = false;
+		}
+
+
+		if (trg & PAD_INPUT_4 && _DashTime <= -1000 && _JumpFlag) {
 			_DashTime = 500;
 		}
 		if (trg & PAD_INPUT_3) {
-			velocity.y = 10;
-			_DashTime = 0;
+			_pOwner->SetChangeFlag(true);
+			if (_JumpFlag) {
+				velocity.y = 10;
+			}
 		}
 		if (trg & PAD_INPUT_2) {
 			_pOwner->SetSize(VGet(0.1, 0.1, 0.1));

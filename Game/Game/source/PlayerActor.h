@@ -28,8 +28,14 @@ public:
 	void ChangeMode(int mode);
 
 	void Damage(float damage);
+	void KnockBack(VECTOR dir, float power);
 	bool IsMoved();
 	void ChangeAnim(int a);
+
+	void SetChangeFlag(bool flag) { _ChangeFlag = flag; }
+
+	int GetKnockBackTime() { return _KnockBackTime; }
+
 
 private:
 
@@ -77,5 +83,10 @@ private:
 
 	bool _PunchFlag;
 	int _InvincibleTime;
+
+	bool _ChangeFlag;
+
+	int _KnockBackTime;
+
 };
 

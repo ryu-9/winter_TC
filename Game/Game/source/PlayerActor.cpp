@@ -21,6 +21,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _PunchFlag(false)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
+	, _ChangeFlag(false)
+
 {
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
@@ -101,7 +103,6 @@ void PlayerActor::UpdateActor() {
 
 
 
-
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
 		if (_ChangeTime <= 0) {
@@ -121,7 +122,7 @@ void PlayerActor::UpdateActor() {
 			}
 			else {
 				ChangeAnim((int)anim::Wait);
-				_AnimTime = 0;
+				//_AnimTime = 0;
 			}
 
 		}
@@ -132,7 +133,7 @@ void PlayerActor::UpdateActor() {
 				num++;
 				if (num > _AnimationRate.size()) { break; }
 				if (rate->second < 1) {
-					if (rate->second <= 0) {
+					if (rate->second <= 0.1) {
 						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
 						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
 						if (rate->first == _PunchIndex[0]) {
@@ -150,6 +151,17 @@ void PlayerActor::UpdateActor() {
 						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
 					}
 				}
+				if (rate->second > 1) {
+
+					if (rate->second >= 2) {
+						rate->second = 1;
+						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+					}
+					else {
+						rate->second += 0.1;
+						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second - 1);
+					}
+				}
 				++rate;
 			}
 		}
@@ -164,7 +176,9 @@ void PlayerActor::UpdateActor() {
 		case 2:
 			//if (_Animation == (int)anim::Punch)
 			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
-			if (_PunchIndex[0] != -2) {MV1SetAttachAnimTime(_TopModel->GetHandle(), _PunchIndex[1], _AnimTime);}
+			if (_PunchIndex[0] != -2) {
+				MV1SetAttachAnimTime(_TopModel->GetHandle(), _PunchIndex[1], _AnimTime);
+			}
 			break;
 		}
 
@@ -221,28 +235,28 @@ void PlayerActor::UpdateActor() {
 			_BallModel->SetRotationZY(rot, rot2);
 		}
 
+		if (_ChangeFlag && _Friend != nullptr) {
+			friSize = _Friend->GetSize().y;
+			if (friSize >= 1 && GetSize().y >= 1) {
+				dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
+				if (dist < (friSize + GetSize().y) * 100) {
+					if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
+						ChangeMode(2);
+						ChangeAnim((int)anim::Change);
+						_Friend->ChangeMode(1);
+						_Friend->ChangeAnim((int)anim::Change);
+					}
+					else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
+						_Friend->ChangeMode(2);
+						_Friend->ChangeAnim((int)anim::Change);
+						ChangeMode(1);
+						ChangeAnim((int)anim::Change);
 
-
-
-		if (_Friend == nullptr) { break; }
-		friSize = _Friend->GetSize().y;
-		if (friSize >= 1 && GetSize().y >= 1) {
-			dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
-			if (dist < (friSize + GetSize().y) * 100) {
-				if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
-					ChangeMode(2);
-					ChangeAnim((int)anim::Change);
-					_Friend->ChangeMode(1);
-					_Friend->ChangeAnim((int)anim::Change);
-				} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
-					_Friend->ChangeMode(2);
-					_Friend->ChangeAnim((int)anim::Change);
-					ChangeMode(1);
-					ChangeAnim((int)anim::Change);
-
+					}
 				}
 			}
 		}
+
 		auto hit = _HCollision->IsHit();
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
@@ -254,6 +268,10 @@ void PlayerActor::UpdateActor() {
 				s->SetSourceVoice(new SourceVoiceItem("KillEnemy2"));
 				s->Play(0);
 				s->SetTimer(500);
+
+				VECTOR knock = VSub(GetPosition(), enemy->GetPosition());
+				knock = VNorm(knock);
+				KnockBack(VGet(knock.x, 0.2, knock.z), 20);
 				Damage(0.1);
 			}
 		}
@@ -284,9 +302,8 @@ void PlayerActor::UpdateActor() {
 				s->SetTimer(500);
 			}
 		}
-		VECTOR v = _Input->GetOldPosition();
-		v = VSub(GetPosition(), v);
-		if (v.x != 0 || v.z != 0) {
+		auto joy = _Input->GetInput();
+		if (joy.X != 0 || joy.Y != 0) {
 			ChangeAnim((int)anim::Walk);
 		}
 
@@ -305,6 +322,7 @@ void PlayerActor::UpdateActor() {
 		dir = VNorm(dir);
 		_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 		_TopModel->SetUp(VGet(0, 1, 0));
+
 		if (_Animation == (int)anim::Punch) {
 
 			if (_AnimTime > 5 && !_PunchFlag)
@@ -317,12 +335,14 @@ void PlayerActor::UpdateActor() {
 		{
 			float rate = 1 + dir.y;
 			rate /= 2;
-			if (_AnimationRate[_PunchIndex[0]] < 1) {
-				int test = 0;
+			float rate2 = _AnimationRate[_PunchIndex[0]];
+			if (rate2 > 1) {
+				rate2 -= 1;
 			}
 
-			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[0], rate * _AnimationRate[_PunchIndex[0]]);
-			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate)* _AnimationRate[_PunchIndex[1]]);
+
+			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[0], rate * rate2);
+			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate)* rate2);
 		}
 
 	
@@ -401,7 +421,12 @@ void PlayerActor::ChangeMode(int mode)
 }
 
 void PlayerActor::ChangeAnim(int a) {
-	if (_Animation == a) { return; }
+	if (_Animation == a) { 
+		if (_AnimTime > _AnimTotalTime) {
+			_AnimTime = 0;
+		}
+		return;
+	}
 	if (_AnimChangingflag == true) { return; }
 
 	_AnimChangingflag = true;
@@ -461,7 +486,7 @@ void PlayerActor::ChangeAnim(int a) {
 	if (changeSucFlag) {
 
 
-		_AnimationRate[_AnimIndex] = 1;
+		_AnimationRate[_AnimIndex] = 1.01;
 
 
 		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
@@ -484,6 +509,15 @@ void PlayerActor::Damage(float damage) {
 		if (VSize(GetSize()) < 0.1) {
 			ChangeMode(3);
 		}
+	}
+}
+
+void PlayerActor::KnockBack(VECTOR dir, float power)
+{
+	if (_ModeNum == 0 && _InvincibleTime <= 0) {
+		_KnockBackTime = 500;
+		_Input->SetVelocity(VAdd(_Input->GetVelocity(), VScale(dir, power)));
+		_Input->SetDashTime(-500);
 	}
 }
 
