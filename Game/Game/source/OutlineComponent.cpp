@@ -20,7 +20,7 @@ OutlineComponent::OutlineComponent(ActorClass* owner, const TCHAR* file, class M
 	}
 	auto ef = EffectController::GetInstance();
 	if (ef != nullptr) {
-		ef->GetShadowMap(0)->AddRemoveSprite(this);
+		ef->GetEffect<ShadowMapSpriteComponent>()[0]->AddRemoveSprite(this);
 	}
 }
 

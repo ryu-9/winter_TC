@@ -171,21 +171,6 @@ bool ModeGame::Render() {
 	return true;
 }
 
-void ModeGame::AddSprite(SpriteComponent* sp)
-{
-	ModeBase::AddSprite(sp);
-	if (_EffectController != nullptr) {
-		_EffectController->AddEffect(new EffectManager(sp));
-	}
-}
-
-void ModeGame::RemoveSprite(SpriteComponent* sp)
-{
-	ModeBase::RemoveSprite(sp);
-	if (_EffectController != nullptr) {
-		_EffectController->DelEffect(new EffectManager(sp));
-	}
-}
 
 PlayerActor* ModeGame::GetPlayer(int n) {
 	if (n < 0 || n>1) { return nullptr; }

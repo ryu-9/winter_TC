@@ -103,7 +103,7 @@
       <Filter>ModeServer</Filter>
     </ClInclude>
     <ClInclude Include="source\EffectServer\ShadowMapSpriteComponent.h">
-      <Filter>ModelServer</Filter>
+      <Filter>EffectServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +183,7 @@
       <Filter>ModeServer</Filter>
     </ClCompile>
     <ClCompile Include="source\EffectServer\ShadowMapSpriteComponent.cpp">
-      <Filter>ModelServer</Filter>
+      <Filter>EffectServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

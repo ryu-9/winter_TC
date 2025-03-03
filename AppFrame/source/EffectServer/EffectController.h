@@ -24,14 +24,8 @@ public:
 	template <typename T>
 	std::deque<T*> GetEffect();
 
-	void AddShadowMap(int size = 1024, VECTOR dir = VGet(0, -1, 0), VECTOR target = VGet(0, 0, 0), int index = -1, float length = 100, int drawOrder = -1000000);
-	void SetShadowMapUse(int num, bool flag);
-
-	void SetFlag(SpriteComponent* sp, std::string flagname, bool flag);
 
 	void AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder = 200);
-
-	class ShadowMapSpriteComponent* GetShadowMap(int num);
 
 
 	bool SearchFlag(std::map<std::string, bool>* flagList, std::string flagname);
@@ -61,7 +55,7 @@ std::deque<T*> EffectController::GetEffect()
 class FogSpriteComponent : public SpriteComponent
 {
 public:
-	FogSpriteComponent(ActorClass* owner, int draworder = -1000000, unsigned int color, float mindist, float maxdist);
+	FogSpriteComponent(ActorClass* owner, int draworder = -1000000, unsigned int color = GetColor(255, 255, 255), float mindist = 0, float maxdist = 1000);
 	virtual ~FogSpriteComponent();
 
 	void Draw() override;

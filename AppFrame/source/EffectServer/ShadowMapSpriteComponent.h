@@ -1,10 +1,11 @@
 #pragma once
 #include "../AppFrame/source/ModeServer/SpriteComponent.h"
+#include "EffectManager.h"
 #include "Dxlib.h"
 
 
 
-class ShadowMapSpriteComponent : public SpriteComponent
+class ShadowMapSpriteComponent : public EffectManager
 {
 public:
 	ShadowMapSpriteComponent(class ActorClass* owner, int size, VECTOR dir = VGet(0,-1, 0), VECTOR target = VGet(0, 0, 0), int index = 0, float length = 100, int drawOrder = -1000000);

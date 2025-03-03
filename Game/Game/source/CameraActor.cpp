@@ -29,9 +29,9 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 {
 
 	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
-	EffectController::GetInstance()->AddShadowMap(2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
-	EffectController::GetInstance()->AddShadowMap(1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800);
-	EffectController::GetInstance()->AddShadowMap(1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800);
+    EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800));
+	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800));
+	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800));
 	/*
 
 	_ShadowMap[0] = new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800);
@@ -94,15 +94,19 @@ void CameraComponent::ProcessInput()
 	if (_Dist > 10000) { _Dist = 10000; }
 	v = VScale(v, 0.5f);
 
-	EffectController::GetInstance()->GetShadowMap(0)->SetTarget(VGet(v.x, -100, v.z));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMinLength(VGet(-_Dist, -_Dist, 0));
-	EffectController::GetInstance()->GetShadowMap(0)->SetMaxLength(VGet(_Dist, _Dist, _Dist * 4));
-	EffectController::GetInstance()->GetShadowMap(1)->SetTarget(_Player[0]->GetPosition());
-	EffectController::GetInstance()->GetShadowMap(1)->SetMinLength(VGet(-_Player[0]->GetSize().x * 200, -_Player[0]->GetPosition().y, -_Player[0]->GetSize().x * 200));
-	EffectController::GetInstance()->GetShadowMap(1)->SetMaxLength(VScale(_Player[0]->GetSize(), 200));
-	EffectController::GetInstance()->GetShadowMap(2)->SetTarget(_Player[1]->GetPosition());
-	EffectController::GetInstance()->GetShadowMap(2)->SetMinLength(VGet(-_Player[1]->GetSize().x * 200, -_Player[1]->GetPosition().y, -_Player[1]->GetSize().x * 200));
-	EffectController::GetInstance()->GetShadowMap(2)->SetMaxLength(VScale(_Player[1]->GetSize(), 200));
+	auto smap = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
+	if (smap.size() < 3) {
+		smap[0]->SetTarget(VGet(v.x, -100, v.z));
+		smap[0]->SetMinLength(VGet(-_Dist, -_Dist, 0));
+		smap[0]->SetMaxLength(VGet(_Dist, _Dist, _Dist * 4));
+		smap[1]->SetTarget(_Player[0]->GetPosition());
+		smap[1]->SetMinLength(VGet(-_Player[0]->GetSize().x * 200, -_Player[0]->GetPosition().y, -_Player[0]->GetSize().x * 200));
+		smap[1]->SetMaxLength(VScale(_Player[0]->GetSize(), 200));
+		smap[2]->SetTarget(_Player[1]->GetPosition());
+		smap[2]->SetMinLength(VGet(-_Player[1]->GetSize().x * 200, -_Player[1]->GetPosition().y, -_Player[1]->GetSize().x * 200));
+		smap[2]->SetMaxLength(VScale(_Player[1]->GetSize(), 200));
+	}
+
 
 	/*
 		_ShadowMap[0]->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
@@ -136,10 +140,12 @@ void CameraComponent::SetPlayer(PlayerActor* player1, PlayerActor* player2)
 	_Player[1] = player2;
 	EffectController* ec = EffectController::GetInstance();
 	if (ec == nullptr) { return; }
-	ec->GetShadowMap(1)->AddSprite(player1->GetComponent<SpriteComponent>()[0]);
-	ec->GetShadowMap(0)->AddRemoveSprite(player1->GetComponent<SpriteComponent>()[0]);
-	ec->GetShadowMap(2)->AddSprite(player2->GetComponent<SpriteComponent>()[0]);
-	ec->GetShadowMap(0)->AddRemoveSprite(player2->GetComponent<SpriteComponent>()[0]);
+	auto smap = ec->GetEffect<ShadowMapSpriteComponent>();
+	if (smap.size() < 3) { return; }
+	smap[1]->AddSprite(player1->GetComponent<SpriteComponent>()[0]);
+	smap[0]->AddRemoveSprite(player1->GetComponent<SpriteComponent>()[0]);
+	smap[2]->AddSprite(player2->GetComponent<SpriteComponent>()[0]);
+	smap[0]->AddRemoveSprite(player2->GetComponent<SpriteComponent>()[0]);
 	
 	//_ShadowMap[1]->AddSprite(player1->GetComponent<SpriteComponent>());
 	//_ShadowMap[2]->AddSprite(player2->GetComponent<SpriteComponent>());

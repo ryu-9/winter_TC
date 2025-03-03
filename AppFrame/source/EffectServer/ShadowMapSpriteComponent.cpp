@@ -1,7 +1,7 @@
 #include "ShadowMapSpriteComponent.h"
 
 ShadowMapSpriteComponent::ShadowMapSpriteComponent(ActorClass* owner, int size, VECTOR dir, VECTOR target, int index, float length, int drawOrder)
-	:SpriteComponent(owner, drawOrder)
+	:EffectManager(owner, drawOrder)
 	, _Direction(dir)
 	, _Target(target)
 	, _Index(index)
@@ -58,20 +58,6 @@ void ShadowMapSpriteComponent::Draw()
 	}
 
 	ShadowMap_DrawEnd();
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
