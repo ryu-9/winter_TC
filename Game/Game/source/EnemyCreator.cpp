@@ -100,6 +100,41 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec,E
 	// TODO: エネミーの情報を良い感じにとれるように
 }
 
+EnemyActor* EnemyCreator::Create(ModeBase* mode, int type, VECTOR vec, EnemySpawnerActor* es) {
+	EnemyActor* enemy = new EnemyActor(mode, vec, es);
+	//enemy->SetParam(_Data[shape][col]);
+
+	auto t = Drawing(_CreatePattern[type]);
+	// TODO: 0~3の生成法を変更
+	switch (t) {
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	{
+		auto c = new ECornComponent(enemy);
+		auto m = new ModelComponent(enemy, "res/model/Enemy_Corn/Enemy_corn.mv1");
+		enemy->SetModel(m);
+		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
+		c->SetAttackType(t);
+	}	break;
+	case 4:
+	{
+		auto m = new ModelComponent(enemy, "res/model/Enemy_Box/mouse_Open/Enemy_box.mv1");
+		m->SetIndipendent(true);
+		enemy->SetModel(m);
+		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
+		new EBoxComponent(enemy);
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
+	}	break;
+	default:
+		break;
+	}
+	
+	return nullptr;
+}
+
 
 
 

@@ -36,3 +36,4 @@ private:
 
 };
 
+int Drawing(std::vector<int> w);

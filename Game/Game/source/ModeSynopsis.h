@@ -1,6 +1,5 @@
 #pragma once
 #include "appframe.h"
-#include "ApplicationMain.h"
 
 
 class ModeSynopsis : public ModeBase

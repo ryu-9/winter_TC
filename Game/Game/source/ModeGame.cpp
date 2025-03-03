@@ -37,8 +37,6 @@ bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
 
-	_bUseCollision = TRUE;
-	_bViewCameraInfo = FALSE;
 //	SetFogEnable(TRUE);
 	SetFogStartEnd(200, 10000);
 	

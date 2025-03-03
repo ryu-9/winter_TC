@@ -1,5 +1,7 @@
 #pragma once
 #include "appframe.h"
+#include <vector>
+
 class ModeGameOver : public ModeBase{
 	typedef ModeBase base;
 public:

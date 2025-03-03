@@ -1,24 +1,8 @@
 #pragma once
 #include "appframe.h"
 #include "EnemyActor.h"
-struct SEARCH {
-	float dist;
-	float angle;
-	int cooltime;
-};
-struct MOVE {
-	int duration;
-	int dur_rand;
-	int cooltime;
-	int cool_rand;
-	float dist;
-	float dist_rand;
-};
-struct EPARAM {
-	int damage;
-	int speed;
-	int serchdist;
-};
+
+
 
 class EnemyComponent : public Component {
 public:
@@ -33,6 +17,7 @@ public:
 		WAIT,
 		DISCOVER,
 		ATTACK,
+		COOLTIME,
 	};
 
 protected:
@@ -65,25 +50,6 @@ protected:
 
 	// 重み
 	std::vector<int> _Weight;
-
-	// 重み付き抽選
-	int Drawing(std::vector<int> w) {
-		int total = 0;
-		// 重みの合計を計算
-		for (auto i = 0; i < w.size(); i++) {
-			total = total + w[i];
-		}
-
-		int n = (rand() % total);
-		int sum = 0;
-		// 重みの合計を超えるまで足していく
-		for (auto i = 0; i < w.size(); i++) {
-			sum = sum + w[i];
-			if (n - sum < 0) {
-				return i;
-			}
-		}
-	}
 
 };
 

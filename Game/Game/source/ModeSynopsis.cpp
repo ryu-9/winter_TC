@@ -1,4 +1,5 @@
 #include "ModeSynopsis.h"
+#include "ApplicationMain.h"
 
 bool ModeSynopsis::Initialize()
 {

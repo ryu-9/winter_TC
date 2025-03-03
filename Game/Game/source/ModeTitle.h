@@ -1,6 +1,5 @@
 #pragma once
 #include "appframe.h"
-
 #include <vector>
 
 

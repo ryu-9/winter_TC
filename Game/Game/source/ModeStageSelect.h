@@ -1,5 +1,6 @@
 #pragma once
 #include "appframe.h"
+
 class ModeStageSelect : public ModeBase {
 	typedef ModeBase base;
 public:

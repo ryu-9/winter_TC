@@ -12,17 +12,8 @@ EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	, _Spawner(es)
 {
 	SetPosition(pos);
-	//_Model = new ModelComponent(this, "res/model/Enemy_Corn/Enemy_corn.mv1");
-//	_Model = new ModelComponent(this, "res/model/Enemy_Box/mouse_Open/Enemy_box.mv1");
-//	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(5, 5, 5),2,true ,true);
-//	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(5, 5, 5), 2, true, true);
 	SetSize(VGet(2, 2, 2));
-
-//	_Model->SetPosition(VGet(0, -15, 0));
 	_Input = new MoveComponent(this);
-//	new EnemyAttackComponent(this);
-	//new ECornComponent(this);
-	//new EBoxComponent(this);
 }
 
 EnemyActor::~EnemyActor() {
@@ -46,3 +37,21 @@ void EnemyActor::UpdateActor() {
 
 }
 
+int Drawing(std::vector<int> w)// 重み付き抽選
+ {
+	int total = 0;
+	// 重みの合計を計算
+	for (auto i = 0; i < w.size(); i++) {
+		total = total + w[i];
+	}
+
+	int n = (rand() % total);
+	int sum = 0;
+	// 重みの合計を超えるまで足していく
+	for (auto i = 0; i < w.size(); i++) {
+		sum = sum + w[i];
+		if (n - sum < 0) {
+			return i;
+		}
+	}
+}

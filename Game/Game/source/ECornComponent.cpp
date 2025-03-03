@@ -1,6 +1,7 @@
 #include "ECornComponent.h"
 #include "BulletComponent.h"
 #include "PlayerActor.h"
+#include "EnemyActor.h"
 #include <iostream>
 
 
@@ -17,6 +18,14 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	_Weight.push_back(2);
 
 	_AttackType = rand() % 4;
+
+	_MoveData.duration = 1000;
+	_MoveData.dur_rand = 500;
+	_MoveData.cooltime = 1000;
+	_MoveData.cool_rand = 500;
+	_MoveData.dist = 200;
+	_MoveData.dist_rand = 100;
+
 }
 
 ECornComponent::~ECornComponent() {
@@ -85,6 +94,9 @@ void ECornComponent::ProcessInput() {
 		}
 		break;
 	}
+	case STATUS::COOLTIME:
+		CoolTime();
+		break;
 	default:
 		break;
 	}
@@ -117,7 +129,7 @@ bool ECornComponent::NomalAttack() {
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 	}
 	return true;
 }
@@ -132,7 +144,7 @@ bool ECornComponent::JumpAttack() {
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 	}
 	return true;
 }
@@ -149,7 +161,7 @@ bool ECornComponent::FrontAttack() {
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 	}
 	return true;
 }
@@ -165,16 +177,28 @@ bool ECornComponent::BackAttack() {
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 	}
 	return true;
 }
 
+bool ECornComponent::CoolTime() {
+	if (_CurrentTime == 0) {
+		_Duration = _MoveData.cooltime + rand() % _MoveData.cool_rand;
+	}
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
+	if (_CurrentTime > _Duration) {
+		_CurrentTime = 0;
+		_Status = STATUS::COOLTIME;
+	}
+	return false;
+}
+
 bool ECornComponent::Move() {
 	if (_CurrentTime == 0) {
-		_Duration = 1000;
+		_Duration = _MoveData.duration + rand() % _MoveData.dur_rand;
 		float dur = static_cast<float>(_Duration);
-		_MoveDist = 200.0f / dur;
+		_MoveDist = (_MoveData.dist + (rand() % _MoveData.dist_rand)) / dur;
 
 	}
 	auto t = _Owner->GetMode()->GetStepTm();
@@ -192,7 +216,7 @@ bool ECornComponent::Move() {
 	if (_CurrentTime >= _Duration) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 		return true;
 	}
 
@@ -202,8 +226,9 @@ bool ECornComponent::Move() {
 
 bool ECornComponent::GoTo(int n) {
 	if (_CurrentTime == 0) {
-		_Duration = 1000;
-		_MoveDist = 200.0f / (float)_Duration;
+		_Duration = _MoveData.duration + rand() % _MoveData.dur_rand;
+		float dur = static_cast<float>(_Duration);
+		_MoveDist = (_MoveData.dist + (rand() % _MoveData.dist_rand)) / dur;
 
 		// ƒvƒŒƒCƒ„[‚Ì•û‚ðŒü‚­
 		auto pos = _Owner->GetPosition();
@@ -222,11 +247,11 @@ bool ECornComponent::GoTo(int n) {
 	vel = VAdd(VGet(0, vel.y, 0), VScale(front, d));
 	_En->GetInput()->SetVelocity(vel);
 
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
+
 	if (_CurrentTime >= _Duration) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 		return true;
 	}
 
@@ -235,13 +260,13 @@ bool ECornComponent::GoTo(int n) {
 
 void ECornComponent::Jump() {
 	if (_CurrentTime == 0) {
-		_En->GetInput()->SetVelocity(VGet(0, 3, 0));
+		_En->GetInput()->SetVelocity(VGet(0, 4, 0));
 	}
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::SEARCH;
+		_Status = STATUS::COOLTIME;
 	}
 }
 
