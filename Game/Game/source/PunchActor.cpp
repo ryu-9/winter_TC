@@ -10,6 +10,10 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Panch.efkefc", VGet(0, 0, 0), rot, scale, 100000);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
+	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
+	if (sm.size() > 0) {
+		sm[0]->AddRemoveSprite(sp);
+	}
 	_LifeTime = 2000;
 	//auto model = new ModelComponent(this, "nomodel");
 	float size = scale * 5;

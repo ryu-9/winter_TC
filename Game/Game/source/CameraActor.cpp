@@ -29,7 +29,7 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 {
 
 	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
-    EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800));
+	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 2048, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800));
 	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800));
 	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 2, 800));
 	/*
@@ -95,7 +95,7 @@ void CameraComponent::ProcessInput()
 	v = VScale(v, 0.5f);
 
 	auto smap = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
-	if (smap.size() < 3) {
+	if (smap.size() >= 3) {
 		smap[0]->SetTarget(VGet(v.x, -100, v.z));
 		smap[0]->SetMinLength(VGet(-_Dist, -_Dist, 0));
 		smap[0]->SetMaxLength(VGet(_Dist, _Dist, _Dist * 4));

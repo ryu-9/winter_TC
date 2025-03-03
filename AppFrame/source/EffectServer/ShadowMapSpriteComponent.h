@@ -40,7 +40,7 @@ public:
 	void SetIsDraw(bool isDraw) { _IsDraw = isDraw; }
 	bool GetIsDraw() const { return _IsDraw; }
 
-
+	void SetIsUse(bool isUse) override;
 
 private:
 	int _Index;

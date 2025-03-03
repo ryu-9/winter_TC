@@ -2,8 +2,9 @@
 #include "../AppFrame/source/ModeServer/Component.h"
 #include "Dxlib.h"
 #include "../AppFrame/source/ModeServer/ModeBase.h"
+#include "EffectManager.h"
 
-class PlayerEmphasisEffect : public SpriteComponent
+class PlayerEmphasisEffect : public EffectManager
 {
 public:
 	PlayerEmphasisEffect(class ActorClass* owner, SpriteComponent* sprite, int alpha, int wide, int height, int draworder = 200);

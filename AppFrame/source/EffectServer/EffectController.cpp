@@ -48,6 +48,7 @@ void EffectController::Draw()
 
 			if (flag[j] != useflag) {
 				_EffectList[j]->SetIsUse(useflag);
+				flag[j] = useflag;
 			}
 		}
 		sp[i]->Draw();

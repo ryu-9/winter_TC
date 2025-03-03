@@ -215,7 +215,10 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 
 	EffectController* ec = EffectController::GetInstance();
 	if (ec != nullptr) {
-		ec->GetEffect<ShadowMapSpriteComponent>()[0]->AddRemoveSprite(this);
+		auto sm = ec->GetEffect<ShadowMapSpriteComponent>();
+		if (sm.size() > 0) {
+			sm[0]->AddRemoveSprite(this);
+		}
 	}
 
 	_LowSnow[0] = _Snow[1]; _LowSnow[1] = _Snow[0]; _LowSnow[2] = _Snow[_SnowSize - 2 * num - 3];

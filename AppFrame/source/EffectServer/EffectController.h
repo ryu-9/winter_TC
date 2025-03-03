@@ -45,7 +45,7 @@ std::deque<T*> EffectController::GetEffect()
 	for (auto& em : _EffectList) {
 		T* castedComp = dynamic_cast<T*>(em);
 		if (castedComp != nullptr) {
-			ret.emplace_back(castedComp);
+			ret.emplace_front(castedComp);
 		}
 	}
 	return ret;

@@ -4,6 +4,7 @@
 
 EffectManager::EffectManager(ActorClass* owner, int draworder)
 	:SpriteComponent(owner, draworder)
+	, _IsUse(true)
 {
 }
 

@@ -22,16 +22,22 @@ void ShadowMapSpriteComponent::Draw()
 	//SetUseShadowMap(0, -1);
 	//SetUseShadowMap(1, -1);
 	//SetUseShadowMap(2, -1);
+
+
 	SetShadowMapLightDirection(_Handle, _Direction);
 
 	SetShadowMapDrawArea(_Handle, VAdd(_Target, _MinLength), VAdd(_Target, _MaxLength));
+
 	ShadowMap_DrawSetup(_Handle);
+
+	std::vector<SpriteComponent*> debug;
 	if (_Sprites.size() > 0) {
 		for (auto sp : _Sprites) {
-			if (sp->GetOwner() != _Owner) {
+			auto null = dynamic_cast<EffectManager*>(sp);
+			if (null == nullptr) {
 				bool flag = false;
 				for (auto r : _RemoveSprites) {
-					if (sp == r) { 
+					if (sp == r) {
 						flag = true;
 						break;
 					}
@@ -43,7 +49,8 @@ void ShadowMapSpriteComponent::Draw()
 	}
 	else {
 		for (auto sp : _Owner->GetMode()->GetSprites()) {
-			if (sp->GetOwner() != _Owner) {
+			auto null = dynamic_cast<EffectManager*>(sp);
+			if (null == nullptr) {
 				bool flag = false;
 				for (auto r : _RemoveSprites) {
 					if (sp == r) { 
@@ -53,6 +60,7 @@ void ShadowMapSpriteComponent::Draw()
 				}
 				if (flag) {continue;}
 				sp->Draw();
+				debug.emplace_back(sp);
 			}
 		}
 	}
@@ -60,9 +68,8 @@ void ShadowMapSpriteComponent::Draw()
 	ShadowMap_DrawEnd();
 	
 	
-	
-	
 	SetUseShadowMap(_Index, _Handle);
+
 	TestDrawShadowMap(_Handle, _Index * 128, 0, (_Index + 1) * 128, 128);
 }
 
@@ -80,6 +87,19 @@ void ShadowMapSpriteComponent::RemoveRemoveSprite(SpriteComponent* sprite)
 void ShadowMapSpriteComponent::SwitchSprites(std::deque<class SpriteComponent*>& sprites)
 {
 	_Sprites = sprites;
+
+}
+
+void ShadowMapSpriteComponent::SetIsUse(bool isUse)
+{
+	if (isUse) {
+		SetUseShadowMap(_Index, _Handle);
+	}
+	else {
+		SetUseShadowMap(_Index, -1);
+	}
+	
+	EffectManager::SetIsUse(isUse);
 }
 
 void ShadowMapSpriteComponent::RemoveSprite(SpriteComponent* sprite)

@@ -70,7 +70,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 	_AnimationModel[5] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_up.mv1");
 
-	EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
+	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
+	//EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 
 	
 }
