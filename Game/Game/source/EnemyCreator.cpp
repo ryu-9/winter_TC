@@ -55,6 +55,16 @@ void EnemyCreator::Init() {
 		i++;
 	}
 		*/
+
+	_CreatePattern[0] = { 5,2,1,0,0 };
+	_CreatePattern[1] = { 3,1,2,1,1 };
+	_CreatePattern[2] = { 1,1,1,1,1 };
+	_CreatePattern[3] = { 1,2,3,2,0 };
+
+	_CreatePattern[4] = { 0,2,3,1,4 };
+	_CreatePattern[5] = { 1,1,1,1,1 };
+	_CreatePattern[6] = { 1,1,1,1,6 };
+	_CreatePattern[7] = { 0,1,3,3,3 };
 }
 
 EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec,EnemySpawnerActor* es) {

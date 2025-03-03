@@ -6,9 +6,15 @@
 #include <array>
 
 class EnemyCreator {
-#define ENEMY_SHAPE 2
-#define ENEMY_COL 6
+#define PATTERN_MAX 8
 
+	struct PATTERN {
+		int corn_a;
+		int corn_b;
+		int corn_c;
+		int corn_d;
+		int box_a;
+	};
 public:
 
 	EnemyCreator();
@@ -24,6 +30,6 @@ protected:
 
 	void Import();
 
-
+	PATTERN _CreatePattern[PATTERN_MAX];
 };
 

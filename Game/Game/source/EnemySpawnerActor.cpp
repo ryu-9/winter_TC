@@ -24,6 +24,8 @@ void EnemySpawnerActor::Init() {
 	_Data.pop_range = 100;
 	_Data.pop_time = 2000;
 	_Data.active_range = 1000;
+
+
 }
 
 void EnemySpawnerActor::UpdateActor() {

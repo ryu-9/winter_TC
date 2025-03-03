@@ -16,7 +16,7 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	_Weight.push_back(4);
 	_Weight.push_back(2);
 
-	_AttackType = rand() % 3;
+	_AttackType = rand() % 4;
 }
 
 ECornComponent::~ECornComponent() {
@@ -33,6 +33,7 @@ void ECornComponent::ProcessInput() {
 		else { _Status = STATUS::WAIT;
 		auto n = Drawing(_Weight);
 		_WaitAction = static_cast<WAIT_ACTION>(n);
+		_CurrentTime = 0;
 		}
 
 		break;
@@ -87,7 +88,7 @@ void ECornComponent::ProcessInput() {
 	default:
 		break;
 	}
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
+	
 	
 }
 
@@ -128,7 +129,7 @@ bool ECornComponent::JumpAttack() {
 		Attack(0);
 	}
 	
-
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
 		_Status = STATUS::SEARCH;
@@ -145,7 +146,7 @@ bool ECornComponent::FrontAttack() {
 	}
 	
 	
-
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
 		_Status = STATUS::SEARCH;
@@ -160,7 +161,7 @@ bool ECornComponent::BackAttack() {
 	if (_CurrentTime < 2000) {
 		if (GoTo(1)) { Attack(0); }
 	}
-	
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
@@ -174,10 +175,9 @@ bool ECornComponent::Move() {
 		_Duration = 1000;
 		float dur = static_cast<float>(_Duration);
 		_MoveDist = 200.0f / dur;
-		std::cout << "Duration: " << _Duration << ", MoveDist: " << _MoveDist << std::endl; // デバッグ用ログ
+
 	}
 	auto t = _Owner->GetMode()->GetStepTm();
-	std::cout << "StepTm: " << t << std::endl; // デバッグ用ログ
 	auto d = _MoveDist * t;
 	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
 	// TODO: モデルの向き調整
@@ -222,7 +222,7 @@ bool ECornComponent::GoTo(int n) {
 	vel = VAdd(VGet(0, vel.y, 0), VScale(front, d));
 	_En->GetInput()->SetVelocity(vel);
 
-	
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime >= _Duration) {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
@@ -237,7 +237,7 @@ void ECornComponent::Jump() {
 	if (_CurrentTime == 0) {
 		_En->GetInput()->SetVelocity(VGet(0, 3, 0));
 	}
-
+	_CurrentTime += _Owner->GetMode()->GetStepTm();
 
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
