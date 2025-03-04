@@ -18,6 +18,7 @@
 #include <EffekseerForDXLib.h>
 #include "EnemyController.h"
 #include "GroupAttackActor.h"
+#include "BossActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -77,7 +78,11 @@ bool ModeGame::Initialize() {
 		new BGMComponent(_Camera);
 	}
 	
-
+	
+	auto b = new BossActor(this, VGet(0, 100,1500));
+	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(50, 50, 50), VGet(100, 100, 100), 2, true, true));
+	b->SetMoveCollision(new MoveCollisionComponent(b,nullptr, VGet(50, 50, 50), VGet(100, 100, 100), 2, true, true));
+	
 	return true;
 }
 

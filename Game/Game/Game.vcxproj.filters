@@ -192,6 +192,9 @@
     <ClCompile Include="source\GroupAttackActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="source\BossActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -324,6 +327,9 @@
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
     <ClInclude Include="source\GroupAttackActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BossActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

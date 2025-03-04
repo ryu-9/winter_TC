@@ -14,7 +14,7 @@ GroupSpawnerActor::~GroupSpawnerActor() {
 }
 
 void GroupSpawnerActor::Init() {
-	_Data.max_pop = 1;
+	_Data.max_pop = 8;
 	_Data.max_popcount = 8;
 	_Data.pop_range = 100;
 	_Data.pop_time = 1000;

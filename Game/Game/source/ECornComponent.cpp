@@ -115,7 +115,7 @@ bool ECornComponent::Attack(int n) {
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
 		if (game != nullptr) { new SEComponent(ac, game->GetPlayer()); }
 		// TODO: new SEComponent(ac,cam);
-
+		
 
 	return true;
 }
