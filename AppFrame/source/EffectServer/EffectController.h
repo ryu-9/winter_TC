@@ -24,6 +24,7 @@ public:
 	template <typename T>
 	std::deque<T*> GetEffect();
 
+	void AddEffectFlag(SpriteComponent* sprite, std::string flagname, bool flag);
 
 	void AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder = 200);
 
@@ -52,7 +53,7 @@ std::deque<T*> EffectController::GetEffect()
 }
 
 
-class FogSpriteComponent : public SpriteComponent
+class FogSpriteComponent : public EffectManager
 {
 public:
 	FogSpriteComponent(ActorClass* owner, int draworder = -1000000, unsigned int color = GetColor(255, 255, 255), float mindist = 0, float maxdist = 1000);
@@ -60,12 +61,11 @@ public:
 
 	void Draw() override;
 
-	bool GetIsDraw() { return _IsDraw; }
-	void SetIsDraw(bool flag) { _IsDraw = flag; }
+	void SetIsUse(bool flag) override;
 
 private:
 	unsigned int _Color;
-	bool _IsDraw;
+
 	float _MinDist;
 	float _MaxDist;
 };

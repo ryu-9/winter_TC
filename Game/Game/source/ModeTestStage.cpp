@@ -11,6 +11,7 @@
 #include "EnemyCreator.h"
 #include "BGMComponent.h"
 #include "EnemySpawnerActor.h"
+#include "PlayerMoveCollisionComponent.h"
 
 #include <fstream>
 #include "nlohmann/json.hpp"
@@ -22,8 +23,9 @@ bool ModeTestStage::Initialize() {
 
 	_bUseCollision = TRUE;
 	_bViewCameraInfo = FALSE;
-	//	SetFogEnable(TRUE);
-	SetFogStartEnd(200, 10000);
+	//	Set
+	// Enable(TRUE);
+	//SetFogStartEnd(200, 10000);
 
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
@@ -32,11 +34,11 @@ bool ModeTestStage::Initialize() {
 	_Player[0] = new PlayerActor(this);
 	_Player[0]->SetPosition(VGet(800, 200, 100));
 	_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
-	_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+	_Player[0]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 	_Player[1] = new PlayerActor(this, 2);
 	_Player[1]->SetPosition(VGet(1000, 200, 100));
 	_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
-	_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+	_Player[1]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 	_Player[1]->SetFriend(_Player[0]);
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);

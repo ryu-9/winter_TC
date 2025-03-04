@@ -7,6 +7,7 @@
 #include "OutlineComponent.h"
 #include "PlayerCursorComponent.h"
 #include "PunchActor.h"
+#include "PlayerMoveCollisionComponent.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -27,13 +28,16 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
 		_BallModel->SetScale(VGet(3, 3, 3));
-		new OutlineComponent(this, "res/model/Yukidama_bro/Yukidama_Bro_Outline.mv1", _BallModel);
+		auto ol = new OutlineComponent(this, "res/model/Yukidama_bro/Yukidama_Bro_Outline.mv1", _BallModel);
+		EffectController::GetInstance()->AddEffectFlag(ol, "Fog", false);
 	}
 	else {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_sis/Yukidama_Sis.mv1");
 		_BallModel->SetScale(VGet(3, 3, 3));
-		new OutlineComponent(this, "res/model/Yukidama_sis/Yukidama_Sis_Outline.mv1", _BallModel);
+		auto ol = new OutlineComponent(this, "res/model/Yukidama_sis/Yukidama_Sis_Outline.mv1", _BallModel);
+		EffectController::GetInstance()->AddEffectFlag(ol, "Fog", false);
 	}
+
 	_BallModel->SetIndipendent(true);
 
 	float pi = 3.14159265358979323846;
@@ -73,6 +77,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[5] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_up.mv1");
 
 	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
+	//auto pee = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
+	//EffectController::GetInstance()->AddEffectFlag(pee[pee.size() - 1], "Fog", false);
 	//EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 
 	
@@ -107,9 +113,11 @@ void PlayerActor::UpdateActor() {
 		_ChangeTime -= dt;
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
+			_InvincibleTime = 1000;
 		}
 	}
 
+	
 	int animOrder = (int)anim::Wait;
 
 	if (_ModeNum != 0) {
@@ -133,6 +141,9 @@ void PlayerActor::UpdateActor() {
 				num++;
 				if (num > _AnimationRate.size()) { break; }
 				if (rate->second < 1) {
+					if (_AnimationRate.size() <= 1) {
+						int test = 0;
+					}
 					if (rate->second <= 0.1) {
 						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
 						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
@@ -189,6 +200,19 @@ void PlayerActor::UpdateActor() {
 	case 0:
 
 	{
+		if (_Input->GetDashFlag()) {
+			auto mc = _MCollision->GetCollResult();
+			float tmpsize = GetSize().x;
+			for (auto m : mc) {
+				for (auto s : m.mesh) {
+					float tmpsize2 = VSize(VSub(s.HitPosition, GetPosition()));
+					if (tmpsize2 < tmpsize) {
+						tmpsize = tmpsize2;
+					}
+				}
+			}
+		}
+
 
 		if (_InvincibleTime > 0) {
 			_InvincibleTime -= dt;
@@ -207,9 +231,9 @@ void PlayerActor::UpdateActor() {
 		// �ړ��ʂ̃Z�b�g
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
-		float size = VSize(tmp) / 10000 / GetSize().x;
+		float size = VSize(tmp) / 20000;
 		if (_Input->GetStand()&&!_Input->GetDashFlag()) {
-			SetSize(VAdd(GetSize(), VGet(size, size, size)));
+			AddSize(size);
 
 			v = VSub(v, VScale(v, 0.001 * dt));
 			_Input->SetVelocity(v);
@@ -270,9 +294,10 @@ void PlayerActor::UpdateActor() {
 				s->SetTimer(500);
 
 				VECTOR knock = VSub(GetPosition(), enemy->GetPosition());
+				if (VSize(knock) == 0) { knock = VGet(0, 1, 0); }
 				knock = VNorm(knock);
 				KnockBack(VGet(knock.x, 0.2, knock.z), 20);
-				Damage(0.1);
+				Damage(0.5);
 			}
 		}
 	}
@@ -317,17 +342,29 @@ void PlayerActor::UpdateActor() {
 	case 2:
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
-		dir = VSub(_Cursor->GetHitPos(), GetPosition());
+		VECTOR tmphitpos = _Cursor->GetHitPos();
+		dir = VSub(tmphitpos, GetPosition());
 		dir = VScale(dir, -1);
 		dir = VNorm(dir);
-		_TopModel->SetFront(VGet(dir.x, 0, dir.z));
-		_TopModel->SetUp(VGet(0, 1, 0));
+		if (!_PunchFlag) {
+			_TopModel->SetFront(VGet(dir.x, 0, dir.z));
+			_TopModel->SetUp(VGet(0, 1, 0));
+		}
+
 
 		if (_Animation == (int)anim::Punch) {
 
-			if (_AnimTime > 5 && !_PunchFlag)
+			if (_AnimTime > 27 && !_PunchFlag)
 			{
-				new PunchActor(GetMode(), GetPosition(), VScale(dir, -GetSize().x * 10), VGet(0, 0, 0), GetSize().x * 3);
+				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
+				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -100, GetSize().x * 100 * tmpdir.x);
+				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
+
+				//tmppos = VGet(0, 0, 0);
+				tmppos = VAdd(GetPosition(), tmppos);
+				tmpdir = VSub(tmppos, tmphitpos);
+				tmpdir = VNorm(tmpdir);
+				new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), VGet(0, 0, 0), GetSize().x * 3);
 				_PunchFlag = true;
 			}
 		}
@@ -372,9 +409,7 @@ void PlayerActor::ChangeMode(int mode)
 	switch (mode) {
 	case 0:
 		if (_ModeNum == 1) {
-			dist = GetSize().x * 50 * 2 - 50;
-			SetPosition(VAdd(GetPosition(), VGet(dist, 0, 0)));
-			_Friend->SetPosition(VAdd(GetPosition(), VGet( - 2 * dist, 0, 0)));
+			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, -2*GetSize().y, 0)));
 		}
 		_MCollision->SetIsActive(true);
 		_ModeNum = 0;
@@ -388,6 +423,7 @@ void PlayerActor::ChangeMode(int mode)
 			delete _MCollision2;
 			_MCollision2 = nullptr;
 		}
+		Init();
 		_Cursor->SetActiveFalse();
 		break;
 	case 1:
@@ -432,6 +468,7 @@ void PlayerActor::ChangeAnim(int a) {
 	_AnimChangingflag = true;
 	_Friend->ChangeAnim(a);
 	int oldindex = _AnimIndex;
+	int oldPunch = _PunchIndex[1];
 	int index = -1;
 	bool changeSucFlag = false;
 	switch (a) {
@@ -488,16 +525,52 @@ void PlayerActor::ChangeAnim(int a) {
 
 		_AnimationRate[_AnimIndex] = 1.01;
 
-
+		if (_AnimationRate.size() > 1) {
+			_AnimationRate[oldindex] = 0.99;
+			if (oldPunch != -2) {
+				_AnimationRate[oldPunch] = 0.99;
+			}
+		}
 		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
 		//MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
-		_AnimationRate[oldindex] = 0.99;
+
 		_Animation = a;
 		_AnimTime = 0;
 		_PunchFlag = false;
 	}
 
 }
+
+void PlayerActor::Init()
+{
+	_Input->SetVelocity(VGet(0, 0, 0));
+	SetSize(VGet(0.1, 0.1, 0.1));
+
+	// _AnimationRate のキーを使用してアニメーションをデタッチ
+	for (const auto& animRate : _AnimationRate) {
+		MV1DetachAnim(_TopModel->GetHandle(), animRate.first);
+		MV1DetachAnim(_BottomModel->GetHandle(), animRate.first);
+	}
+
+	if (_PunchIndex[0] != -2) {
+		MV1DetachAnim(_TopModel->GetHandle(), _PunchIndex[0]);
+		MV1DetachAnim(_BottomModel->GetHandle(), _PunchIndex[0]);
+		MV1DetachAnim(_TopModel->GetHandle(), _PunchIndex[1]);
+		MV1DetachAnim(_BottomModel->GetHandle(), _PunchIndex[1]);
+		_PunchIndex[0] = -2;
+		_PunchIndex[1] = -2;
+	}
+	_AnimationRate.clear();
+	_Animation = -1;
+}
+
+void PlayerActor::AddSize(float size)
+{
+	if(_Mode==0&&!_Input->GetDashFlag())
+	float Size = size / GetSize().x;
+	SetSize(VAdd(GetSize(), VGet(size, size, size)));
+}
+
 
 void PlayerActor::Damage(float damage) {
 	if (_ModeNum == 0 && _InvincibleTime <= 0) {

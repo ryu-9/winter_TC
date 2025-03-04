@@ -40,6 +40,8 @@ public:
 	VECTOR GetCenter();
 	void SetCenter(VECTOR center) { _Center = center; }
 
+	class ModelSpriteComponent* GetSprite() { return _Sprite; }
+
 private:
 
 	// 3Dƒ‚ƒfƒ‹•`‰æ—p
@@ -57,6 +59,8 @@ private:
 	VECTOR _Center;
 
 	bool _Indipendent;
+
+	class ModelSpriteComponent* _Sprite;
 };
 
 class ModelSpriteComponent : public SpriteComponent

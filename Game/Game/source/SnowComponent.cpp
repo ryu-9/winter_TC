@@ -1,4 +1,5 @@
 #include "SnowComponent.h"
+#include "PlayerActor.h"
 
 
 SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool flag0, bool flag1, bool flag2)
@@ -191,6 +192,7 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 		new SnowComponent(owner, m1, flag[0][0], flag[0][1], flag[0][2]);
 		new SnowComponent(owner, m2, flag[1][0], flag[1][1], flag[1][2]);
 		delete this;
+		return;
 	
 	}
 
@@ -229,7 +231,8 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	_LowIndex[12] = 4; _LowIndex[13] = 5; _LowIndex[14] = 0; _LowIndex[15] = 5; _LowIndex[16] = 1; _LowIndex[17] = 0;
 	_LowIndex[18] = 0; _LowIndex[19] = 2; _LowIndex[20] = 4;
 
-
+	_Area = VSize(VCross(a, b));
+	_Area /= num * num;
 
 }
 
@@ -275,6 +278,8 @@ void SnowComponent::Draw()
 	}
 
 	for (auto mc : mclist) {
+
+		float vertexdepth = 0;
 		if(mc ==nullptr){
 			continue;
 		}
@@ -306,11 +311,13 @@ void SnowComponent::Draw()
 			if (depth < 0) {
 				flag = false;
 				depth = sqrt(-depth);
-				if (depth > 50) { depth = 50; }
+				if (depth > 30) { depth = 30; }
+				vertexdepth += depth - _Height[i];
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
 				_Height[i] = -depth;
 				_Flag = TRUE;
+
 			}
 			calc--;
 			if (calc < 0) {
@@ -334,6 +341,12 @@ void SnowComponent::Draw()
 			int test = 0;
 		}
 		debugnum = 0;
+
+		auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
+		if (pl != nullptr) {
+			float tmp = vertexdepth * _Area / 10000000 / pl->GetSize().x;
+			pl->AddSize(tmp);
+		}
 	}
 
 	if (_Flag) {

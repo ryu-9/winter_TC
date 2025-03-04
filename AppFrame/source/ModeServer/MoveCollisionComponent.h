@@ -62,7 +62,7 @@ public:
 
 	std::deque<CollResult> GetCollResult(int num = 0) const { return _CollResult; }
 
-private:
+protected:
 	// ˆÊ’u
 	VECTOR Pos;
 	

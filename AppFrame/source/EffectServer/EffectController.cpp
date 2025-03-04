@@ -74,6 +74,13 @@ void EffectController::DelEffect(EffectManager* effect)
 }
 
 
+void EffectController::AddEffectFlag(SpriteComponent* sprite, std::string flagname, bool flag)
+{
+
+	_FlagList[sprite][flagname] = flag;
+
+}
+
 void EffectController::AddEmphasisEffect(SpriteComponent* sprite, int alpha, int wide, int height, int draworder)
 {
 	PlayerEmphasisEffect* effect = new PlayerEmphasisEffect(this, sprite, alpha, wide, height, draworder);
@@ -92,12 +99,13 @@ bool EffectController::SearchFlag(std::map<std::string, bool>* flagList, std::st
 
 
 FogSpriteComponent::FogSpriteComponent(ActorClass* owner, int draworder, unsigned int color, float mindist, float maxdist)
-	:SpriteComponent(owner, draworder)
+	:EffectManager(owner, draworder)
 	,_Color(color)
 	,_MinDist(mindist)
 	,_MaxDist(maxdist)
-	,_IsDraw(TRUE)
+
 {
+	SetEffectName("Fog");
 }
 
 FogSpriteComponent::~FogSpriteComponent()
@@ -106,8 +114,15 @@ FogSpriteComponent::~FogSpriteComponent()
 
 void FogSpriteComponent::Draw()
 {
-	SetFogEnable(TRUE);					// フォグを有効にする
-	SetFogColor(190, 200, 255);			// フォグの色
-	SetFogStartEnd(1000.0f, 6000.0f);	// フォグの適用距離
+
+}
+
+void FogSpriteComponent::SetIsUse(bool flag)
+{
+	SetFogEnable(flag);					// フォグを有効にする
+	int r, g, b;
+	GetColor2(_Color, &r, &g, &b);
+	SetFogColor(r, g, b);	// フォグの色を設定
+	SetFogStartEnd(_MinDist, _MaxDist);	// フォグの開始と終了距離を設定
 }
 

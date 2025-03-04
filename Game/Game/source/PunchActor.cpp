@@ -16,9 +16,9 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	}
 	_LifeTime = 2000;
 	//auto model = new ModelComponent(this, "nomodel");
-	float size = scale * 5;
+	float size = scale;
 	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
-	size *= 5;
+	size *= 25;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 }
 

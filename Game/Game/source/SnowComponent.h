@@ -30,5 +30,7 @@ private:
 
 	bool _Flag;
 
+	float _Area;
+
 };
 

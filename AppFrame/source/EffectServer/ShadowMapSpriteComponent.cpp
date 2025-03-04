@@ -66,9 +66,10 @@ void ShadowMapSpriteComponent::Draw()
 	}
 
 	ShadowMap_DrawEnd();
-	
+	GraphFilter(_Handle, DX_GRAPH_FILTER_GAUSS, 8, 1000);
 	
 	SetUseShadowMap(_Index, _Handle);
+
 
 	TestDrawShadowMap(_Handle, _Index * 128, 0, (_Index + 1) * 128, 128);
 }

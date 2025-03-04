@@ -128,6 +128,7 @@ void PlayerMoveComponent::ProcessInput()
 			_pOwner->SetChangeFlag(true);
 			if (_JumpFlag) {
 				velocity.y = 10;
+				_JumpFlag = false;
 			}
 		}
 		if (trg & PAD_INPUT_2) {

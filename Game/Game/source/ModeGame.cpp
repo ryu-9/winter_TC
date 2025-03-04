@@ -15,6 +15,7 @@
 #include "nlohmann/json.hpp"
 #include "ApplicationGlobal.h"
 #include "ModeStageSelect.h"
+#include "PlayerMoveCollisionComponent.h"
 #include <EffekseerForDXLib.h>
 
 class MenuItemOpenSelect : public MenuItemBase {
@@ -38,7 +39,7 @@ bool ModeGame::Initialize() {
 	_bUseCollision = TRUE;
 	_bViewCameraInfo = FALSE;
 //	SetFogEnable(TRUE);
-	SetFogStartEnd(200, 10000);
+//	SetFogStartEnd(200, 10000);
 	
 	SetDrawCollision(TRUE);
 
@@ -164,6 +165,12 @@ bool ModeGame::Render() {
 	
 	_EffectController -> Draw();
 
+	for (auto mc : _MCollision) {
+		//mc->DebugDraw();
+	}
+	for (auto hc : _HCollision) {
+		//hc->DebugDraw();
+	}
 	return true;
 
 	base::Render();
@@ -215,11 +222,11 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
-			_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[0]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
-			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[1]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {
 			new EnemySpawnerActor(this, pos);
