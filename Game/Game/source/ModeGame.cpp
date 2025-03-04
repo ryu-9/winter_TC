@@ -80,8 +80,8 @@ bool ModeGame::Initialize() {
 	}
 	
 	
-	auto b = new BossActor(this, VGet(0, -1800,2000));
-	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
+//	auto b = new BossActor(this, VGet(0, -1800,2000));
+//	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
 //	b->SetMoveCollision(new MoveCollisionComponent(b,nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
 	
 	return true;

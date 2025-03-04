@@ -20,10 +20,6 @@ public:
 	virtual bool Update();
 	virtual bool Render();
 
-	bool GetDebugViewCameraInfo() { return _bViewCameraInfo; }
-	void SetDebugViewCameraInfo(bool b) { _bViewCameraInfo = b; }
-	bool GetUseCollision() { return _bUseCollision; }
-	void SetUseCollision(bool b) { _bUseCollision = b; }
 
 
 	class CameraActor* GetCamera() { return _Camera; }

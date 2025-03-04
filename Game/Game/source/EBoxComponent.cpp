@@ -16,7 +16,7 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	_Target.push_back(_En->GetMode()->GetPlayer(1));
 	_Weight.push_back(3);
 	_Weight.push_back(4);
-	_HalfSize = 20;
+	_HalfSize = 50;
 	_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
 }
 
