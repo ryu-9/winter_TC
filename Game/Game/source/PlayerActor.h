@@ -50,6 +50,9 @@ private:
 		Walk,
 		Dash,
 		Punch,
+		Laser,
+		Blade,
+		Damage,
 		Num
 	};
 
@@ -62,7 +65,10 @@ private:
 
 	class ModelComponent* _BallModel;
 	class ModelComponent* _TopModel;
+	int _TopModelHandle[4];
+
 	class ModelComponent* _BottomModel;
+	int _BottomModelHandle[4];
 
 	class PlayerMoveCollisionComponent* _MCollision;
 	class MoveCollisionComponent* _MCollision2;
@@ -92,6 +98,8 @@ private:
 	bool _ChangeFlag;
 
 	int _KnockBackTime;
+
+	int _ItemNum;
 
 };
 

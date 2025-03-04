@@ -11,7 +11,7 @@
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
-	,_ModeNum(0)
+	, _ModeNum(0)
 	, _PlayerNo(playerNo)
 	, _ChangeTime(0)
 	, _Animation(1)
@@ -23,6 +23,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -42,7 +43,14 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 
 	float pi = 3.14159265358979323846;
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Upbody_not outlined.mv1");
-	//_TopModel = new ModelComponent(this, "res/model/Sundercross/motion/gattaimotion.mv1");
+	_TopModelHandle[0] = _TopModel->GetHandle();
+	_TopModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Upbody_not outlined.mv1");
+	_TopModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Upbody_Blade_not_outlinedd.mv1");
+	for (int i = 0; i < 4; i++) {
+		MV1SetVisible(_TopModelHandle[i], FALSE);
+	}
+
+
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -340, 0));
 	_TopModel->SetRotation(VGet(0, pi, 0));
@@ -50,6 +58,13 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	//new OutlineComponent(this, "res/model/Sundercross/Upbody_outlined.mv1", _TopModel);
 
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Downbody_not outlined.mv1");
+	_BottomModelHandle[0] = _BottomModel->GetHandle();
+	_BottomModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Downbody_not outlined.mv1");
+	_BottomModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Downbody_Blade_not_outlined.mv1");
+	for (int i = 0; i < 4; i++) {
+		MV1SetVisible(_BottomModelHandle[i], FALSE);
+	}
+
 	_BottomModel->SetScale(VGet(2, 2, 2));
 	_BottomModel->SetPosition(VGet(0, -100, 0));
 	_BottomModel->SetRotation(VGet(0, pi, pi));
@@ -75,6 +90,9 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dash_motion.mv1");
 	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 	_AnimationModel[5] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_up.mv1");
+	_AnimationModel[6] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1");
+	_AnimationModel[7] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_ztaireitou.mv1");
+
 
 	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
 	//auto pee = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
@@ -265,15 +283,15 @@ void PlayerActor::UpdateActor() {
 				dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
 				if (dist < (friSize + GetSize().y) * 100) {
 					if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
-						ChangeMode(2);
+						ChangeMode(2 + _ItemNum * 2);
 						ChangeAnim((int)anim::Change);
-						_Friend->ChangeMode(1);
+						_Friend->ChangeMode(1 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
 					}
 					else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
-						_Friend->ChangeMode(2);
+						_Friend->ChangeMode(2 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
-						ChangeMode(1);
+						ChangeMode(1 + _ItemNum * 2);
 						ChangeAnim((int)anim::Change);
 
 					}
@@ -386,7 +404,7 @@ void PlayerActor::UpdateActor() {
 	}
 
 		break;
-	case 3:
+	case -1:
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
 		if (dist < 100) {
@@ -407,6 +425,15 @@ void PlayerActor::ChangeMode(int mode)
 	if (_ModeNum == mode) { return; }
 	float dist = 0;
 	switch (mode) {
+	case -1:
+		_ModeNum = 3;
+		_BallModel->SetVisible(false);
+		_TopModel->SetVisible(false);
+		_BottomModel->SetVisible(false);
+		SetSize(VGet(0.1, 0.1, 0.1));
+		gGlobal._IsPlayerDead[_PlayerNo - 1] = TRUE;
+		break;
+
 	case 0:
 		if (_ModeNum == 1) {
 			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, -2*GetSize().y, 0)));
@@ -428,6 +455,7 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 	case 1:
 		_ModeNum = 1;
+		_BottomModel->SetHandle(_BottomModelHandle[0]);
 		_BottomModel->SetVisible(true);
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
@@ -438,6 +466,7 @@ void PlayerActor::ChangeMode(int mode)
 
 	case 2:
 		_ModeNum = 2;
+		_TopModel->SetHandle(_TopModelHandle[0]);
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
@@ -445,14 +474,48 @@ void PlayerActor::ChangeMode(int mode)
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		break;
+
+
 	case 3:
 		_ModeNum = 3;
+		_BottomModel->SetHandle(_BottomModelHandle[1]);
+		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_TopModel->SetVisible(false);
-		_BottomModel->SetVisible(false);
-		SetSize(VGet(0.1, 0.1, 0.1));
-		gGlobal._IsPlayerDead[_PlayerNo-1] = TRUE;
+		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
+
+	case 4:
+		_ModeNum = 4;
+		_TopModel->SetHandle(_TopModelHandle[1]);
+		_TopModel->SetVisible(true);
+		_BallModel->SetVisible(false);
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_MCollision->SetIsActive(false);
+		_Cursor->Init();
+		break;
+
+	case 5:
+		_ModeNum = 5;
+		_BottomModel->SetHandle(_BottomModelHandle[2]);
+		_BottomModel->SetVisible(true);
+		_BallModel->SetVisible(false);
+		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		break;
+
+	case 6:
+		_ModeNum = 6;
+		_TopModel->SetHandle(_TopModelHandle[2]);
+		_TopModel->SetVisible(true);
+		_BallModel->SetVisible(false);
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_MCollision->SetIsActive(false);
+		_Cursor->Init();
+		break;
+
 	}
 }
 
@@ -514,7 +577,21 @@ void PlayerActor::ChangeAnim(int a) {
 		_PunchIndex[1] = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[5], TRUE);
 		break;
 
+	case (int)anim::Laser:
+		index = MV1GetAnimIndex(_AnimationModel[6], "beammotion");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[6], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[6], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
 
+	case (int)anim::Blade:
+		index = MV1GetAnimIndex(_AnimationModel[7], "ztaireito_motion2");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[7], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[7], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
 
 
 
@@ -580,7 +657,7 @@ void PlayerActor::Damage(float damage) {
 		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
 		if (GetSize().x < 0.1) {
-			ChangeMode(3);
+			ChangeMode(-1);
 			Init();
 		}
 	}
