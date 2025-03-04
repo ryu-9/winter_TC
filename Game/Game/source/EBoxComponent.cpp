@@ -182,7 +182,7 @@ bool EBoxComponent::Move() {
 		auto vel = _En->GetInput()->GetVelocity();
 		// ‰ñ“]ˆÚ“®•ª‚ÌƒxƒNƒgƒ‹‚ð‰ÁŽZ
 		auto y = _Slanting * (sinf(_RollAngle + (0.25 * PI)))-_HalfSize;
-		vel = VAdd(VGet(0, y, 0), VScale(_MoveDir, (_MoveDist * (float)tm)));
+		vel = VAdd(VGet(0, y / tm, 0), VScale(_MoveDir, (_MoveDist * (float)tm)));
 		_En->GetInput()->SetVelocity(vel);
 		
 		// TODO: —Ž‰º’†‘Î‰ž
