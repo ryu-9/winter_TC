@@ -17,10 +17,9 @@ public:
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
 private:
-	class MoveComponent* _Input;
-	class ModelComponent* _Model;
-	class MoveCollisionComponent* _MCollision;
-	class HitCollisionComponent* _HCollision;
+	enum ACTION {
+		NONE,
+	};
 
 	enum ANIM {
 		CHANGE,
@@ -30,6 +29,15 @@ private:
 		PUNCH,
 		NUM
 	};
+
+	bool ChangeAnim(ANIM a);
+
+	class MoveComponent* _Input;
+	class ModelComponent* _Model;
+	class MoveCollisionComponent* _MCollision;
+	class HitCollisionComponent* _HCollision;
+
+	
 
 	ANIM _Animation;
 	float _AnimTime;

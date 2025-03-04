@@ -20,6 +20,7 @@ public:
 	bool GetStand() const { return _Stand; }
 	void SetStand(bool stand) { _Stand = stand; }
 
+	void SetGravity(bool gravity) { _Gravity = gravity; }
 private:
 	VECTOR _OldPosition;
 	VECTOR _Velocity;
