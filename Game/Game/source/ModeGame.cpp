@@ -57,7 +57,7 @@ bool ModeGame::Initialize() {
 	// 雑実装
 	switch (gGlobal._SelectStage) {
 	case 0:
-		LoadStage("res/Stage/", "Stage4.json");
+		LoadStage("res/Stage/", "Stage1.json");
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
@@ -190,7 +190,7 @@ PlayerActor* ModeGame::GetPlayer(int n) {
 }
 
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
-//	auto g = new GroupSpawnerActor(this, VGet(0, 0, 0));
+	auto g = new GroupSpawnerActor(this, VGet(0, 0, 0));
 
 	std::ifstream file(path + jsname);
 	nlohmann::json json;
@@ -226,7 +226,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {
-	//		g->AddPopPos(pos);
+			g->AddPopPos(pos);
 		} else if (name == "BP_normal_EnemySpawner") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			
