@@ -172,7 +172,7 @@ bool ModeGame::Render() {
 		//mc->DebugDraw();
 	}
 	for (auto hc : _HCollision) {
-		//hc->DebugDraw();
+		hc->DebugDraw();
 	}
 	return true;
 
@@ -229,6 +229,14 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto esa = new EnemySpawnerActor(this, pos);
 			
 
+		} else if (name == "Group_Area_Box_No01") {
+			
+			g->SetPosition(pos);
+			g->SetDirection(rot);
+			g->SetSize(scale);
+			auto m = new ModelComponent(g, (path + "model/Cube.mv1").c_str());
+			//m->SetVisible(false);
+			g->SetHCollision(new MHitCollisionComponent(g, m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
 		}
 		else {
 			auto ac = new ActorClass(this);
