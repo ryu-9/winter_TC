@@ -10,7 +10,7 @@
 #include "ModeGameOver.h"
 #include "ModeGameUI.h"
 #include "ModeLoading.h"
-// ����
+
 ApplicationMain				g_oApplicationMain;
 
 
@@ -18,7 +18,7 @@ ApplicationMain				g_oApplicationMain;
 bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	if (!base::Initialize(hInstance)) { return false; }
 
-	// �A�v���P�[�V�����O���[�o���̏�����
+	
 	gGlobal.Init();
 
 	new EnemyCreator();

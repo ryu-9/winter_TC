@@ -4,6 +4,9 @@
 EBoxComponent::EBoxComponent(ActorClass* owner) 
 	:EnemyComponent(owner)
 	, _WaitAction(WAIT_ACTION::NON)
+	, _AddRot(VGet(0, 0, 0))
+	, _MoveDir(VGet(0, 0, 0))
+	, _StartRot(VGet(0, 0, 0))
 {
 	_SearchRef.dist = 500;
 	_Status = STATUS::SEARCH;

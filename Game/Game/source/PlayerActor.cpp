@@ -579,8 +579,9 @@ void PlayerActor::Damage(float damage) {
 			damage /= 2;
 		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
-		if (VSize(GetSize()) < 0.1) {
+		if (GetSize().x < 0.1) {
 			ChangeMode(3);
+			Init();
 		}
 	}
 }

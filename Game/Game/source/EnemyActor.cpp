@@ -55,4 +55,5 @@ int Drawing(std::vector<int> w)// d‚İ•t‚«’Š‘I
 			return i;
 		}
 	}
+	return 0;
 }
