@@ -1,7 +1,7 @@
 #include "PlayerEmphasisEffect.h"
 
 PlayerEmphasisEffect::PlayerEmphasisEffect(ActorClass* owner, SpriteComponent* sprite, int alpha, int wide, int height, int draworder)
-	:SpriteComponent(owner, draworder)
+	:EffectManager(owner, draworder)
 	, _Sprite(sprite)
 	, _Alpha(alpha)
 {

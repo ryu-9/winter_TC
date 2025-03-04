@@ -1,9 +1,11 @@
 #pragma once
-#include "Component.h"
+#include "../AppFrame/source/ModeServer/SpriteComponent.h"
+#include "EffectManager.h"
 #include "Dxlib.h"
-#include "ModeBase.h"
 
-class ShadowMapSpriteComponent : public SpriteComponent
+
+
+class ShadowMapSpriteComponent : public EffectManager
 {
 public:
 	ShadowMapSpriteComponent(class ActorClass* owner, int size, VECTOR dir = VGet(0,-1, 0), VECTOR target = VGet(0, 0, 0), int index = 0, float length = 100, int drawOrder = -1000000);
@@ -35,10 +37,14 @@ public:
 	void SetMaxLength(VECTOR max) { _MaxLength = max; }
 	VECTOR GetMaxLength() const { return _MaxLength; }
 
+	void SetIsDraw(bool isDraw) { _IsDraw = isDraw; }
+	bool GetIsDraw() const { return _IsDraw; }
 
+	void SetIsUse(bool isUse) override;
 
 private:
 	int _Index;
+	bool _IsDraw;
 	VECTOR _MinLength;
 	VECTOR _MaxLength;
 	int _Handle;

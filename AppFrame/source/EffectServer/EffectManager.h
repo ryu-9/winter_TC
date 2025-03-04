@@ -2,22 +2,24 @@
 #include <map>
 #include "../AppFrame/source/ModeServer/SpriteComponent.h"
 
-class EffectManager
+class EffectManager : public SpriteComponent
 {
 	public:
-	EffectManager(SpriteComponent* sp);
-	~EffectManager();
+		EffectManager(ActorClass* owner, int draworder);
+		~EffectManager();
 
-	void Draw();
+		virtual void SetIsUse(bool flag);
+		bool GetIsUse() const { return _IsUse; }
 
-	void AddEffectFlag(std::string name, bool flag) {_Effectflag[name] = flag;}
-	std::map<std::string, bool>* GetEffectFlag() { return &_Effectflag; }
+		std::string GetEffectName() const { return _EffectName; }
 
-	SpriteComponent* GetSprite() { return _Sprite; }
+	protected:
+
+		void SetEffectName(std::string name) { _EffectName = name; }
+
 
 	private:
-		SpriteComponent* _Sprite;
-		std::map <std::string, bool> _Effectflag;
-
+		bool _IsUse;
+		std::string _EffectName;
 };
 

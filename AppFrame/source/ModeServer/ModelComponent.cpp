@@ -19,7 +19,7 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
 	_Handle = ModelServer::GetInstance()->Add(file);
-	new ModelSpriteComponent(_Owner, this);
+	_Sprite = new ModelSpriteComponent(_Owner, this);
 }
 
 ModelComponent::~ModelComponent()

@@ -85,7 +85,10 @@ PlayerCursorSpriteComponent::PlayerCursorSpriteComponent(ActorClass* owner, int 
 	, _ActiveFlag(false)
 {
 	_Handle = LoadGraph("res/UI/UI_AIM.png");
-	EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(this);
+	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
+	if (sm.size() > 0) {
+		sm[0]->AddRemoveSprite(this);
+	}
 }
 
 PlayerCursorSpriteComponent::~PlayerCursorSpriteComponent()

@@ -183,6 +183,9 @@
     <ClCompile Include="source\ItemActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="source\PlayerMovoCollisionComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+      </ClCompile>
     <ClCompile Include="source\EnemySpawnerActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="source\BossActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PlayerMoveCollisionComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

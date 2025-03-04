@@ -90,9 +90,6 @@
     <ClInclude Include="source\ModeServer\FpsController.h">
       <Filter>ModeServer</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeServer\ShadowMapSpriteComponent.h">
-      <Filter>ModeServer</Filter>
-    </ClInclude>
     <ClInclude Include="source\EffectServer\EffectController.h">
       <Filter>EffectServer</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeServer\EffectSpriteComponent.h">
       <Filter>ModeServer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EffectServer\ShadowMapSpriteComponent.h">
+      <Filter>EffectServer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,9 +170,6 @@
     <ClCompile Include="source\ModeServer\FpsController.cpp">
       <Filter>ModeServer</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeServer\ShadowMapSpriteComponent.cpp">
-      <Filter>ModeServer</Filter>
-    </ClCompile>
     <ClCompile Include="source\EffectServer\EffectController.cpp">
       <Filter>EffectServer</Filter>
     </ClCompile>
@@ -184,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\EffectSpriteComponent.cpp">
       <Filter>ModeServer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EffectServer\ShadowMapSpriteComponent.cpp">
+      <Filter>EffectServer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

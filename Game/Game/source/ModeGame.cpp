@@ -15,6 +15,7 @@
 #include "nlohmann/json.hpp"
 #include "ApplicationGlobal.h"
 #include "ModeStageSelect.h"
+#include "PlayerMoveCollisionComponent.h"
 #include <EffekseerForDXLib.h>
 #include "EnemyController.h"
 #include "GroupAttackActor.h"
@@ -39,7 +40,7 @@ bool ModeGame::Initialize() {
 	
 
 //	SetFogEnable(TRUE);
-	SetFogStartEnd(200, 10000);
+//	SetFogStartEnd(200, 10000);
 	
 	SetDrawCollision(TRUE);
 
@@ -132,6 +133,10 @@ bool ModeGame::Render() {
 	Effekseer_Sync3DSetting();
 	
 	SetUseLighting(TRUE);
+
+
+
+
 #if 1	
 	//SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(0.75, -1, 0.75));
@@ -161,28 +166,21 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 	
-	//_EffectController -> Draw();
+	_EffectController -> Draw();
+
+	for (auto mc : _MCollision) {
+		//mc->DebugDraw();
+	}
+	for (auto hc : _HCollision) {
+		//hc->DebugDraw();
+	}
+	return true;
 
 	base::Render();
 
 	return true;
 }
 
-void ModeGame::AddSprite(SpriteComponent* sp)
-{
-	ModeBase::AddSprite(sp);
-	if (_EffectController != nullptr) {
-		_EffectController->AddEffect(new EffectManager(sp));
-	}
-}
-
-void ModeGame::RemoveSprite(SpriteComponent* sp)
-{
-	ModeBase::RemoveSprite(sp);
-	if (_EffectController != nullptr) {
-		_EffectController->DelEffect(new EffectManager(sp));
-	}
-}
 
 PlayerActor* ModeGame::GetPlayer(int n) {
 	if (n < 0 || n>1) { return nullptr; }
@@ -219,11 +217,11 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
-			_Player[0]->SetMoveCollision(new MoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[0]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
-			_Player[1]->SetMoveCollision(new MoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
+			_Player[1]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {
 			g->AddPopPos(pos);

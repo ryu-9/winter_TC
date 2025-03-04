@@ -22,14 +22,24 @@ public:
 	PlayerActor* GetFriend() { return _Friend; }
 
 
-	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
+	void SetMoveCollision(class PlayerMoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
 	void ChangeMode(int mode);
 
 	void Damage(float damage);
+	void KnockBack(VECTOR dir, float power);
 	bool IsMoved();
 	void ChangeAnim(int a);
+
+	void SetChangeFlag(bool flag) { _ChangeFlag = flag; }
+
+	int GetKnockBackTime() { return _KnockBackTime; }
+
+	void Init();
+
+	void AddSize(float size);
+
 
 private:
 
@@ -53,7 +63,7 @@ private:
 	class ModelComponent* _TopModel;
 	class ModelComponent* _BottomModel;
 
-	class MoveCollisionComponent* _MCollision;
+	class PlayerMoveCollisionComponent* _MCollision;
 	class MoveCollisionComponent* _MCollision2;
 
 	class HitCollisionComponent* _HCollision;
@@ -70,12 +80,17 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[5];
+	int _AnimationModel[6];
 	bool _AnimChangingflag;
 
 	int _PunchIndex[2];
 
 	bool _PunchFlag;
 	int _InvincibleTime;
+
+	bool _ChangeFlag;
+
+	int _KnockBackTime;
+
 };
 

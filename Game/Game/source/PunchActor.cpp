@@ -8,12 +8,17 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_Move->SetVelocity(move);
 	SetPosition(pos);
 	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Panch.efkefc", VGet(0, 0, 0), rot, scale, 100000);
-	EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
+
+	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
+	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
+	if (sm.size() > 0) {
+		sm[0]->AddRemoveSprite(sp);
+	}
 	_LifeTime = 2000;
 	//auto model = new ModelComponent(this, "nomodel");
-	float size = scale * 5;
+	float size = scale;
 	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
-	size *= 5;
+	size *= 25;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 }
 
