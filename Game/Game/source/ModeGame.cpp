@@ -20,6 +20,7 @@
 #include "EnemyController.h"
 #include "GroupAttackActor.h"
 #include "BossActor.h"
+#include "TreeActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:

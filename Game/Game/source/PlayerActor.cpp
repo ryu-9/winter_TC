@@ -8,6 +8,7 @@
 #include "PlayerCursorComponent.h"
 #include "PunchActor.h"
 #include "PlayerMoveCollisionComponent.h"
+#include "ItemActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -228,7 +229,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		v = _Input->GetVelocity();
-		// �ړ��ʂ̃Z�b�g
+		// 移動量を取得
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
 		float size = VSize(tmp) / 20000;
@@ -240,17 +241,17 @@ void PlayerActor::UpdateActor() {
 		}
 
 		if (!_Input->GetDashFlag()) {
-			// �p�x��擾
+			// 角度を算出
 			rot = _BallModel->GetFront();
 			rot2 = _BallModel->GetUp();
 
-			//	���x����p�x��Z�o
+			//	回転量を計算
 			rot = VTransform(rot, MGetRotX(v.z / 75 / GetSize().x / 2));
 			rot = VTransform(rot, MGetRotZ(-v.x / 75 / GetSize().x / 2));
 			rot2 = VTransform(rot2, MGetRotX(v.z / 75 / GetSize().x / 2));
 			rot2 = VTransform(rot2, MGetRotZ(-v.x / 75 / GetSize().x / 2));
 
-			//	�p�x��Z�b�g
+			//	モデルに反映
 
 			MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
@@ -298,6 +299,13 @@ void PlayerActor::UpdateActor() {
 				knock = VNorm(knock);
 				KnockBack(VGet(knock.x, 0.2, knock.z), 20);
 				Damage(0.5);
+				continue;
+			}
+
+			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
+			if (item != nullptr) {
+				item->SetState(State::eDead);
+				continue;
 			}
 		}
 	}
@@ -566,7 +574,7 @@ void PlayerActor::Init()
 
 void PlayerActor::AddSize(float size)
 {
-	if(_Mode==0&&!_Input->GetDashFlag())
+	if(_ModeNum==0&&!_Input->GetDashFlag())
 	float Size = size / GetSize().x;
 	SetSize(VAdd(GetSize(), VGet(size, size, size)));
 }
