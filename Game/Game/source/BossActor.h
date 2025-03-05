@@ -17,34 +17,39 @@ public:
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
 private:
+	
 	enum ACTION {
-		NONE,
-	};
-
-	enum ANIM {
-		CHANGE,
 		WAIT,
-		WALK,
-		DASH,
 		PUNCH,
+		BULLET,
+		BEAM,
+		DAMAGE,
+		COOLDOWN,
 		NUM
 	};
 
-	bool ChangeAnim(ANIM a);
+	bool Punch();
+
+	bool ChangeAnim(ACTION a);
+	bool ChangeMotion(ACTION a);
+	bool CoolDown();
 
 	class MoveComponent* _Input;
 	class ModelComponent* _Model;
 	class MoveCollisionComponent* _MCollision;
 	class HitCollisionComponent* _HCollision;
 
+
+	int _ActTime;				// 現在のアクション時間
+	int _ActTotalTime;			// 最大アクション時間
 	
 
-	ANIM _Animation;
-	float _AnimTime;
-	float _AnimTotalTime;
-	int _AnimIndex;
-	bool _AnimChangingflag;
-	std::vector<int> _AnimMV1;
+	ACTION _Action;			// 現アニメーション
+	float _AnimTime;			// 再生時間
+	float _AnimTotalTime;		// 合計時間
+	int _AnimIndex;				// インデックス
+	bool _AnimChangingflag;		// アニメーション変更中フラグ
+	std::vector<int> _AnimMV1;	// モーションデータ
 
 };
 
