@@ -18,40 +18,80 @@ void GroupSpawnerActor::Init() {
 	_Data.max_popcount = 8;
 	_Data.pop_range = 100;
 	_Data.pop_time = 1000;
-	_Data.active_pos = VGet(0, 0, 0);
-	_Data.active_size = VGet(1000, 1000, 1000);
+	
 }
 
 void GroupSpawnerActor::UpdateActor() {
-	_TmCnt += GetMode()->GetStepTm();
-
-	if (_TmCnt < _Data.pop_time) { return; }
-	if (_PopCnt >= _Data.max_popcount) { return; }
-	auto dist = new int[_PopPos.size()];
-	for (auto i = 0; i < _PopPos.size(); i++) {
-		dist[i] = VSize(VSub(_Player[0]->GetPosition(), _PopPos[i]));
+	if (_Active == false) { 
+		auto hit =_HCollision->IsHit();
+		if (hit.size() > 0) {
+			_Active = true;
+		}
 	}
-	for (auto i = 0; i < _PopPos.size(); i++) {
-		dist[i] += VSize(VSub(_Player[1]->GetPosition(), _PopPos[i]));
-	}
+	else {
+		_TmCnt += GetMode()->GetStepTm();
 
-	// 一番遠いスポナーから生成
-	auto randdist = rand() % _Data.pop_range;
-	auto randangle = rand() % 360;
-	randangle = DEG2RAD(randangle);
-	auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
-	auto max = 0;
-	for (auto i = 0; i < _PopPos.size(); i++) {
-		if (dist[i] > dist[max]) {
-			max = i;
+		if (_TmCnt < _Data.pop_time) { return; }
+		if (_PopCnt >= _Data.max_popcount) { return; }
+		auto dist = new int[_PopPos.size()];
+		for (auto i = 0; i < _PopPos.size(); i++) {
+			dist[i] = VSize(VSub(_Player[0]->GetPosition(), _PopPos[i]));
+		}
+		for (auto i = 0; i < _PopPos.size(); i++) {
+			dist[i] += VSize(VSub(_Player[1]->GetPosition(), _PopPos[i]));
+		}
+
+		// 一番遠いスポナーから生成
+		auto randdist = rand() % _Data.pop_range;
+		auto randangle = rand() % 360;
+		randangle = DEG2RAD(randangle);
+		auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
+		auto max = 0;
+		for (auto i = 0; i < _PopPos.size(); i++) {
+			if (dist[i] > dist[max]) {
+				max = i;
+			}
+		}
+
+		// 生成
+		EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(_PopPos[max], pos));
+		_PopCnt++;
+		_TotalPopCnt++;
+		_TmCnt = 0;
+
+		delete[] dist;
+	}
+}
+
+MHitCollisionComponent::MHitCollisionComponent(ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle) 
+	: HitCollisionComponent(owner, model, pos, size, type, move, active, handle) {
+}
+
+std::deque<HitCollisionComponent*>& MHitCollisionComponent::IsHit() {
+	MV1SetPosition(Handle, GetPosition());
+	MV1SetScale(Handle, GetSize());
+	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+	MV1RefreshCollInfo(Handle);
+
+	_IsHitList.clear();
+
+
+	for (auto hcoll : _Owner->GetMode()->GetHCollision())
+	{
+		if (hcoll->GetIsActive() == TRUE)
+		{
+			if (hcoll->GetOwner() != _Owner)
+			{
+				auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x).HitNum;
+				if (m > 0) {
+					_IsHitList.insert(_IsHitList.begin(), hcoll);
+				}
+
+
+			}
 		}
 	}
 
-	// 生成
-	EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(_PopPos[max], pos));
-	_PopCnt++;
-	_TotalPopCnt++;
-	_TmCnt = 0;
-
-	delete[] dist;
+	return _IsHitList;
 }
+

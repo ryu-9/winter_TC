@@ -14,7 +14,7 @@ public:
 
 	~HitCollisionComponent() override;
 
-	std::deque<HitCollisionComponent*>& IsHit();
+	virtual std::deque<HitCollisionComponent*>& IsHit();
 
 
 	void Update() override;
@@ -37,7 +37,7 @@ public:
 
 	int GetType() const { return Type; }
 	void SetType(int type) { Type = type; }
-	// collision‚ÌŒ`@0: ‹… 1:ü•ª 2:ƒJƒvƒZƒ‹ 3:ƒƒbƒVƒ…
+	// collisionï¿½ÌŒ`ï¿½@0: ï¿½ï¿½ 1:ï¿½ï¿½ï¿½ï¿½ 2:ï¿½Jï¿½vï¿½Zï¿½ï¿½ 3:ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½
 
 	bool GetIsMove() const { return isMove; }
 	void SetIsMove(bool move) { isMove = move; }
@@ -54,27 +54,27 @@ public:
 
 	void SetRotation(VECTOR rot);
 
-private:
-	// ˆÊ’u
+protected:
+	// ï¿½Ê’u
 	VECTOR Pos;
 
-	// ƒTƒCƒY
+	// ï¿½Tï¿½Cï¿½Y
 	VECTOR Size;
 
 	VECTOR Rot;
 	VECTOR Front;
 	VECTOR Up;
 
-	// collision‚ÌŒ`
+	// collisionï¿½ÌŒ`
 	int Type;
 
-	// ˆÚ“®‚·‚é‚©
+	// ï¿½Ú“ï¿½ï¿½ï¿½ï¿½é‚©
 	bool isMove;
 
-	// ƒAƒNƒeƒBƒu‚©
+	// ï¿½Aï¿½Nï¿½eï¿½Bï¿½uï¿½ï¿½
 	bool isActive;
 
-	// ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
+	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
 	int Handle;
 
 	bool flag;
