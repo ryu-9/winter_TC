@@ -23,6 +23,7 @@ public:
 	void SetUp(VECTOR up) { _Up = up; }
 	
 	void SetVisible(bool visible) { MV1SetVisible(_Handle, visible); }
+	bool GetVisible() const { return MV1GetVisible(_Handle); }
 
 	void SetPosition(VECTOR pos) { _Position = pos; }
 	VECTOR GetPosition() const { return _Position; }
