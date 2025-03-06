@@ -13,48 +13,50 @@ public:
 	class MoveComponent* GetInput() { return _Input; }
 	void SetInput(class MoveComponent* input) { delete _Input; _Input = input; }
 	void SetModel(class ModelComponent* model,int index) { delete _Model[index]; _Model[index] = model; }
-	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
 private:
 	
 	enum ACTION {
-		WAIT,
-		PUNCH,
-		BULLET,
-		BEAM,
-		DAMAGE,
-		DIE,
-		COOLDOWN,
-		NUM
+		WAIT,			// 待機
+		PUNCH,			// パンチ
+		BULLET,			// 弾
+		BEAM,			// ビーム
+		DAMAGE,			// ダメージ
+		DIE,			// 死亡
+		COOLDOWN,		// クールダウン
+		ACTION_COUNT	// アクション数
 	};
 
-	typedef bool(BossActor::* ACTIONFUNCTION)(); // メンバ関数の場合
-	ACTIONFUNCTION _ActionFunc[(int)ACTION::NUM] = {
+	// アクション関数(関数ポインタ)
+	typedef bool(BossActor::* ACTIONFUNCTION)();
+	ACTIONFUNCTION _ActionFunc[(int)ACTION::ACTION_COUNT] = {
 		&BossActor::Wait,
 		&BossActor::Punch,
 		&BossActor::Bullet,
 		&BossActor::Beam,
-		&BossActor::Wait,
-		&BossActor::Wait,
+		&BossActor::Damage,
+		&BossActor::Die,
 		&BossActor::CoolDown
 	};
 
-	bool ChangeAnim(ACTION a);
-	bool ChangeAction(ACTION a);
-
+	// アクション関数(中身)
 	bool Wait();
 	bool Punch();
 	bool Bullet();
 	bool Beam();
+	bool Damage();
+	bool Die();
 	bool CoolDown();
+
+
+	bool ChangeAnim(ACTION a);
+	bool ChangeAction(ACTION a);
 
 	class MoveComponent* _Input;
 	class ModelComponent* _Model[2];
 	
-	class MoveCollisionComponent* _MCollision;
 	class HitCollisionComponent* _HCollision;
-
 
 	int _ActTime;				// 現在のアクション時間
 	int _ActTotalTime;			// 最大アクション時間
@@ -67,14 +69,16 @@ private:
 	bool _AnimChangingflag;		// アニメーション変更中フラグ
 	std::vector<int> _AnimMV1;	// モーションデータ
 
-
+	// タイムライン用構造体
 	struct ACTION_TIMELINE {
 		ACTION action;
 		int time;
 	};
 	std::vector<std::vector<ACTION_TIMELINE>> _ActionTimeline;
 
-	int _ActionIndex;
-	int _TimelineIndex;
+	int _ActionIndex;			// タイムライン内アクション番号
+	int _TimelineIndex;			// タイムライン番号
+
+	int _HitPoint;				// ヒットポイント
 };
 

@@ -7,6 +7,12 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	, _AnimTotalTime(0)
 	, _AnimIndex(-1)
 	, _AnimChangingflag(false)
+	, _CurrentTime(0)
+	, _TimelineIndex(0)
+	, _ActionIndex(0)
+	, _ActTime(0)
+	, _ActTotalTime(0)
+	, _HitPoint(500)
 {
 	SetPosition(pos);
 	_Input = new MoveComponent(this);
@@ -17,24 +23,26 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1"));
+	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));		// TODO: ひるみモーションに差し替え
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));
 
-	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");
-	_Model[1] = new ModelComponent(this, "res/model/Sundercross/Sundercross_Arm.mv1");
+	// モデルの読み込み
+	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");		// 本体
+	_Model[1] = new ModelComponent(this, "res/model/Sundercross/Sundercross_Arm.mv1");		// 腕
 	_Model[1]->SetVisible(false);
 
-	auto index = MV1GetAnimIndex(_AnimMV1[_Action], "idle");
-	_AnimIndex = MV1AttachAnim(_Model[0]->GetHandle(), index, _AnimMV1[_Action],TRUE);
+	{
+		auto index = MV1GetAnimIndex(_AnimMV1[_Action], "idle");
+		_AnimIndex = MV1AttachAnim(_Model[0]->GetHandle(), index, _AnimMV1[_Action], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model[0]->GetHandle(), _AnimIndex);
+		MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex, _AnimTime);
+		_Input->SetGravity(false);
+	}
 
-	_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model[0]->GetHandle(), _AnimIndex);
-	MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex, _AnimTime);
-	_Input->SetGravity(false);
-//	ChangeAnim(ANIM::PUNCH);
-	_TimelineIndex = 0;
-	_ActionIndex =0;
+	// タイムラインの設定
 	std::vector<ACTION_TIMELINE> timeline;
-	timeline.push_back({ ACTION::BULLET, 5000 });
-	timeline.push_back({ ACTION::BEAM, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 10000 });
+	timeline.push_back({ ACTION::BEAM, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 5000 });
 
 	_ActionTimeline.push_back(timeline);
@@ -51,19 +59,29 @@ void BossActor::UpdateActor() {
 	(this->*_ActionFunc[(int)_Action])();
 
 	_CurrentTime += (float)GetMode()->GetStepTm();
-	if (_CurrentTime >= _ActionTimeline[_TimelineIndex][_ActionIndex].time) {
-		ChangeAnim(_ActionTimeline[_TimelineIndex][_ActionIndex].action);
-		ChangeAction(_ActionTimeline[_TimelineIndex][_ActionIndex].action);
-		if (_ActionIndex < _ActionTimeline[_TimelineIndex].size() - 1) {
-			_ActionIndex++;
-		} else {
-			_ActionIndex = 0;
+	if (_HitPoint > 0) {
+
+		if (_CurrentTime >= _ActionTimeline[_TimelineIndex][_ActionIndex].time) {
+			ChangeAnim(_ActionTimeline[_TimelineIndex][_ActionIndex].action);
+			ChangeAction(_ActionTimeline[_TimelineIndex][_ActionIndex].action);
+			if (_ActionIndex < _ActionTimeline[_TimelineIndex].size() - 1) {
+				_ActionIndex++;
+			} else {
+				_ActionIndex = 0;
+			}
+			_CurrentTime = 0;
 		}
-		_CurrentTime = 0;
 	}
-	
 	MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex, _AnimTime);
 	MV1SetAttachAnimTime(_Model[1]->GetHandle(), _AnimIndex, _AnimTime);
+
+	{ // デバッグ用
+	//	_HitPoint--;
+		if (_HitPoint == 0) {
+			ChangeAnim(ACTION::DIE);
+			ChangeAction(ACTION::DIE);
+		}
+	}
 }
 
 
@@ -105,7 +123,20 @@ bool BossActor::ChangeAnim(ACTION a) {
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model[0]->GetHandle(), _AnimIndex);
 		changeSucFlag = true;
 		break;
-
+	case ACTION::DAMAGE:
+		index = MV1GetAnimIndex(_AnimMV1[a], "yarare");
+		_AnimIndex = MV1AttachAnim(_Model[0]->GetHandle(), index, _AnimMV1[a], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model[0]->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
+	case ACTION::DIE:
+		index = MV1GetAnimIndex(_AnimMV1[a], "yarare");
+		_AnimIndex = MV1AttachAnim(_Model[0]->GetHandle(), index, _AnimMV1[a], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model[0]->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
+	default:
+		break;
 	}
 	_AnimChangingflag = false;
 	if (changeSucFlag) {
@@ -131,7 +162,7 @@ bool BossActor::ChangeAction(ACTION a) {
 		break;
 	case BossActor::DAMAGE:
 		break;
-	case BossActor::NUM:
+	case BossActor::ACTION_COUNT:
 		break;
 	default:
 		break;
@@ -190,6 +221,18 @@ bool BossActor::Beam() {
 		ChangeAnim(ACTION::WAIT);
 		ChangeAction(ACTION::WAIT);
 		return true;
+	}
+	return false;
+}
+
+bool BossActor::Damage() {
+	return false;
+}
+
+bool BossActor::Die() {
+	if (_AnimTime <= _AnimTotalTime) {
+		auto t = (float)GetMode()->GetStepTm();
+		_AnimTime += t / 20.f;
 	}
 	return false;
 }

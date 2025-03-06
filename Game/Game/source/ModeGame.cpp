@@ -35,6 +35,26 @@ public:
 	}
 };
 
+class MenuItemHColl : public MenuItemBase {
+public:
+	MenuItemHColl(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		mdGame->debug_hcoll_flag = !mdGame->debug_hcoll_flag;
+		return 1;
+	}
+};
+
+class MenuItemMColl : public MenuItemBase {
+public:
+	MenuItemMColl(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		mdGame->debug_mcoll_flag = !mdGame->debug_mcoll_flag;
+		return 1;
+	}
+};
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
@@ -82,8 +102,12 @@ bool ModeGame::Initialize() {
 	// ボス
 	auto b = new BossActor(this, VGet(0, -1800,1800));
 	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 100, 0), VGet(50, 50, 50), 2, true, true));
-//	b->SetMoveCollision(new MoveCollisionComponent(b,nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
 	
+	{ // デバッグ用
+		debug_hcoll_flag = true;
+		debug_mcoll_flag = false;
+	}
+
 	return true;
 }
 
@@ -103,6 +127,8 @@ bool ModeGame::Process() {
 		ModeMenu* modeMenu = new ModeMenu();
 		
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
+		modeMenu->Add(new MenuItemHColl(this, "HColl"));
+		modeMenu->Add(new MenuItemMColl(this, "MColl"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
 		
@@ -123,15 +149,15 @@ bool ModeGame::Update()
 
 bool ModeGame::Render() {
 
-	
 
-	
+
+
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
 	Effekseer_Sync3DSetting();
-	
+
 	SetUseLighting(TRUE);
 
 
@@ -165,15 +191,20 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, -linelength, 0)), VAdd(v, VGet(0, linelength, 0)), GetColor(0, 255, 0));
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
-	
-	_EffectController -> Draw();
 
-	for (auto mc : _MCollision) {
-		//mc->DebugDraw();
+	if (debug_hcoll_flag) {
+		for (auto mc : _MCollision) {
+			mc->DebugDraw();
+		}
 	}
-	for (auto hc : _HCollision) {
-		//hc->DebugDraw();
+	if (debug_mcoll_flag) {
+		for (auto mc : _MCollision) {
+			mc->DebugDraw();
+		}
 	}
+
+	_EffectController->Draw();
+	
 	return true;
 
 	base::Render();
