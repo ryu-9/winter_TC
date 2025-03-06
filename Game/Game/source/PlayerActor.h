@@ -39,6 +39,9 @@ public:
 
 	void Init();
 
+	void SetItemNum(int num) { _ItemNum = num; }
+	void DropItem(VECTOR dir, int num);
+
 	void AddSize(float size);
 
 
@@ -87,7 +90,7 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[6];
+	int _AnimationModel[(int)anim::Num];
 	bool _AnimChangingflag;
 
 	int _PunchIndex[2];

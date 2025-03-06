@@ -109,8 +109,8 @@ bool ModeMenu::Render() {
 		h += fontPitch;
 	}
 	// カーソルの描画
-	// x座標はアニメーションする
-//	DrawGraph(x + 4 + ((_curAnimCnt / 6) % 4) * 4, y + startY + fontPitch * _curPos, gGlobal._cgCursor, TRUE);
+	
+	DrawBox(x + 8, y + 8 + _curPos * fontPitch, x + w - 8, y + 8 + _curPos * fontPitch + fontPitch, GetColor(255, 255, 0), FALSE);
 
 	return true;
 }

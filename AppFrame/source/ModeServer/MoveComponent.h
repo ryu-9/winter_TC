@@ -6,7 +6,7 @@
 class MoveComponent : public Component
 {
 public:
-	MoveComponent(class ActorClass* owner, bool gravity = TRUE, int updateOrder = 100);
+	MoveComponent(class ActorClass* owner, float gravity = 1.0, int updateOrder = 100);
 	virtual ~MoveComponent();
 
 	void Update();
@@ -20,12 +20,17 @@ public:
 	bool GetStand() const { return _Stand; }
 	void SetStand(bool stand) { _Stand = stand; }
 
-	void SetGravity(bool gravity) { _Gravity = gravity; }
+	void SetGravity(float gravity) { _Gravity = gravity; }
+
+	void SetFallLimit(float limit) { _FallLimit = limit; }
+
 private:
 	VECTOR _OldPosition;
 	VECTOR _Velocity;
 
 	bool _Stand;
-	bool _Gravity;
+	float _Gravity;
+
+	float _FallLimit;
 };
 

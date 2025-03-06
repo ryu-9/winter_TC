@@ -24,6 +24,9 @@ public:
 
 	class CameraActor* GetCamera() { return _Camera; }
 	class PlayerActor* GetPlayer(int n = 0);
+
+	bool debug_hcoll_flag;
+	bool debug_mcoll_flag;
 protected:
 
 	class CameraActor* _Camera;
@@ -31,6 +34,7 @@ protected:
 
 	class EffectController* _EffectController;
 
+	
 private:
 	bool LoadStage(const std::string path,const std::string jsname);
 };

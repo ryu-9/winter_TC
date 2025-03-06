@@ -25,7 +25,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);
 	MV1SetAttachAnimTime(_Model->GetHandle(), _AnimIndex, _AnimTime);
-	_Input->SetGravity(false);
+	_Input->SetGravity(0);
 }
 
 BossActor::~BossActor() {

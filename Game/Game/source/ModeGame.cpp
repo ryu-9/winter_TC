@@ -21,6 +21,7 @@
 #include "GroupAttackActor.h"
 #include "BossActor.h"
 #include "TreeActor.h"
+#include "ItemActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -32,6 +33,26 @@ public:
 		auto ui = ModeServer::GetInstance()->Get("gameui");
 		ModeServer::GetInstance()->Del(ui);
 		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
+		return 1;
+	}
+};
+
+class MenuItemHColl : public MenuItemBase {
+public:
+	MenuItemHColl(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		mdGame->debug_hcoll_flag = !mdGame->debug_hcoll_flag;
+		return 1;
+	}
+};
+
+class MenuItemMColl : public MenuItemBase {
+public:
+	MenuItemMColl(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		mdGame->debug_mcoll_flag = !mdGame->debug_mcoll_flag;
 		return 1;
 	}
 };
@@ -53,6 +74,9 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
+	auto item = new ItemActor(this,VGet(0, 350, 500), 0, -1);
+	auto tree = new TreeActor(this, VGet(0, 50, 500));
+	tree->SetItem(item);
 	
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
@@ -85,6 +109,13 @@ bool ModeGame::Initialize() {
 //	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
 //	b->SetMoveCollision(new MoveCollisionComponent(b,nullptr, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true));
 	
+
+	{ // デバッグ用フラグ
+		debug_hcoll_flag = true;
+		debug_mcoll_flag = false;
+
+	}
+
 	return true;
 }
 
@@ -104,6 +135,8 @@ bool ModeGame::Process() {
 		ModeMenu* modeMenu = new ModeMenu();
 		
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
+		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
+		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
 		
@@ -169,12 +202,17 @@ bool ModeGame::Render() {
 	
 	_EffectController -> Draw();
 
-	for (auto mc : _MCollision) {
-		//mc->DebugDraw();
+	if (debug_hcoll_flag) {
+		for (auto hc : _HCollision) {
+			hc->DebugDraw();
+		}
 	}
-	for (auto hc : _HCollision) {
-		//hc->DebugDraw();
+	if (debug_mcoll_flag) {
+		for (auto mc : _MCollision) {
+			mc->DebugDraw();
+		}
 	}
+	
 	return true;
 
 	base::Render();

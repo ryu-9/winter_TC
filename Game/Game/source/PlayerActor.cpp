@@ -9,6 +9,7 @@
 #include "PunchActor.h"
 #include "PlayerMoveCollisionComponent.h"
 #include "ItemActor.h"
+#include "TreeActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -24,7 +25,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(1)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -46,7 +47,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Upbody_not outlined.mv1");
 	_TopModelHandle[0] = _TopModel->GetHandle();
 	_TopModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Upbody_not outlined.mv1");
-	_TopModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Upbody_Blade_not_outlinedd.mv1");
+	_TopModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Upbody_Blade_not_outlined.mv1");
 	for (int i = 0; i < 4; i++) {
 		MV1SetVisible(_TopModelHandle[i], FALSE);
 	}
@@ -83,7 +84,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
+	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
@@ -139,7 +140,7 @@ void PlayerActor::UpdateActor() {
 	
 	int animOrder = (int)anim::Wait;
 
-	if (_ModeNum != 0) {
+	if (_ModeNum > 0) {
 		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
 		//ChangeAnim(animOrder);
 		//_Friend->ChangeAnim(animOrder);
@@ -151,6 +152,8 @@ void PlayerActor::UpdateActor() {
 				ChangeAnim((int)anim::Wait);
 				//_AnimTime = 0;
 			}
+
+
 
 		}
 		{
@@ -198,12 +201,12 @@ void PlayerActor::UpdateActor() {
 
 
 
-		switch (_ModeNum) {
+		switch (_ModeNum%2) {
 		case 1:
 			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
 			break;
 
-		case 2:
+		case 0:
 			//if (_Animation == (int)anim::Punch)
 			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
 			if (_PunchIndex[0] != -2) {
@@ -323,13 +326,36 @@ void PlayerActor::UpdateActor() {
 			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
 			if (item != nullptr) {
 				item->SetState(State::eDead);
+				int itemnum = item->GetType();
+				switch(itemnum){
+				case 0:
+					AddSize(0.2);
+
+				case 1:
+				case 2:
+					if (_ItemNum != 0) {
+						DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
+					}
+					_ItemNum = item->GetType();
+					_Friend->SetItemNum(_ItemNum);
+				}
+
 				continue;
+			}
+
+			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
+			if (tree != nullptr && _Input->GetDashFlag()) {
+				tree->DropItem();
+				_Input->SetDashTime(0);
+				_Input->SetVelocity(VGet(0, 0, 0));
 			}
 		}
 	}
 	break;
 
 	case 1:
+	case 3:
+	case 5:
 	{
 		rot = _Input->GetDashDir();
 		rot = VScale(rot, -1);
@@ -352,6 +378,26 @@ void PlayerActor::UpdateActor() {
 				s->Play(0);
 				s->SetTimer(500);
 			}
+			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
+			if (item != nullptr) {
+				if (item->GetType()) {
+					item->SetState(State::eDead);
+					if (_ItemNum != 0) {
+						DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
+					}
+					_ItemNum = item->GetType();
+					_Friend->SetItemNum(_ItemNum);
+				}
+				continue;
+			}
+
+			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
+			if (tree != nullptr) {
+				tree->DropItem();
+				_Input->SetDashTime(0);
+				_Input->SetVelocity(VGet(0, 0, 0));
+			}
+
 		}
 		auto joy = _Input->GetInput();
 		if (joy.X != 0 || joy.Y != 0) {
@@ -366,6 +412,8 @@ void PlayerActor::UpdateActor() {
 	break;
 
 	case 2:
+	case 4:
+	case 6:
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
 		VECTOR tmphitpos = _Cursor->GetHitPos();
@@ -379,18 +427,25 @@ void PlayerActor::UpdateActor() {
 
 
 		if (_Animation == (int)anim::Punch) {
+			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 25 && !_PunchFlag) {
+				_AnimTime = 25;
+			}
 
 			if (_AnimTime > 27 && !_PunchFlag)
 			{
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -100, GetSize().x * 100 * tmpdir.x);
+				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
 				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
 
 				//tmppos = VGet(0, 0, 0);
 				tmppos = VAdd(GetPosition(), tmppos);
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
-				new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), VGet(0, 0, 0), GetSize().x * 3);
+				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), VGet(0, 0, 0), GetSize().x * 3);
+				punch->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
+				punch->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
+				VECTOR rot = MV1GetRotationXYZ(punch->GetComponent<ModelComponent>()[0]->GetHandle());
+				punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.z));
 				_PunchFlag = true;
 			}
 		}
@@ -586,7 +641,7 @@ void PlayerActor::ChangeAnim(int a) {
 		break;
 
 	case (int)anim::Laser:
-		index = MV1GetAnimIndex(_AnimationModel[6], "beammotion");
+		index = MV1GetAnimIndex(_AnimationModel[6], "beemmotion");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[6], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[6], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
@@ -649,11 +704,21 @@ void PlayerActor::Init()
 	_Animation = -1;
 }
 
+void PlayerActor::DropItem(VECTOR dir, int num)
+{
+	auto hc = GetComponent<HitCollisionComponent>()[0];
+	
+	auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, hc->GetSize().y + 100, 0)), num);
+	auto m = item->GetComponent<MoveComponent>()[0];
+	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
+}
+
 void PlayerActor::AddSize(float size)
 {
-	if(_ModeNum==0&&!_Input->GetDashFlag())
-	float Size = size / GetSize().x;
-	SetSize(VAdd(GetSize(), VGet(size, size, size)));
+	if (_ModeNum == 0 && !_Input->GetDashFlag()) {
+		float Size = size / GetSize().x;
+		SetSize(VAdd(GetSize(), VGet(size, size, size)));
+	}
 }
 
 

@@ -1,5 +1,6 @@
 #include "PunchActor.h"
 #include "EnemyActor.h"
+#include "ExplosionActor.h"
 
 PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, float scale)
 	:ActorClass(mode)
@@ -7,7 +8,7 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_Move = new MoveComponent(this, false);	
 	_Move->SetVelocity(move);
 	SetPosition(pos);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Panch.efkefc", VGet(0, 0, 0), rot, scale, 100000);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Panch.efkefc", VGet(0, 0, 0), rot, scale);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
 	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
@@ -20,10 +21,13 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 	size *= 25;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
+	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
+	MV1SetVisible(model->GetHandle(), FALSE);
 }
 
 PunchActor::~PunchActor()
 {
+	new ExplosionActor(GetMode(), GetPosition(), GetSize().x);
 }
 
 void PunchActor::UpdateActor()

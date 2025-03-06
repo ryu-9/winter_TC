@@ -37,12 +37,11 @@ void PlayerMoveCollisionComponent::Update()
 		OldMove = VGet(0, 0, 0);
 		std::deque<MV1_COLL_RESULT_POLY_DIM> debugresult;
 		bool sqrtFlag = FALSE;
-		bool shomen = false;
+		bool shomen;
 		for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 			VECTOR oldmove = VGet(0, 0, 0);
 			if (mcoll->GetIsActive() == TRUE) {
 				if (mcoll->GetOwner() != _Owner) {
-
 
 					VECTOR tmp = VSub(GetPosition(), OldPos);
 
@@ -163,6 +162,7 @@ void PlayerMoveCollisionComponent::Update()
 		int sqrtnum = -1;
 		for (int i = 0; i < HitPos.size(); i++) {
 
+			shomen = false;
 			VECTOR move = VSub(OldPos, HitPos[i]);
 			if (VSize(move) == 0) {
 				move = HitNormal[i];
@@ -186,7 +186,8 @@ void PlayerMoveCollisionComponent::Update()
 				float judge = VDot(move, HitNormal[i]);
 
 				if (i > 0 && !_pOwner->GetModeNum() && _pOwner->GetInput()->GetDashFlag()) {
-					if (VDot(move, OldMove) < -0.25 && !VEqual(HitPos[i], HitPos[i - 1]) && !VEqual(HitNormal[i], HitNormal[i - 1])) {
+					if (VDot(move, OldMove) < -0.25 && !VEqual(HitPos[i], HitPos[i - 1]) && !VEqual(HitNormal[i], HitNormal[i - 1])
+						&&(!shomen||!VEqual(HitNormal[i], move))) {
 						float tmpsize = VSize(VSub(HitPos[i], HitPos[i - 1]));
 						tmpsize /= 200;
 						if (tmpsize < 0.1) {
