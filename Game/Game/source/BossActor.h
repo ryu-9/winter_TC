@@ -1,6 +1,7 @@
 #pragma once
 #include "appframe.h"
 #include "ModeGame.h"
+#include <queue>
 
 
 class BossActor : public ActorClass{
@@ -22,9 +23,10 @@ private:
 		PUNCH,			// パンチ
 		BULLET,			// 弾
 		BEAM,			// ビーム
+		PUNCH_FALL,		// パンチ(落下)
 		DAMAGE,			// ダメージ
 		DIE,			// 死亡
-		COOLDOWN,		// クールダウン
+		CHANGE,			// アクション変更
 		ACTION_COUNT	// アクション数
 	};
 
@@ -35,9 +37,10 @@ private:
 		&BossActor::Punch,
 		&BossActor::Bullet,
 		&BossActor::Beam,
+		&BossActor::PunchFall,
 		&BossActor::Damage,
 		&BossActor::Die,
-		&BossActor::CoolDown
+		&BossActor::Change
 	};
 
 	// アクション関数(中身)
@@ -45,9 +48,10 @@ private:
 	bool Punch();
 	bool Bullet();
 	bool Beam();
+	bool PunchFall();
 	bool Damage();
 	bool Die();
-	bool CoolDown();
+	bool Change();
 
 
 	bool ChangeAnim(ACTION a);
@@ -65,8 +69,8 @@ private:
 	ACTION _Action;				// 現アニメーション
 	float _AnimTime;			// 再生時間
 	float _AnimTotalTime;		// 合計時間
-	int _AnimIndex;				// インデックス
-	bool _AnimChangingflag;		// アニメーション変更中フラグ
+	std::queue<int> _AnimIndex;				// インデックス
+	float _AnimRate;			// アニメーション割合
 	std::vector<int> _AnimMV1;	// モーションデータ
 
 	// タイムライン用構造体

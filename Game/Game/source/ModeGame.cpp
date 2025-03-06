@@ -101,7 +101,7 @@ bool ModeGame::Initialize() {
 	
 	// ボス
 	auto b = new BossActor(this, VGet(0, -1800,1800));
-	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 100, 0), VGet(50, 50, 50), 2, true, true));
+	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
 	
 	{ // デバッグ用
 		debug_hcoll_flag = true;
@@ -192,6 +192,8 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
 
+	_EffectController->Draw();
+
 	if (debug_hcoll_flag) {
 		for (auto mc : _MCollision) {
 			mc->DebugDraw();
@@ -203,7 +205,8 @@ bool ModeGame::Render() {
 		}
 	}
 
-	_EffectController->Draw();
+	
+	
 	
 	return true;
 
