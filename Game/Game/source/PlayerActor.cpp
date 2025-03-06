@@ -23,7 +23,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(0)
+	, _ItemNum(1)
 
 {
 	if (_PlayerNo == 1) {
