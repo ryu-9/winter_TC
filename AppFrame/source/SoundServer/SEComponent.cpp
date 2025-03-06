@@ -7,7 +7,7 @@ SEComponent::SEComponent(ActorClass* owner,ActorClass* listner)
 	SetSourceVoice(new SourceVoiceItem("fire"));
 	_SV[0]->Play();
 
-	auto r = rand() % 25;
+	float r = rand() % 25;
 	r *= 0.01f;
 	if (rand() % 2 == 0) r *= -1;
 	_SV[0]->SetPitch(1.0f + r);

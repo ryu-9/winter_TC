@@ -1,7 +1,6 @@
 #include "ModelServer.h"
 #include <EffekseerForDXLib.h>
 
-/// �C���X�^���X 
 ModelServer* ModelServer::_lpInstance = NULL;
 
 

@@ -29,7 +29,7 @@ void BGMComponent::Update() {
 
 	}
 	if (n == 2) { n = 1; }
-	if (n == 3) {
+	if (n >= 3) {
 		n = 0; 
 		XAUDIO2_FILTER_PARAMETERS param;
 		param.Type = LowPassOnePoleFilter;

@@ -2,6 +2,7 @@
 #include "appframe.h"
 #include "ModeGame.h" 
 
+
 class PlayerActor : public ActorClass {
 public:
 	PlayerActor(class ModeBase* mode , int playerNo = 1);
@@ -49,6 +50,9 @@ private:
 		Walk,
 		Dash,
 		Punch,
+		Laser,
+		Blade,
+		Damage,
 		Num
 	};
 
@@ -61,7 +65,10 @@ private:
 
 	class ModelComponent* _BallModel;
 	class ModelComponent* _TopModel;
+	int _TopModelHandle[4];
+
 	class ModelComponent* _BottomModel;
+	int _BottomModelHandle[4];
 
 	class PlayerMoveCollisionComponent* _MCollision;
 	class MoveCollisionComponent* _MCollision2;
@@ -72,7 +79,7 @@ private:
 
 	int _PlayerNo;
 
-	int _ModeNum; // 0:�ʏ� 1:�����g�@2:�㔼�g
+	int _ModeNum; // 0:雪玉 1:上半身 2:下半身 3:死亡
 
 	int _ChangeTime;
 
@@ -91,6 +98,8 @@ private:
 	bool _ChangeFlag;
 
 	int _KnockBackTime;
+
+	int _ItemNum;
 
 };
 

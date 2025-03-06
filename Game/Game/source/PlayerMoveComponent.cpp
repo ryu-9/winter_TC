@@ -144,6 +144,8 @@ void PlayerMoveComponent::ProcessInput()
 		break;
 
 	case 1:		// �����g�̈ړ�
+	case 3:
+	case 5:
 	{
 
 		float length = 0.f;
@@ -216,6 +218,9 @@ void PlayerMoveComponent::ProcessInput()
 		break;
 
 	case 2:
+	case 4:
+	case 6:
+
 
 		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
 		VECTOR v = _pOwner->GetFriend()->GetPosition();

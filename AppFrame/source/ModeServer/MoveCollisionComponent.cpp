@@ -43,14 +43,13 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 	}
 
 
-	// ���f���̈ʒu�A�X�P�[���A��]��ݒ肵�A�Փˏ���Z�b�g�A�b�v
+	// コリジョンリフレッシュ
 	RefleshCollInfo();
 }
 
-// �f�X�g���N�^
+
 MoveCollisionComponent::~MoveCollisionComponent()
 {
-	// ���[�h���炱�̃R���|�[�l���g��폜
 	_Owner->GetMode()->RemoveMCollision(this);
 }
 
@@ -517,8 +516,6 @@ void MoveCollisionComponent::DebugDraw()
 		DrawFormatString(0, 16, GetColor(255, 255, 255), "Shomen");
 	}
 	switch (Type) {
-
-		// collision�̌`�@0: ���b�V�� 1:���� 2:�� 3:�J�v�Z�� 4:�~��  5:�l�p�� 6:������
 
 	case 1:
 		DrawLine3D(VAdd(GetPosition(), VGet(0, 0, 0)), VAdd(GetPosition(), VGet(0, 0, GetSize().z)), GetColor(255, 255, 255));
