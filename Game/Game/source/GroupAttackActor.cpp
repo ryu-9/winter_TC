@@ -23,10 +23,19 @@ void GroupSpawnerActor::Init() {
 
 void GroupSpawnerActor::UpdateActor() {
 	if (_Active == false) { 
+		int n = 0;
 		auto hit =_HCollision->IsHit();
-		if (hit.size() > 0) {
-			_Active = true;
+		for (auto h : hit) {
+			auto e = dynamic_cast<PlayerActor*>(h->GetOwner());
+			if (e != nullptr) {
+				n++;
+				if (n >= 2) {
+					_Active = true;
+					break;
+				}
+			}
 		}
+
 	}
 	else {
 		_TmCnt += GetMode()->GetStepTm();
@@ -53,7 +62,8 @@ void GroupSpawnerActor::UpdateActor() {
 			}
 		}
 
-		// ¶¬
+		// ƒGƒŠƒA“à‚É¶¬
+		
 		EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(_PopPos[max], pos));
 		_PopCnt++;
 		_TotalPopCnt++;

@@ -76,11 +76,17 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec,E
 	{
 	case 0:
 	{
-		new ECornComponent(enemy);
+		auto c = new ECornComponent(enemy);
 		auto m = new ModelComponent(enemy, "res/model/Enemy_Corn/Enemy_corn.mv1");
 		enemy->SetModel(m);
 		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
 		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(20, 20, 20), 2, true, true));
+		c->SetAttackType(col); switch (col) {
+		case 1:
+			c->SetAttackType(1);
+		default:
+			break;
+		}
 	}
 		break;
 	case 1:
@@ -98,6 +104,8 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int shape, int col,VECTOR vec,E
 	default:
 		break;
 	}
+
+	
 	return nullptr;
 	// TODO: エネミーの情報を良い感じにとれるように
 }

@@ -4,7 +4,7 @@
 
 EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool groupflag, bool resetflag)
 	: ActorClass(mode)
-	, _TmCnt(0), _PopCnt(0), _GroupFlag(groupflag), _ResetFlag(resetflag)
+	, _TmCnt(0), _PopCnt(0), _GroupFlag(groupflag), _ResetFlag(resetflag), _Type(0), _Col(0), _TotalPopCnt(0)
 {
 	SetPosition(pos);
 	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
@@ -42,7 +42,7 @@ void EnemySpawnerActor::UpdateActor() {
 		auto randangle = rand() % 360;
 		randangle = DEG2RAD(randangle);
 		auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
-		auto e =EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(GetPosition(), pos),this);
+		auto e =EnemyCreator::GetInstance()->Create(GetMode(), _Type, _Col, VAdd(GetPosition(), pos),this);
 		_PopCnt++;
 		_TotalPopCnt++;
 

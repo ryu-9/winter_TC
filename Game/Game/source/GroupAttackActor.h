@@ -17,7 +17,7 @@ public:
 	void DecrementPopCnt() { _PopCnt--; }
 	void SetData(SPAWNER_DATA data) { _Data = data; }
 	void AddPopPos(VECTOR pos) { _PopPos.push_back(pos); }
-
+	void SetPopPos(std::vector<VECTOR> pos) { _PopPos = pos; }
 	void SetHCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
 private:

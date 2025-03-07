@@ -223,7 +223,26 @@ PlayerActor* ModeGame::GetPlayer(int n) {
 
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 //	auto g = new GroupSpawnerActor(this, VGet(0, 0, 0));
-
+	
+	std::vector<std::vector<VECTOR>> poppos;
+	std::vector<GroupSpawnerActor*> g;
+	switch (gGlobal._SelectStage) {
+	case 0:
+	//	poppos.resize(1);
+	//	g.resize(1);
+		break;
+	case 1:
+		poppos.resize(6);
+		g.resize(6);
+		break;
+	case 2:
+		poppos.resize(3);
+		g.resize(3);
+		break;
+	default:
+		break;
+	}
+	
 	std::ifstream file(path + jsname);
 	nlohmann::json json;
 	file >> json;
@@ -231,6 +250,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	nlohmann::json stage = json.at("Stage");
 	for (auto& data : stage) {
 		std::string name = data.at("objectName");
+		std::string name2 = data.at("objectName");
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
@@ -239,7 +259,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-
+		
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
@@ -259,20 +279,36 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {
 		//	g->AddPopPos(pos);
-		} else if (name == "BP_normal_EnemySpawner") {
+		} else if (name == "BP_01EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
-			
-
-		} else if (name == "Group_Area_Box_No01") {
-			
-			g->SetPosition(pos);
-			g->SetDirection(rot);
-			g->SetSize(scale);
-			auto m = new ModelComponent(g, (path + "model/Cube.mv1").c_str());
+			esa->SetCol(0);
+		} else if (name == "BP_02EnemySpawn") {
+			auto esa = new EnemySpawnerActor(this, pos);
+			esa->SetCol(1);
+		} else if ((name2.erase(name2.size() - 1, 1) == "Stage_2_Group_Area_Box_No")) {
+			std::string nm = data.at("objectName");
+			nm = nm.back();
+			//auto g = new GroupSpawnerActor(this, pos);
+			auto n = std::stoi(nm)-1;
+			g[n] = new GroupSpawnerActor(this, pos);
+			g[n]->SetDirection(rot);
+			g[n]->SetSize(scale);
+			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			//m->SetVisible(false);
-			g->SetHCollision(new MHitCollisionComponent(g, m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
-		}
-		else {
+			g[n]->SetHCollision(new MHitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
+		} else if (name == "Stage_2_No01_Sponer") {
+			poppos[0].push_back(pos);
+		} else if (name == "Stage_2_No02_Sponer") {
+			poppos[1].push_back(pos);
+		} else if (name == "Stage_2_No03_Sponer") {
+			poppos[2].push_back(pos);
+		} else if (name == "Stage_2_No04_Sponer") {
+			poppos[3].push_back(pos);
+		} else if (name == "Stage_2_No05_Sponer") {
+			poppos[4].push_back(pos);
+		} else if (name == "Stage_2_No06_Sponer") {
+			poppos[5].push_back(pos);
+		} else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";
 			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
@@ -283,7 +319,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			mv->RefleshCollInfo();
 		}
 	}
-
+	for (auto i = 0; i < poppos.size(); i++) {
+		for (auto j = 0; j < poppos[i].size(); j++) {
+			g[i]->AddPopPos(poppos[i][j]);
+		}
+		//g[i]->SetPopPos(poppos[i]);
+	}
 	return true;
 }
 

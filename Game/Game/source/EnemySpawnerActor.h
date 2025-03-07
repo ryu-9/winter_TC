@@ -23,6 +23,8 @@ public:
 	void UpdateActor() override;
 	void DecrementPopCnt() { _PopCnt--; }
 	void SetData(SPAWNER_DATA data) { _Data = data; }
+	void SetType(int type) { _Type = type; }
+	void SetCol(int col) { _Col = col; }
 private:
 	class PlayerActor* _Player[2];
 	int _TmCnt;						// 時間
@@ -30,6 +32,8 @@ private:
 	int _TotalPopCnt;				// 総生成数
 	bool _GroupFlag;				// 集団戦フラグ
 	bool _ResetFlag;				// リセット有無フラグ
+	int _Type;						// 敵の種類
+	int _Col;						// 敵の色
 	SPAWNER_DATA _Data;
 
 	std::vector<VECTOR> _SpawnerPos;
