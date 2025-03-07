@@ -8,7 +8,6 @@ class BossActor : public ActorClass{
 public:
 	BossActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0));
 	virtual ~BossActor();
-	void Init();
 	void UpdateActor() override;
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode); }
 	class MoveComponent* GetInput() { return _Input; }
@@ -26,7 +25,6 @@ private:
 		PUNCH_FALL,		// パンチ(落下)
 		DAMAGE,			// ダメージ
 		DIE,			// 死亡
-		CHANGE,			// アクション変更
 		ACTION_COUNT	// アクション数
 	};
 
@@ -39,8 +37,7 @@ private:
 		&BossActor::Beam,
 		&BossActor::PunchFall,
 		&BossActor::Damage,
-		&BossActor::Die,
-		&BossActor::Change
+		&BossActor::Die
 	};
 
 	// アクション関数(中身)
@@ -51,7 +48,6 @@ private:
 	bool PunchFall();
 	bool Damage();
 	bool Die();
-	bool Change();
 
 
 	bool ChangeAnim(ACTION a);
@@ -62,16 +58,17 @@ private:
 	
 	class HitCollisionComponent* _HCollision;
 
-	int _ActTime;				// 現在のアクション時間
-	int _ActTotalTime;			// 最大アクション時間
-	int _CurrentTime;			// 現在の時間
+	int _ActTime;						// 現在のアクション時間
+	int _ActTotalTime;					// 最大アクション時間
+	int _CurrentTime;					// 現在の時間
 
-	ACTION _Action;				// 現アニメーション
-	float _AnimTime;			// 再生時間
-	float _AnimTotalTime;		// 合計時間
-	std::queue<int> _AnimIndex;				// インデックス
-	float _AnimRate;			// アニメーション割合
-	std::vector<int> _AnimMV1;	// モーションデータ
+	ACTION _Action;						// 現アニメーション
+	float _AnimTime;					// 再生時間
+	float _AnimTotalTime;				// 合計時間
+	std::queue<int> _AnimIndex;			// インデックス
+	float _AnimRate;					// アニメーション割合
+	std::vector<int> _AnimMV1;			// モーションデータ
+	std::vector<const char*> _AnimName;	// モーション名
 
 	// タイムライン用構造体
 	struct ACTION_TIMELINE {
@@ -80,9 +77,9 @@ private:
 	};
 	std::vector<std::vector<ACTION_TIMELINE>> _ActionTimeline;
 
-	int _ActionIndex;			// タイムライン内アクション番号
-	int _TimelineIndex;			// タイムライン番号
+	int _ActionIndex;				// タイムライン内アクション番号
+	int _TimelineIndex;				// タイムライン番号
 
-	int _HitPoint;				// ヒットポイント
+	int _HitPoint;					// ヒットポイント
 };
 
