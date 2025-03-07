@@ -7,9 +7,11 @@
 #include "OutlineComponent.h"
 #include "PlayerCursorComponent.h"
 #include "PunchActor.h"
+#include "LaserActor.h"
 #include "PlayerMoveCollisionComponent.h"
 #include "ItemActor.h"
 #include "TreeActor.h"
+#include "BreakableBoxActor.h"
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -84,7 +86,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
+	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
@@ -330,7 +332,7 @@ void PlayerActor::UpdateActor() {
 				switch(itemnum){
 				case 0:
 					AddSize(0.2);
-
+					break;
 				case 1:
 				case 2:
 					if (_ItemNum != 0) {
@@ -339,6 +341,7 @@ void PlayerActor::UpdateActor() {
 					_ItemNum = item->GetType();
 					_Friend->SetItemNum(_ItemNum);
 				}
+				break;
 
 				continue;
 			}
@@ -348,6 +351,11 @@ void PlayerActor::UpdateActor() {
 				tree->DropItem();
 				_Input->SetDashTime(0);
 				_Input->SetVelocity(VGet(0, 0, 0));
+			}
+
+			auto ice = dynamic_cast<BreakableBoxActor*>(h->GetOwner());
+			if (ice != nullptr) {
+				ice->StartBreak();
 			}
 		}
 	}
@@ -448,6 +456,39 @@ void PlayerActor::UpdateActor() {
 				punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.z));
 				_PunchFlag = true;
 			}
+		}
+
+		if (_Animation == (int)anim::Laser) {
+
+			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 50) {
+				_AnimTime = 45;
+				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
+				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
+				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
+
+				//tmppos = VGet(0, 0, 0);
+				tmppos = VAdd(GetPosition(), tmppos);
+				tmpdir = VSub(tmppos, tmphitpos);
+				tmpdir = VNorm(tmpdir);
+				tmpdir.x += (float)(rand() % 101 - 50) / 1000.0f;
+				tmpdir.y += (float)(rand() % 101 - 50) / 1000.0f;
+				tmpdir.z += (float)(rand() % 101 - 50) / 1000.0f;
+
+				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), VGet(0, 0, 0), GetSize().x * 3);
+				laser->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
+				laser->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
+				VECTOR rot = MV1GetRotationXYZ(laser->GetComponent<ModelComponent>()[0]->GetHandle());
+				laser->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.z));
+			}
+			if (_AnimTime > 45 && _AnimTime < 60) {
+
+
+			}
+
+		
+		
+		
+		
 		}
 		if (_PunchIndex[0] != -2)
 		{

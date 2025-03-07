@@ -22,6 +22,7 @@
 #include "BossActor.h"
 #include "TreeActor.h"
 #include "ItemActor.h"
+#include "BreakableBoxActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -74,9 +75,10 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	auto item = new ItemActor(this,VGet(0, 350, 500), 0, -1);
-	auto tree = new TreeActor(this, VGet(0, 50, 500));
-	tree->SetItem(item);
+	//auto item = new ItemActor(this,VGet(0, 350, 500), 0, -1);
+	//auto tree = new TreeActor(this, VGet(0, 50, 500));
+	//tree->SetItem(item);
+	auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));

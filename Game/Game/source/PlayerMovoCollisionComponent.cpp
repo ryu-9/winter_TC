@@ -37,7 +37,7 @@ void PlayerMoveCollisionComponent::Update()
 		OldMove = VGet(0, 0, 0);
 		std::deque<MV1_COLL_RESULT_POLY_DIM> debugresult;
 		bool sqrtFlag = FALSE;
-		bool shomen;
+		bool shomen = false;
 		for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 			VECTOR oldmove = VGet(0, 0, 0);
 			if (mcoll->GetIsActive() == TRUE) {
