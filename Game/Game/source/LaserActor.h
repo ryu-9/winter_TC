@@ -13,7 +13,6 @@ private:
 
 	class MoveComponent* _Move;
 	int _LifeTime;
-	MoveCollisionComponent* _MCollision;
 	HitCollisionComponent* _HCollision;
 
 };

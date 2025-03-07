@@ -2,7 +2,7 @@
 #include "../AppFrame/source/ModelServer/ModelServer.h"
 #include <EffekseerForDXLib.h>
 
-EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* file, VECTOR pos, VECTOR rot, float size, float playtime, int draworder)
+EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* file, VECTOR pos, VECTOR rot, float size, float playtime, float speed, int draworder)
 	:SpriteComponent(owner, draworder)
 	, _PlayTime(playtime)
 	, _Position(pos)
@@ -12,6 +12,10 @@ EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* fil
 	_SourceHandle = ModelServer::GetInstance()->AddEffect(file, 1);
 	_Handle = PlayEffekseer3DEffect(_SourceHandle);
 	_Scale = VGet(size, size, size);
+	int debug = SetSpeedPlayingEffekseer3DEffect(_Handle, speed);
+	if (speed < 1) {
+		int test = 0;
+	}
 }
 
 EffectSpriteComponent::~EffectSpriteComponent()

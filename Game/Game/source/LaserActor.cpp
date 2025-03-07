@@ -17,8 +17,7 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_LifeTime = 2000;
 	//auto model = new ModelComponent(this, "nomodel");
 	float size = scale;
-	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
-	size *= 25;
+	size *= 5;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
 	MV1SetVisible(model->GetHandle(), FALSE);
