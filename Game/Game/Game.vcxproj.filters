@@ -210,6 +210,12 @@
     <ClCompile Include="source\BreakableBoxActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="source\GoalItemActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeGameGoal.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -361,6 +367,12 @@
     </ClInclude>
     <ClInclude Include="source\BreakableBoxActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GoalItemActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameGoal.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

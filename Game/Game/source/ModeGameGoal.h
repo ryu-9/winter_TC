@@ -1,18 +1,16 @@
 #pragma once
 #include "appframe.h"
-
-class ModeGameUI : public ModeBase {
+class ModeGameGoal : ModeBase{
 	typedef ModeBase base;
 public:
 	virtual bool Initialize();
 	virtual bool Terminate();
 	virtual bool Process();
+	virtual bool Update();
 	virtual bool Render();
 
-	void Goal();
-
 private:
-	std::vector<UIChipClass*> _UIChip;
-	int _Type; // 0:Game, 1:Result
+	std::vector<VECTOR> _GoalPos;
+	int _Step;
 };
 

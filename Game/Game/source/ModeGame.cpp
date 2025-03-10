@@ -23,6 +23,7 @@
 #include "TreeActor.h"
 #include "ItemActor.h"
 #include "BreakableBoxActor.h"
+#include "GoalItemActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -83,7 +84,7 @@ bool ModeGame::Initialize() {
 	// 雑実装
 	switch (gGlobal._SelectStage) {
 	case 0:
-		LoadStage("res/Stage/", "Stage4.json");
+		LoadStage("res/Stage/", "Stage1.json");
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
@@ -116,8 +117,10 @@ bool ModeGame::Initialize() {
 		box->SetPosition(VGet(0, 0, 0));
 
 		// ボス
-		auto b = new BossActor(this, VGet(0, -1800, 1800));
-		b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+	//	auto b = new BossActor(this, VGet(0, -1800, 1800));
+	//	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+	
+		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
 	return true;
@@ -207,8 +210,8 @@ bool ModeGame::Render() {
 	_EffectController->Draw();
 
 	if (debug_hcoll_flag) {
-		for (auto mc : _MCollision) {
-			mc->DebugDraw();
+		for (auto hc : _HCollision) {
+			hc->DebugDraw();
 		}
 	}
 	if (debug_mcoll_flag) {
@@ -259,6 +262,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	nlohmann::json stage = json.at("Stage");
 	for (auto& data : stage) {
 		std::string name = data.at("objectName");
+		if (name == "") { continue; }
 		std::string name2 = data.at("objectName");
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
@@ -317,7 +321,14 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			poppos[4].push_back(pos);
 		} else if (name == "Stage_2_No06_Sponer") {
 			poppos[5].push_back(pos);
-		} else {
+		} else if (name == "Goal_flag") {
+			new GoalItemActor(this, pos);
+		} else if (name == "BP_tree") {
+			auto item = new ItemActor(this,VAdd(pos,VGet(0,50,0)), 0, -1);
+			auto tree = new TreeActor(this, pos);
+			tree->SetItem(item);
+		}
+		else {
 			auto ac = new ActorClass(this);
 			auto file = path + "model/" + name + ".mv1";
 			auto mc = new ModelComponent(ac, (path + "model/" + name + ".mv1").c_str());
