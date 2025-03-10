@@ -15,6 +15,7 @@ public:
 	void SetModelInfo();
 
 	int GetHandle() const { return _Handle; }
+	void SetHandle(int handle) { _Handle = handle; }
 
 	VECTOR GetFront();
 	void SetFront(VECTOR front);

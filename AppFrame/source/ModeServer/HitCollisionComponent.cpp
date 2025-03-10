@@ -51,7 +51,7 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 
 	_IsHitList.clear();
 
-
+	if (!isActive) { return _IsHitList; }
 	for (auto hcoll : _Owner->GetMode()->GetHCollision())
 	{
 		if (hcoll->GetIsActive() == TRUE)

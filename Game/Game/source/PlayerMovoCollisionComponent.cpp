@@ -43,7 +43,6 @@ void PlayerMoveCollisionComponent::Update()
 			if (mcoll->GetIsActive() == TRUE) {
 				if (mcoll->GetOwner() != _Owner) {
 
-
 					VECTOR tmp = VSub(GetPosition(), OldPos);
 
 					MV1_COLL_RESULT_POLY_DIM result;
@@ -163,6 +162,7 @@ void PlayerMoveCollisionComponent::Update()
 		int sqrtnum = -1;
 		for (int i = 0; i < HitPos.size(); i++) {
 
+			shomen = false;
 			VECTOR move = VSub(OldPos, HitPos[i]);
 			if (VSize(move) == 0) {
 				move = HitNormal[i];
@@ -186,7 +186,8 @@ void PlayerMoveCollisionComponent::Update()
 				float judge = VDot(move, HitNormal[i]);
 
 				if (i > 0 && !_pOwner->GetModeNum() && _pOwner->GetInput()->GetDashFlag()) {
-					if (VDot(move, OldMove) < -0.25 && !VEqual(HitPos[i], HitPos[i - 1]) && !VEqual(HitNormal[i], HitNormal[i - 1])) {
+					if (VDot(move, OldMove) < -0.25 && !VEqual(HitPos[i], HitPos[i - 1]) && !VEqual(HitNormal[i], HitNormal[i - 1])
+						&&(!shomen||!VEqual(HitNormal[i], move))) {
 						float tmpsize = VSize(VSub(HitPos[i], HitPos[i - 1]));
 						tmpsize /= 200;
 						if (tmpsize < 0.1) {

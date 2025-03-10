@@ -39,6 +39,9 @@ public:
 
 	void Init();
 
+	void SetItemNum(int num) { _ItemNum = num; }
+	void DropItem(VECTOR dir, int num);
+
 	void AddSize(float size);
 
 
@@ -50,6 +53,9 @@ private:
 		Walk,
 		Dash,
 		Punch,
+		Laser,
+		Blade,
+		Damage,
 		Num
 	};
 
@@ -62,7 +68,10 @@ private:
 
 	class ModelComponent* _BallModel;
 	class ModelComponent* _TopModel;
+	int _TopModelHandle[4];
+
 	class ModelComponent* _BottomModel;
+	int _BottomModelHandle[4];
 
 	class PlayerMoveCollisionComponent* _MCollision;
 	class MoveCollisionComponent* _MCollision2;
@@ -81,7 +90,7 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[6];
+	int _AnimationModel[(int)anim::Num];
 	bool _AnimChangingflag;
 
 	int _PunchIndex[2];
@@ -92,6 +101,8 @@ private:
 	bool _ChangeFlag;
 
 	int _KnockBackTime;
+
+	int _ItemNum;
 
 };
 

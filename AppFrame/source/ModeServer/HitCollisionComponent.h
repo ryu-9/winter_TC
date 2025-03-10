@@ -14,7 +14,7 @@ public:
 
 	~HitCollisionComponent() override;
 
-	virtual std::deque<HitCollisionComponent*>& IsHit();
+	std::deque<HitCollisionComponent*>& IsHit();
 
 
 	void Update() override;
@@ -24,6 +24,7 @@ public:
 	VECTOR GetPosition();
 	VECTOR GetSize();
 	VECTOR GetOldPosition() const { return OldPos; }
+	void SetOldPosition(VECTOR pos) { OldPos = pos; }
 
 	VECTOR GetUp();
 	VECTOR GetFront();
@@ -54,7 +55,7 @@ public:
 
 	void SetRotation(VECTOR rot);
 
-protected:
+private:
 	// �ʒu
 	VECTOR Pos;
 

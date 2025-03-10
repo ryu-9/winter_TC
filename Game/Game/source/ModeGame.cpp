@@ -20,6 +20,9 @@
 #include "EnemyController.h"
 #include "GroupAttackActor.h"
 #include "BossActor.h"
+#include "TreeActor.h"
+#include "ItemActor.h"
+#include "BreakableBoxActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -72,6 +75,10 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
+	//auto item = new ItemActor(this,VGet(0, 350, 500), 0, -1);
+	//auto tree = new TreeActor(this, VGet(0, 50, 500));
+	//tree->SetItem(item);
+	auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
 	auto box = new StageBox(this);
 	box->SetPosition(VGet(0,0,0));
@@ -127,8 +134,8 @@ bool ModeGame::Process() {
 		ModeMenu* modeMenu = new ModeMenu();
 		
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
-		modeMenu->Add(new MenuItemHColl(this, "HColl"));
-		modeMenu->Add(new MenuItemMColl(this, "MColl"));
+		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
+		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
 		
@@ -204,9 +211,6 @@ bool ModeGame::Render() {
 			mc->DebugDraw();
 		}
 	}
-
-	
-	
 	
 	return true;
 

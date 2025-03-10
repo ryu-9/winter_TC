@@ -16,22 +16,22 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_Input = new MoveComponent(this);
 	SetSize(VGet(20, 20, 20));
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“æ“¾—pƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
+	// ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½pï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1"));
-	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));			// TODO: ‚Ğ‚é‚İƒ‚[ƒVƒ‡ƒ“‚É·‚µ‘Ö‚¦
+	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));			// TODO: ï¿½Ğ‚ï¿½İƒï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Éï¿½ï¿½ï¿½ï¿½Ö‚ï¿½
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));
 
-	// ƒAƒjƒ[ƒVƒ‡ƒ“–¼‚Ìİ’è
+	// ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìİ’ï¿½
 	for (auto i = 0; i < _AnimMV1.size(); i++) {
 		_AnimName.push_back(MV1GetAnimName(_AnimMV1[i], 0));
 	}
 
-	// ƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ
-	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");		// –{‘Ì
-	_Model[1] = new ModelComponent(this, "res/model/Sundercross/Sundercross_Arm.mv1");		// ˜r
+	// ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");		// ï¿½{ï¿½ï¿½
+	_Model[1] = new ModelComponent(this, "res/model/Sundercross/Sundercross_Arm.mv1");		// ï¿½r
 	_Model[1]->SetVisible(false);
 
 	{
@@ -42,7 +42,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 		_Input->SetGravity(false);
 	}
 
-	// ƒ^ƒCƒ€ƒ‰ƒCƒ“‚Ìİ’è
+	// ï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìİ’ï¿½
 	std::vector<ACTION_TIMELINE> timeline;
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::BEAM, 10000 });
@@ -89,7 +89,7 @@ void BossActor::UpdateActor() {
 	MV1SetAttachAnimTime(_Model[1]->GetHandle(), _AnimIndex.back(), _AnimTime);
 	
 
-	{ // ƒfƒoƒbƒO—p
+	{ // ï¿½fï¿½oï¿½bï¿½Oï¿½p
 	//	_HitPoint--;
 		if (_HitPoint == 0) {
 			ChangeAnim(ACTION::DIE);
@@ -156,7 +156,7 @@ bool BossActor::Punch() {
 	if (_AnimTime > 40 && !_Model[1]->GetVisible()) {
 		_Model[1]->SetVisible(true);
 	}
-	// ƒC[ƒWƒ“ƒO‚ÅƒTƒCƒY•ÏX
+	// ï¿½Cï¿½[ï¿½Wï¿½ï¿½ï¿½Oï¿½ÅƒTï¿½Cï¿½Yï¿½ÏX
 	if (_AnimTime - 40 <= 20) {
 		auto s = (1 * ((_AnimTime - 40) / 20)) + 1;
 		_Model[1]->SetScale(VGet(s, s, s));

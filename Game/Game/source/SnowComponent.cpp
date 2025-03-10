@@ -351,10 +351,11 @@ void SnowComponent::Draw()
 
 	if (_Flag) {
 		_Flag = FALSE;
+		float fall = 0.1 / GetFPS();
 		for (int i = 0; i < _SnowSize; i++) {
 			if (_Height[i] < 0) {
-				_Height[i] += 0.01;
-				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, 0.01, 0));
+				_Height[i] += fall;
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, fall, 0));
 				_Flag = TRUE;
 			}
 

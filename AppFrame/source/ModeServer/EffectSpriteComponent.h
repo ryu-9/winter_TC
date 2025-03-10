@@ -4,7 +4,7 @@
 class EffectSpriteComponent : public SpriteComponent
 {
 public:
-	EffectSpriteComponent(ActorClass* owner, const TCHAR* file, VECTOR pos, VECTOR rot, float size = 1.0f, float playtime = -1 , int draworder = 100);
+	EffectSpriteComponent(ActorClass* owner, const TCHAR* file, VECTOR pos, VECTOR rot, float size = 1.0f, float playtime = -1 , float speed = 1.0f, int draworder = 100);
 	~EffectSpriteComponent();
 	void Draw() override;
 	void SetPosition(VECTOR pos) { _Position = pos; }
