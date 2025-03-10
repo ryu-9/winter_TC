@@ -34,14 +34,5 @@ private:
 	bool _Active;
 };
 
-class MHitCollisionComponent : public HitCollisionComponent {
-public:
-	MHitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
-		, int type = 0, bool move = FALSE, bool active = TRUE, int handle = -1);
 
-	std::deque<HitCollisionComponent*>& IsHit() override;
-
-
-
-};
 	
