@@ -295,7 +295,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			//m->SetVisible(false);
-			g[n]->SetHCollision(new ModelHitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
+			g[n]->SetHCollision(new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
 		} else if (name == "Stage_2_No01_Sponer") {
 			poppos[0].push_back(pos);
 		} else if (name == "Stage_2_No02_Sponer") {

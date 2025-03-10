@@ -58,8 +58,16 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 		{
 			if (hcoll->GetOwner() != _Owner)
 			{
-				if (HitCheck_Capsule_Capsule(GetPosition(), OldPos,GetSize().x, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x)) {
-					_IsHitList.insert(_IsHitList.begin(), hcoll);
+				if (Type <= 2) {
+					if (HitCheck_Capsule_Capsule(GetPosition(), OldPos, GetSize().x, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x)) {
+						_IsHitList.insert(_IsHitList.begin(), hcoll);
+					}
+				}
+				else {
+					auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x).HitNum;
+					if (m > 0) {
+						_IsHitList.insert(_IsHitList.begin(), hcoll);
+					}
 				}
 
 			}
@@ -114,34 +122,5 @@ void HitCollisionComponent::RefleshCollInfo()
 	MV1SetScale(Handle, GetSize());
 	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 	MV1SetupCollInfo(Handle);
-}
-
-ModelHitCollisionComponent::ModelHitCollisionComponent(ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
-	: HitCollisionComponent(owner, model, pos, size, type, move, active, handle) {
-}
-
-std::deque<HitCollisionComponent*>& ModelHitCollisionComponent::IsHit() {
-	MV1SetPosition(Handle, GetPosition());
-	MV1SetScale(Handle, GetSize());
-	MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
-	MV1RefreshCollInfo(Handle);
-
-	_IsHitList.clear();
-
-
-	for (auto hcoll : _Owner->GetMode()->GetHCollision()) {
-		if (hcoll->GetIsActive() == TRUE) {
-			if (hcoll->GetOwner() != _Owner) {
-				auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x).HitNum;
-				if (m > 0) {
-					_IsHitList.insert(_IsHitList.begin(), hcoll);
-				}
-
-
-			}
-		}
-	}
-
-	return _IsHitList;
 }
 

@@ -89,13 +89,3 @@ protected:
 	std::deque<HitCollisionComponent*> _IsHitList;
 };
 
-class ModelHitCollisionComponent : public HitCollisionComponent {
-public:
-	ModelHitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
-		, int type = 0, bool move = FALSE, bool active = TRUE, int handle = -1);
-
-	std::deque<HitCollisionComponent*>& IsHit() override;
-
-
-
-};
