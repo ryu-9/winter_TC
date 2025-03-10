@@ -80,8 +80,6 @@ bool ModeGame::Initialize() {
 	//tree->SetItem(item);
 	auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
-	auto box = new StageBox(this);
-	box->SetPosition(VGet(0,0,0));
 	// 雑実装
 	switch (gGlobal._SelectStage) {
 	case 0:
@@ -96,7 +94,9 @@ bool ModeGame::Initialize() {
 	default:
 		break;
 	}
+
 	
+
 	{
 		SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
@@ -106,13 +106,18 @@ bool ModeGame::Initialize() {
 		new BGMComponent(_Camera);
 	}
 	
-	// ボス
-	auto b = new BossActor(this, VGet(0, -1800,1800));
-	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+	
 	
 	{ // デバッグ用
 		debug_hcoll_flag = true;
 		debug_mcoll_flag = false;
+
+		auto box = new StageBox(this);
+		box->SetPosition(VGet(0, 0, 0));
+
+		// ボス
+		auto b = new BossActor(this, VGet(0, -1800, 1800));
+		b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
 	}
 
 	return true;
