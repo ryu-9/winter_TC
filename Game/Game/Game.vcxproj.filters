@@ -210,6 +210,9 @@
     <ClCompile Include="source\BreakableBoxActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="source\SlashActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
     <ClCompile Include="source\GoalItemActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
@@ -366,6 +369,9 @@
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
     <ClInclude Include="source\BreakableBoxActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SlashActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
     <ClInclude Include="source\GoalItemActor.h">

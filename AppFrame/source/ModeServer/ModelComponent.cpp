@@ -2,7 +2,7 @@
 #include "ActorClass.h"
 #include "../ModelServer/ModelServer.h"
 
-ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
+ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file, int draworder)
 	:Component(owner)
 	, _Indipendent(false)
 	// 再生時間の初期化
@@ -19,7 +19,7 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file)
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
 	_Handle = ModelServer::GetInstance()->Add(file);
-	_Sprite = new ModelSpriteComponent(_Owner, this);
+	_Sprite = new ModelSpriteComponent(_Owner, this, draworder);
 }
 
 ModelComponent::~ModelComponent()

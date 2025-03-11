@@ -7,7 +7,7 @@
 class ModelComponent : public Component
 {
 public:
-	ModelComponent(class ActorClass* owner, const TCHAR* file);
+	ModelComponent(class ActorClass* owner, const TCHAR* file, int draworeder = 100);
 	virtual ~ModelComponent();
 
 	void ProcessInput() override;

@@ -76,10 +76,10 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	//auto item = new ItemActor(this,VGet(0, 350, 500), 0, -1);
-	//auto tree = new TreeActor(this, VGet(0, 50, 500));
-	//tree->SetItem(item);
-	auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
+	auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
+	auto tree = new TreeActor(this, VGet(0, 50, 500));
+	tree->SetItem(item);
+	//auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
 	// 雑実装
 	switch (gGlobal._SelectStage) {
@@ -110,7 +110,7 @@ bool ModeGame::Initialize() {
 	
 	
 	{ // デバッグ用
-		debug_hcoll_flag = true;
+		debug_hcoll_flag = false;
 		debug_mcoll_flag = false;
 
 		auto box = new StageBox(this);
@@ -240,8 +240,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	std::vector<GroupSpawnerActor*> g;
 	switch (gGlobal._SelectStage) {
 	case 0:
-	//	poppos.resize(1);
-	//	g.resize(1);
+		poppos.resize(1);
+		g.resize(1);
 		break;
 	case 1:
 		poppos.resize(6);
@@ -307,7 +307,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetDirection(rot);
 			g[n]->SetSize(scale);
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
-			//m->SetVisible(false);
+			m->SetVisible(false);
 			g[n]->SetHCollision(new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
 		} else if (name == "Stage_2_No01_Sponer") {
 			poppos[0].push_back(pos);

@@ -4,12 +4,12 @@
 
 ExplosionActor::ExplosionActor(ModeBase* mode, VECTOR pos, float scale)
 	:ActorClass(mode)
-	, _LifeTime(100)
+	, _LifeTime(1000)
 {
 	SetPosition(pos);
 	VECTOR size = VScale(VGet(10, 10, 10), scale + 20);
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), size, 2, true, true);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Explosion/Explosion.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), scale * 15, -1, 0.05);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Explosion/Explosion.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), scale * 15, -1, 0.3);
 
 }
 
@@ -19,7 +19,7 @@ ExplosionActor::~ExplosionActor()
 
 void ExplosionActor::UpdateActor()
 {
-	_LifeTime -= FpsController::GetInstance()->GetDeltaTime();
+	_LifeTime -= GetMode()->GetStepTm();
 	if (_LifeTime <= 0) {
 		SetState(State::eDead);
 	}

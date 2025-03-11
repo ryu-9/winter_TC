@@ -13,6 +13,7 @@ bool ModeGameUI::Terminate() {
 }
 
 bool ModeGameUI::Process() {
+	base::Process();
 	return false;
 }
 

@@ -7,7 +7,7 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_Move = new MoveComponent(this, false);
 	_Move->SetVelocity(move);
 	SetPosition(pos);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Lazer.efkefc", VGet(0, 0, 0), rot, scale);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Laser_ThanderX.efkefc1", VGet(0, 0, 0), rot, scale);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
 	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
@@ -29,7 +29,7 @@ LaserActor::~LaserActor()
 
 void LaserActor::UpdateActor()
 {
-	_LifeTime -= FpsController::GetInstance()->GetDeltaTime();
+	_LifeTime -= GetMode()->GetStepTm();
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {
 		auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());

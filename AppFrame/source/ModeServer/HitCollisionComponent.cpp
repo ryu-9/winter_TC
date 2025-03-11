@@ -64,10 +64,11 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 					}
 				}
 				else {
-					auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x).HitNum;
-					if (m > 0) {
+					auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x);
+					if (m.HitNum > 0) {
 						_IsHitList.insert(_IsHitList.begin(), hcoll);
 					}
+					MV1CollResultPolyDimTerminate(m);
 				}
 
 			}

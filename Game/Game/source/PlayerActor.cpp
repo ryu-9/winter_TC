@@ -8,10 +8,12 @@
 #include "PlayerCursorComponent.h"
 #include "PunchActor.h"
 #include "LaserActor.h"
+#include "SlashActor.h"
 #include "PlayerMoveCollisionComponent.h"
 #include "ItemActor.h"
 #include "TreeActor.h"
 #include "BreakableBoxActor.h"
+
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	:ActorClass(mode)
@@ -27,7 +29,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(0)
+	, _ItemNum(2)
 
 {
 	if (_PlayerNo == 1) {
@@ -127,7 +129,7 @@ void PlayerActor::UpdateActor() {
 
 	float friSize;
 	float dist;
-	int dt = FpsController::GetInstance()->GetDeltaTime();
+	int dt = GetMode()->GetStepTm();
 
 
 
@@ -143,7 +145,7 @@ void PlayerActor::UpdateActor() {
 	int animOrder = (int)anim::Wait;
 
 	if (_ModeNum > 0) {
-		_AnimTime += (float)FpsController::GetInstance()->GetDeltaTime() / 10;
+		_AnimTime += (float)GetMode()->GetStepTm() / 10;
 		//ChangeAnim(animOrder);
 		//_Friend->ChangeAnim(animOrder);
 		if (_AnimTime > _AnimTotalTime) {
@@ -455,7 +457,7 @@ void PlayerActor::UpdateActor() {
 				punch->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
 				punch->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
 				VECTOR rot = MV1GetRotationXYZ(punch->GetComponent<ModelComponent>()[0]->GetHandle());
-				punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.z));
+				punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.x));
 				_PunchFlag = true;
 			}
 		}
@@ -480,18 +482,34 @@ void PlayerActor::UpdateActor() {
 				laser->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
 				laser->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
 				VECTOR rot = MV1GetRotationXYZ(laser->GetComponent<ModelComponent>()[0]->GetHandle());
-				laser->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.z));
+				laser->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.x));
 			}
 			if (_AnimTime > 45 && _AnimTime < 60) {
 
 
 			}
-
-		
-		
-		
 		
 		}
+
+		if (_Animation == (int)anim::Blade) {
+			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 25 && !_PunchFlag) {
+				_AnimTime = 25;
+			}
+
+			if (_AnimTime > 27 && !_PunchFlag)
+			{
+				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
+				VECTOR tmppos = VGet(0, -GetSize().y *  - _Friend->GetSize().y, 0);
+
+				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 30);
+				slash->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
+				slash->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
+				VECTOR rot = MV1GetRotationXYZ(slash->GetComponent<ModelComponent>()[0]->GetHandle());
+				slash->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.y, -rot.z, -rot.x));
+				_PunchFlag = true;
+			}
+		}
+
 		if (_PunchIndex[0] != -2)
 		{
 			float rate = 1 + dir.y;
