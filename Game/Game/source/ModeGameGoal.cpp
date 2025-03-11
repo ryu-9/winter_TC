@@ -36,7 +36,7 @@ bool ModeGameGoal::Process() {
 		break;
 	case 2:
 		if (GetModeTm() > 2000) {
-			if (gGlobal._SelectStage > 2) {
+			if (gGlobal._SelectStage < 2) {
 				_UIChipList.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_UI_CON.png", 110));
 			} else {
 				_UIChipList.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_UI_END.png", 110));

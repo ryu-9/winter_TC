@@ -91,7 +91,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No06_Sponer",
+      "objectName": "No06_Sponer",
       "translate": {
         "x": -1155.0,
         "y": -11027.0,
@@ -667,7 +667,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No06_Sponer",
+      "objectName": "No06_Sponer",
       "translate": {
         "x": 801.0,
         "y": -11158.0,
@@ -883,24 +883,6 @@
       }
     },
     {
-      "objectName": "Stage_2_No05",
-      "translate": {
-        "x": 5325.0,
-        "y": -6950.0,
-        "z": 104.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
-      }
-    },
-    {
       "objectName": "Cube",
       "translate": {
         "x": 5502.0,
@@ -916,24 +898,6 @@
         "x": 14.0,
         "y": 1.0,
         "z": 3.75
-      }
-    },
-    {
-      "objectName": "Stage_2_No01",
-      "translate": {
-        "x": 307.0,
-        "y": -1561.0,
-        "z": 127.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
       }
     },
     {
@@ -1171,24 +1135,6 @@
       }
     },
     {
-      "objectName": "Stage_2_No06",
-      "translate": {
-        "x": -124.0,
-        "y": -11148.0,
-        "z": 1035.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
-      }
-    },
-    {
       "objectName": "Cube",
       "translate": {
         "x": 12.0,
@@ -1297,7 +1243,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No02_Sponer",
+      "objectName": "No02_Sponer",
       "translate": {
         "x": -2838.0,
         "y": -6612.0,
@@ -1711,7 +1657,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No06_Sponer",
+      "objectName": "No06_Sponer",
       "translate": {
         "x": -1233.0,
         "y": -11829.0,
@@ -1765,24 +1711,6 @@
       }
     },
     {
-      "objectName": "Stage_2_No02",
-      "translate": {
-        "x": -2364.0,
-        "y": -5192.0,
-        "z": 760.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
-      }
-    },
-    {
       "objectName": "Cube",
       "translate": {
         "x": 5103.0,
@@ -1798,24 +1726,6 @@
         "x": 22.0,
         "y": 14.0,
         "z": 3.0
-      }
-    },
-    {
-      "objectName": "Stage_2_No03",
-      "translate": {
-        "x": -525.0,
-        "y": -4052.0,
-        "z": 407.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
       }
     },
     {
@@ -1891,7 +1801,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No3",
+      "objectName": "Group_Area_Box_No3",
       "translate": {
         "x": -435.0,
         "y": -4451.0,
@@ -2071,7 +1981,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No4",
+      "objectName": "Group_Area_Box_No4",
       "translate": {
         "x": 1304.0,
         "y": -6401.0,
@@ -2251,7 +2161,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No02_Sponer",
+      "objectName": "No02_Sponer",
       "translate": {
         "x": -1734.0,
         "y": -5742.0,
@@ -2302,24 +2212,6 @@
         "x": 18.0,
         "y": 15.0,
         "z": 3.0
-      }
-    },
-    {
-      "objectName": "Stage_2_No04",
-      "translate": {
-        "x": 1123.0,
-        "y": -6458.0,
-        "z": 99.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 1.0,
-        "y": 1.0,
-        "z": 1.0
       }
     },
     {
@@ -2449,7 +2341,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No06_Sponer",
+      "objectName": "No06_Sponer",
       "translate": {
         "x": -364.0,
         "y": -11866.0,
@@ -2485,7 +2377,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No5",
+      "objectName": "Group_Area_Box_No5",
       "translate": {
         "x": 5103.0,
         "y": -7150.0,
@@ -2557,7 +2449,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No6",
+      "objectName": "Group_Area_Box_No6",
       "translate": {
         "x": 9.0,
         "y": -11249.0,
@@ -2809,7 +2701,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No06_Sponer",
+      "objectName": "No06_Sponer",
       "translate": {
         "x": 356.0,
         "y": -11860.0,
@@ -2935,7 +2827,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No1",
+      "objectName": "Group_Area_Box_No1",
       "translate": {
         "x": 151.0,
         "y": -1700.0,
@@ -2953,7 +2845,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No01_Sponer",
+      "objectName": "No01_Sponer",
       "translate": {
         "x": -337.0,
         "y": -1424.0,
@@ -2971,7 +2863,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No01_Sponer",
+      "objectName": "No01_Sponer",
       "translate": {
         "x": 687.0,
         "y": -1935.0,
@@ -2989,7 +2881,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No01_Sponer",
+      "objectName": "No01_Sponer",
       "translate": {
         "x": -854.0,
         "y": -1935.0,
@@ -3007,7 +2899,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No01_Sponer",
+      "objectName": "No01_Sponer",
       "translate": {
         "x": 757.0,
         "y": -1400.0,
@@ -3025,7 +2917,7 @@
       }
     },
     {
-      "objectName": "Stage_2_Group_Area_Box_No2",
+      "objectName": "Group_Area_Box_No2",
       "translate": {
         "x": -2348.0,
         "y": -5620.0,
@@ -3043,7 +2935,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No02_Sponer",
+      "objectName": "No02_Sponer",
       "translate": {
         "x": -2947.0,
         "y": -4902.0,
@@ -3061,7 +2953,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No05_Sponer",
+      "objectName": "No05_Sponer",
       "translate": {
         "x": 5030.0,
         "y": -7545.0,
@@ -3079,7 +2971,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No05_Sponer",
+      "objectName": "No05_Sponer",
       "translate": {
         "x": 4583.0,
         "y": -6865.0,
@@ -3097,7 +2989,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No05_Sponer",
+      "objectName": "No05_Sponer",
       "translate": {
         "x": 5917.0,
         "y": -6840.0,
@@ -3115,7 +3007,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No05_Sponer",
+      "objectName": "No05_Sponer",
       "translate": {
         "x": 5762.0,
         "y": -7382.0,
@@ -3133,7 +3025,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No05_Sponer",
+      "objectName": "No05_Sponer",
       "translate": {
         "x": 4323.0,
         "y": -7545.0,
@@ -3169,7 +3061,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No03_Sponer",
+      "objectName": "No03_Sponer",
       "translate": {
         "x": -518.0,
         "y": -4341.0,
@@ -3187,7 +3079,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No03_Sponer",
+      "objectName": "No03_Sponer",
       "translate": {
         "x": -1167.0,
         "y": -3929.0,
@@ -3205,7 +3097,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No03_Sponer",
+      "objectName": "No03_Sponer",
       "translate": {
         "x": 170.0,
         "y": -5095.0,
@@ -3223,7 +3115,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No03_Sponer",
+      "objectName": "No03_Sponer",
       "translate": {
         "x": -1160.0,
         "y": -5095.0,
@@ -3241,7 +3133,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No02_Sponer",
+      "objectName": "No02_Sponer",
       "translate": {
         "x": -2115.0,
         "y": -6237.0,
@@ -3259,7 +3151,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No04_Sponer",
+      "objectName": "No04_Sponer",
       "translate": {
         "x": 778.0,
         "y": -6160.0,
@@ -3277,7 +3169,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No04_Sponer",
+      "objectName": "No04_Sponer",
       "translate": {
         "x": 2030.0,
         "y": -6447.0,
@@ -3295,7 +3187,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No04_Sponer",
+      "objectName": "No04_Sponer",
       "translate": {
         "x": 558.0,
         "y": -6968.0,
@@ -3313,7 +3205,7 @@
       }
     },
     {
-      "objectName": "Stage_2_No04_Sponer",
+      "objectName": "No04_Sponer",
       "translate": {
         "x": 1664.0,
         "y": -6844.0,

@@ -99,11 +99,11 @@ bool ModeGame::Initialize() {
 	
 
 	{
-		SoundServer::GetInstance()->Add("res/sound/STG_BGM1.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/SDX_BGM1.wav", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
-		SoundServer::GetInstance()->Add("res/sound/TDX_ENM_HIT.wav", "KillEnemy");
-		SoundServer::GetInstance()->Add("res/sound/TDX_ENM_DEATH.wav", "KillEnemy2");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
 		new BGMComponent(_Camera);
 	}
 	
@@ -298,7 +298,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "BP_02EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(1);
-		} else if ((name2.erase(name2.size() - 1, 1) == "Stage_2_Group_Area_Box_No")) {
+		} else if ((name2.erase(name2.size() - 1, 1) == "Group_Area_Box_No")) {
 			std::string nm = data.at("objectName");
 			nm = nm.back();
 			//auto g = new GroupSpawnerActor(this, pos);
@@ -309,17 +309,17 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
 			g[n]->SetHCollision(new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
-		} else if (name == "Stage_2_No01_Sponer") {
+		} else if (name == "No01_Sponer") {
 			poppos[0].push_back(pos);
-		} else if (name == "Stage_2_No02_Sponer") {
+		} else if (name == "No02_Sponer") {
 			poppos[1].push_back(pos);
-		} else if (name == "Stage_2_No03_Sponer") {
+		} else if (name == "No03_Sponer") {
 			poppos[2].push_back(pos);
-		} else if (name == "Stage_2_No04_Sponer") {
+		} else if (name == "No04_Sponer") {
 			poppos[3].push_back(pos);
-		} else if (name == "Stage_2_No05_Sponer") {
+		} else if (name == "No05_Sponer") {
 			poppos[4].push_back(pos);
-		} else if (name == "Stage_2_No06_Sponer") {
+		} else if (name == "No06_Sponer") {
 			poppos[5].push_back(pos);
 		} else if (name == "Goal_flag") {
 			new GoalItemActor(this, pos);
@@ -327,6 +327,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);
 			tree->SetItem(item);
+		} else if (name == "BP_GM_BreakWall") {
+			new BreakableBoxActor(this, pos, scale);
 		}
 		else {
 			auto ac = new ActorClass(this);

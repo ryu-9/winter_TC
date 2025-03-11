@@ -1,1 +1,3784 @@
-{"Stage":[{"objectName":"Cube","translate":{"x":-736.0,"y":-6983.0,"z":83.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.25,"y":1.95,"z":4.0}},{"objectName":"Cube","translate":{"x":-2312.0,"y":-2325.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.5,"y":2.0,"z":4.0}},{"objectName":"BP_maguma","translate":{"x":-3493.0,"y":-2058.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1613.0,"y":-5190.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.5,"y":2.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-2022.0,"y":-9232.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":13.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-99.0,"y":-6533.0,"z":-81.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":3.0,"z":3.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-159.0,"y":-2021.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-3598.0,"y":-2383.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1988.0,"y":11.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":5.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1191.0,"y":-7682.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-857.0,"y":-7265.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1988.0,"y":-5040.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":5.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-3587.0,"y":-3027.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-3120.0,"y":-1643.0,"z":310.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2647.0,"y":-4586.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-1674.0,"y":-15488.0,"z":-278.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":15.0,"y":18.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1988.0,"y":-489.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":5.0,"z":1.0}},{"objectName":"BP_02EnemySpawn","translate":{"x":-2263.0,"y":-6407.0,"z":149.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2433.0,"y":-5340.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.9000,"y":5.0,"z":3.0}},{"objectName":"Cube","translate":{"x":850.0,"y":-3289.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":9.0,"y":3.0,"z":6.0}},{"objectName":"Cube","translate":{"x":-2897.0,"y":-814.0,"z":119.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":0.4000}},{"objectName":"Cube","translate":{"x":-1099.0,"y":-6211.0,"z":-201.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":0.5999}},{"objectName":"BP_maguma","translate":{"x":-3411.0,"y":-3652.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2028.0,"y":-8260.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-925.0,"y":-8268.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1674.0,"y":-10581.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":20.0,"y":14.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2418.0,"y":-4940.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.6000,"y":3.0125,"z":2.0}},{"objectName":"BP_02EnemySpawn","translate":{"x":-685.0,"y":-1642.0,"z":-35.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":281.0,"y":-843.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2897.0,"y":-964.0,"z":139.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":0.8000}},{"objectName":"Cube","translate":{"x":1152.0,"y":-2439.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":14.0,"z":5.0}},{"objectName":"BP_maguma","translate":{"x":-3127.0,"y":-1657.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":605.0,"y":-2254.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2417.0,"y":-2075.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.6000,"y":3.0125,"z":4.0}},{"objectName":"BP_Sis_spawn","translate":{"x":-1920.0,"y":-123.0,"z":120.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.5,"y":0.5,"z":0.5}},{"objectName":"Cube","translate":{"x":-2368.0,"y":-3408.0,"z":295.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.5999,"y":3.6400,"z":4.0}},{"objectName":"Cube","translate":{"x":-1099.0,"y":-6811.0,"z":-81.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":3.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1546.0,"y":-4653.0,"z":156.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":831.0,"y":-2051.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2897.0,"y":-1114.0,"z":160.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":1.2}},{"objectName":"Cube","translate":{"x":-3097.0,"y":-1689.0,"z":178.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":10.0,"z":1.8}},{"objectName":"BP_maguma","translate":{"x":-1983.0,"y":-6086.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3696.0,"y":-4335.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":2.0}},{"objectName":"BP_BrackThanderX_Spawn","translate":{"x":-1623.0,"y":-16406.0,"z":-164.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-2225.0,"y":-2418.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.7999,"y":4.7999,"z":4.7999}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-3516.0,"z":189.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.5,"z":1.8}},{"objectName":"Cube","translate":{"x":2.0,"y":-2539.0,"z":-141.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":20.0,"y":12.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1600.0,"y":-5671.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3396.0,"y":-4538.0,"z":207.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":7.0,"z":1.2}},{"objectName":"Cube","translate":{"x":-1998.0,"y":-4192.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":12.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1172.0,"y":-5248.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3747.0,"y":-3587.0,"z":366.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":12.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-1561.0,"y":-7962.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":2.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-3111.0,"y":-2675.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-600.0,"y":-4267.0,"z":-180.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2288.0,"y":-389.0,"z":218.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":3.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-698.0,"y":-3363.0,"z":-198.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":4.5,"z":1.0}},{"objectName":"Cube","translate":{"x":-1099.0,"y":-6661.0,"z":-111.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":2.3999}},{"objectName":"BP_tree","translate":{"x":-1.0,"y":-6105.0,"z":-181.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2433.0,"y":-6086.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.9000,"y":10.0,"z":6.0}},{"objectName":"BP_maguma","translate":{"x":-2851.0,"y":-2652.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":2.0,"z":1.0}},{"objectName":"BP_tree","translate":{"x":-4037.0,"y":-2711.0,"z":315.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Stage_3_No03","translate":{"x":-1668.0,"y":-7714.0,"z":146.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2407.0,"y":-4653.0,"z":156.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-349.0,"y":-4638.0,"z":-82.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":21.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-622.0,"y":-7681.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":16.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1865.0,"y":-4289.0,"z":156.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3396.0,"y":-4937.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-559.0,"y":-2441.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2786.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2886.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-499.0,"y":-5825.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2718.0,"y":-639.0,"z":209.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":9.5999,"y":2.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-1099.0,"y":-6511.0,"z":-141.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":1.8}},{"objectName":"BP_01EnemySpawn","translate":{"x":-2834.0,"y":-2031.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3247.0,"y":-789.0,"z":265.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":5.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-4347.0,"y":-2687.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-2716.0,"y":-3403.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-1605.0,"y":-5669.0,"z":151.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1322.0,"y":-9231.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":13.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-3747.0,"y":-2287.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":2.0,"z":2.0}},{"objectName":"BP_tree","translate":{"x":-3426.0,"y":-4710.0,"z":315.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2487.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-897.0,"y":-6087.0,"z":-281.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":10.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2438.0,"y":-2725.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":10.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-2825.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":9.0,"y":8.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2288.0,"y":11.0,"z":218.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":5.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-3046.0,"y":-4538.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":7.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1546.0,"y":-3847.0,"z":156.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1048.0,"y":-2279.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":19.1000,"z":5.0}},{"objectName":"Cube","translate":{"x":-1104.0,"y":-6984.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0999,"y":1.96,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-3586.0,"y":-2382.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1993.0,"y":-1618.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":6.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-599.0,"y":-6737.0,"z":-17.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":3.0,"z":6.0}},{"objectName":"Cube","translate":{"x":-3147.0,"y":-3688.0,"z":182.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":11.0,"y":10.0,"z":1.7}},{"objectName":"BP_maguma","translate":{"x":-1880.0,"y":-5671.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-299.0,"y":-1339.0,"z":-141.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":14.0,"y":12.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1966.0,"y":311.0,"z":218.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.5,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-1196.0,"y":-3408.0,"z":21.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":3.5,"z":7.0}},{"objectName":"BP_tree","translate":{"x":-1911.0,"y":-2752.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2464.0,"y":-8260.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-2727.0,"y":-3406.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1672.0,"y":-7781.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":20.0,"y":14.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1535.0,"y":-3834.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1248.0,"y":-1024.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":6.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":598.0,"y":-2251.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1023.0,"y":-1024.0,"z":-15.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.5,"y":6.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-158.0,"y":-2014.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1203.0,"y":-7657.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-2024.0,"y":-8270.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-970.0,"y":-5724.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-826.0,"y":-5175.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-5936.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":9.0,"y":13.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-2258.0,"y":-4286.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1719.0,"y":-7265.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1858.0,"y":-4300.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1614.0,"y":-2325.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.5,"y":2.0,"z":4.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":897.0,"y":-2706.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Stage_3_No01","translate":{"x":90.0,"y":-2498.0,"z":-38.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-2409.0,"y":-1557.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2372.0,"y":-8531.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-2435.0,"y":-7256.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-601.0,"y":-4260.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-2473.0,"y":-7963.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1787.0,"y":-6285.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-97.0,"y":-6083.0,"z":-291.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.2}},{"objectName":"Cube","translate":{"x":-1248.0,"y":-1624.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":6.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-1688.0,"y":-389.0,"z":218.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":3.0,"z":3.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2586.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-1508.0,"y":-7954.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1087.0,"y":-4719.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-2251.0,"y":-6410.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2433.0,"y":-7265.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":91.0,"y":-2957.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-3101.0,"y":-2655.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-190.0,"y":-1239.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":3.0,"z":1.0}},{"objectName":"Cube","translate":{"x":551.0,"y":-1239.0,"z":49.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":10.0,"z":4.0}},{"objectName":"BP_maguma","translate":{"x":-2288.0,"y":-2823.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2457.0,"y":-7954.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-99.0,"y":-5735.0,"z":-81.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":3.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":85.0,"y":-2962.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_02EnemySpawn","translate":{"x":-1189.0,"y":-5261.0,"z":-179.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":594.0,"y":-2962.0,"z":-32.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3746.0,"y":-4537.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":7.0,"z":2.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-1086.0,"y":-4726.0,"z":-180.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-3216.0,"z":130.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.5,"z":0.5999}},{"objectName":"Cube","translate":{"x":-1672.0,"y":-9181.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":14.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-700.0,"y":-6466.0,"z":-230.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1567.0,"y":-3408.0,"z":251.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.4199,"y":3.6600,"z":5.0}},{"objectName":"BP_maguma","translate":{"x":-690.0,"y":-1645.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-3598.0,"y":-3030.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-3366.0,"z":160.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.5,"z":1.2}},{"objectName":"BP_02EnemySpawn","translate":{"x":-3199.0,"y":-4087.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2686.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-948.0,"y":-8260.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1443.0,"y":-6086.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.9000,"y":10.0,"z":6.0}},{"objectName":"Cube","translate":{"x":-3397.0,"y":-1114.0,"z":316.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.5,"z":3.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-387.0,"y":-6385.0,"z":-231.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":3.0}},{"objectName":"Cube","translate":{"x":701.0,"y":-1839.0,"z":49.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":4.0}},{"objectName":"BP_maguma","translate":{"x":-2378.0,"y":-4655.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":2.0,"z":1.0}},{"objectName":"BP_02EnemySpawn","translate":{"x":-707.0,"y":-6469.0,"z":-179.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-2837.0,"y":-2034.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_02EnemySpawn","translate":{"x":-3502.0,"y":-2058.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1099.0,"y":-6361.0,"z":-171.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.5,"z":1.2}},{"objectName":"Cube","translate":{"x":-4047.0,"y":-3037.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":2.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-1640.0,"y":-1568.0,"z":151.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-3364.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":4.5,"z":5.0}},{"objectName":"Cube","translate":{"x":-873.0,"y":-1024.0,"z":-61.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.5,"y":6.0,"z":0.5999}},{"objectName":"BP_maguma","translate":{"x":897.0,"y":-2706.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1998.0,"y":-1339.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":12.0,"z":1.0}},{"objectName":"Group_Area_Box_No01","translate":{"x":-2595.0,"y":-4791.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":12.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-3166.0,"y":-3872.0,"z":270.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1988.0,"y":-6834.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":5.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-898.0,"y":-4588.0,"z":-281.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":20.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1568.0,"y":-4940.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.3999,"y":3.0125,"z":3.0}},{"objectName":"Cube","translate":{"x":251.0,"y":-6083.0,"z":-81.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-2722.0,"y":-7681.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":16.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-2216.0,"y":-7657.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1438.0,"y":-2725.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":10.0,"z":2.0}},{"objectName":"BP_maguma","translate":{"x":-561.0,"y":-2434.0,"z":-89.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-3795.0,"y":-2986.0,"z":267.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":2.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2268.0,"y":-4298.0,"z":156.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-3647.0,"y":-1614.0,"z":366.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":11.5,"z":2.0}},{"objectName":"Cube","translate":{"x":-1988.0,"y":-2175.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":5.0,"z":1.0}},{"objectName":"Stage_3_No02","translate":{"x":-2029.0,"y":-4189.0,"z":153.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1443.0,"y":-5340.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.9000,"y":5.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-2698.0,"y":-2714.0,"z":365.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":10.5,"z":2.0}},{"objectName":"Cube","translate":{"x":-3997.0,"y":-2687.0,"z":207.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.2}},{"objectName":"Cube","translate":{"x":-2452.0,"y":-6831.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.4000,"y":5.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-2797.0,"y":-4238.0,"z":217.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.0,"z":5.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-500.0,"y":-5850.0,"z":-180.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1600.0,"y":-2823.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":1.0}},{"objectName":"GroupAttack_EnemySpawn","translate":{"x":-2214.0,"y":-7682.0,"z":163.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-203.0,"y":-1243.0,"z":-41.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2313.0,"y":-5189.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.5,"y":2.0,"z":4.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-1988.0,"y":-6084.0,"z":151.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-3422.0,"y":-3882.0,"z":318.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Group_Area_Box_No01","translate":{"x":-998.0,"y":-3139.0,"z":-91.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":20.0,"y":12.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1693.0,"y":-7256.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":2.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-1570.0,"y":-4667.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1448.0,"y":-4440.0,"z":-150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":23.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-4047.0,"y":-2337.0,"z":367.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-3248.0,"y":-2688.0,"z":207.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":9.0,"y":10.0,"z":1.2}},{"objectName":"BP_maguma","translate":{"x":-827.0,"y":-7256.0,"z":104.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":2.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1569.0,"y":-2074.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.3999,"y":3.0125,"z":2.0}},{"objectName":"Cube","translate":{"x":-588.0,"y":-639.0,"z":118.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":23.0,"y":2.0,"z":5.0}},{"objectName":"Group_Area_Box_No01","translate":{"x":-2669.0,"y":-8480.0,"z":117.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":20.0,"y":14.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-972.0,"y":-8531.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":2.0}},{"objectName":"BP_Bro_spawn","translate":{"x":-2034.0,"y":-83.0,"z":120.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":0.2000,"y":0.2000,"z":0.2000}},{"objectName":"Cube","translate":{"x":-1569.0,"y":-6836.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.3999,"y":5.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-1688.0,"y":11.0,"z":218.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":5.0,"z":3.0}}]}
+{
+  "Stage": [
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -736.0,
+        "y": -6983.0,
+        "z": 83.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.25,
+        "y": 1.95,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2312.0,
+        "y": -2325.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.5,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3493.0,
+        "y": -2058.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1613.0,
+        "y": -5190.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.5,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2022.0,
+        "y": -9232.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 13.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -99.0,
+        "y": -6533.0,
+        "z": -81.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 3.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -159.0,
+        "y": -2021.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -3598.0,
+        "y": -2383.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1988.0,
+        "y": 11.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1191.0,
+        "y": -7682.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -857.0,
+        "y": -7265.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1988.0,
+        "y": -5040.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3587.0,
+        "y": -3027.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -3120.0,
+        "y": -1643.0,
+        "z": 310.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2647.0,
+        "y": -4586.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1674.0,
+        "y": -15488.0,
+        "z": -278.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 15.0,
+        "y": 18.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1988.0,
+        "y": -489.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -2263.0,
+        "y": -6407.0,
+        "z": 149.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2433.0,
+        "y": -5340.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9000,
+        "y": 5.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 850.0,
+        "y": -3289.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 9.0,
+        "y": 3.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2897.0,
+        "y": -814.0,
+        "z": 119.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 0.4000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1099.0,
+        "y": -6211.0,
+        "z": -201.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3411.0,
+        "y": -3652.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2028.0,
+        "y": -8260.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -925.0,
+        "y": -8268.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1674.0,
+        "y": -10581.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 20.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2418.0,
+        "y": -4940.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.6000,
+        "y": 3.0125,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -685.0,
+        "y": -1642.0,
+        "z": -35.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": 281.0,
+        "y": -843.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2897.0,
+        "y": -964.0,
+        "z": 139.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 0.8000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1152.0,
+        "y": -2439.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 14.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3127.0,
+        "y": -1657.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": 605.0,
+        "y": -2254.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2417.0,
+        "y": -2075.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.6000,
+        "y": 3.0125,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_Sis_spawn",
+      "translate": {
+        "x": -1920.0,
+        "y": -123.0,
+        "z": 120.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.5,
+        "y": 0.5,
+        "z": 0.5
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2368.0,
+        "y": -3408.0,
+        "z": 295.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.5999,
+        "y": 3.6400,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1099.0,
+        "y": -6811.0,
+        "z": -81.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1546.0,
+        "y": -4653.0,
+        "z": 156.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": 831.0,
+        "y": -2051.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2897.0,
+        "y": -1114.0,
+        "z": 160.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3097.0,
+        "y": -1689.0,
+        "z": 178.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1983.0,
+        "y": -6086.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3696.0,
+        "y": -4335.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_BrackThanderX_Spawn",
+      "translate": {
+        "x": -1623.0,
+        "y": -16406.0,
+        "z": -164.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -2225.0,
+        "y": -2418.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.7999,
+        "y": 4.7999,
+        "z": 4.7999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -3516.0,
+        "z": 189.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.5,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2.0,
+        "y": -2539.0,
+        "z": -141.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 20.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1600.0,
+        "y": -5671.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3396.0,
+        "y": -4538.0,
+        "z": 207.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1998.0,
+        "y": -4192.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1172.0,
+        "y": -5248.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3747.0,
+        "y": -3587.0,
+        "z": 366.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 12.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1561.0,
+        "y": -7962.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -3111.0,
+        "y": -2675.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -600.0,
+        "y": -4267.0,
+        "z": -180.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2288.0,
+        "y": -389.0,
+        "z": 218.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 3.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -698.0,
+        "y": -3363.0,
+        "z": -198.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 4.5,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1099.0,
+        "y": -6661.0,
+        "z": -111.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 2.3999
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -1.0,
+        "y": -6105.0,
+        "z": -181.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2433.0,
+        "y": -6086.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9000,
+        "y": 10.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2851.0,
+        "y": -2652.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -4037.0,
+        "y": -2711.0,
+        "z": 315.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Stage_3_No03",
+      "translate": {
+        "x": -1668.0,
+        "y": -7714.0,
+        "z": 146.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2407.0,
+        "y": -4653.0,
+        "z": 156.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -349.0,
+        "y": -4638.0,
+        "z": -82.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 21.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -622.0,
+        "y": -7681.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 16.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1865.0,
+        "y": -4289.0,
+        "z": 156.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3396.0,
+        "y": -4937.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -559.0,
+        "y": -2441.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2786.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2886.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -499.0,
+        "y": -5825.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2718.0,
+        "y": -639.0,
+        "z": 209.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 9.5999,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1099.0,
+        "y": -6511.0,
+        "z": -141.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -2834.0,
+        "y": -2031.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3247.0,
+        "y": -789.0,
+        "z": 265.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 5.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -4347.0,
+        "y": -2687.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 8.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2716.0,
+        "y": -3403.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -1605.0,
+        "y": -5669.0,
+        "z": 151.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1322.0,
+        "y": -9231.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 13.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3747.0,
+        "y": -2287.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -3426.0,
+        "y": -4710.0,
+        "z": 315.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2487.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -897.0,
+        "y": -6087.0,
+        "z": -281.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2438.0,
+        "y": -2725.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 10.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -2825.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 9.0,
+        "y": 8.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2288.0,
+        "y": 11.0,
+        "z": 218.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 5.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3046.0,
+        "y": -4538.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 7.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1546.0,
+        "y": -3847.0,
+        "z": 156.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1048.0,
+        "y": -2279.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 19.1000,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1104.0,
+        "y": -6984.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0999,
+        "y": 1.96,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3586.0,
+        "y": -2382.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1993.0,
+        "y": -1618.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 6.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -599.0,
+        "y": -6737.0,
+        "z": -17.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 3.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3147.0,
+        "y": -3688.0,
+        "z": 182.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 11.0,
+        "y": 10.0,
+        "z": 1.7
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1880.0,
+        "y": -5671.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -299.0,
+        "y": -1339.0,
+        "z": -141.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 14.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1966.0,
+        "y": 311.0,
+        "z": 218.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.5,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1196.0,
+        "y": -3408.0,
+        "z": 21.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 3.5,
+        "z": 7.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -1911.0,
+        "y": -2752.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2464.0,
+        "y": -8260.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -2727.0,
+        "y": -3406.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1672.0,
+        "y": -7781.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 20.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1535.0,
+        "y": -3834.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1248.0,
+        "y": -1024.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 6.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": 598.0,
+        "y": -2251.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1023.0,
+        "y": -1024.0,
+        "z": -15.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.5,
+        "y": 6.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -158.0,
+        "y": -2014.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1203.0,
+        "y": -7657.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2024.0,
+        "y": -8270.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -970.0,
+        "y": -5724.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -826.0,
+        "y": -5175.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -5936.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 9.0,
+        "y": 13.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2258.0,
+        "y": -4286.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1719.0,
+        "y": -7265.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1858.0,
+        "y": -4300.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1614.0,
+        "y": -2325.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.5,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": 897.0,
+        "y": -2706.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -2409.0,
+        "y": -1557.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2372.0,
+        "y": -8531.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2435.0,
+        "y": -7256.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -601.0,
+        "y": -4260.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2473.0,
+        "y": -7963.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1787.0,
+        "y": -6285.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -97.0,
+        "y": -6083.0,
+        "z": -291.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1248.0,
+        "y": -1624.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 6.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1688.0,
+        "y": -389.0,
+        "z": 218.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 3.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2586.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -1508.0,
+        "y": -7954.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1087.0,
+        "y": -4719.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2251.0,
+        "y": -6410.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2433.0,
+        "y": -7265.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": 91.0,
+        "y": -2957.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3101.0,
+        "y": -2655.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -190.0,
+        "y": -1239.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 3.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 551.0,
+        "y": -1239.0,
+        "z": 49.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 10.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2288.0,
+        "y": -2823.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2457.0,
+        "y": -7954.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -99.0,
+        "y": -5735.0,
+        "z": -81.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": 85.0,
+        "y": -2962.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -1189.0,
+        "y": -5261.0,
+        "z": -179.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": 594.0,
+        "y": -2962.0,
+        "z": -32.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3746.0,
+        "y": -4537.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 7.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -1086.0,
+        "y": -4726.0,
+        "z": -180.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -3216.0,
+        "z": 130.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.5,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1672.0,
+        "y": -9181.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -700.0,
+        "y": -6466.0,
+        "z": -230.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1567.0,
+        "y": -3408.0,
+        "z": 251.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.4199,
+        "y": 3.6600,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -690.0,
+        "y": -1645.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -3598.0,
+        "y": -3030.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -3366.0,
+        "z": 160.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.5,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -3199.0,
+        "y": -4087.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2686.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -948.0,
+        "y": -8260.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1443.0,
+        "y": -6086.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9000,
+        "y": 10.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3397.0,
+        "y": -1114.0,
+        "z": 316.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.5,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -387.0,
+        "y": -6385.0,
+        "z": -231.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 701.0,
+        "y": -1839.0,
+        "z": 49.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2378.0,
+        "y": -4655.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -707.0,
+        "y": -6469.0,
+        "z": -179.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2837.0,
+        "y": -2034.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_02EnemySpawn",
+      "translate": {
+        "x": -3502.0,
+        "y": -2058.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1099.0,
+        "y": -6361.0,
+        "z": -171.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.5,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -4047.0,
+        "y": -3037.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -1640.0,
+        "y": -1568.0,
+        "z": 151.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -3364.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 4.5,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -873.0,
+        "y": -1024.0,
+        "z": -61.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.5,
+        "y": 6.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": 897.0,
+        "y": -2706.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1998.0,
+        "y": -1339.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No01",
+      "translate": {
+        "x": -2595.0,
+        "y": -4791.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -3166.0,
+        "y": -3872.0,
+        "z": 270.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1988.0,
+        "y": -6834.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -898.0,
+        "y": -4588.0,
+        "z": -281.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 20.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1568.0,
+        "y": -4940.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.3999,
+        "y": 3.0125,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 251.0,
+        "y": -6083.0,
+        "z": -81.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 8.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2722.0,
+        "y": -7681.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 16.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -2216.0,
+        "y": -7657.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1438.0,
+        "y": -2725.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 10.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -561.0,
+        "y": -2434.0,
+        "z": -89.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -3795.0,
+        "y": -2986.0,
+        "z": 267.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2268.0,
+        "y": -4298.0,
+        "z": 156.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3647.0,
+        "y": -1614.0,
+        "z": 366.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 11.5,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1988.0,
+        "y": -2175.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Stage_3_No02",
+      "translate": {
+        "x": -2029.0,
+        "y": -4189.0,
+        "z": 153.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1443.0,
+        "y": -5340.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.9000,
+        "y": 5.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2698.0,
+        "y": -2714.0,
+        "z": 365.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 10.5,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3997.0,
+        "y": -2687.0,
+        "z": 207.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2452.0,
+        "y": -6831.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.4000,
+        "y": 5.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2797.0,
+        "y": -4238.0,
+        "z": 217.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -500.0,
+        "y": -5850.0,
+        "z": -180.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1600.0,
+        "y": -2823.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "GroupAttack_EnemySpawn",
+      "translate": {
+        "x": -2214.0,
+        "y": -7682.0,
+        "z": 163.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -203.0,
+        "y": -1243.0,
+        "z": -41.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2313.0,
+        "y": -5189.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.5,
+        "y": 2.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -1988.0,
+        "y": -6084.0,
+        "z": 151.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -3422.0,
+        "y": -3882.0,
+        "z": 318.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No01",
+      "translate": {
+        "x": -998.0,
+        "y": -3139.0,
+        "z": -91.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 20.0,
+        "y": 12.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1693.0,
+        "y": -7256.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -1570.0,
+        "y": -4667.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1448.0,
+        "y": -4440.0,
+        "z": -150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 23.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -4047.0,
+        "y": -2337.0,
+        "z": 367.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -3248.0,
+        "y": -2688.0,
+        "z": 207.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 9.0,
+        "y": 10.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "BP_maguma",
+      "translate": {
+        "x": -827.0,
+        "y": -7256.0,
+        "z": 104.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 2.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1569.0,
+        "y": -2074.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.3999,
+        "y": 3.0125,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -588.0,
+        "y": -639.0,
+        "z": 118.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 23.0,
+        "y": 2.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No01",
+      "translate": {
+        "x": -2669.0,
+        "y": -8480.0,
+        "z": 117.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 20.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -972.0,
+        "y": -8531.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "BP_Bro_spawn",
+      "translate": {
+        "x": -2034.0,
+        "y": -83.0,
+        "z": 120.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 0.2000,
+        "y": 0.2000,
+        "z": 0.2000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1569.0,
+        "y": -6836.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.3999,
+        "y": 5.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1688.0,
+        "y": 11.0,
+        "z": 218.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 5.0,
+        "z": 3.0
+      }
+    }
+  ]
+}

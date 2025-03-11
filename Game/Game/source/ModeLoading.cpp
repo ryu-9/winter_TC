@@ -44,14 +44,6 @@ bool ModeLoading::Process() {
 	}
 	if (_Tm >= 4000) {
 		_Tm = 0;
-		/*
-		auto n = rand() % 6;
-		while (n == _UIChip.back()->GetImageNum()) {
-			n = rand() % 6;
-		}
-		_UIChip.back()->ChangeImage(n);
-		*/
-
 		ModeServer::GetInstance()->Del(this);
 	}
 
