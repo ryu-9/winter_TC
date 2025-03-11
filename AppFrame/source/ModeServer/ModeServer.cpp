@@ -46,6 +46,13 @@ int ModeServer::Del(ModeBase* mode) {
 	return 0;
 }
 
+int ModeServer::AllDel() {
+	for (auto mode : _vMode) {
+		_vModeDel.push_back(mode);
+	}
+	return 0;
+}
+
 // íœ•delete
 int ModeServer::Release(ModeBase* mode) {
 	lstModeBase::iterator ite = _vMode.begin();

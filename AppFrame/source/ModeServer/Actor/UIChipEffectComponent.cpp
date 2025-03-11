@@ -158,3 +158,33 @@ void UIChipMoveComponent::ProcessInput()
 void UIChipMoveComponent::Update()
 {
 }
+
+UIChipScaleComponent::UIChipScaleComponent(ActorClass* owner, VECTOR scale, int tm, int updateOrder) 
+	:base(owner, updateOrder) {
+	_Data.start = _UIChip->GetUIData()->scale;
+	_Data.tm = tm;
+	_Data.end = scale;
+	_Data.cnt = 0;
+}
+
+UIChipScaleComponent::~UIChipScaleComponent() {
+}
+
+void UIChipScaleComponent::ProcessInput() {
+	if (_Data.cnt < _Data.tm) {
+		_Data.cnt += _Owner->GetMode()->GetStepTm();
+		auto tmp = (VSub(_Data.end, _Data.start));
+		auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
+		tmp.x = tmp.x * tmp2 + _Data.start.x;
+		tmp.y = tmp.y * tmp2 + _Data.start.y;
+		tmp.z = tmp.z;
+		_UIChip->GetUIData()->scale = tmp;
+		if (_Data.cnt >= _Data.tm) {
+			_UIChip->GetUIData()->scale = _Data.end;
+			_Owner->RemoveComponent(this);
+		}
+	}
+}
+
+void UIChipScaleComponent::Update() {
+}

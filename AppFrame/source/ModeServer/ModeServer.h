@@ -16,6 +16,7 @@ public:
 
 	int Add(ModeBase* mode, int layer, const char* name);		// “o˜^‚Í‚·‚é‚ªAˆê“xƒƒCƒ“‚ğ‰ñ‚³‚È‚¢‚Æ‚¢‚¯‚È‚¢
 	int Del(ModeBase* mode);		// íœ—\–ñ
+	int AllDel();	// íœ—\–ñ
 	ModeBase* Get(int uid);
 	ModeBase* Get(const char* name);
 	int GetId(ModeBase* mode);
