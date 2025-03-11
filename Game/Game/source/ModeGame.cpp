@@ -324,7 +324,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "Goal_flag") {
 			new GoalItemActor(this, pos);
 		} else if (name == "BP_tree") {
-			auto item = new ItemActor(this,VAdd(pos,VGet(0,50,0)), 0, -1);
+			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);
 			tree->SetItem(item);
 		}
