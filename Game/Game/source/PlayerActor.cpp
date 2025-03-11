@@ -29,7 +29,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(2)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -453,11 +453,10 @@ void PlayerActor::UpdateActor() {
 				tmppos = VAdd(GetPosition(), tmppos);
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
-				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), VGet(0, 0, 0), GetSize().x * 3);
-				punch->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
-				punch->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
-				VECTOR rot = MV1GetRotationXYZ(punch->GetComponent<ModelComponent>()[0]->GetHandle());
-				punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.x));
+
+
+				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), tmpdir, GetSize().x * 3);
+				//punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(rot.x, rot.y, rot.z));
 				_PunchFlag = true;
 			}
 		}
@@ -478,11 +477,8 @@ void PlayerActor::UpdateActor() {
 				tmpdir.y += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.z += (float)(rand() % 101 - 50) / 1000.0f;
 
-				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), VGet(0, 0, 0), GetSize().x * 3);
-				laser->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
-				laser->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
-				VECTOR rot = MV1GetRotationXYZ(laser->GetComponent<ModelComponent>()[0]->GetHandle());
-				laser->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.z, -rot.y, -rot.x));
+				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 3);
+
 			}
 			if (_AnimTime > 45 && _AnimTime < 60) {
 
@@ -496,16 +492,12 @@ void PlayerActor::UpdateActor() {
 				_AnimTime = 25;
 			}
 
-			if (_AnimTime > 27 && !_PunchFlag)
+			if (_AnimTime > 40 && !_PunchFlag)
 			{
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(0, -GetSize().y *  - _Friend->GetSize().y, 0);
+				VECTOR tmppos = VGet(0, -GetSize().y * 100 - _Friend->GetSize().y * 100, 0);
 
-				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 30);
-				slash->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
-				slash->GetComponent<ModelComponent>()[0]->SetRotationZY(tmpdir, VGet(0, 1, 0));
-				VECTOR rot = MV1GetRotationXYZ(slash->GetComponent<ModelComponent>()[0]->GetHandle());
-				slash->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(-rot.y, -rot.z, -rot.x));
+				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), tmpdir, GetSize().x * 30);
 				_PunchFlag = true;
 			}
 		}

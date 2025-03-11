@@ -109,7 +109,13 @@ VECTOR HitCollisionComponent::GetRight()
 
 void HitCollisionComponent::DebugDraw()
 {
-	DrawCapsule3D(OldPos, GetPosition(), GetSize().x, 5, GetColor(0,0,255), 0, false);
+	if (Type <= 2) {
+		DrawCapsule3D(OldPos, GetPosition(), GetSize().x, 5, GetColor(0, 0, 255), 0, false);
+	}
+	else {
+		MV1DrawFrame(Handle, -1);
+	}
+
 }
 
 void HitCollisionComponent::SetRotation(VECTOR rot)

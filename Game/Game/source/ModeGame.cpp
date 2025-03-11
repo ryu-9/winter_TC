@@ -120,7 +120,7 @@ bool ModeGame::Initialize() {
 	//	auto b = new BossActor(this, VGet(0, -1800, 1800));
 	//	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
 	
-		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
+		//GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
 	return true;
@@ -322,7 +322,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "Stage_2_No06_Sponer") {
 			poppos[5].push_back(pos);
 		} else if (name == "Goal_flag") {
-			new GoalItemActor(this, pos);
+		//	new GoalItemActor(this, pos);
 		} else if (name == "BP_tree") {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);

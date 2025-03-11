@@ -1,12 +1,12 @@
 #include "ModelServer.h"
+#include "../AppFrame/source/ModeServer/EffectSpriteComponent.h"
 #include <EffekseerForDXLib.h>
 
 ModelServer* ModelServer::_lpInstance = NULL;
 
 
 ModelServer::ModelServer()
-: _EffectNum(0)
-,_UpdatedEffectNum(0)
+:_UpdatedEffectNum(0)
 {
 	_lpInstance = this;
 }
@@ -55,7 +55,6 @@ int ModelServer::AddGraph(const TCHAR* filename)
 int ModelServer::AddEffect(const char* filename, float size)
 {
 	int handle;
-	_EffectNum++;
 	for (auto& model : _Effect) {
 		if (model.filepass == filename
 			) {
@@ -71,15 +70,36 @@ int ModelServer::AddEffect(const char* filename, float size)
 	return handle;
 }
 
-void ModelServer::DelEffect(int handle)
+void ModelServer::DelEffectList(int handle)
 {
-	_EffectNum--;
+	auto it = _EffectHandle.find(handle);
+	if (it != _EffectHandle.end()) {
+		_EffectHandle.erase(it);
+	}
+}
+
+bool ModelServer::AddEffectList(int handle, SpriteComponent* sp)
+{
+	auto it = _EffectHandle.find(handle);
+	if (it != _EffectHandle.end()) {
+		auto es = dynamic_cast<EffectSpriteComponent*>(it->second);
+		if (es->GetLoopFlag()) {
+			es->Play();
+		}
+		else
+		{
+			delete it->second;
+		}
+		return false;
+	}
+	_EffectHandle[handle] = sp;
+	return true;
 }
 
 void ModelServer::UpdateEffect()
 {
 	_UpdatedEffectNum++;
-	if (_UpdatedEffectNum >= _EffectNum && _EffectNum)
+	if (_UpdatedEffectNum >= _EffectHandle.size() && _EffectHandle.size())
 	{
 		_UpdatedEffectNum = 0;
 		UpdateEffekseer3D();

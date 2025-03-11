@@ -7,7 +7,7 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_Move = new MoveComponent(this, false);
 	_Move->SetVelocity(move);
 	SetPosition(pos);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Laser_ThanderX.efkefc1", VGet(0, 0, 0), rot, scale);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/laser_TDX_311b.efkefc", VGet(0, 0, 0), rot, scale, true);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
 	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
