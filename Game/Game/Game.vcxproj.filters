@@ -219,6 +219,9 @@
     <ClCompile Include="source\ModeGameGoal.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="source\GimmickWallActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -379,6 +382,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeGameGoal.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GimmickWallActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

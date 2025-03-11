@@ -14,6 +14,8 @@ public:
 
 	bool GetLoopFlag() { return _Loop; }
 
+	void SetHandle(int handle) { _Handle = handle; }
+
 	VECTOR debugpos[2];
 
 private:

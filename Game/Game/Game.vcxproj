@@ -175,6 +175,7 @@
     <ClCompile Include="source\EnemySearchComponent.cpp" />
     <ClCompile Include="source\EnemySpawnerActor.cpp" />
     <ClCompile Include="source\ExplosionActor.cpp" />
+    <ClCompile Include="source\GimmickWallActor.cpp" />
     <ClCompile Include="source\GoalItemActor.cpp" />
     <ClCompile Include="source\GroupAttackActor.cpp" />
     <ClCompile Include="source\ioJson.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="source\EnemySpawnerActor.h" />
     <ClInclude Include="source\EnemyStruct.h" />
     <ClInclude Include="source\ExplosionActor.h" />
+    <ClInclude Include="source\GimmickWallActor.h" />
     <ClInclude Include="source\GoalItemActor.h" />
     <ClInclude Include="source\GroupAttackActor.h" />
     <ClInclude Include="source\ioJson.h" />
