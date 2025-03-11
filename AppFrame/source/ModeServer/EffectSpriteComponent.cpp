@@ -25,7 +25,7 @@ EffectSpriteComponent::~EffectSpriteComponent()
 
 void EffectSpriteComponent::Draw()
 {
-	_Count += FpsController::GetInstance()->GetDeltaTime();
+	_Count += _Owner->GetMode()->GetStepTm();
 	if (_PlayTime > 0.0f && _Count > _PlayTime)
 	{
 		Play();

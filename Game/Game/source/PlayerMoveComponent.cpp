@@ -83,10 +83,10 @@ void PlayerMoveComponent::ProcessInput()
 			_DashFlag = true;
 			velocity = VScale(_DashDir, 20);
 		}
-		_DashTime -= FpsController::GetInstance()->GetDeltaTime();
+		_DashTime -= _Owner->GetMode()->GetStepTm();
 
 		{
-			int dt = FpsController::GetInstance()->GetDeltaTime();
+			int dt = _Owner->GetMode()->GetStepTm();
 			if (v.x > 0) {
 				if (v.x > velocity.x) {
 					velocity.x += v.x / 100 * dt;
@@ -168,7 +168,7 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 		else {
-			_DashTime-=FpsController::GetInstance()->GetDeltaTime();
+			_DashTime-= _Owner->GetMode()->GetStepTm();
 			v = VScale(_DashDir, 5);
 		}
 

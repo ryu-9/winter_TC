@@ -7,14 +7,16 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	, _Life(life)
 {
 	SetPosition(pos);
+	VECTOR position = VGet(0, 0, 0);
 	switch (type)
 	{
 	case 0:
-		_Model = new ModelComponent(this, "res/Stage/model/YUkidamari.mv1");
-		_Model->SetScale(VGet(30, 30, 30));
+		_Model = new ModelComponent(this, "res/Stage/model/tree_tsumoriyuki.mv1");
+		_Model->SetScale(VGet(0.35, 0.4, 0.35));
 		_Model->SetPosition(VGet(0, -75, 0));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 300, 0), VGet(100, 100, 100), 2, true, true);
 		_Move = new MoveComponent(this);
+		position = VGet(0, 300, 0);
 		break;
 
 	case 1:
@@ -36,7 +38,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	}
 
 
-	auto mcoll = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+	auto mcoll = new MoveCollisionComponent(this, _Model, position, VGet(100, 100, 100), 2, true, true);
 }
 
 ItemActor::~ItemActor()
@@ -55,15 +57,13 @@ void ItemActor::UpdateActor()
 		_Move->SetVelocity(VGet(0, 0, 0));
 		if (_Type == 0) {
 			VECTOR size = _Model->GetScale();
-			if (size.x == size.y) {
-				size.y /= 2;
-				_Model->SetScale(size);
-			}
+			size.y = 0.2;
+			_Model->SetScale(size);
 
 		}
 	}
 	if (_Life >= 0 && _Move->GetStand()) {
-		_Life -= FpsController::GetInstance()->GetDeltaTime();
+		_Life -= GetMode()->GetStepTm();
 		if (_Life < 2000) {
 			if (_Life / 50 % 2) {
 				_Model->SetVisible(false);

@@ -177,7 +177,6 @@
     <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\EffectSpriteComponent.h" />
-    <ClInclude Include="source\ModeServer\FpsController.h" />
     <ClInclude Include="source\ModeServer\HitCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\ModeBase.h" />
     <ClInclude Include="source\ModeServer\ModelComponent.h" />
@@ -205,7 +204,6 @@
     <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\EffectSpriteComponent.cpp" />
-    <ClCompile Include="source\ModeServer\FpsController.cpp" />
     <ClCompile Include="source\ModeServer\HitCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\ModeBase.cpp" />
     <ClCompile Include="source\ModeServer\ModelComponent.cpp" />

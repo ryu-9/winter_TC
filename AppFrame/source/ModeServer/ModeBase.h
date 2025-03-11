@@ -9,7 +9,6 @@
 #include "MoveCollisionComponent.h"
 #include "HitCollisionComponent.h"
 #include "ActorClass.h"
-#include "FpsController.h"
 
 class ModeServer;
 

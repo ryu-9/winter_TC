@@ -18,9 +18,10 @@ public:
 private:
 	class MoveCollisionComponent* _MCollision;
 	class HitCollisionComponent* _HCollision;
+	class ModelComponent* _Model;
 	int _AnimTotalTime;
 	float _AnimCount;
 	int _AnimIndex;
-	int _Handle;
+	float _Life;
 };
 

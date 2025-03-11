@@ -28,12 +28,12 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 
 PunchActor::~PunchActor()
 {
-	new ExplosionActor(GetMode(), GetPosition(), GetSize().x);
+	new ExplosionActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 300);
 }
 
 void PunchActor::UpdateActor()
 {
-	_LifeTime -= FpsController::GetInstance()->GetDeltaTime();
+	_LifeTime -= GetMode()->GetStepTm();
 
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {

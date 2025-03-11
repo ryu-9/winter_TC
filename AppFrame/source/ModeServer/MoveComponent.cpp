@@ -1,5 +1,4 @@
 #include "MoveComponent.h"
-#include "../ModeServer/Fpscontroller.h"
 
 
 MoveComponent::MoveComponent(ActorClass* owner, float gravity, int	updateOrder)
@@ -17,7 +16,7 @@ MoveComponent::~MoveComponent()
 
 void MoveComponent::Update()
 {
-	float gravity = 0.04 * FpsController::GetInstance()->GetDeltaTime() * _Gravity;
+	float gravity = 0.04 * _Owner->GetMode()->GetStepTm() * _Gravity;
 
 	if (_FallLimit != 0)
 	{
@@ -32,6 +31,6 @@ void MoveComponent::Update()
 	}
 	_Stand = FALSE;
 	_OldPosition = _Owner->GetPosition();
-	float deltaTime = FpsController::GetInstance()->GetDeltaTime();
+	float deltaTime = _Owner->GetMode()->GetStepTm();
 	_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(_Velocity,deltaTime / 20)));
 }

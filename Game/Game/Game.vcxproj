@@ -201,6 +201,7 @@
     <ClCompile Include="source\PlayerActor.cpp" />
     <ClCompile Include="source\PlayerMovoCollisionComponent.cpp" />
     <ClCompile Include="source\PunchActor.cpp" />
+    <ClCompile Include="source\SlashActor.cpp" />
     <ClCompile Include="source\SnowComponent.cpp" />
     <ClCompile Include="source\StageBox.cpp" />
     <ClCompile Include="source\TreeActor.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="source\PlayerCursorComponent.h" />
     <ClInclude Include="source\PlayerMoveCollisionComponent.h" />
     <ClInclude Include="source\PunchActor.h" />
+    <ClInclude Include="source\SlashActor.h" />
     <ClInclude Include="source\SnowComponent.h" />
     <ClInclude Include="source\StageBox.h" />
     <ClInclude Include="source\TreeActor.h" />

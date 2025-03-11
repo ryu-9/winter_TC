@@ -35,7 +35,6 @@ ModeBase::ModeBase() {
 	SetCallPerFrame(1);
 	SetCallOfCount(1);
 
-	new FpsController();
 
 }
 
@@ -72,7 +71,7 @@ bool	ModeBase::Terminate() {
 // --------------------------------------------------------------------------
 bool	ModeBase::Process()
 {
-	FpsController::GetInstance()->Update();
+
 	_UpdatingActors = true;
 	for (auto actor : _Actors) {
 		actor->ProcessInput();
