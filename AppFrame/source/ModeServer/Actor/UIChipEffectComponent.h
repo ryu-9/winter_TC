@@ -75,3 +75,22 @@ public:
 private:
 	EASING _Data;
 };
+
+class UIChipScaleComponent : public UIChipEffectComponent {
+	typedef UIChipEffectComponent base;
+	struct  EASING {
+		VECTOR start;
+		VECTOR end;
+		int cnt;
+		int tm;
+	};
+
+public:
+	UIChipScaleComponent(class ActorClass* owner, VECTOR scale, int tm, int updateOrder = 100);
+	virtual ~UIChipScaleComponent();
+	void ProcessInput() override;
+	void Update() override;
+
+private:
+	EASING _Data;
+};

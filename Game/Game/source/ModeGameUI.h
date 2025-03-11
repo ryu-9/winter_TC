@@ -9,10 +9,9 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-	void Goal();
 
 private:
 	std::vector<UIChipClass*> _UIChip;
-	int _Type; // 0:Game, 1:Result
+	
 };
 

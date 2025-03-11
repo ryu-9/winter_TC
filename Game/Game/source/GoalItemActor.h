@@ -12,5 +12,6 @@ private:
 	HitCollisionComponent* _HCollision;
 	int _AnimCount;
 	float _PosY;
+	bool _IsHitf;
 };
 
