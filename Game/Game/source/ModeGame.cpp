@@ -24,6 +24,7 @@
 #include "ItemActor.h"
 #include "BreakableBoxActor.h"
 #include "GoalItemActor.h"
+#include "GimmickWallActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -76,9 +77,13 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
-	auto tree = new TreeActor(this, VGet(0, 50, 500));
-	tree->SetItem(item);
+	//auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
+	//auto tree = new TreeActor(this, VGet(0, 50, 500));
+	//tree->SetItem(item);
+	auto gw = new GimmickWallActor(this, VGet(0, 200, 300), VGet(100, 100,100), VGet(0, 0, 0), 0, _Player[0]);
+	
+
+
 	//auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
 	// 雑実装
@@ -107,8 +112,7 @@ bool ModeGame::Initialize() {
 		new BGMComponent(_Camera);
 	}
 	
-	
-	
+		
 	{ // デバッグ用
 		debug_hcoll_flag = false;
 		debug_mcoll_flag = false;

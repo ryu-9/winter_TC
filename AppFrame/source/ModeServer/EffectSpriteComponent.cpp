@@ -16,7 +16,12 @@ EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* fil
 	VECTOR rot2 = VGet(0, 0, 0);
 	if (rot.z >= 0) {
 		rot2.x = asin(rot.y);
-		rot2.y = atan(rot.x / rot.z);
+		if (rot.z == 0) {
+			rot2.y = DX_PI/2;
+		}
+		else {
+			rot2.y = atan(rot.x / rot.z);
+		}
 	}
 	else {
 		rot2.x = 2 * DX_PI - asin(rot.y);
