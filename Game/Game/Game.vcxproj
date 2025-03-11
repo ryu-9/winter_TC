@@ -208,6 +208,7 @@
     <ClCompile Include="source\StageBox.cpp" />
     <ClCompile Include="source\TreeActor.cpp" />
     <ClCompile Include="source\UIPlayerHPClass.cpp" />
+    <ClCompile Include="source\UISoundActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationGlobal.h" />
@@ -261,6 +262,7 @@
     <ClInclude Include="source\StageBox.h" />
     <ClInclude Include="source\TreeActor.h" />
     <ClInclude Include="source\UIPlayerHPClass.h" />
+    <ClInclude Include="source\UISoundActor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

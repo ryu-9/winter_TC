@@ -25,7 +25,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	// ���[�h�̓o�^
 	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-	ModeServer::GetInstance()->Add(new ModeGameUI(), 10, "gameui");
+	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 //	ModeServer::GetInstance()->Add(new ModeScenario(), 100, "scenario");
 //	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");

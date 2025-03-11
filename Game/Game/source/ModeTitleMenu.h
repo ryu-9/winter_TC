@@ -18,6 +18,6 @@ public:
 private:
 	std::vector<MenuItemBase*> _vItems;
 	int _Cur;
-
+	class UISoundActor* _UISound;
 };
 

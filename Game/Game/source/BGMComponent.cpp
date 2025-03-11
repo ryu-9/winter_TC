@@ -2,12 +2,12 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 
-BGMComponent::BGMComponent(ActorClass* owner)
+BGMComponent::BGMComponent(ActorClass* owner, std::string name1, std::string name2)
 	:SoundComponent(owner)
 {
 	_Mode = dynamic_cast<ModeGame*>(owner->GetMode());
-	SetSourceVoice(new SourceVoiceItem("bgm1",0,XAUDIO2_LOOP_INFINITE));
-	SetSourceVoice(new SourceVoiceItem("bgm2",44100*3));
+	SetSourceVoice(new SourceVoiceItem(name1,0,XAUDIO2_LOOP_INFINITE));
+	if (name2 != "") { SetSourceVoice(new SourceVoiceItem(name2, 44100 * 3)); }
 	_SV[0]->Play();
 	_Playnum = 0;
 }
@@ -19,6 +19,7 @@ BGMComponent::~BGMComponent() {
 
 void BGMComponent::Update() {
 	SoundComponent::Update();
+
 	auto n = _Mode->GetPlayer()->GetModeNum();
 	if (n == 0) {
 		XAUDIO2_FILTER_PARAMETERS param;
@@ -28,8 +29,8 @@ void BGMComponent::Update() {
 		_SV[_Playnum]->SetFilter(param);
 
 	}
-	if (n == 2) { n = 1; }
-	if (n >= 3) {
+	if (n >= 2) { n = 1; }
+	if (n == -1) {
 		n = 0; 
 		XAUDIO2_FILTER_PARAMETERS param;
 		param.Type = LowPassOnePoleFilter;

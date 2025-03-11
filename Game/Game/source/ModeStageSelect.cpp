@@ -5,6 +5,8 @@
 #include "ModeGameUI.h"
 #include "ModeScenario.h"
 #include "ApplicationGlobal.h"
+#include "UISoundActor.h"
+#include "ModeLoading.h"
 
 bool ModeStageSelect::Initialize() {
 
@@ -16,6 +18,9 @@ bool ModeStageSelect::Initialize() {
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
 	_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 2), 540, 0), "res/UI/UI_WORLD3.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	_UISound = new UISoundActor(this);
+	_UISound->AddSound("enter", "enter");
+	_UISound->AddSound("select", "select");
 	return true;
 }
 
@@ -46,6 +51,7 @@ bool ModeStageSelect::Process() {
 			}
 		}
 		_Cur = cur;
+		_UISound->PlayActSound("select");
 		_Tm = 500;
 	} else {
 		_Tm -= GetStepTm();
@@ -58,8 +64,12 @@ bool ModeStageSelect::Process() {
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
 		ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 		ModeServer::GetInstance()->Add(new ModeScenario(), 3, "scenario");
+		ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+
 		// ‚±‚Ìƒ‚[ƒh‚ðíœ‚·‚é
 		ModeServer::GetInstance()->Del(this);
+
+		_UISound->PlayActSound("enter");
 	}
 
 	if (trg & PAD_INPUT_3) {

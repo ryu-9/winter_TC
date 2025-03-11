@@ -18,6 +18,8 @@ private:
 	int _Step;
 	int _TitleTm;
 	std::vector<int> _StepTm;
+	class ActorClass* _Bgm;
+	class UISoundActor* _UISound;
 
 };
 

@@ -3,6 +3,7 @@
 #include "ModeGame.h"
 #include "appframe.h"
 #include "ModeStageSelect.h"
+#include "UISoundActor.h"
 
 class TMenuItemStart : public MenuItemBase
 {
@@ -14,8 +15,7 @@ public:
 		ui->AddImage("res/UI/UI_START_ORIGIN_PICK.png");
 		ui->ChangeImage(1);
 		new UIChipMoveComponent(_vAct.back(), VGet(1529, 550, 0), 250);
-	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
-	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2,1.2,1.2),300);
+
 	}
 	virtual int Selected()
 	{
@@ -35,8 +35,7 @@ public:
 		_vAct.push_back(ui);
 		ui->AddImage("res/UI/UI_START_LOAD_PICK.png");
 		new UIChipMoveComponent(_vAct.back(), VGet(1529, 800, 0), 250);
-	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
-	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
+
 	}
 	virtual int Selected() {
 		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
@@ -54,8 +53,6 @@ public:
 		_vAct.push_back(ui);
 		ui->AddImage("res/UI/UI_START_END_PICK.png");
 		new UIChipMoveComponent(_vAct.back(), VGet(1677, 1000, 0), 250);
-	//	new UIChipFadeComponent(_vAct.back(), 255, 250);
-	//	new UIChipFocusComponent(_vAct.back(), VGet(1.2, 1.2, 1.2), 300);
 	}
 	virtual int Selected() {
 		ApplicationMain::GetInstance()->Terminate();
@@ -74,6 +71,10 @@ bool ModeTitleMenu::Initialize()
 	
 	_Cur = 0;
 	_vItems[_Cur]->Send(1);
+
+	_UISound = new UISoundActor(this);
+	_UISound->AddSound("enter", "enter");
+	_UISound->AddSound("select", "select");
 	return false;
 }
 
@@ -105,6 +106,7 @@ bool ModeTitleMenu::Process()
 	// 決定でアイテムのSelected()を呼ぶ
 	if (trg & PAD_INPUT_1) {
 		int ret = _vItems[cur]->Selected();
+		_UISound->PlayActSound("enter");
 		if (ret == 1) {
 			// メニューを閉じる
 			close = true;
@@ -114,6 +116,7 @@ bool ModeTitleMenu::Process()
 		dynamic_cast<UIChipClass*>(_vItems[_Cur]->_vAct[0])->ChangeImage(0);
 		_Cur = cur;
 		dynamic_cast<UIChipClass*>(_vItems[_Cur]->_vAct[0])->ChangeImage(1);
+		_UISound->PlayActSound("select");
 	}
 	// メニューを閉じる
 	if (close) {

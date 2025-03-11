@@ -7,6 +7,10 @@ SoundComponent::SoundComponent(ActorClass* owner)
 }
 
 SoundComponent::~SoundComponent() {
+	for (auto sv : _SV) {
+		delete sv;
+	}
+	_SV.clear();
 }
 
 void SoundComponent::Update() {

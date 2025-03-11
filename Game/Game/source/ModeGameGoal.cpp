@@ -2,6 +2,10 @@
 #include "ApplicationGlobal.h"
 #include "ModeStageSelect.h"
 #include "ApplicationMain.h"
+#include "ModeGame.h"
+#include "ModeGameUI.h"
+#include "ModeLoading.h"
+
 
 bool ModeGameGoal::Initialize() {
 	if (!base::Initialize()) { return true; }
@@ -51,7 +55,14 @@ bool ModeGameGoal::Process() {
 			auto trg2 = ApplicationMain::GetInstance()->GetTrg(2);
 			if (trg & PAD_INPUT_1 || trg2 & PAD_INPUT_1) {
 				ModeServer::GetInstance()->AllDel();
-				ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
+				if (gGlobal._SelectStage < 2) {
+					ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
+				}
+				else {
+					ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+					ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+					ModeServer::GetInstance()->Add(new ModeLoading(), 3, "loading");
+				}
 			}
 		}
 	}

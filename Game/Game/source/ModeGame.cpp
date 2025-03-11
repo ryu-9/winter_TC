@@ -59,6 +59,17 @@ public:
 	}
 };
 
+class MenuItemGameClear : public MenuItemBase {
+public:
+	MenuItemGameClear(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new GoalItemActor(mdGame, p->GetPosition());
+		return 1;
+	}
+};
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
@@ -85,13 +96,26 @@ bool ModeGame::Initialize() {
 	switch (gGlobal._SelectStage) {
 	case 0:
 		LoadStage("res/Stage/", "Stage1.json");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
+	case 3:
+	{
+		LoadStage("res/Stage/", "Stage4.json");
+		auto b = new BossActor(this, VGet(0, -1800, 1800));
+		b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+		break;
+	}
 	default:
 		break;
 	}
@@ -99,12 +123,13 @@ bool ModeGame::Initialize() {
 	
 
 	{
-		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
+		
 		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
-		new BGMComponent(_Camera);
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jump");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "reizoko");
+		new BGMComponent(_Camera,"bgm1","bgm2");
 	}
 	
 	
@@ -144,6 +169,7 @@ bool ModeGame::Process() {
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
 		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
 		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
+		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
 		

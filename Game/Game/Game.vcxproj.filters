@@ -219,6 +219,9 @@
     <ClCompile Include="source\ModeGameGoal.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
+    <ClCompile Include="source\UISoundActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -378,6 +381,9 @@
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeGameGoal.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISoundActor.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

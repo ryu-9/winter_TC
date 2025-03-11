@@ -3,7 +3,8 @@
 #include "ModeGame.h"
 #include "ModeSynopsis.h"
 #include "ModeTitleMenu.h"
-
+#include "BGMComponent.h"
+#include "UISoundActor.h"
 
 bool ModeTitle::Initialize()
 {
@@ -21,12 +22,22 @@ bool ModeTitle::Initialize()
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
-//	SoundServer::GetInstance()->Add("res/Debug/sound/casino.wav", "bgm1");
+	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "sdx_bgm1");
+	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter");
+	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select");
+	auto s=new SoundComponent(ac);
+	auto sv = new SourceVoiceItem("sdx_bgm1");
+	s->SetSourceVoice(sv);
+	_Bgm = ac;
+	sv->SetVolume(0.1);
+	sv->Play();
+	_UISound = new UISoundActor(this);
+	_UISound->AddSound("enter","enter");
+	_UISound->AddSound("select", "select");
 	return true;
 }
 
 bool ModeTitle::Terminate() {
-
 	return true;
 }
 
@@ -51,6 +62,7 @@ base::Process();
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep = 2;
 			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep],110);
+			
 		}
 		break;
 	case 2:
@@ -67,6 +79,7 @@ base::Process();
 		else if (trg & PAD_INPUT_1) {
 			newstep = 5;
 			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
+
 		}
 		break;
 	case 4:
@@ -79,6 +92,7 @@ base::Process();
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep++;
 			_UIChip.clear();
+			
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 820, 1), "res/UI/UI_TITLE_ANY.png"));
 			new UIChipFadeComponent(_UIChip.front(), 255, 2000);
@@ -95,6 +109,7 @@ base::Process();
 		if (trg & PAD_INPUT_1) {
 			new UIChipFadeComponent(_UIChip.back(), 0, 500,110);
 			new UIChipMoveComponent(_UIChip.front(), VGet(560, 500, 1), 500, 110);
+			_UISound->PlayActSound("select");
 			newstep++;
 		}
 		if (_TitleTm > 30 * 1000) {

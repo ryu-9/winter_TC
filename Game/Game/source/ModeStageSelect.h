@@ -14,5 +14,6 @@ private:
 	std::vector<UIChipClass*> _UIChip;
 	int _Cur;
 	int _Tm;
+	class UISoundActor* _UISound;
 };
 
