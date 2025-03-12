@@ -80,7 +80,8 @@ bool ModeGame::Initialize() {
 	//auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
 	//auto tree = new TreeActor(this, VGet(0, 50, 500));
 	//tree->SetItem(item);
-	auto gw = new GimmickWallActor(this, VGet(0, 200, 300), VGet(100, 100,100), VGet(0, 0, 0), 0, _Player[0]);
+	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
+	auto gw = new GimmickWallActor(this, VGet(0, 200, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
 	
 
 
