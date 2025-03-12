@@ -113,7 +113,7 @@ bool ECornComponent::Attack(int n) {
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
 		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
-		if (game != nullptr) { new SEComponent(ac, game->GetPlayer()); }
+		if (game != nullptr) { new SEComponent(ac, game->GetPlayer(),0); }
 		// TODO: new SEComponent(ac,cam);
 		
 

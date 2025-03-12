@@ -37,7 +37,7 @@ void LaserActor::UpdateActor()
 			enemy->SetState(State::eDead);
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
-			auto s = new SoundComponent(a);
+			auto s = new SoundComponent(a,true);
 			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
 			s->Play(0);
 			s->SetTimer(500);

@@ -101,12 +101,12 @@ bool ModeGame::Initialize() {
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
 	case 3:
@@ -128,8 +128,14 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jump");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "reizoko");
-		new BGMComponent(_Camera,"bgm1","bgm2");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_LAND.wav", "land");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "punch");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RFLZ.wav", "laser");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BLADE.wav", "blade");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
+		new BGMComponent(_Camera,0,"bgm1","bgm2");
 	}
 	
 	
@@ -148,6 +154,8 @@ bool ModeGame::Initialize() {
 		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
+	gGlobal._StartTime = 0;
+	gGlobal._EndTime = 0;
 	return true;
 }
 

@@ -198,6 +198,11 @@ void PlayerMoveComponent::ProcessInput()
 
 		if (_Trg & PAD_INPUT_4 && _DashTime <= 0) {
 			_DashTime = 200;
+			auto s = new SoundComponent(_pOwner,false);
+			s->SetSourceVoice(new SourceVoiceItem("dash"));
+			s->Play(0);
+			s->SetTimer(200);
+
 		}
 		if (_Trg & PAD_INPUT_3) {
 			v.y = 10;

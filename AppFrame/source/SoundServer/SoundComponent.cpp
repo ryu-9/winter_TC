@@ -1,10 +1,13 @@
 #include "SoundComponent.h"
 #include "SourceVoiceItem.h"
-SoundComponent::SoundComponent(ActorClass* owner)
+SoundComponent::SoundComponent(ActorClass* owner,bool deadtype)
 	:Component(owner)
 {
 	_Timer = -1;
+	_DeadType = deadtype;
 }
+
+
 
 SoundComponent::~SoundComponent() {
 	for (auto sv : _SV) {
@@ -20,7 +23,10 @@ void SoundComponent::Update() {
 	if (_Timer > 0) {
 		_Timer -= _Owner->GetMode()->GetStepTm();
 		if (_Timer <= 0) {
-			_Owner->SetState(ActorClass::State::eDead);
+			if (_DeadType) { _Owner->SetState(ActorClass::State::eDead); }
+			else {
+				delete this;
+			}
 		}
 	}
 

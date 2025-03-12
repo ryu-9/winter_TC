@@ -1,7 +1,7 @@
 #include "SEComponent.h"
 
-SEComponent::SEComponent(ActorClass* owner,ActorClass* listner)
-	:SoundComponent(owner)
+SEComponent::SEComponent(ActorClass* owner,ActorClass* listner,bool deadtype)
+	:SoundComponent(owner,deadtype)
 	, _Listener(listner)
 {
 	SetSourceVoice(new SourceVoiceItem("fire"));

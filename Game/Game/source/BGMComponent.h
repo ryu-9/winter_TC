@@ -5,7 +5,7 @@
 
 class BGMComponent : public SoundComponent {
 public:
-	BGMComponent(ActorClass* owner, std::string name1, std::string name2 = "");
+	BGMComponent(ActorClass* owner, bool deadtype, std::string name1, std::string name2 = "");
 	virtual ~BGMComponent();
 
 	void Update() override;

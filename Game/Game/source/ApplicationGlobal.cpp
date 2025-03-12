@@ -19,6 +19,7 @@ bool ApplicationGlobal::Init() {
 	_PlayerHP[1] = 0.1f;
 	_IsPlayerDead[0] = false;
 	_IsPlayerDead[1] = false;
+	_StartTime = 0;
 
 	return true;
 }

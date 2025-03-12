@@ -25,7 +25,7 @@ bool ModeTitle::Initialize()
 	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "sdx_bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter");
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select");
-	auto s=new SoundComponent(ac);
+	auto s=new SoundComponent(ac,0);
 	auto sv = new SourceVoiceItem("sdx_bgm1");
 	s->SetSourceVoice(sv);
 	_Bgm = ac;

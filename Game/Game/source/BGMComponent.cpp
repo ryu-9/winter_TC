@@ -2,12 +2,14 @@
 #include "ModeGame.h"
 #include "PlayerActor.h"
 
-BGMComponent::BGMComponent(ActorClass* owner, std::string name1, std::string name2)
-	:SoundComponent(owner)
+BGMComponent::BGMComponent(ActorClass* owner, bool deadtype, std::string name1, std::string name2)
+	:SoundComponent(owner,deadtype)
 {
 	_Mode = dynamic_cast<ModeGame*>(owner->GetMode());
 	SetSourceVoice(new SourceVoiceItem(name1,0,XAUDIO2_LOOP_INFINITE));
 	if (name2 != "") { SetSourceVoice(new SourceVoiceItem(name2, 44100 * 3)); }
+	_SV[0]->SetVolume(0.4);
+	_SV[1]->SetVolume(0.4);
 	_SV[0]->Play();
 	_Playnum = 0;
 }

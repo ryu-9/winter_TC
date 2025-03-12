@@ -24,6 +24,11 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
 	MV1SetVisible(model->GetHandle(), FALSE);
+	auto s = new SoundComponent(this,false);
+	s->SetSourceVoice(new SourceVoiceItem("punch"));
+	s->Play(0);
+	s->SetTimer(_LifeTime);
+
 }
 
 PunchActor::~PunchActor()
@@ -42,7 +47,7 @@ void PunchActor::UpdateActor()
 			enemy->SetState(State::eDead);
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
-			auto s = new SoundComponent(a);
+			auto s = new SoundComponent(a,true);
 			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
 			s->Play(0);
 			s->SetTimer(500);

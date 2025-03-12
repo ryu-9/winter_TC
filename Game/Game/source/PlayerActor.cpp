@@ -29,7 +29,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(2)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -314,7 +314,7 @@ void PlayerActor::UpdateActor() {
 				h->GetOwner()->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
-				auto s = new SoundComponent(a);
+				auto s = new SoundComponent(a,1);
 				s->SetSourceVoice(new SourceVoiceItem("KillEnemy2"));
 				s->Play(0);
 				s->SetTimer(500);
@@ -380,7 +380,7 @@ void PlayerActor::UpdateActor() {
 				enemy->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
-				auto s = new SoundComponent(a);
+				auto s = new SoundComponent(a,true);
 				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
 				s->Play(0);
 				s->SetTimer(500);

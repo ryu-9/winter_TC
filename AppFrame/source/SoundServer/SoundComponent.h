@@ -6,7 +6,7 @@
 class SourceVoiceItem;
 class SoundComponent : public Component {
 public:
-	SoundComponent(ActorClass* owner);
+	SoundComponent(ActorClass* owner,bool deadtype);
 	virtual ~SoundComponent();
 
 
@@ -19,5 +19,6 @@ protected:
 	std::vector<SourceVoiceItem*> _SV;
 
 	int _Timer;
+	bool _DeadType;
 };
 

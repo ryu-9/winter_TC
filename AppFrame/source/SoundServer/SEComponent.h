@@ -10,7 +10,7 @@ class SourceVoiceItem;
 
 class SEComponent : public SoundComponent {
 public:
-	SEComponent(class ActorClass* owner, ActorClass* listner);
+	SEComponent(class ActorClass* owner, ActorClass* listner, bool deadtype);
 	virtual ~SEComponent();
 	void Update() override;
 

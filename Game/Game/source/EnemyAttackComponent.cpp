@@ -35,6 +35,6 @@ void EnemyAttackComponent::Update() {
 		//auto cam = static_cast<ActorClass*>(game->GetCamera());
 		
 		//new SEComponent(ac,cam);
-		new SEComponent(ac, game->GetPlayer());
+		new SEComponent(ac, game->GetPlayer(),0);
 	}
 }

@@ -13,7 +13,7 @@ void UISoundActor::UpdateActor() {
 }
 
 void UISoundActor::PlayActSound(std::string actname) {
-	auto s = new SoundComponent(this);
+	auto s = new SoundComponent(this,false);
 	s->SetSourceVoice(new SourceVoiceItem(_SoundMap[actname]));
 	s->Play(0);
 
