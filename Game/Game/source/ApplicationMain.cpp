@@ -26,13 +26,16 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "sdx_bgm1");
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter");
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select");
+
+
 	// ���[�h�̓o�^
-	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
+
+	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+//	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
 //	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 //	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 //	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 //	ModeServer::GetInstance()->Add(new ModeScenario(), 100, "scenario");
-//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 //	ModeServer::GetInstance()->Add(new ModeTestStage(), 1, "stage");
 //	ModeServer::GetInstance()->Add(new ModeGameOver(), 10, "gameover");
 	return true;

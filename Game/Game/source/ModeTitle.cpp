@@ -23,6 +23,11 @@ bool ModeTitle::Initialize()
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
 
+	SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_TITLE.wav", "jin_title");
+	SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_TITLE.wav", "bel_title");
+	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_TITLE.wav", "tdx_title");
+	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_ATTEND.wav", "tdx_attend");
+
 	auto s=new SoundComponent(ac,0);
 	auto sv = new SourceVoiceItem("sdx_bgm1");
 	s->SetSourceVoice(sv);
@@ -32,6 +37,10 @@ bool ModeTitle::Initialize()
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("enter","enter");
 	_UISound->AddSound("select", "select");
+	_UISound->AddSound("0", "jin_title");
+	_UISound->AddSound("1", "bel_title");
+	_UISound->AddSound("2", "tdx_title");
+	_UISound->AddSound("tdx_attend", "tdx_attend");
 	return true;
 }
 
@@ -70,6 +79,7 @@ base::Process();
 			_UIChip.clear();
 			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/UI/attention.png"));
 			new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[newstep]);
+			_UISound->PlayActSound("tdx_attend");
 		}
 		break;
 	case 3:
@@ -88,20 +98,24 @@ base::Process();
 		break;
 	case 5:
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
-			newstep++;
-			_UIChip.clear();
-			
-			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
-			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 820, 1), "res/UI/UI_TITLE_ANY.png"));
-			new UIChipFadeComponent(_UIChip.front(), 255, 2000);
-			new UIChipFadeComponent(_UIChip.back(), 255, 2000);
+			ModeServer::GetInstance()->Add(new ModeSynopsis(), 99, "synopsis");
 
+			newstep++;
 		}
 		break;
 	case 6:
-		ModeServer::GetInstance()->Add(new ModeSynopsis(), 99, "synopsis");
-		
+	{
 		newstep++;
+		_UIChip.clear();
+
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 820, 1), "res/UI/UI_TITLE_ANY.png"));
+		new UIChipFadeComponent(_UIChip.front(), 255, 2000);
+		new UIChipFadeComponent(_UIChip.back(), 255, 2000);
+		auto n = rand() % 3;
+		_UISound->PlayActSound(std::to_string(n));
+	}
+		
 		break;
 	case 7:
 		if (trg & PAD_INPUT_1) {
