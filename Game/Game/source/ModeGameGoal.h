@@ -11,5 +11,9 @@ public:
 private:
 	std::vector<UIChipClass*> _UIChipList;
 	int _Step;
+	bool _TimerFlag;
+	int _Min;
+	int _Sec;
+	int _Msec;
 };
 

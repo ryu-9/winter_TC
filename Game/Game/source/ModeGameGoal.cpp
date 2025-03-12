@@ -13,6 +13,11 @@ bool ModeGameGoal::Initialize() {
 	new UIChipMoveComponent(_UIChipList.back(),VGet(960,87,0),1000);
 	_UIChipList.push_back(new UIChipClass(this, VGet(-960, 993, 0), "res/UI/UI_CLEAR_UNDERBAR.png", 100));
 	new UIChipMoveComponent(_UIChipList.back(), VGet(960, 993, 0), 1000);
+	gGlobal._EndTime = GetNowCount();
+	_Min = (gGlobal._EndTime - gGlobal._StartTime) / 1000 / 60;
+	_Sec = (gGlobal._EndTime - gGlobal._StartTime) / 1000 % 60;
+	_Msec = (gGlobal._EndTime - gGlobal._StartTime) % 1000 / 10;
+	SetFontSize(60);
 	return false;
 }
 
@@ -34,7 +39,7 @@ bool ModeGameGoal::Process() {
 		break;
 	case 1:
 		if (GetModeTm() > 1500) {
-			// TODO: タイマーテキスト表示
+			_TimerFlag = true;
 			_Step = 2;
 		}
 		break;
@@ -73,6 +78,11 @@ bool ModeGameGoal::Process() {
 
 bool ModeGameGoal::Render() {
 	base::Render();
+	if (_TimerFlag) {
+		
+		
+		DrawFormatString(1300, 920, GetColor(255, 255, 255), "クリアタイム %02d:%02d:%02d", _Min, _Sec,_Msec);
+	}
 	return false;
 }
  
