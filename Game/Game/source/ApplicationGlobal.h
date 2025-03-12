@@ -19,6 +19,11 @@ public:
 
 	// ステージ選択
 	int		_SelectStage;
+
+	// タイマー用
+	int		_StartTime;		// 開始時間
+	int		_EndTime;		// 終了時間
+	int		_PauseTime;		// 一時停止時間
 };
 
 // 他のソースでgGlobalを使えるように

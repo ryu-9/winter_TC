@@ -2,6 +2,7 @@
 #include "ApplicationMain.h"
 #include "PlayerActor.h"
 #include "CameraActor.h"
+#include "ApplicationGlobal.h"
 
 PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	:MoveComponent(owner, 1.0, updateOrder)
@@ -60,6 +61,9 @@ void PlayerMoveComponent::ProcessInput()
 			}
 			else {
 				length = mvSpeed * VSize(v);
+				if (gGlobal._StartTime == 0) {
+					gGlobal._StartTime = GetNowCount();
+				}
 			}
 		}
 		else {
