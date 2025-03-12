@@ -7,6 +7,7 @@
 #include "ApplicationGlobal.h"
 #include "UISoundActor.h"
 #include "ModeLoading.h"
+#include "ModeStory.h"
 
 bool ModeStageSelect::Initialize() {
 
@@ -63,8 +64,8 @@ bool ModeStageSelect::Process() {
 		gGlobal._SelectStage = _Cur;
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
 		ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
-		ModeServer::GetInstance()->Add(new ModeScenario(), 3, "scenario");
 		ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+		ModeServer::GetInstance()->Add(new ModeStory(), 101, "story");
 
 		// ‚±‚Ìƒ‚[ƒh‚ðíœ‚·‚é
 		ModeServer::GetInstance()->Del(this);

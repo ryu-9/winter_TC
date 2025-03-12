@@ -3,15 +3,6 @@
 class ModeScenario : public ModeBase {
 	typedef ModeBase base;
 
-	struct SCENARIO_DATA {
-		std::string name;
-		std::string text;
-	};
-	struct TEXT_DATA {
-		std::string text;
-		int col = GetColor(255,255,255);
-		bool br;
-	};
 
 public:
 	virtual bool Initialize();
@@ -19,8 +10,19 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-	bool LoadScenario(const char* filename);
-private:
+	virtual bool LoadScenario(const char* filename);
+protected:
+
+	struct SCENARIO_DATA {
+		std::string name;
+		std::string text;
+	};
+	struct TEXT_DATA {
+		std::string text;
+		int col = GetColor(255, 255, 255);
+		bool br;
+	};
+
 	bool AddText();
 	int Check(const unsigned char uc);
 	std::vector<UIChipClass*> _UIChip;

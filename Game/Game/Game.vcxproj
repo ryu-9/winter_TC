@@ -193,6 +193,7 @@
     <ClCompile Include="source\ModeScenario.cpp" />
     <ClCompile Include="source\ModeStage.cpp" />
     <ClCompile Include="source\ModeStageSelect.cpp" />
+    <ClCompile Include="source\ModeStory.cpp" />
     <ClCompile Include="source\ModeSynopsis.cpp" />
     <ClCompile Include="source\ModeTestStage.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="source\ModeScenario.h" />
     <ClInclude Include="source\ModeStage.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
+    <ClInclude Include="source\ModeStory.h" />
     <ClInclude Include="source\ModeSynopsis.h" />
     <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />

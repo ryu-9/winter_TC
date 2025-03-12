@@ -53,6 +53,5 @@ bool ModeLoading::Process() {
 
 bool ModeLoading::Render() {
 	base::Render();
-	ModeServer::GetInstance()->SkipRenderUnderLayer();
 	return false;
 }

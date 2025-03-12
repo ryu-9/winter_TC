@@ -14,7 +14,7 @@ namespace {
 
 bool ModeScenario::Initialize() {
 	if (!base::Initialize()) { return false; }
-	LoadScenario("res/New2.json");
+	LoadScenario("res/LoadText.json");
 	SetFontSize(FONT_SIZE);
 	_CurrentTime = 0;
 	_Time = 0;
@@ -28,6 +28,7 @@ bool ModeScenario::Initialize() {
 }
 
 bool ModeScenario::Terminate() {
+	base::Terminate();
 	return false;
 }
 

@@ -1,0 +1,89 @@
+#include "ModeStory.h"
+#include "ApplicationMain.h"
+#include "ioJsonText.h"
+
+namespace {
+	int X = 400;			// X座標基準値
+	int Y = 700;			// Y座標基準値
+	int FONT_SIZE = 30;		// フォントサイズ
+	int TEXT_SPEED = 60;	// テキスト表示速度
+}
+
+bool ModeStory::Initialize() {
+	if (!base::Initialize()) { return false; }
+	LoadScenario("res/LoadText.json");
+	SetFontSize(FONT_SIZE);
+	_CurrentTime = 0;
+	_Time = 0;
+	_StCount = 0;
+	_TextIndex = 0;
+	_TextCount = 0;
+	_TextData.push_back(ModeScenario::TEXT_DATA());
+
+	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
+	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 950, 0), "res/UI/UI_TEXT_BACK.png"));
+	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_STORY_SIDE.png"));
+
+	return false;
+}
+
+bool ModeStory::Terminate() {
+	base::Terminate();
+	return false;
+}
+
+bool ModeStory::Process() {
+	_CurrentTime += GetStepTm();
+	// このモードより下のレイヤーはProcess()を呼ばない
+	ModeServer::GetInstance()->SkipProcessUnderLayer();
+	int trg = ApplicationMain::GetInstance()->GetTrg();
+	if (_CurrentTime > _TextCount * TEXT_SPEED) {
+		AddText();
+	}
+
+	if (trg & PAD_INPUT_1) {
+		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
+			_StCount = 0;
+			_TextCount = 0;
+			_CurrentTime = 0;
+			_TextIndex++;
+			if (_TextIndex >= _ScenarioData.size()) {
+				ModeServer::GetInstance()->Del(this);
+				return true;
+			}
+
+			_TextData.clear();
+			_TextData.push_back(ModeScenario::TEXT_DATA());
+		} else {
+			for (auto i = 0; i < _ScenarioData[_TextIndex].text.size(); i++) {
+				AddText();
+			}
+		}
+
+	}
+
+	return true;
+}
+
+bool ModeStory::Render() {
+	
+	base::Render();
+	int x = X;
+	int y = Y;
+	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
+	y += FONT_SIZE * 2;
+	for (int i = 0; i < _TextData.size(); i++) {
+		auto text = iojson::ConvertString(_TextData[i].text);
+		if (_TextData[i].br) {
+			y += FONT_SIZE;
+			x = X;
+		}
+		DrawFormatString(x, y, _TextData[i].col, text.c_str());
+		x += GetDrawFormatStringWidth(text.c_str());
+	}
+	ModeServer::GetInstance()->SkipRenderUnderLayer();
+	return false;
+}
+
+
+

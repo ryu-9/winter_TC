@@ -5,7 +5,6 @@
 class ModeSynopsis : public ModeBase
 {
 	typedef ModeBase base;
-
 public:
 	virtual bool Initialize();
 	virtual bool Terminate();
@@ -13,6 +12,6 @@ public:
 	virtual bool Render();
 
 private:
-
+	std::vector<UIChipClass*> _UIChip;
 };
 
