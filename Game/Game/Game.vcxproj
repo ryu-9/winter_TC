@@ -161,6 +161,7 @@
     <ClCompile Include="source\ApplicationMain.cpp" />
     <ClCompile Include="source\BGMComponent.cpp" />
     <ClCompile Include="source\BossActor.cpp" />
+    <ClCompile Include="source\BossAttackActor.cpp" />
     <ClCompile Include="source\BreakableBoxActor.cpp" />
     <ClCompile Include="source\BulletComponent.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
@@ -194,7 +195,6 @@
     <ClCompile Include="source\ModeStage.cpp" />
     <ClCompile Include="source\ModeStageSelect.cpp" />
     <ClCompile Include="source\ModeStory.cpp" />
-    <ClCompile Include="source\ModeSynopsis.cpp" />
     <ClCompile Include="source\ModeTestStage.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
@@ -210,12 +210,14 @@
     <ClCompile Include="source\TreeActor.cpp" />
     <ClCompile Include="source\UIPlayerHPClass.cpp" />
     <ClCompile Include="source\UISoundActor.cpp" />
+    <ClCompile Include="source\UITextComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\BGMComponent.h" />
     <ClInclude Include="source\BossActor.h" />
+    <ClInclude Include="source\BossAttackActor.h" />
     <ClInclude Include="source\BreakableBoxActor.h" />
     <ClInclude Include="source\BulletComponent.h" />
     <ClInclude Include="source\CameraActor.h" />
@@ -250,7 +252,6 @@
     <ClInclude Include="source\ModeStage.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeStory.h" />
-    <ClInclude Include="source\ModeSynopsis.h" />
     <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\OutlineComponent.h" />
@@ -262,6 +263,7 @@
     <ClInclude Include="source\SlashActor.h" />
     <ClInclude Include="source\SnowComponent.h" />
     <ClInclude Include="source\StageBox.h" />
+    <ClInclude Include="source\UITextComponent.h" />
     <ClInclude Include="source\TreeActor.h" />
     <ClInclude Include="source\UIPlayerHPClass.h" />
     <ClInclude Include="source\UISoundActor.h" />

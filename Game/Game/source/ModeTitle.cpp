@@ -1,7 +1,6 @@
 #include "ModeTitle.h"
 #include "ApplicationMain.h"
 #include "ModeGame.h"
-#include "ModeSynopsis.h"
 #include "ModeTitleMenu.h"
 #include "BGMComponent.h"
 #include "UISoundActor.h"

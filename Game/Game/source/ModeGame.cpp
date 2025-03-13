@@ -24,6 +24,7 @@
 #include "ItemActor.h"
 #include "BreakableBoxActor.h"
 #include "GoalItemActor.h"
+#include "ModeScenario.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -95,27 +96,29 @@ bool ModeGame::Initialize() {
 	// 雑実装
 	switch (gGlobal._SelectStage) {
 	case 0:
-		LoadStage("res/Stage/", "Stage4.json");
+		LoadStage("res/Stage/", "Stage1.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
+		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
+		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
+		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
 		break;
 	case 3:
-	{
 		LoadStage("res/Stage/", "Stage4.json");
-		auto b = new BossActor(this, VGet(0, -1800, 1800));
-		b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
+	//	SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
+		new BGMComponent(_Camera, 0, "bgm1", "");
 		break;
-	}
 	default:
 		break;
 	}
@@ -135,20 +138,17 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
-		new BGMComponent(_Camera,0,"bgm1","bgm2");
+		
 	}
 	
 	
 	
 	{ // デバッグ用
-		debug_hcoll_flag = false;
-		debug_mcoll_flag =true;
+		debug_hcoll_flag = true;
+		debug_mcoll_flag =false;
 
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
-
-		// ボス
-	//	
 	
 		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}

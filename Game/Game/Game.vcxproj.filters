@@ -93,9 +93,6 @@
     <ClCompile Include="source\ModeGame.cpp">
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeSynopsis.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeTitleMenu.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
@@ -225,6 +222,12 @@
     <ClCompile Include="source\ModeGameGoal.cpp">
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
+    <ClCompile Include="source\UITextComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BossAttackActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -250,9 +253,6 @@
     </ClInclude>
     <ClInclude Include="source\ModeGame.h">
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeSynopsis.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeTitleMenu.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
@@ -391,6 +391,12 @@
     </ClInclude>
     <ClInclude Include="source\UISoundActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UITextComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BossAttackActor.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

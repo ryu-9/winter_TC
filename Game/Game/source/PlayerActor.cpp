@@ -244,12 +244,10 @@ void PlayerActor::UpdateActor() {
 			_InvincibleTime -= dt;
 			if (_InvincibleTime / 50 % 2) {
 				_BallModel->SetVisible(false);
-			}
-			else {
+			} else {
 				_BallModel->SetVisible(true);
 			}
-		}
-		else {
+		} else {
 			_BallModel->SetVisible(true);
 		}
 
@@ -258,7 +256,7 @@ void PlayerActor::UpdateActor() {
 		VECTOR tmp = VSub(GetPosition(), _Input->GetOldPosition());
 		tmp.y = 0;
 		float size = VSize(tmp) / 20000;
-		if (_Input->GetStand()&&!_Input->GetDashFlag()) {
+		if (_Input->GetStand() && !_Input->GetDashFlag()) {
 			AddSize(size);
 
 			v = VSub(v, VScale(v, 0.001 * dt));
@@ -295,8 +293,7 @@ void PlayerActor::UpdateActor() {
 						ChangeAnim((int)anim::Change);
 						_Friend->ChangeMode(1 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
-					}
-					else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
+					} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
 						_Friend->ChangeMode(2 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
 						ChangeMode(1 + _ItemNum * 2);
@@ -314,7 +311,7 @@ void PlayerActor::UpdateActor() {
 				h->GetOwner()->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
-				auto s = new SoundComponent(a,1);
+				auto s = new SoundComponent(a, 1);
 				s->SetSourceVoice(new SourceVoiceItem("KillEnemy2"));
 				s->Play(0);
 				s->SetTimer(500);
@@ -331,7 +328,7 @@ void PlayerActor::UpdateActor() {
 			if (item != nullptr) {
 				item->SetState(State::eDead);
 				int itemnum = item->GetType();
-				switch(itemnum){
+				switch (itemnum) {
 				case 0:
 					AddSize(0.2);
 					break;
@@ -380,7 +377,7 @@ void PlayerActor::UpdateActor() {
 				enemy->SetState(State::eDead);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
-				auto s = new SoundComponent(a,true);
+				auto s = new SoundComponent(a, true);
 				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
 				s->Play(0);
 				s->SetTimer(500);
@@ -443,8 +440,7 @@ void PlayerActor::UpdateActor() {
 				_AnimTime = 25;
 			}
 
-			if (_AnimTime > 27 && !_PunchFlag)
-			{
+			if (_AnimTime > 27 && !_PunchFlag) {
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
 				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
 				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
@@ -488,7 +484,7 @@ void PlayerActor::UpdateActor() {
 
 
 			}
-		
+
 		}
 
 		if (_Animation == (int)anim::Blade) {
@@ -496,10 +492,9 @@ void PlayerActor::UpdateActor() {
 				_AnimTime = 25;
 			}
 
-			if (_AnimTime > 27 && !_PunchFlag)
-			{
+			if (_AnimTime > 27 && !_PunchFlag) {
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(0, -GetSize().y *  - _Friend->GetSize().y, 0);
+				VECTOR tmppos = VGet(0, -GetSize().y * -_Friend->GetSize().y, 0);
 
 				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 30);
 				slash->GetComponent<ModelComponent>()[0]->SetFront(tmpdir);
@@ -510,8 +505,7 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 
-		if (_PunchIndex[0] != -2)
-		{
+		if (_PunchIndex[0] != -2) {
 			float rate = 1 + dir.y;
 			rate /= 2;
 			float rate2 = _AnimationRate[_PunchIndex[0]];
@@ -521,19 +515,19 @@ void PlayerActor::UpdateActor() {
 
 
 			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[0], rate * rate2);
-			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate)* rate2);
+			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate) * rate2);
 		}
 
-	
+
 	}
 
-		break;
+	break;
 	case -1:
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
 		if (dist < 200) {
 			ChangeMode(0);
-			gGlobal._IsPlayerDead[_PlayerNo-1] = FALSE;
+			gGlobal._IsPlayerDead[_PlayerNo - 1] = FALSE;
 		}
 
 		break;

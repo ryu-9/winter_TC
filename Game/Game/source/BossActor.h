@@ -50,8 +50,15 @@ private:
 	bool Die();
 
 
+	void GeneratePunch();
+	void GenerateBullet();
+	void GenerateBeam();
+	void GeneratePunchFall();
+
 	bool ChangeAnim(ACTION a);
 	bool ChangeAction(ACTION a);
+
+	bool Rotate();
 
 	class MoveComponent* _Input;
 	class ModelComponent* _Model[2];
@@ -61,6 +68,7 @@ private:
 	int _ActTime;						// 現在のアクション時間
 	int _ActTotalTime;					// 最大アクション時間
 	int _CurrentTime;					// 現在の時間
+	int _GenerateCnt;					// 生成回数
 
 	ACTION _Action;						// 現アニメーション
 	float _AnimTime;					// 再生時間
@@ -81,5 +89,8 @@ private:
 	int _TimelineIndex;				// タイムライン番号
 
 	int _HitPoint;					// ヒットポイント
+
+	bool _UpdateRotf;				// 回転フラグ
+
 };
 
