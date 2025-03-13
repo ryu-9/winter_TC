@@ -30,6 +30,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
 	, _ItemNum(0)
+	, _SeparateTime(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -364,6 +365,16 @@ void PlayerActor::UpdateActor() {
 	case 3:
 	case 5:
 	{
+		if (_Input->GetKey() & PAD_INPUT_3) {
+			_SeparateTime += dt;
+			if (_SeparateTime > 1000 && _Friend->GetSeparateTime() > 1000) {
+				ChangeMode(0);
+			}
+		}
+		else {
+			_SeparateTime = 0;
+		}
+
 		rot = _Input->GetDashDir();
 		rot = VScale(rot, -1);
 		rot2 = VGet(0, 1, 0);
@@ -372,6 +383,7 @@ void PlayerActor::UpdateActor() {
 
 		_BottomModel->SetFront(rot);
 		_BottomModel->SetUp(rot2);
+
 
 		auto hit = _HCollision->IsHit();
 		for (auto h : hit) {
@@ -420,6 +432,9 @@ void PlayerActor::UpdateActor() {
 			ChangeAnim((int)anim::Wait);
 
 		}
+
+		VECTOR pos = GetPosition();
+		_Friend->SetPosition(VAdd(VGet(pos.x, pos.y + GetSize().y * 80, pos.z), VScale(VGet(0, 160, 0), _Friend->GetSize().x)));
 	}
 	break;
 
@@ -436,10 +451,18 @@ void PlayerActor::UpdateActor() {
 			_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 			_TopModel->SetUp(VGet(0, 1, 0));
 		}
-
+		if (_Input->GetKey() & PAD_INPUT_3) {
+			_SeparateTime += dt;
+			if (_SeparateTime > 1000&&_Friend->GetSeparateTime()>1000) {
+				ChangeMode(0);
+			}
+		}
+		else {
+			_SeparateTime = 0;
+		}
 
 		if (_Animation == (int)anim::Punch) {
-			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 25 && !_PunchFlag) {
+			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 25 && !_PunchFlag) {
 				_AnimTime = 25;
 			}
 
@@ -463,7 +486,7 @@ void PlayerActor::UpdateActor() {
 
 		if (_Animation == (int)anim::Laser) {
 
-			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 50) {
+			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 50) {
 				_AnimTime = 45;
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
 				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
@@ -488,7 +511,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		if (_Animation == (int)anim::Blade) {
-			if (_Input->GetKey() & PAD_INPUT_3 && _AnimTime > 25 && !_PunchFlag) {
+			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 25 && !_PunchFlag) {
 				_AnimTime = 25;
 			}
 
@@ -516,7 +539,8 @@ void PlayerActor::UpdateActor() {
 			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate)* rate2);
 		}
 
-	
+		VECTOR fripos = _Friend->GetPosition();
+		SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 80, fripos.z), VScale(VGet(0, 160, 0), GetSize().x)));
 	}
 
 		break;
@@ -576,8 +600,10 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
-		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_Input->SetDashTime(GetSize().x*2000);
+		_Input->SetDashDownTime(1000);
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50,50,50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
 	case 2:
@@ -586,9 +612,10 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
+		_Input->SetGravity(0);
 		break;
 
 
@@ -724,6 +751,12 @@ void PlayerActor::ChangeAnim(int a) {
 				_AnimationRate[oldPunch] = 0.99;
 			}
 		}
+		if (_Animation >= (int)anim::Punch) {
+			_PunchIndex[0] = -2;
+			_PunchIndex[1] = -2;
+		}
+
+		
 		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
 		//MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
 
@@ -737,6 +770,8 @@ void PlayerActor::ChangeAnim(int a) {
 void PlayerActor::Init()
 {
 	_Input->SetVelocity(VGet(0, 0, 0));
+	_Input->SetDashTime(0);
+	_Input->SetGravity(1);
 	SetSize(VGet(0.1, 0.1, 0.1));
 
 	// _AnimationRate のキーを使用してアニメーションをデタッチ
@@ -773,6 +808,9 @@ void PlayerActor::AddSize(float size)
 		SetSize(VAdd(GetSize(), VGet(size, size, size)));
 	}
 }
+
+
+
 
 
 void PlayerActor::Damage(float damage) {

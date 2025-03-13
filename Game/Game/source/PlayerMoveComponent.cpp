@@ -148,7 +148,9 @@ void PlayerMoveComponent::ProcessInput()
 	case 5:
 	{
 
+
 		float length = 0.f;
+
 		if (VSize(v) > 0.f) {
 			if (VSize(v) > 1) {
 				length = mvSpeed;
@@ -162,49 +164,55 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = -cos(rad + camrad) * length;
 		v.z = -sin(rad + camrad) * length;
-		if (_DashTime <= 0) {
-			if (v.x != 0 || v.z != 0) {
-				_DashDir = VNorm(v);
-			}
-		}
-		else {
-			_DashTime-= _Owner->GetMode()->GetStepTm();
-			v = VScale(_DashDir, 5);
-		}
+
 
 		// �ړ��O�̈ʒu��ۑ�
 		VECTOR oldvPos = _pOwner->GetPosition();
 
 
+
+
 		{
-			VECTOR old = GetOldPosition();
-			VECTOR vector = VSub(_pOwner->GetPosition(), old);
-			VECTOR dist = VSub(_pOwner->GetMode()->GetCamera()->GetPosition(), _pOwner->GetMode()->GetCamera()->GetDirection());
-			_pOwner->GetMode()->GetCamera()->SetDirection(VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), vector));
-			float height = dist.y;
-			dist.y = 0;
-			dist = VScale(VNorm(dist), VSize(_pOwner->GetSize()) * 200);
-			dist = VAdd(_pOwner->GetMode()->GetCamera()->GetDirection(), dist);
-			VECTOR campos = VGet(dist.x, dist.y + height, dist.z);
-			_pOwner->GetMode()->GetCamera()->SetPosition(campos);
+			bool dashFlag = false;
+			int dt = _Owner->GetMode()->GetStepTm();
+			if (_Key & PAD_INPUT_4) {
+
+				if (_DashDownTime >= 1000) {
+					dashFlag = true;
+					_DashTime -= dt;
+					_DashDownTime = 1000;
+					if (_DashTime <= 0) {
+						_DashTime = 0;
+						_DashDownTime = 0;
+					}
+				}
+			}
+			if (!dashFlag) {
+
+				_DashDownTime += dt;
+				if (_DashDownTime >= 1500) {
+					_DashTime += dt;
+				}
+				if (_DashTime > _pOwner->GetSize().x * 2000) {
+					_DashTime = _pOwner->GetSize().x * 2000;
+				}
+				v = VScale(v, _Owner->GetSize().x / _pOwner->GetFriend()->GetSize().x);
+			}
+			else {
+				v = VScale(v, 3);
+			}
 		}
 
-		v = VScale(v, _Owner->GetSize().x / _pOwner->GetFriend()->GetSize().x);
+
+
+
 		v.y = GetVelocity().y;
 
-		if (_Trg & PAD_INPUT_4 && _DashTime <= 0) {
-			_DashTime = 200;
-		}
-		if (_Trg & PAD_INPUT_3) {
-			v.y = 10;
-			_DashTime = 0;
-		}
+
 		if (_Trg & PAD_INPUT_2) {
 			//_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
 		}
-		if (_Key & PAD_INPUT_1) {
-			v.y = 1;
-		}
+
 
 		//_pOwner->SetMove(v);
 
@@ -222,11 +230,11 @@ void PlayerMoveComponent::ProcessInput()
 	case 6:
 
 
-		_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
-		VECTOR v = _pOwner->GetFriend()->GetPosition();
-		_pOwner->SetPosition(VAdd(VGet(v.x, v.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, v.z), VScale( VGet(0, 160, 0), _pOwner->GetSize().x)));
+		//_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());
+		//VECTOR fripos = _pOwner->GetFriend()->GetPosition();
+		//_pOwner->SetPosition(VAdd(VGet(fripos.x, fripos.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, fripos.z), VScale( VGet(0, 160, 0), _pOwner->GetSize().x)));
 		
-		if (_Trg & PAD_INPUT_3) {
+		if (_Trg & PAD_INPUT_4) {
 			_pOwner->ChangeAnim(3 + _pOwner->GetModeNum() / 2);
 		}
 
@@ -250,4 +258,6 @@ void PlayerMoveComponent::Receive(int message)
 		break;
 	}
 }
+
+
 

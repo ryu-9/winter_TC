@@ -44,6 +44,8 @@ public:
 
 	void AddSize(float size);
 
+	int GetSeparateTime() { return _SeparateTime; }
+
 
 private:
 
@@ -103,6 +105,10 @@ private:
 	int _KnockBackTime;
 
 	int _ItemNum;
+
+
+	int _SeparateTime;
+
 
 };
 

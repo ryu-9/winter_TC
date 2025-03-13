@@ -10,7 +10,7 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	SetPosition(pos);
 	_Model = new ModelComponent(this, "res/Stage/model/GimmickWall/ENEMYWALL.mv1");
 	//_Model = new ModelComponent(this, "res/cube.mv1");
-	//_Model->SetScale(VGet(10, 10, 10));
+	_Model->SetScale(VGet(10, 10, 10));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
 	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0, 0, 0), VGet(1, 1, 1), 6, false, true, handle);
 	_MCollision->RefleshCollInfo();

@@ -1,5 +1,7 @@
 #include "EffectSpriteComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
+#include "../AppFrame/source/EffectServer/EffectController.h"
+#include "../AppFrame/source/EffectServer/ShadowMapSpriteComponent.h"
 #include <EffekseerForDXLib.h>
 
 EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* file, VECTOR pos, VECTOR rot, float size, bool loop, float speed, int draworder)
@@ -12,6 +14,10 @@ EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* fil
 	_SourceHandle = ModelServer::GetInstance()->AddEffect(file, 1);
 	_Handle = PlayEffekseer3DEffect(_SourceHandle);
 	ModelServer::GetInstance()->AddEffectList(_Handle, this);
+	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
+	if (sm.size() > 0) {
+		sm[0]->AddRemoveSprite(this);
+	}
 	_Scale = VGet(size, size, size);
 	VECTOR rot2 = VGet(0, 0, 0);
 	if (rot.z >= 0) {
