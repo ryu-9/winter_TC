@@ -1,5 +1,6 @@
 #include "ModeStory.h"
 #include "ApplicationMain.h"
+#include "ApplicationGlobal.h"
 #include "ioJsonText.h"
 
 namespace {
@@ -11,7 +12,7 @@ namespace {
 
 bool ModeStory::Initialize() {
 	if (!base::Initialize()) { return false; }
-	LoadScenario("res/LoadText.json");
+	LoadScenario("res/loadtext/outgametext.json",std::to_string(gGlobal._SelectStage));
 	SetFontSize(FONT_SIZE);
 	_CurrentTime = 0;
 	_Time = 0;

@@ -95,7 +95,7 @@ bool ModeGame::Initialize() {
 	// 雑実装
 	switch (gGlobal._SelectStage) {
 	case 0:
-		LoadStage("res/Stage/", "Stage1.json");
+		LoadStage("res/Stage/", "Stage4.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
 		break;
@@ -142,20 +142,18 @@ bool ModeGame::Initialize() {
 	
 	{ // デバッグ用
 		debug_hcoll_flag = false;
-		debug_mcoll_flag = false;
+		debug_mcoll_flag =true;
 
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
 
 		// ボス
-	//	auto b = new BossActor(this, VGet(0, -1800, 1800));
-	//	b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+	//	
 	
 		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
-	gGlobal._StartTime = 0;
-	gGlobal._EndTime = 0;
+	gGlobal.Init();
 	return true;
 }
 
@@ -363,6 +361,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			tree->SetItem(item);
 		} else if (name == "BP_GM_BreakWall") {
 			new BreakableBoxActor(this, pos, scale);
+		} else if (name == "bossspawner") {
+			auto b = new BossActor(this, pos);
+			b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
 		}
 		else {
 			auto ac = new ActorClass(this);

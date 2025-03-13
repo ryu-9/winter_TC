@@ -30,8 +30,8 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	// ���[�h�̓o�^
 
-	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-//	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
+//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
 //	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 //	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 //	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");

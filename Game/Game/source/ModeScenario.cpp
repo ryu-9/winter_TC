@@ -14,7 +14,7 @@ namespace {
 
 bool ModeScenario::Initialize() {
 	if (!base::Initialize()) { return false; }
-	LoadScenario("res/LoadText.json");
+	LoadScenario("res/loadtext/LoadText.json","Scenario");
 	SetFontSize(FONT_SIZE);
 	_CurrentTime = 0;
 	_Time = 0;
@@ -84,13 +84,13 @@ bool ModeScenario::Render() {
 	return true;
 }
 
-bool ModeScenario::LoadScenario(const char* filename) {
+bool ModeScenario::LoadScenario(const char* filename,std::string index) {
 	std::ifstream file(filename);
 	nlohmann::json json;
 	file >> json;
 	file.close();
 
-	nlohmann::json scenario = json["Scenario"];
+	nlohmann::json scenario = json[index];
 	for (auto& s : scenario) {
 		SCENARIO_DATA data;
 		data.name = iojson::ConvertString(s["name"]);

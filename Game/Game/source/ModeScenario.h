@@ -10,7 +10,7 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-	virtual bool LoadScenario(const char* filename);
+	virtual bool LoadScenario(const char* filename, std::string index);
 protected:
 
 	struct SCENARIO_DATA {

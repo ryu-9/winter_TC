@@ -29,7 +29,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(0)
+	, _ItemNum(1)
 
 {
 	if (_PlayerNo == 1) {
@@ -531,7 +531,7 @@ void PlayerActor::UpdateActor() {
 	case -1:
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
-		if (dist < 100) {
+		if (dist < 200) {
 			ChangeMode(0);
 			gGlobal._IsPlayerDead[_PlayerNo-1] = FALSE;
 		}

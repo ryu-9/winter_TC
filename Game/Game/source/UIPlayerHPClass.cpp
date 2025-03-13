@@ -22,13 +22,9 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int dra
 	SetImage("res/UI/UI_HP_LOW.png");
 	SetImage("res/UI/UI_HPBAR_LOW.png");
 	_CGData.back().pos = VGet(164, 66, 0);
-//	SetImage("res/UI/JIN_ICON.png");
-//	_CGData.back().pos = VGet(20, 20, 0);
 	SetImage("res/UI/UI_HP_MARGE.png");
 	SetImage("res/UI/UI_HPBAR_MARGE.png");
 	_CGData.back().pos = VGet(164, 66, 0);
-//	SetImage("res/UI/BEL_ICON.png");
-//	_CGData.back().pos = VGet(20, 20, 0);
 }
 
 UIPlayerHPSpriteComponent::~UIPlayerHPSpriteComponent() {

@@ -5,6 +5,7 @@
 #include "ModeTitleMenu.h"
 #include "BGMComponent.h"
 #include "UISoundActor.h"
+#include "ModeStory.h"
 
 bool ModeTitle::Initialize()
 {
@@ -98,7 +99,7 @@ base::Process();
 		break;
 	case 5:
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
-			ModeServer::GetInstance()->Add(new ModeSynopsis(), 99, "synopsis");
+			ModeServer::GetInstance()->Add(new ModeStory(), 99, "story");
 
 			newstep++;
 		}

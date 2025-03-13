@@ -3,9 +3,9 @@
 #include "ApplicationGlobal.h"
 
 bool ModeGameUI::Initialize() {
-	SetUseASyncLoadFlag(TRUE);
+	
 	new UIPlayerHPClass(this, VGet(30, 750, 0), "");
-	SetUseASyncLoadFlag(FALSE);
+	
 	ChangeFont("BIZ UDPÉSÉVÉbÉN Bold");
 
 	return false;

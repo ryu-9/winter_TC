@@ -36,5 +36,6 @@ protected:
 
 	
 private:
-	bool LoadStage(const std::string path,const std::string jsname);
+	bool 
+	LoadStage(const std::string path,const std::string jsname);
 };

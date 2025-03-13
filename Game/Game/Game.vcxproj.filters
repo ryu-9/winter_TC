@@ -162,9 +162,6 @@
     <ClCompile Include="source\ModeScenario.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeGameOver.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeGameUI.cpp">
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
@@ -216,14 +213,17 @@
     <ClCompile Include="source\GoalItemActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeGameGoal.cpp">
+    <ClCompile Include="source\ModeStory.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
     <ClCompile Include="source\UISoundActor.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Mode\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeStory.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="source\ModeGameOver.cpp">
+      <Filter>ソース ファイル\Mode\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeGameGoal.cpp">
+      <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,9 +323,6 @@
     <ClInclude Include="source\ModeScenario.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeGameOver.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeGameUI.h">
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
@@ -383,14 +380,17 @@
     <ClInclude Include="source\GoalItemActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeStory.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
     <ClInclude Include="source\ModeGameGoal.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Mode\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameOver.h">
+      <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
     <ClInclude Include="source\UISoundActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeStory.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
