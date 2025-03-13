@@ -1,6 +1,7 @@
 #include "BossActor.h"
 #include "PlayerActor.h"
 #include "BossAttackActor.h"
+#include "GoalItemActor.h"
 
 BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	:ActorClass(mode)
@@ -12,7 +13,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	, _ActionIndex(0)
 	, _ActTime(0)
 	, _ActTotalTime(0)
-	, _HitPoint(500)
+	, _HitPoint(1000)
 {
 	SetPosition(pos);
 	_Input = new MoveComponent(this);
@@ -23,6 +24,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1"));
+	_AnimMV1.push_back(0);
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));			// TODO: �Ђ�݃��[�V�����ɍ����ւ�
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));
 
@@ -59,6 +61,9 @@ void BossActor::UpdateActor() {
 	(this->*_ActionFunc[(int)_Action])();
 
 	_CurrentTime += (float)GetMode()->GetStepTm();
+	if (_Action == DIE) {
+		return;
+	}
 	if (_HitPoint > 0) {
 
 		if (_CurrentTime >= _ActionTimeline[_TimelineIndex][_ActionIndex].time) {
@@ -70,15 +75,16 @@ void BossActor::UpdateActor() {
 			} else {
 				_ActionIndex = 0;
 				
+
 			}
-			
+
 		}
 	}
 
 	if (_AnimIndex.size() > 1) {
 		_AnimRate -= 0.01f;
-		MV1SetAttachAnimBlendRate(_Model[0]->GetHandle(), _AnimIndex.front(),_AnimRate);
-		MV1SetAttachAnimBlendRate(_Model[0]->GetHandle(), _AnimIndex.back(),1 - _AnimRate);
+		MV1SetAttachAnimBlendRate(_Model[0]->GetHandle(), _AnimIndex.front(), _AnimRate);
+		MV1SetAttachAnimBlendRate(_Model[0]->GetHandle(), _AnimIndex.back(), 1 - _AnimRate);
 		if (_AnimRate <= 0) {
 			MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
 			_AnimIndex.pop();
@@ -88,14 +94,14 @@ void BossActor::UpdateActor() {
 
 
 	MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex.back(), _AnimTime);
-	
-	{ // �f�o�b�O�p
-	//	_HitPoint--;
-		if (_HitPoint == 0) {
-			ChangeAnim(ACTION::DIE);
-			ChangeAction(ACTION::DIE);
-		}
+
+	_HitPoint--;
+	if (_HitPoint == 0) {
+		ChangeAnim(ACTION::DIE);
+		ChangeAction(ACTION::DIE);
+		
 	}
+
 }
 
 
@@ -252,10 +258,15 @@ bool BossActor::Damage() {
 }
 
 bool BossActor::Die() {
-	if (_AnimTime <= _AnimTotalTime) {
+	if (_AnimTime < _AnimTotalTime) {
 		auto t = (float)GetMode()->GetStepTm();
 		_AnimTime += t / 20.f;
+		if (_AnimTime > _AnimTotalTime) {
+			_AnimTime = _AnimTotalTime;
+			new GoalItemActor(GetMode(), VGet(0,500,0),true);
+		}
 	}
+	
 	return false;
 }
 

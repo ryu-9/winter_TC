@@ -2,11 +2,24 @@
 #include "UIPlayerHPClass.h"
 #include "ApplicationGlobal.h"
 #include "UITextComponent.h"
+#include "PlayerActor.h"
+
 
 bool ModeGameUI::Initialize() {
 	
-	new UIPlayerHPClass(this, VGet(30, 750, 0), "");
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(30, 750, 0), "",0));
 	auto ui = new UIChipClass(this,VGet(1400,920,0),"res/UI/UI_MESSAGE.png",100);
+	_UIChip.push_back(ui);
+	_UIChip.push_back(new UIChipClass(this,VGet(960,540,0),"res/UI/TDX_UI_MARGE.png"));
+	_UIChip.push_back(new UIChipClass(this, VGet(1400, 920, 0), "res/UI/TDX_UI_MARGE_WINDOW.png"));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(30, 750, 0), "",1));
+	new UITextComponent(_UIChip[3], "Scenario");
+	new UIChipFadeComponent(_UIChip[2],0, 0);
+	new UIChipFadeComponent(_UIChip[3], 0, 0);
+	new UIChipFadeComponent(_UIChip[4], 0, 0);
+
+	
+
 	new UITextComponent(ui, "Scenario");
 	ChangeFont("BIZ UDPÉSÉVÉbÉN Bold");
 
@@ -21,6 +34,30 @@ bool ModeGameUI::Terminate() {
 
 bool ModeGameUI::Process() {
 	base::Process();
+	auto game = dynamic_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
+	if (game->GetPlayer()->GetModeNum() > 0) {
+		if (_AnimCount < 80) {
+			_AnimCount++;
+			auto pos = _UIChip[0]->GetPosition();
+			_UIChip[0]->SetPosition(VGet(pos.x - 10, pos.y, 0));
+			pos = _UIChip[1]->GetPosition();
+			_UIChip[1]->SetPosition(VGet(pos.x + 15, pos.y , 0));
+			new UIChipFadeComponent(_UIChip[2], 255, 1000);
+			new UIChipFadeComponent(_UIChip[3], 255, 1000);
+			new UIChipFadeComponent(_UIChip[4], 255, 1000);
+		}
+	} else {
+		if (_AnimCount > 0) {
+			_AnimCount--;
+			auto pos = _UIChip[0]->GetPosition();
+			_UIChip[0]->SetPosition(VGet(pos.x + 10, pos.y , 0));
+			pos = _UIChip[1]->GetPosition();
+			_UIChip[1]->SetPosition(VGet(pos.x - 15, pos.y, 0));
+			new UIChipFadeComponent(_UIChip[2], 0, 1000);
+			new UIChipFadeComponent(_UIChip[3], 0, 1000);
+			new UIChipFadeComponent(_UIChip[4], 0, 1000);
+		}
+	}
 	return false;
 }
 

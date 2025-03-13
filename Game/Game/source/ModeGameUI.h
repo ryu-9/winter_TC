@@ -12,6 +12,7 @@ public:
 
 private:
 	std::vector<UIChipClass*> _UIChip;
+	int _AnimCount;
 	
 };
 

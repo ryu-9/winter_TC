@@ -1,7 +1,12 @@
 #include "ModeStory.h"
 #include "ApplicationMain.h"
 #include "ApplicationGlobal.h"
+#include "ModeStageSelect.h"
 #include "ioJsonText.h"
+#include "ModeGame.h"
+#include "ModeGameUI.h"
+#include "ModeLoading.h"
+#include "ModeTitle.h"
 
 namespace {
 	int X = 400;			// XÀ•WŠî€’l
@@ -49,7 +54,21 @@ bool ModeStory::Process() {
 			_CurrentTime = 0;
 			_TextIndex++;
 			if (_TextIndex >= _ScenarioData.size()) {
+
 				ModeServer::GetInstance()->Del(this);
+				if (gGlobal._SelectStage == 2) {
+					gGlobal._SelectStage = 3;
+					ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+					ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+					ModeServer::GetInstance()->Add(new ModeLoading(), 3, "loading");
+					
+				} else if (gGlobal._SelectStage == 3) {
+					ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+					gGlobal._SelectStage = -1;
+				}
+				else{
+					ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
+				}
 				return true;
 			}
 

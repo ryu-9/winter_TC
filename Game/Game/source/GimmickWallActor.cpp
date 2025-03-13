@@ -33,6 +33,7 @@ GimmickWallActor::~GimmickWallActor()
 
 void GimmickWallActor::UpdateActor()
 {
+	if (_Actor == nullptr) { return; }	
 	if (_Actor->GetState() != State::eActive)
 	{
 		SetIsActive(false);

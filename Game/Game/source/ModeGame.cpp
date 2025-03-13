@@ -92,8 +92,8 @@ bool ModeGame::Initialize() {
 	//auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
 	//auto tree = new TreeActor(this, VGet(0, 50, 500));
 	//tree->SetItem(item);
-	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
-	auto gw = new GimmickWallActor(this, VGet(0, 100, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
+//	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
+//	auto gw = new GimmickWallActor(this, VGet(0, 100, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
 	
 
 
@@ -103,27 +103,27 @@ bool ModeGame::Initialize() {
 	switch (gGlobal._SelectStage) {
 	case 0:
 		LoadStage("res/Stage/", "Stage1.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
-		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1_1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_1");
+		new BGMComponent(_Camera, 0, "bgm1_1", "bgm2_1");
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
-		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1_2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_2");
+		new BGMComponent(_Camera, 0, "bgm1_2", "bgm2_2");
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2");
-		new BGMComponent(_Camera, 0, "bgm1", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1_3");
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_3");
+		new BGMComponent(_Camera, 0, "bgm1_3", "bgm2_3");
 		break;
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1_4");
 	//	SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
-		new BGMComponent(_Camera, 0, "bgm1", "");
+		new BGMComponent(_Camera, 0, "bgm1_4", "");
 		break;
 	default:
 		break;
@@ -275,19 +275,24 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	
 	std::vector<std::vector<VECTOR>> poppos;
 	std::vector<GroupSpawnerActor*> g;
+	std::vector<GimmickWallActor*> gw;
 	switch (gGlobal._SelectStage) {
 	case 0:
 		poppos.resize(1);
 		g.resize(1);
+		gw.resize(4);
 		break;
 	case 1:
 		poppos.resize(6);
 		g.resize(6);
+		gw.resize(20);
 		break;
 	case 2:
 		poppos.resize(3);
 		g.resize(3);
+		gw.resize(10);
 		break;
+		// TODO: ウォールの個数修正
 	default:
 		break;
 	}
@@ -309,7 +314,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		
+		if (name == "") {
+			continue;
+		}
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
@@ -346,20 +353,20 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
 			g[n]->SetHCollision(new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
-		} else if (name == "No01_Sponer") {
-			poppos[0].push_back(pos);
-		} else if (name == "No02_Sponer") {
-			poppos[1].push_back(pos);
-		} else if (name == "No03_Sponer") {
-			poppos[2].push_back(pos);
-		} else if (name == "No04_Sponer") {
-			poppos[3].push_back(pos);
-		} else if (name == "No05_Sponer") {
-			poppos[4].push_back(pos);
-		} else if (name == "No06_Sponer") {
-			poppos[5].push_back(pos);
-		} else if (name == "Goal_flag") {
-		//	new GoalItemActor(this, pos);
+		} else if (name2== "Spawner") {
+			std::string nm = data.at("objectName");
+			nm = nm.back();
+			auto n = std::stoi(nm) - 1;
+			poppos[n].push_back(pos);
+		}
+		else if (name2 == "Wall") {
+			std::string nm = data.at("objectName");
+			nm = nm.back();
+			auto n = std::stoi(nm) - 1;
+			gw[n] = new GimmickWallActor(this, pos, scale, rot, 0, nullptr);
+		}
+		else if (name == "Goal_flag") {
+			new GoalItemActor(this, pos);
 		} else if (name == "BP_tree") {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);
@@ -386,6 +393,16 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[i]->AddPopPos(poppos[i][j]);
 		}
 		//g[i]->SetPopPos(poppos[i]);
+	}
+	// TODO: ギミックウォールの詳細設定
+	// 現状力業すらできなかった。。。
+	if (gGlobal._SelectStage == 0) {
+		gw[0]->SetIsActive(true);
+	/*	gw[1]->SetIsActive(true);
+		gw[2]->SetIsActive(false);
+		gw[3]->SetIsActive(true);
+		gw[2]->SetActor(g[0]);
+		gw[3]->SetActor(g[0]);*/
 	}
 	return true;
 }

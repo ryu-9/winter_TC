@@ -9,6 +9,7 @@ public:
 	void UpdateActor() override;
 
 	void SetIsActive(bool flag);
+	void SetActor(ActorClass* actor) { _Actor = actor; }
 
 private:
 	MoveCollisionComponent* _MCollision;

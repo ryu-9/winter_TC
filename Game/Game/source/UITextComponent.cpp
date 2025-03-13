@@ -5,8 +5,8 @@
 #include <fstream>
 
 namespace {
-	int X = 950;			// X座標基準値
-	int Y = 850;			// Y座標基準値
+	int X = -450;			// X座標基準値
+	int Y = -70;			// Y座標基準値
 	int FONT_SIZE = 30;		// フォントサイズ
 	int TEXT_SPEED = 70;	// テキスト表示速度
 }
@@ -37,7 +37,25 @@ void UITextComponent::Update() {
 		AddText();
 	}
 
-	if (trg & PAD_INPUT_1) {
+	if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
+		if (_CurrentTime > _TextCount * TEXT_SPEED + 2000) {
+			_TextIndex++;
+			if (_TextIndex >= _ScenarioData.size()) {
+				_TextIndex--;
+				return;
+			}
+			_StCount = 0;
+			_TextCount = 0;
+			_CurrentTime = 0;
+			
+			
+
+			_TextData.clear();
+			_TextData.push_back(TEXT_DATA());
+		}
+	}
+
+	/*if (trg & PAD_INPUT_1) {
 		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
 			_StCount = 0;
 			_TextCount = 0;
@@ -57,21 +75,21 @@ void UITextComponent::Update() {
 		}
 
 	}
-
+	*/
 
 }
 
 void UITextComponent::Draw() {
 	SetFontSize(FONT_SIZE);
-	int x = X;
-	int y = Y;
+	int x = _Owner->GetPosition().x + X;
+	int y = _Owner->GetPosition().y + Y;
 	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
 	y += FONT_SIZE;
 	for (int i = 0; i < _TextData.size(); i++) {
 		auto text = iojson::ConvertString(_TextData[i].text);
 		if (_TextData[i].br) {
 			y += FONT_SIZE;
-			x = X;
+			x = _Owner->GetPosition().x + X;
 		}
 		DrawFormatString(x, y, _TextData[i].col, text.c_str());
 		x += GetDrawFormatStringWidth(text.c_str());

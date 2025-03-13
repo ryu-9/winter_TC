@@ -561,7 +561,7 @@ void PlayerActor::ChangeMode(int mode)
 	float dist = 0;
 	switch (mode) {
 	case -1:
-		_ModeNum = 3;
+		_ModeNum = -1;
 		_BallModel->SetVisible(false);
 		_TopModel->SetVisible(false);
 		_BottomModel->SetVisible(false);

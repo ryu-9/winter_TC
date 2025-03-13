@@ -70,6 +70,10 @@ void GroupSpawnerActor::UpdateActor() {
 		_TmCnt = 0;
 
 		delete[] dist;
+		if (_TotalPopCnt >= _Data.max_popcount) {
+			_Active = false;
+			SetState(State::ePaused);
+		}
 	}
 }
 
