@@ -10,5 +10,6 @@ public:
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 private:
 	class HitCollisionComponent* _HCollision;
+	int _Time;
 };
 

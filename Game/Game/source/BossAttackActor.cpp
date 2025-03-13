@@ -17,4 +17,8 @@ void BossAttackActor::UpdateActor() {
 			player->Damage(0.3);
 		}
 	}
+	_Time += GetMode()->GetStepTm();
+	if (_Time > 10000) {
+		SetState(State::eDead);
+	}
 }
