@@ -20,7 +20,10 @@ HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelCompo
 	// ���f���R���|�[�l���g��擾���A�n���h����ݒ�
 	ModelComponent* modelComp = model;
 	if (modelComp == nullptr) {
-		ModelComponent* modelComp = _Owner->GetComponent<ModelComponent>()[0];
+		auto mc = _Owner->GetComponent<ModelComponent>();
+		if (mc.size() > 0) {
+			modelComp = mc[0];
+		}
 	}
 
 	if (Handle == -1 && modelComp != nullptr) {
@@ -64,6 +67,7 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 					}
 				}
 				else {
+
 					auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x);
 					if (m.HitNum > 0) {
 						_IsHitList.insert(_IsHitList.begin(), hcoll);
@@ -113,7 +117,12 @@ void HitCollisionComponent::DebugDraw()
 		DrawCapsule3D(OldPos, GetPosition(), GetSize().x, 5, GetColor(0, 0, 255), 0, false);
 	}
 	else {
-		MV1DrawFrame(Handle, -1);
+		VECTOR test = GetPosition();
+		MV1SetPosition(Handle, GetPosition());
+		test = GetSize();
+		MV1SetScale(Handle, GetSize());
+		//MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+		MV1DrawModel(Handle);
 	}
 
 }

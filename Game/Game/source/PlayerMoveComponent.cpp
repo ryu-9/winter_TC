@@ -203,7 +203,12 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 
+		if (v.x != 0 || v.z != 0) {
 
+			_DashDir = v;
+			_DashDir.y = 0;
+			_DashDir = VNorm(_DashDir);
+		}
 
 
 		v.y = GetVelocity().y;

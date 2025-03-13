@@ -29,8 +29,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _InvincibleTime(0)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
-	, _ItemNum(0)
 	, _SeparateTime(0)
+	, _ItemNum(2)
 
 {
 	if (_PlayerNo == 1) {
@@ -334,7 +334,7 @@ void PlayerActor::UpdateActor() {
 				int itemnum = item->GetType();
 				switch(itemnum){
 				case 0:
-					AddSize(0.2);
+					AddSize(0.2, true);
 					break;
 				case 1:
 				case 2:
@@ -500,7 +500,7 @@ void PlayerActor::UpdateActor() {
 				tmpdir.y += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.z += (float)(rand() % 101 - 50) / 1000.0f;
 
-				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 3);
+				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
 
 			}
 			if (_AnimTime > 45 && _AnimTime < 60) {
@@ -518,7 +518,7 @@ void PlayerActor::UpdateActor() {
 			if (_AnimTime > 40 && !_PunchFlag)
 			{
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(0, -GetSize().y * 100 - _Friend->GetSize().y * 100, 0);
+				VECTOR tmppos = VGet(0, -GetSize().y * 80 - _Friend->GetSize().y * 160, 0);
 
 				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), tmpdir, GetSize().x * 30);
 				_PunchFlag = true;
@@ -540,7 +540,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		VECTOR fripos = _Friend->GetPosition();
-		SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 80, fripos.z), VScale(VGet(0, 160, 0), GetSize().x)));
+		SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 160, fripos.z), VScale(VGet(0, 80, 0), GetSize().x)));
 	}
 
 		break;
@@ -575,7 +575,7 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 
 	case 0:
-		if (_ModeNum == 1) {
+		if (_ModeNum % 2 == 1) {
 			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, -2*GetSize().y, 0)));
 		}
 		_MCollision->SetIsActive(true);
@@ -600,7 +600,7 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50,50,50), _Friend->GetSize().y / GetSize().y), 2, true, true);
@@ -612,7 +612,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -626,7 +626,9 @@ void PlayerActor::ChangeMode(int mode)
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
-		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_Input->SetDashTime(GetSize().x * 2000);
+		_Input->SetDashDownTime(1000);
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
 	case 4:
@@ -637,6 +639,7 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
+		_Input->SetGravity(0);
 		break;
 
 	case 5:
@@ -646,7 +649,9 @@ void PlayerActor::ChangeMode(int mode)
 		_BallModel->SetVisible(false);
 		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
-		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(100, 100, 100), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_Input->SetDashTime(GetSize().x * 2000);
+		_Input->SetDashDownTime(1000);
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		break;
 
 	case 6:
@@ -657,6 +662,7 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
+		_Input->SetGravity(0);
 		break;
 
 	}
@@ -801,9 +807,9 @@ void PlayerActor::DropItem(VECTOR dir, int num)
 	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
 }
 
-void PlayerActor::AddSize(float size)
+void PlayerActor::AddSize(float size, bool flag)
 {
-	if (_ModeNum == 0 && !_Input->GetDashFlag()) {
+	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag)) {
 		float Size = size / GetSize().x;
 		SetSize(VAdd(GetSize(), VGet(size, size, size)));
 	}

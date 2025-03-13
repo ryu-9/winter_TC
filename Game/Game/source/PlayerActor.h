@@ -42,7 +42,7 @@ public:
 	void SetItemNum(int num) { _ItemNum = num; }
 	void DropItem(VECTOR dir, int num);
 
-	void AddSize(float size);
+	void AddSize(float size, bool flag = false);
 
 	int GetSeparateTime() { return _SeparateTime; }
 

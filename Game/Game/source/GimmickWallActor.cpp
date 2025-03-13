@@ -8,11 +8,11 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 {
 	SetSize(size);
 	SetPosition(pos);
-	_Model = new ModelComponent(this, "res/Stage/model/GimmickWall/ENEMYWALL.mv1");
-	//_Model = new ModelComponent(this, "res/cube.mv1");
-	_Model->SetScale(VGet(10, 10, 10));
+	_Model = new ModelComponent(this, "res/Stage/model/EnemyWall/E_WALL.mv1");
+	//_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip.mv1");
+	_Model->SetScale(VGet(4,4,4));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0, 0, 0), VGet(1, 1, 1), 6, false, true, handle);
+	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0, 100, 0), VGet(1, 1, 1), 6, false, true, handle);
 	_MCollision->RefleshCollInfo();
 
 
@@ -21,7 +21,7 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	
 
 	if (!_IsActive) {
-		_Move = 200 * GetSize().y;
+		_Move = 400 * GetSize().y;
 		_Model->SetPosition(VGet(0, -_Move, 0));
 		_MCollision->SetIsActive(false);
 	}
@@ -46,11 +46,11 @@ void GimmickWallActor::UpdateActor()
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}
-	else if (!_IsActive && _Move < GetSize().y * 200) {
+	else if (!_IsActive && _Move < GetSize().y * 400) {
 		float move = GetMode()->GetStepTm() * GetSize().y;
 		_Move += move;
-		if (_Move >= GetSize().y * 200) {
-			_Move = GetSize().y * 200;
+		if (_Move >= GetSize().y * 400) {
+			_Move = GetSize().y * 400;
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}
