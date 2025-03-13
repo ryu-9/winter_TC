@@ -7,9 +7,9 @@ ExplosionActor::ExplosionActor(ModeBase* mode, VECTOR pos, float scale)
 	, _LifeTime(1000)
 {
 	SetPosition(pos);
-	VECTOR size = VScale(VGet(10, 10, 10), scale + 20);
+	VECTOR size = VScale(VGet(10, 10, 10), scale * 90);
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), size, 2, true, true);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Explosion/Explosion.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), scale * 15, -1, 0.3);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Explosion/Explosion.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), scale * 15, false , 0.3);
 
 }
 

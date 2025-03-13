@@ -33,7 +33,7 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 
 PunchActor::~PunchActor()
 {
-	new ExplosionActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 300);
+	new ExplosionActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 200);
 }
 
 void PunchActor::UpdateActor()

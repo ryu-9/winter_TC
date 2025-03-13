@@ -24,6 +24,7 @@
 #include "ItemActor.h"
 #include "BreakableBoxActor.h"
 #include "GoalItemActor.h"
+#include "GimmickWallActor.h"
 #include "ModeScenario.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
@@ -88,9 +89,14 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
-	auto tree = new TreeActor(this, VGet(0, 50, 500));
-	tree->SetItem(item);
+	//auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
+	//auto tree = new TreeActor(this, VGet(0, 50, 500));
+	//tree->SetItem(item);
+	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
+	auto gw = new GimmickWallActor(this, VGet(0, 100, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
+	
+
+
 	//auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
 	
 	// 雑実装
@@ -141,8 +147,7 @@ bool ModeGame::Initialize() {
 		
 	}
 	
-	
-	
+		
 	{ // デバッグ用
 		debug_hcoll_flag = true;
 		debug_mcoll_flag =false;
@@ -150,7 +155,7 @@ bool ModeGame::Initialize() {
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
 	
-		GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
+		//GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
 	gGlobal.Init();
@@ -354,7 +359,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "No06_Sponer") {
 			poppos[5].push_back(pos);
 		} else if (name == "Goal_flag") {
-			new GoalItemActor(this, pos);
+		//	new GoalItemActor(this, pos);
 		} else if (name == "BP_tree") {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);

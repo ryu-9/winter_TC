@@ -20,6 +20,8 @@ public:
 
 	void SetDashTime(int time) { _DashTime = time; }
 
+	void SetDashDownTime(int time) { _DashDownTime = time; }	
+
 private:
 	class PlayerActor* _pOwner;
 	int _DashTime;
@@ -30,8 +32,10 @@ private:
 	float _colSubY;	// コリジョン判定時のY補正(腰位置）
 	DINPUT_JOYSTATE _Input;
 
-	bool _JumpFlag;
 
+	bool _JumpFlag;
+	
+	int _DashDownTime;
 
 };
 

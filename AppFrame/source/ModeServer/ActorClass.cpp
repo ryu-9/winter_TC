@@ -1,6 +1,7 @@
 #include "ActorClass.h"
 #include "ModeBase.h"
 
+
 ActorClass::ActorClass(ModeBase* mode)
 	:_State(State::eActive)
 	, _Position(VGet(0, 0, 0))
@@ -60,6 +61,8 @@ void ActorClass::UpdateComponents() {
 
 void ActorClass::UpdateActor() {
 }
+
+
 
 
 

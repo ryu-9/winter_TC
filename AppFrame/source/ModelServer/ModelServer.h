@@ -26,7 +26,8 @@ public:
 	int AddGraph(const TCHAR* filename);		// 登録
 
 	int AddEffect(const char* filename, float size = 1.0f);		// 登録
-	void DelEffect(int handle);		// 削除
+	void DelEffectList(int handle);		// 削除
+	bool AddEffectList(int handle, SpriteComponent* sp);		// 追加
 	void UpdateEffect();		// 更新
 
 	int Del(ModeBase* mode);		// 削除予約
@@ -37,7 +38,7 @@ private:
 	std::list<Model> _Models;			// モデルリスト
 	std::list<Model> _Graph;			// グラフィックリスト
 	std::list<Model> _Effect;			// エフェクトリスト
-	int _EffectNum;
+	std::map<int, SpriteComponent*> _EffectHandle;		// エフェクトハンドルリスト
 	int _UpdatedEffectNum;
 };
 

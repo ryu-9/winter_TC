@@ -7,7 +7,7 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_Move = new MoveComponent(this, false);
 	_Move->SetVelocity(move);
 	SetPosition(pos);
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Laser_ThanderX.efkefc1", VGet(0, 0, 0), rot, scale);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/Lazer_TDX.efkefc", VGet(0, 0, 0), rot, scale, true);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
 	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
@@ -17,10 +17,10 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_LifeTime = 2000;
 	//auto model = new ModelComponent(this, "nomodel");
 	float size = scale;
-	size *= 5;
+	size *= 3;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
-	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
-	MV1SetVisible(model->GetHandle(), FALSE);
+	//auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
+	//MV1SetVisible(model->GetHandle(), FALSE);
 }
 
 LaserActor::~LaserActor()
