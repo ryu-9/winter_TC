@@ -105,7 +105,8 @@ base::Process();
 		break;
 	case 6:
 	{
-		newstep++;
+		if (trg & PAD_INPUT_1) {
+			newstep++;
 		_UIChip.clear();
 
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 500, 1), "res/UI/UI_TITLE_TDX.png"));
@@ -114,6 +115,8 @@ base::Process();
 		new UIChipFadeComponent(_UIChip.back(), 255, 2000);
 		auto n = rand() % 3;
 		_UISound->PlayActSound(std::to_string(n));
+		
+		}
 	}
 		
 		break;

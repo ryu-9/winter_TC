@@ -72,6 +72,28 @@ public:
 	}
 };
 
+class MenuItem1 : public MenuItemBase {
+public:
+	MenuItem1(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new ItemActor(mdGame, p->GetPosition(), 1);
+		return 1;
+	}
+};
+
+class MenuItem2 : public MenuItemBase {
+public:
+	MenuItem2(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new ItemActor(mdGame, p->GetPosition(), 2);
+		return 1;
+	}
+};
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
@@ -80,7 +102,6 @@ bool ModeGame::Initialize() {
 //	SetFogStartEnd(200, 10000);
 	
 	SetDrawCollision(TRUE);
-
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
 	_Player[0] = new PlayerActor(this);
@@ -155,7 +176,6 @@ bool ModeGame::Initialize() {
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
 	
-		//GoalItemActor* goal = new GoalItemActor(this, VGet(0, 100, 300));
 	}
 
 	gGlobal.Init();
@@ -180,6 +200,8 @@ bool ModeGame::Process() {
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
 		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
 		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
+		modeMenu->Add(new MenuItem1(this, "Item1"));
+		modeMenu->Add(new MenuItem2(this, "Item2"));
 		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
@@ -366,7 +388,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			gw[n] = new GimmickWallActor(this, pos, scale, rot, 0, nullptr);
 		}
 		else if (name == "Goal_flag") {
-			new GoalItemActor(this, pos);
+		//	new GoalItemActor(this, pos);
 		} else if (name == "BP_tree") {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);

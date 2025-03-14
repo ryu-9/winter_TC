@@ -30,7 +30,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
-	, _ItemNum(2)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {

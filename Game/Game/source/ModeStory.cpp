@@ -25,8 +25,26 @@ bool ModeStory::Initialize() {
 	_TextIndex = 0;
 	_TextCount = 0;
 	_TextData.push_back(ModeScenario::TEXT_DATA());
-
-	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
+	switch (gGlobal._SelectStage) {
+	case -1:
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
+		break;
+	case 0:
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART1_ED.png"));
+		break;
+	case 1:
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART2_ED.png"));
+		break;
+	case 2:
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART3_ED.png"));
+		break;
+	case 3:
+		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_ED.png"));
+		break;
+	default:
+		break;
+	}
+//	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 950, 0), "res/UI/UI_TEXT_BACK.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_STORY_SIDE.png"));
 
@@ -56,7 +74,9 @@ bool ModeStory::Process() {
 			if (_TextIndex >= _ScenarioData.size()) {
 
 				ModeServer::GetInstance()->Del(this);
-				if (gGlobal._SelectStage == 2) {
+				if (gGlobal._SelectStage == -1) {
+				//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+				} else if (gGlobal._SelectStage == 2) {
 					gGlobal._SelectStage = 3;
 					ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 					ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
@@ -86,7 +106,6 @@ bool ModeStory::Process() {
 }
 
 bool ModeStory::Render() {
-	
 	base::Render();
 	int x = X;
 	int y = Y;
