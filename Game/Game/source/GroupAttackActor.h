@@ -19,6 +19,7 @@ public:
 	void AddPopPos(VECTOR pos) { _PopPos.push_back(pos); }
 	void SetPopPos(std::vector<VECTOR> pos) { _PopPos = pos; }
 	void SetHCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
+	bool GetActive() { return _Active; }
 
 private:
 	class PlayerActor* _Player[2];

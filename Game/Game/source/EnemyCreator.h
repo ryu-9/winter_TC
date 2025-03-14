@@ -2,6 +2,7 @@
 #include "appframe.h"
 #include "EnemyActor.h"
 #include "EnemySpawnerActor.h"
+#include "GroupAttackActor.h"
 
 #include <array>
 
@@ -19,7 +20,8 @@ public:
 	
 	void Init();
 	class EnemyActor* Create(ModeBase* mode,int shape, int col,VECTOR vec,EnemySpawnerActor* es = nullptr);
-	class EnemyActor* Create(ModeBase* mode, int type, VECTOR vec, EnemySpawnerActor* es = nullptr);
+	class EnemyActor* Create(ModeBase* mode, int type, VECTOR vec, GroupSpawnerActor* es = nullptr);
+
 	
 protected:
 

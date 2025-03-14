@@ -298,16 +298,19 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	std::vector<std::vector<VECTOR>> poppos;
 	std::vector<GroupSpawnerActor*> g;
 	std::vector<GimmickWallActor*> gw;
+	int gwn = 0;
 	switch (gGlobal._SelectStage) {
 	case 0:
 		poppos.resize(1);
 		g.resize(1);
 		gw.resize(4);
+		gwn = 1;
 		break;
 	case 1:
 		poppos.resize(6);
 		g.resize(6);
 		gw.resize(20);
+		gwn = 5;
 		break;
 	case 2:
 		poppos.resize(3);
@@ -374,21 +377,25 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
-			g[n]->SetHCollision(new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true));
+			m->SetPosition(VGet(0, 0, 0));
+			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true);
+			g[n]->SetHCollision(h);
+			
 		} else if (name2== "Spawner") {
 			std::string nm = data.at("objectName");
 			nm = nm.back();
 			auto n = std::stoi(nm) - 1;
 			poppos[n].push_back(pos);
 		}
-		else if (name2 == "Wall") {
+		else if (name2 == "Wall"||(name2.erase(name2.size()-1,1)=="Wall")) {
+
 			std::string nm = data.at("objectName");
-			nm = nm.back();
-			auto n = std::stoi(nm) - 1;
+			nm = nm.erase(0, 4);
+			auto n = std::stoi(nm) - gwn;
 			gw[n] = new GimmickWallActor(this, pos, scale, rot, 0, nullptr);
 		}
 		else if (name == "Goal_flag") {
-		//	new GoalItemActor(this, pos);
+			new GoalItemActor(this, pos,true);
 		} else if (name == "BP_tree") {
 			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
 			auto tree = new TreeActor(this, pos);
@@ -417,15 +424,45 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		//g[i]->SetPopPos(poppos[i]);
 	}
 	// TODO: ギミックウォールの詳細設定
-	// 現状力業すらできなかった。。。
-	if (gGlobal._SelectStage == 0) {
+	switch (gGlobal._SelectStage) {
+	case 0:
 		gw[0]->SetIsActive(false);
 		gw[1]->SetIsActive(false);
 		gw[2]->SetIsActive(false);
 		gw[3]->SetIsActive(true);
 		gw[2]->SetActor(g[0]);
 		gw[3]->SetActor(g[0]);
-	}
+		break;
+	case 1:
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(true);
+		gw[2]->SetIsActive(true);
+		gw[3]->SetIsActive(false);
+		gw[4]->SetIsActive(true);
+		gw[5]->SetIsActive(false);
+		gw[6]->SetIsActive(true);
+		gw[7]->SetIsActive(false);
+		gw[8]->SetIsActive(true);
+		gw[9]->SetIsActive(false);
+		gw[10]->SetIsActive(true);
+		gw[11]->SetIsActive(false);
+		gw[12]->SetIsActive(true);
+		gw[0]->SetActor(g[0]);
+		gw[1]->SetActor(g[0]);
+		gw[2]->SetActor(g[0]);
+		gw[3]->SetActor(g[1]);
+		gw[4]->SetActor(g[1]);
+		gw[5]->SetActor(g[2]);
+		gw[6]->SetActor(g[2]);
+		gw[7]->SetActor(g[3]);
+		gw[8]->SetActor(g[3]);
+		gw[9]->SetActor(g[4]);
+		gw[10]->SetActor(g[4]);
+		gw[11]->SetActor(g[5]);
+		gw[12]->SetActor(g[5]);
+		break;
+	};
+
 	return true;
 }
 

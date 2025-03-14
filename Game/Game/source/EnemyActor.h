@@ -4,11 +4,13 @@
 #include "EnemyStruct.h"
 
 class EnemySpawnerActor;
+class GroupSpawnerActor;
 
 class EnemyActor : public ActorClass {
 public:
 
 	EnemyActor(class ModeBase* mode,VECTOR pos = VGet(0,0,0), class EnemySpawnerActor* es = nullptr);
+	EnemyActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0), class GroupSpawnerActor* es = nullptr);
 	virtual ~EnemyActor();
 
 
@@ -32,6 +34,7 @@ private:
 	class HitCollisionComponent* _HCollision;
 
 	class EnemySpawnerActor* _Spawner;
+	class GroupSpawnerActor* _GroupSpawner;
 
 };
 

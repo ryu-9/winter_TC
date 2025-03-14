@@ -6,6 +6,7 @@
 #include "PlayerActor.h"
 #include "SnowComponent.h"
 #include "EnemySpawnerActor.h"
+#include "GroupAttackActor.h"
 
 EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	:ActorClass(mode)
@@ -16,9 +17,21 @@ EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	_Input = new MoveComponent(this);
 }
 
+EnemyActor::EnemyActor(ModeBase* mode, VECTOR pos, GroupSpawnerActor* es) 
+	:ActorClass(mode)
+	, _GroupSpawner(es) 
+{
+	SetPosition(pos);
+	SetSize(VGet(2, 2, 2));
+	_Input = new MoveComponent(this);
+}
+
 EnemyActor::~EnemyActor() {
 	if (_Spawner != nullptr) {
 		_Spawner->DecrementPopCnt();
+	}
+	if (_GroupSpawner != nullptr) {
+		_GroupSpawner->DecrementPopCnt();
 	}
 }
 

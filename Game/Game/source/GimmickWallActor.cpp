@@ -1,5 +1,5 @@
 #include "GimmickWallActor.h"
-
+#include "GroupAttackActor.h"
 GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECTOR rot, int type, ActorClass* actor)
 	:ActorClass(mode)
 	, _Actor(actor)
@@ -11,9 +11,9 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	_Model = new ModelComponent(this, "res/Stage/model/EnemyWall/E_WALL.mv1");
 	//_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip.mv1");
 	_Model->SetScale(VGet(2,2,2));
-	_Model->SetPosition(VGet(50, -50, -50));
+	_Model->SetPosition(VGet(0, -50, 0));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0, 0, 0), VGet(1, 1, 1), 6, false, true, handle);
+	_MCollision = new MoveCollisionComponent(this,_Model, VGet(0, 0, 0), VGet(0.6, 0.6, 0.6), 6, false, true, handle);
 	_MCollision->RefleshCollInfo();
 
 
@@ -22,7 +22,7 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	
 
 	if (!_IsActive) {
-		_Move = 400 * GetSize().y;
+		_Move = 300 * GetSize().y ;
 		_Model->SetPosition(VGet(0, -_Move, 0));
 		_MCollision->SetIsActive(false);
 	}
@@ -34,6 +34,14 @@ GimmickWallActor::~GimmickWallActor()
 
 void GimmickWallActor::UpdateActor()
 {
+
+	// èWícêÌóp
+	auto g = dynamic_cast<GroupSpawnerActor*>(_Actor);
+	if (g != nullptr && !_IsActive) {
+		if (g->GetActive()) {
+			SetIsActive(true);
+		}
+	}
 	if (_Actor != nullptr) {
 		if (_Actor->GetState() != State::eActive) {
 			SetIsActive(false);
@@ -42,16 +50,16 @@ void GimmickWallActor::UpdateActor()
 	if (_IsActive && _Move) {
 		float move = GetMode()->GetStepTm() * GetSize().y;
 		_Move -= move;
-		if (_Move <= 0) {
-			_Move = 0;
+		if (_Move <= 50) {
+			_Move = 50;
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}
-	else if (!_IsActive && _Move < GetSize().y * 400) {
+	else if (!_IsActive && _Move < GetSize().y * 300) {
 		float move = GetMode()->GetStepTm() * GetSize().y;
 		_Move += move;
-		if (_Move >= GetSize().y * 400) {
-			_Move = GetSize().y * 400;
+		if (_Move >= GetSize().y * 300) {
+			_Move = GetSize().y * 300;
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}

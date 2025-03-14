@@ -39,9 +39,14 @@ void GroupSpawnerActor::UpdateActor() {
 	}
 	else {
 		_TmCnt += GetMode()->GetStepTm();
-
+		if (_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0) {
+			_Active = false;
+			SetState(State::ePaused);
+		}
 		if (_TmCnt < _Data.pop_time) { return; }
-		if (_PopCnt >= _Data.max_popcount) { return; }
+		if (_PopCnt >= _Data.max_pop) { return; }
+		if (_TotalPopCnt >= _Data.max_popcount) { return; }
+		
 		auto dist = new int[_PopPos.size()];
 		for (auto i = 0; i < _PopPos.size(); i++) {
 			dist[i] = VSize(VSub(_Player[0]->GetPosition(), _PopPos[i]));
@@ -64,16 +69,13 @@ void GroupSpawnerActor::UpdateActor() {
 
 		// ƒGƒŠƒA“à‚É¶¬
 		
-		EnemyCreator::GetInstance()->Create(GetMode(), rand() % 2, 0, VAdd(_PopPos[max], pos));
+		EnemyCreator::GetInstance()->Create(GetMode(), 0, VAdd(_PopPos[max], pos),this);
 		_PopCnt++;
 		_TotalPopCnt++;
 		_TmCnt = 0;
 
 		delete[] dist;
-		if (_TotalPopCnt >= _Data.max_popcount) {
-			_Active = false;
-			SetState(State::ePaused);
-		}
+		
 	}
 }
 

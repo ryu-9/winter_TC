@@ -235,24 +235,6 @@
       }
     },
     {
-      "objectName": "",
-      "translate": {
-        "x": 85.0,
-        "y": -2161.0,
-        "z": 195.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 0.5,
-        "y": 0.5,
-        "z": 0.5
-      }
-    },
-    {
       "objectName": "Cube",
       "translate": {
         "x": -1293.0,
@@ -559,7 +541,7 @@
       }
     },
     {
-      "objectName": "1",
+      "objectName": "gim1",
       "translate": {
         "x": 0.0,
         "y": -440.0,
@@ -1549,7 +1531,7 @@
       }
     },
     {
-      "objectName": "2",
+      "objectName": "gim2",
       "translate": {
         "x": 20.0,
         "y": -1420.0,
