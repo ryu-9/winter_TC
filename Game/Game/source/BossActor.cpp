@@ -13,7 +13,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	, _ActionIndex(0)
 	, _ActTime(0)
 	, _ActTotalTime(0)
-	, _HitPoint(1000)
+	, _HitPoint(3000)
 {
 	SetPosition(pos);
 	_Input = new MoveComponent(this);
