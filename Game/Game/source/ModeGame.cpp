@@ -345,7 +345,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if ((name2.erase(name2.size() - 1, 1) == "Group_Area_Box_No")) {
 			std::string nm = data.at("objectName");
 			nm = nm.back();
-			//auto g = new GroupSpawnerActor(this, pos);
+		//	auto g = new GroupSpawnerActor(this, pos);
 			auto n = std::stoi(nm)-1;
 			g[n] = new GroupSpawnerActor(this, pos);
 			g[n]->SetDirection(rot);
@@ -397,12 +397,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	// TODO: ギミックウォールの詳細設定
 	// 現状力業すらできなかった。。。
 	if (gGlobal._SelectStage == 0) {
-		gw[0]->SetIsActive(true);
-	/*	gw[1]->SetIsActive(true);
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(false);
 		gw[2]->SetIsActive(false);
 		gw[3]->SetIsActive(true);
 		gw[2]->SetActor(g[0]);
-		gw[3]->SetActor(g[0]);*/
+		gw[3]->SetActor(g[0]);
 	}
 	return true;
 }

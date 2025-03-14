@@ -19,6 +19,24 @@
       }
     },
     {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -1.0,
+        "y": -2235.0,
+        "z": 198.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 3.0,
+        "z": 3.0
+      }
+    },
+    {
       "objectName": "Goal_flag",
       "translate": {
         "x": 40.0,
@@ -181,6 +199,24 @@
       }
     },
     {
+      "objectName": "Wall1",
+      "translate": {
+        "x": 10.0,
+        "y": -3890.0,
+        "z": 390.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
       "objectName": "Cube",
       "translate": {
         "x": 7.0,
@@ -283,7 +319,7 @@
         "z": 0.0
       },
       "scale": {
-        "x": 6.0,
+        "x": 3.0,
         "y": 3.0,
         "z": 3.0
       }
@@ -307,7 +343,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner7",
       "translate": {
         "x": 790.0,
         "y": -3150.0,
@@ -397,11 +433,11 @@
       }
     },
     {
-      "objectName": "Group_Area_Box_No1",
+      "objectName": "3",
       "translate": {
         "x": 7.0,
         "y": -3140.0,
-        "z": 370.0
+        "z": 260.0
       },
       "rotate": {
         "x": 0.0,
@@ -721,7 +757,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner6",
       "translate": {
         "x": 830.0,
         "y": -3640.0,
@@ -1171,7 +1207,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner2",
       "translate": {
         "x": -610.0,
         "y": -3170.0,
@@ -1189,7 +1225,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner3",
       "translate": {
         "x": -790.0,
         "y": -3630.0,
@@ -1351,7 +1387,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner4",
       "translate": {
         "x": -200.0,
         "y": -3670.0,
@@ -1495,7 +1531,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner5",
       "translate": {
         "x": 210.0,
         "y": -3660.0,
@@ -1531,7 +1567,7 @@
       }
     },
     {
-      "objectName": "Spawner1",
+      "objectName": "Spawner8",
       "translate": {
         "x": 600.0,
         "y": -3170.0,
@@ -1780,24 +1816,6 @@
         "x": 6.0999,
         "y": 12.0,
         "z": 1.0
-      }
-    },
-    {
-      "objectName": "Wall4",
-      "translate": {
-        "x": 10.0,
-        "y": -3890.0,
-        "z": 400.0
-      },
-      "rotate": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0
-      },
-      "scale": {
-        "x": 6.0,
-        "y": 1.0,
-        "z": 4.0
       }
     }
   ]
