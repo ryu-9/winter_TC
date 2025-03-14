@@ -9,6 +9,7 @@ public:
 	void Draw() override;
 
 	void AddMoveCollision(MoveCollisionComponent* mc) { _MCList.push_back(mc); }
+	void AddMoveCollision2(MoveCollisionComponent* mc) { _MCList2.push_back(mc); }
 
 private:
 	VERTEX3D* _Snow;
@@ -23,6 +24,7 @@ private:
 
 
 	std::deque<MoveCollisionComponent*> _MCList;
+	std::deque<MoveCollisionComponent*> _MCList2;
 	std::deque<MoveCollisionComponent*> _OldMCList;
 
 	int _Split;

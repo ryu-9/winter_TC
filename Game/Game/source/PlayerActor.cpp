@@ -9,6 +9,7 @@
 #include "PunchActor.h"
 #include "LaserActor.h"
 #include "SlashActor.h"
+#include "DaikanpaActor.h"
 #include "PlayerMoveCollisionComponent.h"
 #include "ItemActor.h"
 #include "TreeActor.h"
@@ -30,7 +31,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
-	, _ItemNum(0)
+	, _ItemNum(3)
 
 {
 	if (_PlayerNo == 1) {
@@ -53,6 +54,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_TopModelHandle[0] = _TopModel->GetHandle();
 	_TopModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Upbody_not outlined.mv1");
 	_TopModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Upbody_Blade_not_outlined.mv1");
+	_TopModelHandle[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/Upbody_Golden_not outlined.mv1");
 	for (int i = 0; i < 4; i++) {
 		MV1SetVisible(_TopModelHandle[i], FALSE);
 	}
@@ -68,6 +70,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModelHandle[0] = _BottomModel->GetHandle();
 	_BottomModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Downbody_not outlined.mv1");
 	_BottomModelHandle[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/Downbody_Blade_not_outlined.mv1");
+	_BottomModelHandle[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/Downbody_Golden_not outlined.mv1");
 	for (int i = 0; i < 4; i++) {
 		MV1SetVisible(_BottomModelHandle[i], FALSE);
 	}
@@ -99,6 +102,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[5] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_up.mv1");
 	_AnimationModel[6] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1");
 	_AnimationModel[7] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_ztaireitou.mv1");
+	_AnimationModel[8] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1");
 
 
 	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
@@ -119,7 +123,12 @@ void PlayerActor::UpdateActor() {
 	for (auto mc : _MCollision->GetCollResult()) {
 		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
 		for (auto s : snow) {
-			s->AddMoveCollision(_MCollision);
+			if (!_ModeNum) {
+				s->AddMoveCollision(_MCollision);
+			}
+			else {
+				s->AddMoveCollision2(_MCollision);
+			}
 		}
 	}
 
@@ -146,7 +155,13 @@ void PlayerActor::UpdateActor() {
 	int animOrder = (int)anim::Wait;
 
 	if (_ModeNum > 0) {
-		_AnimTime += (float)GetMode()->GetStepTm() / 10;
+
+		if (_Animation == (int)anim::Daikanpa) {
+			_AnimTime += (float)GetMode()->GetStepTm() / 30;
+		}
+		else {
+			_AnimTime += (float)GetMode()->GetStepTm() / 10;
+		}
 		//ChangeAnim(animOrder);
 		//_Friend->ChangeAnim(animOrder);
 		if (_AnimTime > _AnimTotalTime) {
@@ -347,10 +362,8 @@ void PlayerActor::UpdateActor() {
 			}
 
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
-			if (tree != nullptr && _Input->GetDashFlag()) {
+			if (tree != nullptr) {
 				tree->DropItem();
-				_Input->SetDashTime(0);
-				_Input->SetVelocity(VGet(0, 0, 0));
 			}
 
 
@@ -361,6 +374,7 @@ void PlayerActor::UpdateActor() {
 	case 1:
 	case 3:
 	case 5:
+	case 7:
 	{
 		if (_Input->GetKey() & PAD_INPUT_3) {
 			_SeparateTime += dt;
@@ -438,6 +452,7 @@ void PlayerActor::UpdateActor() {
 	case 2:
 	case 4:
 	case 6:
+	case 8:
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
 		VECTOR tmphitpos = _Cursor->GetHitPos();
@@ -521,6 +536,20 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 
+		if (_Animation == (int)anim::Daikanpa) {
+			if (!_PunchFlag) {
+				VECTOR tmpdir = dir;
+				tmpdir.y = 0;
+				tmpdir = VNorm(tmpdir);
+
+				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
+				tmppos.y = -GetSize().y * 200 - _Friend->GetSize().y * 25;
+				//tmpdir = VScale(tmpdir, -1);
+				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
+				_PunchFlag = true;
+			}
+		}
+
 		if (_PunchIndex[0] != -2) {
 			float rate = 1 + dir.y;
 			rate /= 2;
@@ -535,7 +564,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		VECTOR fripos = _Friend->GetPosition();
-		SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 160, fripos.z), VScale(VGet(0, 80, 0), GetSize().x)));
+		//SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 160, fripos.z), VScale(VGet(0, 80, 0), GetSize().x)));
 	}
 
 	break;
@@ -571,7 +600,7 @@ void PlayerActor::ChangeMode(int mode)
 
 	case 0:
 		if (_ModeNum % 2 == 1) {
-			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, -2*GetSize().y, 0)));
+			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, 2*GetSize().y, 0)));
 		}
 		_MCollision->SetIsActive(true);
 		_ModeNum = 0;
@@ -598,7 +627,9 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50,50,50), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_HCollision->SetRSize(VGet(200, 200, 200));
 		break;
 
 	case 2:
@@ -611,6 +642,7 @@ void PlayerActor::ChangeMode(int mode)
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
 
@@ -623,7 +655,9 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_HCollision->SetRSize(VGet(200, 200, 200));
 		break;
 
 	case 4:
@@ -635,6 +669,7 @@ void PlayerActor::ChangeMode(int mode)
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
 	case 5:
@@ -646,7 +681,9 @@ void PlayerActor::ChangeMode(int mode)
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_HCollision->SetRSize(VGet(200, 200, 200));
 		break;
 
 	case 6:
@@ -658,6 +695,33 @@ void PlayerActor::ChangeMode(int mode)
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
+		_Input->SetVelocity(VGet(0, 0, 0));
+		break;
+
+	case 7:
+		_ModeNum = 7;
+		_BottomModel->SetHandle(_BottomModelHandle[3]);
+		_BottomModel->SetVisible(true);
+		_BallModel->SetVisible(false);
+		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_Input->SetDashTime(GetSize().x * 2000);
+		_Input->SetDashDownTime(1000);
+		_Input->SetVelocity(VGet(0, 0, 0));
+		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
+		_HCollision->SetRSize(VGet(200, 200, 200));
+		break;
+
+	case 8:
+		_ModeNum = 8;
+		_TopModel->SetHandle(_TopModelHandle[3]);
+		_TopModel->SetVisible(true);
+		_BallModel->SetVisible(false);
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_MCollision->SetIsActive(false);
+		_Cursor->Init();
+		_Input->SetGravity(0);
+		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
 	}
@@ -737,6 +801,13 @@ void PlayerActor::ChangeAnim(int a) {
 		changeSucFlag = true;
 		break;
 
+	case (int)anim::Daikanpa:
+		index = MV1GetAnimIndex(_AnimationModel[8], "dankanha_motion");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[8], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[8], TRUE);
+		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+		changeSucFlag = true;
+		break;
 
 
 	}
@@ -774,6 +845,7 @@ void PlayerActor::Init()
 	_Input->SetDashTime(0);
 	_Input->SetGravity(1);
 	SetSize(VGet(0.1, 0.1, 0.1));
+	_HCollision->SetRSize(VGet(100, 100, 100));
 
 	// _AnimationRate のキーを使用してアニメーションをデタッチ
 	for (const auto& animRate : _AnimationRate) {

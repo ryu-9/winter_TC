@@ -57,6 +57,7 @@ private:
 		Punch,
 		Laser,
 		Blade,
+		Daikanpa,
 		Damage,
 		Num
 	};
