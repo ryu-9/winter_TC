@@ -6,7 +6,7 @@ DaikanpaActor::DaikanpaActor(ModeBase* mode, ActorClass* owner, VECTOR pos, VECT
 	:ActorClass(mode)
 	, _Owner(owner)
 	, _Pos(pos)
-	, _Dir(dir)
+	, _Dir(VScale(dir, -1))
 	, _LifeTime(6000)
 {
 	SetPosition(VAdd(_Pos, _Owner->GetPosition()));
@@ -26,12 +26,8 @@ void DaikanpaActor::UpdateActor()
 {
 
 	_LifeTime -= GetMode()->GetStepTm();
-	float dist = VDot(_Pos, _Dir);
-	_Pos = VAdd(_Pos, VScale(_Dir, -dist));
-	_Dir = _Owner->GetDirection();
-	_Pos = VAdd(_Pos, VScale(_Dir, dist));
 	SetPosition(VAdd(_Pos, _Owner->GetPosition()));
-	VECTOR old = VAdd(GetPosition(), VScale(_Dir, _Owner->GetSize().x * 1000));
+	VECTOR old = VAdd(GetPosition(), VScale(_Dir, _Owner->GetSize().x * 5000));
 	_HCollision->SetOldPosition(old);
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {

@@ -92,7 +92,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
+	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
@@ -545,6 +545,7 @@ void PlayerActor::UpdateActor() {
 				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
 				tmppos.y = -GetSize().y * 200 - _Friend->GetSize().y * 25;
 				//tmpdir = VScale(tmpdir, -1);
+				tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
 				_PunchFlag = true;
 			}
