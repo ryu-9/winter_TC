@@ -315,7 +315,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	case 2:
 		poppos.resize(3);
 		g.resize(3);
-		gw.resize(10);
+		gw.resize(30);
 		break;
 		// TODO: ウォールの個数修正
 	default:

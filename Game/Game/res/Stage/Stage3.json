@@ -1,1 +1,2686 @@
-{"Stage":[{"objectName":"Wall18","translate":{"x":0.0,"y":-6450.0,"z":250.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":4.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-5600.0,"z":-190.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":22.0,"y":16.0,"z":4.7999}},{"objectName":"Cube","translate":{"x":-450.0,"y":0.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-1050.0,"y":-3300.0,"z":400.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":30.0,"z":7.0}},{"objectName":"Cube","translate":{"x":-1150.0,"y":-5950.0,"z":285.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":9.0,"z":5.0}},{"objectName":"17","translate":{"x":2400.0,"y":-3100.0,"z":-100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":26.0,"y":14.0,"z":3.0}},{"objectName":"Cube","translate":{"x":3490.0,"y":-3600.0,"z":-150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Cube","translate":{"x":450.0,"y":-4500.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":6.0,"z":5.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-4700.0,"z":140.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":1.8}},{"objectName":"Cube","translate":{"x":-1400.0,"y":-1700.0,"z":170.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":2.3999}},{"objectName":"Cube","translate":{"x":-800.0,"y":-7600.0,"z":81.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":10.0,"z":9.8000}},{"objectName":"Cube","translate":{"x":-2050.0,"y":-1750.0,"z":395.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":5.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-300.0,"y":-3170.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":6.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-330.0,"y":-1970.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Wall18","translate":{"x":2000.0,"y":-2350.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":18.0,"y":1.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-1700.0,"y":-3600.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":36.0,"z":3.0}},{"objectName":"Spawner45","translate":{"x":3490.0,"y":-3550.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":2800.0,"y":-4100.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":18.0,"y":6.0,"z":8.0}},{"objectName":"Cube","translate":{"x":450.0,"y":-2850.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":7.0,"z":5.0}},{"objectName":"Cube","translate":{"x":-2350.0,"y":-5697.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":4.0}},{"objectName":"Cube","translate":{"x":2390.0,"y":-3100.0,"z":-300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":26.0,"y":14.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":720.0,"y":-5260.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":800.0,"y":-7600.0,"z":71.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":10.0,"z":9.8000}},{"objectName":"Cube","translate":{"x":-900.0,"y":-9497.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":20.0,"z":9.0}},{"objectName":"Cube","translate":{"x":-550.0,"y":-2150.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":7.0,"z":5.0}},{"objectName":"Cube","translate":{"x":450.0,"y":0.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":3.0}},{"objectName":"Cube","translate":{"x":3340.0,"y":-2350.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":7.0,"y":1.0,"z":8.0}},{"objectName":"Spawner45","translate":{"x":1430.0,"y":-3550.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-7847.0,"z":-381.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":0.5999}},{"objectName":"BP_Bro_spawn","translate":{"x":-170.0,"y":110.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":2000.0,"y":-1700.0,"z":-300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":18.0,"y":14.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-650.0,"y":-4500.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":7.0,"y":6.0,"z":5.0}},{"objectName":"BP_maguma","translate":{"x":0.0,"y":-2150.0,"z":51.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":7.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":2610.0,"y":-3040.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-300.0,"y":-10794.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":6.0,"z":9.0}},{"objectName":"Cube","translate":{"x":2950.0,"y":-1650.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":15.0,"z":8.0}},{"objectName":"Cube","translate":{"x":-400.0,"y":-700.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":6.0,"z":3.0}},{"objectName":"Cube","translate":{"x":-800.0,"y":-1850.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.0,"z":5.0}},{"objectName":"Spawner45","translate":{"x":-70.0,"y":-5750.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":700.0,"y":-9497.0,"z":-190.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":24.0,"y":20.0,"z":4.7999}},{"objectName":"Cube","translate":{"x":3740.0,"y":-3100.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":16.0,"z":8.0}},{"objectName":"Cube","translate":{"x":-2350.0,"y":-4549.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":17.0,"z":4.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":-1361.0,"y":-4065.0,"z":388.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1150.0,"y":-950.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":13.0,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":2450.0,"y":-7447.0,"z":-379.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":4.0}},{"objectName":"Wall18","translate":{"x":1050.0,"y":-5600.0,"z":280.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":16.0,"z":5.0}},{"objectName":"Cube","translate":{"x":700.0,"y":-10897.0,"z":-190.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":8.0,"z":4.7999}},{"objectName":"Cube","translate":{"x":2751.0,"y":-7797.0,"z":-215.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":4.0}},{"objectName":"Cube","translate":{"x":550.0,"y":-2150.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":7.0,"z":5.0}},{"objectName":"BP_tree","translate":{"x":-2607.0,"y":-3421.0,"z":395.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_tree","translate":{"x":2503.0,"y":-7821.0,"z":-361.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Wall18","translate":{"x":0.0,"y":-4750.0,"z":380.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":550.0,"y":-3700.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":10.0,"z":5.0}},{"objectName":"BP_GM_BreakWall","translate":{"x":-2405.0,"y":-3696.0,"z":347.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":3.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-8447.0,"z":-201.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":4.2000}},{"objectName":"Cube","translate":{"x":-1750.0,"y":-1400.0,"z":345.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":6.0}},{"objectName":"Cube","translate":{"x":-2949.0,"y":-3397.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":8.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-1400.0,"y":-1100.0,"z":80.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":0.5999}},{"objectName":"Wall18","translate":{"x":1500.0,"y":-3850.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":4.0}},{"objectName":"BP_maguma","translate":{"x":690.0,"y":-5250.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-8300.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":4.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":450.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-4500.0,"z":110.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":1.2}},{"objectName":"Cube","translate":{"x":400.0,"y":-700.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":6.0,"z":3.0}},{"objectName":"Cube","translate":{"x":2150.0,"y":-5950.0,"z":-111.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":31.0,"z":6.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-2150.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":7.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":-890.0,"y":-6210.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2000.0,"y":-6047.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-1400.0,"y":-1300.0,"z":110.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":1.2}},{"objectName":"Cube","translate":{"x":0.0,"y":-4300.0,"z":80.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":0.5999}},{"objectName":"Cube","translate":{"x":1500.0,"y":-4100.0,"z":-370.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":2.0,"z":1.2}},{"objectName":"Cube","translate":{"x":1200.0,"y":-1400.0,"z":-130.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":2.3999}},{"objectName":"Cube","translate":{"x":-450.0,"y":-2850.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":3.0,"y":7.0,"z":5.0}},{"objectName":"Cube","translate":{"x":-1650.0,"y":-5700.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":4.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-3900.0,"z":-340.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":2.0,"z":1.8}},{"objectName":"Cube","translate":{"x":850.0,"y":-3300.0,"z":71.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":30.0,"z":9.8000}},{"objectName":"BP_01EnemySpawn","translate":{"x":380.0,"y":-1970.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-3700.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":10.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-2850.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":7.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2350.0,"y":-2399.0,"z":345.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":14.0,"z":6.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-8047.0,"z":-321.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":1.8}},{"objectName":"Cube","translate":{"x":-700.0,"y":-8300.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":4.0,"z":9.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-1400.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":22.0,"y":8.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-7600.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":10.0,"z":1.0}},{"objectName":"BP_01EnemySpawn","translate":{"x":10.0,"y":-2240.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":660.0,"y":-6200.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-550.0,"y":-3700.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":10.0,"z":5.0}},{"objectName":"Spawner45","translate":{"x":1910.0,"y":-3000.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-4300.0,"z":-400.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":2.0,"z":0.5999}},{"objectName":"BP_GM_BreakWall","translate":{"x":2104.0,"y":-8097.0,"z":-413.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":3.0}},{"objectName":"Cube","translate":{"x":1700.0,"y":-10794.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":12.0,"y":6.0,"z":9.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-7947.0,"z":-351.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":1.2}},{"objectName":"Cube","translate":{"x":1800.0,"y":-1400.0,"z":-220.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":0.5999}},{"objectName":"Cube","translate":{"x":1500.0,"y":-8247.0,"z":-261.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":0.0,"y":0.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":8.0,"z":1.0}},{"objectName":"Cube","translate":{"x":2400.0,"y":-7797.0,"z":-461.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":570.0,"y":-5680.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":-720.0,"y":-5670.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1938.0,"y":-3366.0,"z":160.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":1.5,"z":1.2}},{"objectName":"Cube","translate":{"x":-2650.0,"y":-3747.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":4.0}},{"objectName":"Cube","translate":{"x":1700.0,"y":-950.0,"z":-50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":24.0,"y":1.0,"z":8.0}},{"objectName":"Spawner45","translate":{"x":1280.0,"y":-2960.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-8347.0,"z":-231.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":3.6000}},{"objectName":"Cube","translate":{"x":1600.0,"y":-6297.0,"z":-461.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":10.0,"y":38.0,"z":1.0}},{"objectName":"BP_maguma","translate":{"x":-900.0,"y":-6200.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":1.0}},{"objectName":"Wall18","translate":{"x":-1150.0,"y":-5100.0,"z":500.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":6.0,"z":3.0}},{"objectName":"BP_tree","translate":{"x":-2007.0,"y":-5691.0,"z":405.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1600.0,"y":-1400.0,"z":-190.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":1.2}},{"objectName":"Spawner45","translate":{"x":3190.0,"y":-3040.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-700.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.0}},{"objectName":"Cube","translate":{"x":2300.0,"y":-9347.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":23.0,"z":9.0}},{"objectName":"Cube","translate":{"x":-1400.0,"y":-1500.0,"z":140.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":2.0,"z":1.8}},{"objectName":"Cube","translate":{"x":2250.0,"y":-3600.0,"z":-150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Spawner45","translate":{"x":700.0,"y":-6220.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1400.0,"y":-1400.0,"z":-160.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":2.0,"y":8.0,"z":1.8}},{"objectName":"Cube","translate":{"x":-2000.0,"y":-5697.0,"z":290.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.2}},{"objectName":"Cube","translate":{"x":-2600.0,"y":-3397.0,"z":290.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":6.0,"z":1.2}},{"objectName":"BP_maguma","translate":{"x":-60.0,"y":-5730.0,"z":50.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":2250.0,"y":-3550.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-1350.0,"y":-5450.0,"z":344.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":6.0}},{"objectName":"17","translate":{"x":-50.0,"y":-5600.0,"z":200.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":21.0,"y":16.0,"z":3.0}},{"objectName":"Spawner45","translate":{"x":2910.0,"y":-3550.0,"z":-210.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"BP_tree","translate":{"x":30.0,"y":-3670.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-2650.0,"y":-3047.0,"z":445.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":5.0,"y":1.0,"z":2.0}},{"objectName":"Cube","translate":{"x":-700.0,"y":-6750.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":7.0,"z":9.0}},{"objectName":"Cube","translate":{"x":700.0,"y":-8300.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":4.0,"z":9.0}},{"objectName":"Cube","translate":{"x":700.0,"y":-6750.0,"z":-30.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":7.0,"z":9.0}},{"objectName":"Cube","translate":{"x":2401.0,"y":-8147.0,"z":-219.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":4.0}},{"objectName":"BP_Sis_spawn","translate":{"x":60.0,"y":70.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":1500.0,"y":-8147.0,"z":-291.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":2.3999}},{"objectName":"BP_GM_BreakWall","translate":{"x":-2300.0,"y":-5500.0,"z":350.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":3.0}},{"objectName":"Cube","translate":{"x":0.0,"y":-6750.0,"z":0.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":7.0,"z":1.0}},{"objectName":"17","translate":{"x":700.0,"y":-9500.0,"z":130.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":24.0,"y":20.0,"z":4.0}},{"objectName":"Wall18","translate":{"x":0.0,"y":-8450.0,"z":250.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":6.0,"y":1.0,"z":4.0}},{"objectName":"Wall18","translate":{"x":1500.0,"y":-8450.0,"z":260.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":5.0}},{"objectName":"Wall18","translate":{"x":700.0,"y":-10544.0,"z":250.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":8.0,"y":1.0,"z":4.0}},{"objectName":"Cube","translate":{"x":-300.0,"y":-10294.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Cube","translate":{"x":1700.0,"y":-10294.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Spawner45","translate":{"x":-300.0,"y":-10240.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":1690.0,"y":-10240.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":190.0,"y":-9780.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":740.0,"y":-9434.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Spawner45","translate":{"x":1190.0,"y":-9960.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":740.0,"y":-9440.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Cube","translate":{"x":-300.0,"y":-9054.0,"z":150.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":4.0,"y":4.0,"z":2.0}},{"objectName":"Spawner45","translate":{"x":-330.0,"y":-9060.0,"z":300.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"Spawner45","translate":{"x":1450.0,"y":-9130.0,"z":100.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}},{"objectName":"laststage","translate":{"x":720.0,"y":-13280.0,"z":-350.0},"rotate":{"x":90.0,"y":0.0,"z":0.0},"scale":{"x":2000.0,"y":2000.0,"z":2000.0}},{"objectName":"Goal_flag","translate":{"x":620.0,"y":-13300.0,"z":10.0},"rotate":{"x":0.0,"y":0.0,"z":0.0},"scale":{"x":1.0,"y":1.0,"z":1.0}}]}
+{
+  "Stage": [
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -5600.0,
+        "z": -190.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 22.0,
+        "y": 16.0,
+        "z": 4.7999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -450.0,
+        "y": 150.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 11.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1050.0,
+        "y": -3300.0,
+        "z": 400.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 30.0,
+        "z": 7.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1150.0,
+        "y": -5950.0,
+        "z": 285.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 9.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No1",
+      "translate": {
+        "x": 2400.0,
+        "y": -3100.0,
+        "z": -100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 26.0,
+        "y": 14.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 3490.0,
+        "y": -3600.0,
+        "z": -150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 450.0,
+        "y": -4500.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 6.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Ramp",
+      "translate": {
+        "x": -400.0,
+        "y": 700.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": -3.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -4700.0,
+        "z": 140.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1400.0,
+        "y": -1700.0,
+        "z": 170.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 2.3999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -300.0,
+        "y": -9054.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -800.0,
+        "y": -7600.0,
+        "z": 81.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 10.0,
+        "z": 9.8000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2050.0,
+        "y": -1750.0,
+        "z": 395.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": 0.0,
+        "y": -2820.0,
+        "z": 340.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -330.0,
+        "y": -1970.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -300.0,
+        "y": -10294.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1700.0,
+        "y": -3600.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 36.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 3490.0,
+        "y": -3550.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2800.0,
+        "y": -4100.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 18.0,
+        "y": 6.0,
+        "z": 8.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 450.0,
+        "y": -2850.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 7.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2350.0,
+        "y": -5697.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2390.0,
+        "y": -3100.0,
+        "z": -300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 26.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 800.0,
+        "y": -7600.0,
+        "z": 71.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 10.0,
+        "z": 9.8000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -900.0,
+        "y": -9497.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 20.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -550.0,
+        "y": -2150.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 7.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 3340.0,
+        "y": -2350.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 7.0,
+        "y": 1.0,
+        "z": 8.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 1430.0,
+        "y": -3550.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -7847.0,
+        "z": -381.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "BP_Bro_spawn",
+      "translate": {
+        "x": -170.0,
+        "y": 110.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2000.0,
+        "y": -1700.0,
+        "z": -300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 18.0,
+        "y": 14.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -650.0,
+        "y": -4500.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 7.0,
+        "y": 6.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Maguma",
+      "translate": {
+        "x": 0.0,
+        "y": -2150.0,
+        "z": 51.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 7.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 2610.0,
+        "y": -3040.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -300.0,
+        "y": -10794.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 6.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2950.0,
+        "y": -1650.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 15.0,
+        "z": 8.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -400.0,
+        "y": -700.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 6.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -800.0,
+        "y": -1850.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 700.0,
+        "y": -9497.0,
+        "z": -190.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 24.0,
+        "y": 20.0,
+        "z": 4.7999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 3740.0,
+        "y": -3100.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 16.0,
+        "z": 8.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2350.0,
+        "y": -4549.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 17.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": -1361.0,
+        "y": -4065.0,
+        "z": 388.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1150.0,
+        "y": -950.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 13.0,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2450.0,
+        "y": -7447.0,
+        "z": -379.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 700.0,
+        "y": -10897.0,
+        "z": -190.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 8.0,
+        "z": 4.7999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2751.0,
+        "y": -7797.0,
+        "z": -215.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 8.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 550.0,
+        "y": -2150.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 7.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -2607.0,
+        "y": -3421.0,
+        "z": 395.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": 2503.0,
+        "y": -7821.0,
+        "z": -361.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 550.0,
+        "y": -3700.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 10.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -2365.0,
+        "y": -3396.0,
+        "z": 497.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -8447.0,
+        "z": -201.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 4.2000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1750.0,
+        "y": -1400.0,
+        "z": 345.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 8.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2949.0,
+        "y": -3397.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 8.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1400.0,
+        "y": -1100.0,
+        "z": 80.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "Maguma",
+      "translate": {
+        "x": 690.0,
+        "y": -5250.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -8300.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 4.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -4500.0,
+        "z": 110.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 400.0,
+        "y": -700.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 6.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2150.0,
+        "y": -5950.0,
+        "z": -111.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 31.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -2150.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 7.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2000.0,
+        "y": -6047.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1400.0,
+        "y": -1300.0,
+        "z": 110.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -4300.0,
+        "z": 80.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -4100.0,
+        "z": -370.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 2.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1200.0,
+        "y": -1400.0,
+        "z": -130.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 2.3999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -450.0,
+        "y": -2850.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 3.0,
+        "y": 7.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1650.0,
+        "y": -5700.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -3900.0,
+        "z": -340.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 2.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 850.0,
+        "y": -3300.0,
+        "z": 71.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 30.0,
+        "z": 9.8000
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 450.0,
+        "y": 150.0,
+        "z": 200.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 11.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": 380.0,
+        "y": -1970.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -3700.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -2850.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2350.0,
+        "y": -2399.0,
+        "z": 345.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 14.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -8047.0,
+        "z": -321.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -700.0,
+        "y": -8300.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 4.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -1400.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 22.0,
+        "y": 8.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -7600.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 10.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_01EnemySpawn",
+      "translate": {
+        "x": 10.0,
+        "y": -2240.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Maguma",
+      "translate": {
+        "x": 660.0,
+        "y": -6200.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -550.0,
+        "y": -3700.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 10.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 1910.0,
+        "y": -3000.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -4300.0,
+        "z": -400.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 2.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": 2194.0,
+        "y": -7797.0,
+        "z": -263.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1700.0,
+        "y": -10794.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 12.0,
+        "y": 6.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -7947.0,
+        "z": -351.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1800.0,
+        "y": -1400.0,
+        "z": -220.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 0.5999
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -8247.0,
+        "z": -261.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1700.0,
+        "y": -10294.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 8.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2400.0,
+        "y": -7797.0,
+        "z": -461.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1938.0,
+        "y": -3366.0,
+        "z": 160.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 1.5,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2650.0,
+        "y": -3747.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1700.0,
+        "y": -950.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 24.0,
+        "y": 1.0,
+        "z": 8.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 1280.0,
+        "y": -2960.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -8347.0,
+        "z": -231.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 3.6000
+      }
+    },
+    {
+      "objectName": "Goal_flag",
+      "translate": {
+        "x": 620.0,
+        "y": -13300.0,
+        "z": 10.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1600.0,
+        "y": -6297.0,
+        "z": -461.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 10.0,
+        "y": 38.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Maguma",
+      "translate": {
+        "x": -900.0,
+        "y": -6200.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": -2007.0,
+        "y": -5691.0,
+        "z": 405.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1600.0,
+        "y": -1400.0,
+        "z": -190.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 3190.0,
+        "y": -3040.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -700.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2300.0,
+        "y": -9347.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 23.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1400.0,
+        "y": -1500.0,
+        "z": 140.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 2.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2250.0,
+        "y": -3600.0,
+        "z": -150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1400.0,
+        "y": -1400.0,
+        "z": -160.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2.0,
+        "y": 8.0,
+        "z": 1.8
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2000.0,
+        "y": -5697.0,
+        "z": 290.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2600.0,
+        "y": -3397.0,
+        "z": 290.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 6.0,
+        "z": 1.2
+      }
+    },
+    {
+      "objectName": "Maguma",
+      "translate": {
+        "x": -60.0,
+        "y": -5730.0,
+        "z": 50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 2250.0,
+        "y": -3550.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -1350.0,
+        "y": -5450.0,
+        "z": 344.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 6.0
+      }
+    },
+    {
+      "objectName": "laststage",
+      "translate": {
+        "x": 720.0,
+        "y": -13280.0,
+        "z": -350.0
+      },
+      "rotate": {
+        "x": 90.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 2000.0,
+        "y": 2000.0,
+        "z": 2000.0
+      }
+    },
+    {
+      "objectName": "Spawner1",
+      "translate": {
+        "x": 2910.0,
+        "y": -3550.0,
+        "z": -210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "BP_tree",
+      "translate": {
+        "x": 30.0,
+        "y": -3670.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -2650.0,
+        "y": -3047.0,
+        "z": 445.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 5.0,
+        "y": 1.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": -700.0,
+        "y": -6750.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 7.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 700.0,
+        "y": -8300.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 4.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 700.0,
+        "y": -6750.0,
+        "z": -30.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 7.0,
+        "z": 9.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 740.0,
+        "y": -9434.0,
+        "z": 150.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 4.0,
+        "y": 4.0,
+        "z": 2.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 2401.0,
+        "y": -8147.0,
+        "z": -219.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "BP_Sis_spawn",
+      "translate": {
+        "x": 60.0,
+        "y": 70.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 1500.0,
+        "y": -8147.0,
+        "z": -291.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 2.3999
+      }
+    },
+    {
+      "objectName": "BP_GM_BreakWall",
+      "translate": {
+        "x": -2000.0,
+        "y": -5460.0,
+        "z": 500.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Cube",
+      "translate": {
+        "x": 0.0,
+        "y": -6750.0,
+        "z": 0.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Wall18",
+      "translate": {
+        "x": 2000.0,
+        "y": -2350.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 18.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall19",
+      "translate": {
+        "x": 1500.0,
+        "y": -3850.0,
+        "z": -50.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall20",
+      "translate": {
+        "x": 0.0,
+        "y": -4750.0,
+        "z": 380.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 3.0
+      }
+    },
+    {
+      "objectName": "Wall21",
+      "translate": {
+        "x": -1150.0,
+        "y": -5100.0,
+        "z": 550.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 6.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall22",
+      "translate": {
+        "x": 0.0,
+        "y": -6450.0,
+        "z": 240.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall23",
+      "translate": {
+        "x": 1050.0,
+        "y": -5600.0,
+        "z": 300.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 16.0,
+        "z": 5.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No2",
+      "translate": {
+        "x": -50.0,
+        "y": -5600.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 21.0,
+        "y": 16.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": -730.0,
+        "y": -5660.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": 610.0,
+        "y": -5660.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": 700.0,
+        "y": -5260.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": 700.0,
+        "y": -6200.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": -910.0,
+        "y": -6200.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner2",
+      "translate": {
+        "x": -60.0,
+        "y": -5720.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Wall24",
+      "translate": {
+        "x": 0.0,
+        "y": -8450.0,
+        "z": 250.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 6.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall25",
+      "translate": {
+        "x": 1500.0,
+        "y": -8446.0,
+        "z": 210.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Wall26",
+      "translate": {
+        "x": 700.0,
+        "y": -10550.0,
+        "z": 250.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 8.0,
+        "y": 1.0,
+        "z": 4.0
+      }
+    },
+    {
+      "objectName": "Group_Area_Box_No3",
+      "translate": {
+        "x": 700.0,
+        "y": -9500.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 24.0,
+        "y": 20.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": -320.0,
+        "y": -9060.0,
+        "z": 320.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": -320.0,
+        "y": -10300.0,
+        "z": 320.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": 1720.0,
+        "y": -10300.0,
+        "z": 320.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": 740.0,
+        "y": -9420.0,
+        "z": 320.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": 180.0,
+        "y": -9780.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": 1220.0,
+        "y": -9960.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    },
+    {
+      "objectName": "Spawner3",
+      "translate": {
+        "x": 1530.0,
+        "y": -9080.0,
+        "z": 100.0
+      },
+      "rotate": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "scale": {
+        "x": 1.0,
+        "y": 1.0,
+        "z": 1.0
+      }
+    }
+  ]
+}
