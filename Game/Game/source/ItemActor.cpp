@@ -36,6 +36,22 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		_Move->SetGravity(0.1);
 		_Move->SetFallLimit(2);
 		break;
+
+	case 11:
+		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
+		_Model->SetScale(VGet(0.4, 0.4, 0.4));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(30, 30, 30), 2, true, true);
+		_Move = new MoveComponent(this);
+		position = VGet(0, 200, 0);
+		break;
+
+	case 12:
+		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
+		_Model->SetScale(VGet(0.4, 0.4, 0.4));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 200, 0), VGet(30, 30, 30), 2, true, true);
+		_Move = new MoveComponent(this);
+		position = VGet(0, 200, 0);
+		break;
 	}
 
 

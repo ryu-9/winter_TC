@@ -3,6 +3,7 @@
 #include "StageBox.h"
 #include "BreakableBoxActor.h"
 #include "PlayerActor.h"
+#include "TreeActor.h"
 
 
 
@@ -59,6 +60,14 @@ void DaikanpaActor::UpdateActor()
 		if (ice != nullptr) {
 			ice->StartBreak();
 		}
+
+		auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
+		if (tree != nullptr) {
+			tree->DropItem();
+			tree->SetState(State::eDead);
+		}
+
+
 
 	}
 	if (_LifeTime <= 0||_pOwner->GetModeNum() <=0) {

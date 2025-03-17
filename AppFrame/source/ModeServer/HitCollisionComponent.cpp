@@ -107,7 +107,7 @@ VECTOR HitCollisionComponent::GetSize() {
 
 VECTOR HitCollisionComponent::GetUp()
 {
-	if (Type <= 2) {
+	if (Type <= 2 || _Model == nullptr) {
 		return VGet(0, 1, 0);
 	}
 	return _Model->GetUp();
@@ -115,7 +115,7 @@ VECTOR HitCollisionComponent::GetUp()
 
 VECTOR HitCollisionComponent::GetFront()
 {
-	if (Type <= 2) {
+	if (Type <= 2 || _Model == nullptr) {
 		return VGet(0, 0, 1);
 	}
 	return _Model->GetFront();

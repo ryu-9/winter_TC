@@ -7,6 +7,7 @@
 #include "SnowComponent.h"
 #include "EnemySpawnerActor.h"
 #include "GroupAttackActor.h"
+#include "ItemActor.h"
 
 EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	:ActorClass(mode)
@@ -33,6 +34,14 @@ EnemyActor::~EnemyActor() {
 	if (_GroupSpawner != nullptr) {
 		_GroupSpawner->DecrementPopCnt();
 	}
+
+	//todo: Death()ŠÖ”‚ðì¬‚µ‚ÄA‚»‚±‚Åˆ—‚ðs‚¤
+
+	auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, 100, 0)), 11 + rand() % 2);
+	auto m = item->GetComponent<MoveComponent>()[0];
+	VECTOR dir = VGet(0, 0, 0);
+	dir = VTransform(dir, MGetRotY((float)(rand() % 360) / 180.0f * DX_PI));
+	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
 }
 
 void EnemyActor::Init() {

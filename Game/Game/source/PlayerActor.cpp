@@ -111,7 +111,17 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	//EffectController::GetInstance()->AddEffectFlag(pee[pee.size() - 1], "Fog", false);
 	//EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 
-	
+	int debug;
+	if (_PlayerNo == 1) {
+		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Surprised");
+		debug = MV1AttachAnim(_BallModel->GetHandle(), 0, _BallModel->GetHandle(), TRUE);
+	}
+	else {
+		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Yukidama_sis_surprised");
+		debug = MV1AttachAnim(_BallModel->GetHandle(), 0, _BallModel->GetHandle(), TRUE);
+	}
+
+
 }
 
 PlayerActor::~PlayerActor()
@@ -157,6 +167,7 @@ void PlayerActor::UpdateActor() {
 		_FallTime += dt;
 		if (_FallTime > 1000) {
 			Damage(GetSize().x/2);
+			_ChangeFlag = false;
 			_Input->SetVelocity(VGet(0, 0, 0));
 			if (_Friend->GetPosition().y > -750) {
 				SetPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
@@ -175,6 +186,19 @@ void PlayerActor::UpdateActor() {
 
 	int animOrder = (int)anim::Wait;
 
+	if (_ModeNum == 0) {
+		_AnimTime -= (float)dt/ 10;
+		if (_AnimTime < 0) {
+			_AnimTime = 0;
+		}
+		if (_AnimTime > 60) {
+			MV1SetAttachAnimTime(_BallModel->GetHandle(), 0, 60);
+		}
+		else {
+			MV1SetAttachAnimTime(_BallModel->GetHandle(), 0, _AnimTime);
+		}
+	
+	}
 	if (_ModeNum > 0) {
 
 		if (_Animation == (int)anim::Daikanpa) {
@@ -281,10 +305,12 @@ void PlayerActor::UpdateActor() {
 			_InvincibleTime -= dt;
 			if (_InvincibleTime / 50 % 2) {
 				_BallModel->SetVisible(false);
-			} else {
+			}
+			else {
 				_BallModel->SetVisible(true);
 			}
-		} else {
+		}
+		else {
 			_BallModel->SetVisible(true);
 		}
 
@@ -333,7 +359,8 @@ void PlayerActor::UpdateActor() {
 						ChangeAnim((int)anim::Change);
 						_Friend->ChangeAnim((int)anim::Change);
 
-					} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
+					}
+					else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
 						_Friend->ChangeMode(2 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
 						ChangeMode(1 + _ItemNum * 2);
@@ -379,17 +406,33 @@ void PlayerActor::UpdateActor() {
 					}
 					_ItemNum = item->GetType();
 					_Friend->SetItemNum(_ItemNum);
+					break;
+
+				case 11:
+				case 12:
+					_Item[itemnum - 10]++;
+					if (_Item[itemnum - 10] > 5) {
+						_Item[itemnum - 10] = 0;
+						if (_ItemNum == 0) {
+							_ItemNum = itemnum - 10;
+							_Friend->SetItemNum(_ItemNum);
+						}
+						else {
+							DropItem(VScale(_Input->GetDashDir(), -1), itemnum - 10);
+						}
+					}
+					_Friend->SetDropItem(itemnum - 10, _Item[itemnum - 10]);
+					break;
+
+					continue;
 				}
-				break;
 
-				continue;
+				auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
+				if (tree != nullptr && _Input->GetDashFlag()) {
+					tree->DropItem();
+					_Input->SetDashTime(0);
+				}
 			}
-
-			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
-			if (tree != nullptr) {
-				tree->DropItem();
-			}
-
 
 		}
 	}
@@ -489,7 +532,7 @@ void PlayerActor::UpdateActor() {
 		}
 		if (_Input->GetKey() & PAD_INPUT_3) {
 			_SeparateTime += dt;
-			if (_SeparateTime > 1000&&_Friend->GetSeparateTime()>1000) {
+			if (_SeparateTime > 1000 && _Friend->GetSeparateTime() > 1000) {
 				ChangeMode(0);
 			}
 		}
@@ -568,7 +611,7 @@ void PlayerActor::UpdateActor() {
 
 				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
 				//tmppos = VAdd(tmppos, VGet(-200, 0, 0));
-				tmppos.y = -400;
+				tmppos.y = GetSize().y * -100;
 				//tmpdir = VScale(tmpdir, -1);
 				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
@@ -919,6 +962,7 @@ void PlayerActor::AddSize(float size, bool flag)
 void PlayerActor::Damage(float damage) {
 	if (_ModeNum == 0 && _InvincibleTime <= 0) {
 		_InvincibleTime = 1000;
+		_AnimTime = 120;
 		if (_Input->GetDashFlag()) {
 			damage /= 2;
 		}

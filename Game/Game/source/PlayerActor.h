@@ -42,6 +42,8 @@ public:
 	void SetItemNum(int num) { _ItemNum = num; }
 	void DropItem(VECTOR dir, int num);
 
+	void SetDropItem(int i, int n) { _Item[i] = n; }
+
 	void AddSize(float size, bool flag = false);
 
 	int GetSeparateTime() { return _SeparateTime; }
@@ -114,6 +116,8 @@ private:
 	int _SeparateTime;
 
 	VECTOR _StartPos;
+
+	int _Item[2] = { 0,0 };
 
 };
 
