@@ -1,23 +1,23 @@
 #include "SourceVoiceItemEffect.h"
 #include "SourceVoiceItem.h"
 
-SourceVoiceItemEffect::SourceVoiceItemEffect(SourceVoiceItem* sv) {
+SourceVoiceItemEffectBase::SourceVoiceItemEffectBase(SourceVoiceItem* sv) {
 	_SV = sv;
 }
 
-SourceVoiceItemEffectFade::SourceVoiceItemEffectFade(SourceVoiceItem* sv)
-	:SourceVoiceItemEffect(sv) 
+SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
+	:SourceVoiceItemEffectBase(sv) 
 	, _FadeTime(0)
 	, _FadeTimeMax(0)
 {
 	_VolumeStart = _SV->GetVolume();
-	_ToDestroy = true;
+	_Destroy = true;
 }
 
-SourceVoiceItemEffectFade::~SourceVoiceItemEffectFade() {
+SVItemVolumeFade::~SVItemVolumeFade() {
 }
 
-void SourceVoiceItemEffectFade::Update() {
+void SVItemVolumeFade::Update() {
 	// TODO: Mode‚ÉG‚Á‚ÄŠÔ‚ğæ“¾‚·‚é
 	_FadeTime += 0.016;
 	float rate = _FadeTime / _FadeTimeMax;

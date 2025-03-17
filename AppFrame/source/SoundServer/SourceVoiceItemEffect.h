@@ -2,23 +2,24 @@
 
 class SourceVoiceItem;
 
-class SourceVoiceItemEffect {
+class SourceVoiceItemEffectBase {
 public:
-	SourceVoiceItemEffect(class SourceVoiceItem* sv);
-	virtual ~SourceVoiceItemEffect() {};
+	SourceVoiceItemEffectBase(class SourceVoiceItem* sv);
+	virtual ~SourceVoiceItemEffectBase() {};
 
 	virtual void Update() = 0;
 	
 
 protected:
 	class SourceVoiceItem* _SV;
-	bool _ToDestroy;
+	bool _Destroy;
+	bool _DestroyOwner;
 };
 
-class SourceVoiceItemEffectFade : public SourceVoiceItemEffect {
+class SVItemVolumeFade : public SourceVoiceItemEffectBase {
 public:
-	SourceVoiceItemEffectFade(class SourceVoiceItem* sv);
-	virtual ~SourceVoiceItemEffectFade();
+	SVItemVolumeFade(class SourceVoiceItem* sv);
+	virtual ~SVItemVolumeFade();
 	void Update() override;
 
 
