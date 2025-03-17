@@ -1,5 +1,7 @@
 #include "GroupAttackActor.h"
 #include "EnemyCreator.h"
+#include "ModeGame.h"
+#include "CameraActor.h"
 
 GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos)
 	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0)
@@ -31,6 +33,16 @@ void GroupSpawnerActor::UpdateActor() {
 				n++;
 				if (n >= 2) {
 					_Active = true;
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
+					
+					VECTOR* p = new VECTOR;
+					*p = GetPosition();
+					p->y += 1000;
+					p->z += -500;
+					c->SetTarget2(&_Position);
+					c->SetPosition2(p);
+					c->SetEasing(1000);
 					break;
 				}
 			}
@@ -41,6 +53,11 @@ void GroupSpawnerActor::UpdateActor() {
 		_TmCnt += GetMode()->GetStepTm();
 		if (_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0) {
 			_Active = false;
+			auto g = dynamic_cast<ModeGame*>(GetMode());
+			auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
+			c->DeletePosition2();
+			c->SetTarget2(nullptr);
+			c->SetPosition2(nullptr);
 			SetState(State::ePaused);
 		}
 		if (_TmCnt < _Data.pop_time) { return; }

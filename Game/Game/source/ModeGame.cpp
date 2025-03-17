@@ -223,7 +223,8 @@ bool ModeGame::Update()
 
 bool ModeGame::Render() {
 
-
+	auto pos = GetCameraPosition();
+	auto dir = GetCameraTarget();
 
 
 	SetUseZBuffer3D(TRUE);
