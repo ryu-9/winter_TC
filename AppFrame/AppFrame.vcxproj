@@ -188,6 +188,7 @@
     <ClInclude Include="source\SoundServer\SEComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
+    <ClInclude Include="source\SoundServer\SourceVoiceItemEffect.h" />
     <ClInclude Include="source\SoundServer\WAVRead.h" />
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +216,7 @@
     <ClCompile Include="source\SoundServer\SEComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
+    <ClCompile Include="source\SoundServer\SourceVoiceItemEffect.cpp" />
     <ClCompile Include="source\SoundServer\WAVRead.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
