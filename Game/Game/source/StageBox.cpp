@@ -4,13 +4,26 @@
 StageBox::StageBox(ModeBase* mode)
 	:ActorClass(mode)
 {
+	/*
 	auto m = new ModelComponent(this, "res/model/Mapchip/Mapchip.mv1");
 	m->SetScale(VGet(2,2,2));
 	m->SetPosition(VGet(0, -50, 0));
 	SetDirection(VGet(0, 0, 0));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
 	_MCollision = new MoveCollisionComponent(this, m, VGet(0,1,0), VGet(0.5,0.5,0.5),6, false, true, handle);
-	//coll->SetRSize(VGet(0.1, 0.1, 0.1));
+	*/
+	_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken.mv1", 101);
+	_Model->SetScale(VGet(2, 2, 2));
+	_Model->SetPosition(VGet(0, -50, 0));
+	int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
+	_AnimIndex = MV1AttachAnim(_Model->GetHandle(), index, _Model->GetHandle(), TRUE);
+	_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);
+	SetDirection(VGet(0, 0, 0));
+	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
+	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+	handle = ModelServer::GetInstance()->Add("res/cube.mv1");
+	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+
 
 }
 
@@ -21,8 +34,21 @@ StageBox::~StageBox()
 
 void StageBox::UpdateActor()
 {
-	//auto model = GetComponent<ModelComponent>();
-	//model->SetRotation(VAdd(model->GetRotation(), VGet(0, 0.001, 0)));
+	if (_AnimCount > 0)
+	{
+		_AnimCount += GetMode()->GetStepTm() / 5;
+		MV1SetAttachAnimTime(_Model->GetHandle(), _AnimIndex, _AnimCount);
+		if (_AnimCount >= _AnimTotalTime)
+		{
+			_Life -= GetMode()->GetStepTm();
+			auto s = -_Model->GetScale().y * (8000 - _Life) / 8000;
+			_Model->SetScale(VAdd(_Model->GetScale(), VGet(0, -_Model->GetScale().y * (8000 - _Life) / 8000, 0)));
+			if (_Life <= 0)
+			{
+				SetState(State::eDead);
+			}
+		}
+	}
 }
 
 void StageBox::Init()
@@ -36,4 +62,12 @@ void StageBox::Init()
 			new SnowComponent(this, p.Dim[i], true, true, true);
 		}
 	}
+	MV1CollResultPolyDimTerminate(p);
+}
+
+void StageBox::StartBreak()
+{
+	_MCollision->SetIsActive(false);
+	_HCollision->SetIsActive(false);
+	_AnimCount = 1;
 }

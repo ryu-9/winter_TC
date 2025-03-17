@@ -31,6 +31,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _PunchIndex{ -2, -2 }
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
+	, _FallTime(0)
 	, _ItemNum(3)
 
 {
@@ -152,6 +153,26 @@ void PlayerActor::UpdateActor() {
 	}
 
 	
+	if (GetPosition().y < -750) {
+		_FallTime += dt;
+		if (_FallTime > 1000) {
+			Damage(GetSize().x/2);
+			_Input->SetVelocity(VGet(0, 0, 0));
+			if (_Friend->GetPosition().y > -750) {
+				SetPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
+				_MCollision->SetOldPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
+			}
+			else {
+				SetPosition(VAdd(_StartPos, VGet(0, 50 * GetSize().y, 0)));
+				_MCollision->SetOldPosition(VAdd(_StartPos, VGet(0, 50 * GetSize().y, 0)));
+			}
+		}
+	}
+	else {
+		_FallTime = 0;
+	}
+
+
 	int animOrder = (int)anim::Wait;
 
 	if (_ModeNum > 0) {
@@ -305,10 +326,13 @@ void PlayerActor::UpdateActor() {
 				dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
 				if (dist < (friSize + GetSize().y) * 100) {
 					if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
+
+
+						_Friend->ChangeMode(1 + _ItemNum * 2);
 						ChangeMode(2 + _ItemNum * 2);
 						ChangeAnim((int)anim::Change);
-						_Friend->ChangeMode(1 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
+
 					} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
 						_Friend->ChangeMode(2 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
@@ -543,9 +567,10 @@ void PlayerActor::UpdateActor() {
 				tmpdir = VNorm(tmpdir);
 
 				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
-				tmppos.y = -GetSize().y * 200 - _Friend->GetSize().y * 25;
+				//tmppos = VAdd(tmppos, VGet(-200, 0, 0));
+				tmppos.y = -400;
 				//tmpdir = VScale(tmpdir, -1);
-				tmppos = VGet(0, 0, 0);
+				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
 				_PunchFlag = true;
 			}
@@ -725,6 +750,10 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
+	}
+
+	if (mode > 0) {
+		_ItemNum = 0;
 	}
 }
 

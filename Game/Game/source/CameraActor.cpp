@@ -111,19 +111,30 @@ void CameraComponent::ProcessInput()
 	}
 
 
-	/*
-		_ShadowMap[0]->SetTarget(VAdd(v, VGet(0, -v.y - 100, 0)));
-	_ShadowMap[0]->SetMinLength(VGet(-dist, -dist, -dist));
-	_ShadowMap[0]->SetMaxLength(VGet(dist, dist, dist));
-	_ShadowMap[1]->SetTarget(_Player[0]->GetPosition());
-	_ShadowMap[1]->SetMinLength(VGet(-200, -_Player[0]->GetPosition().y, -200));
-	_ShadowMap[2]->SetTarget(_Player[1]->GetPosition());
-	_ShadowMap[2]->SetMinLength(VGet(-200, -_Player[1]->GetPosition().y, -200));
-	*/
-	//auto cam = dynamic_cast<CameraActor*>(_Owner);
-	//cam->SetTarget(VAdd(v, VScale(angle, dist)));
-	_Owner->SetPosition(v);
-	_Owner->SetDirection(VAdd(v, VScale(angle, _Dist)));
+	VECTOR camtarget;
+	if (_Target2 == nullptr) {
+		camtarget = v;
+	}
+	else {
+		camtarget = VAdd(VScale(*_Target2, (float)(_Easing[0] - _Easing[1])/_Easing[0]), VScale(v, (float)_Easing[1]/_Easing[0]));
+		_Easing[1] -= GetOwner()->GetMode()->GetStepTm();
+		if (_Easing[1] < 0) { _Easing[1] = 0; }
+	}
+
+	VECTOR campos;
+	if (_Position2 == nullptr) {
+		campos = VAdd(v, VScale(angle, _Dist));
+	}
+	else {
+		campos = VAdd(VScale(*_Position2, (float)(_Easing[0] - _Easing[1]) / _Easing[0]), VScale(VAdd(v, VScale(angle, _Dist)), (float)_Easing[1] / _Easing[0]));
+		_Easing[1] -= GetOwner()->GetMode()->GetStepTm();
+		if (_Easing[1] < 0) { _Easing[1] = 0; }
+	}
+
+
+
+	_Owner->SetPosition(camtarget);
+	_Owner->SetDirection(campos);
 	_Owner->SetSize(VScale(VGet(0.1, 0.1, 0.1), _Dist));
 	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
 	SetCameraPositionAndTarget_UpVecY(_Owner->GetDirection(), _cOwner->GetPosition());

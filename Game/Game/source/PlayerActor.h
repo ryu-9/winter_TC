@@ -46,6 +46,8 @@ public:
 
 	int GetSeparateTime() { return _SeparateTime; }
 
+	void SetStartPos(VECTOR pos) { _StartPos = pos; }
+
 
 private:
 
@@ -107,9 +109,11 @@ private:
 
 	int _ItemNum;
 
+	int _FallTime;
 
 	int _SeparateTime;
 
+	VECTOR _StartPos;
 
 };
 
