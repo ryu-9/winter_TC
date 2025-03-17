@@ -87,6 +87,17 @@ void SourceVoiceItem::ResetPlayTm(int playhz) {
 	_SV->SetVolume(_Volume);
 }
 
+void SourceVoiceItem::AddEffect(SourceVoiceItemEffectBase* effect) {
+	_Effects.push_back(effect);
+}
+
+void SourceVoiceItem::RemoveEffect(SourceVoiceItemEffectBase* effect) {
+	auto iter = std::find(_Effects.begin(), _Effects.end(), effect);
+	if (iter != _Effects.end()) {
+		_Effects.erase(iter);
+	}
+}
+
 void SourceVoiceItem::Update() {
 	if (_Volume == 0.0f) {
 		_SV->Stop();

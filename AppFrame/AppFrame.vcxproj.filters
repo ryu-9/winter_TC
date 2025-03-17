@@ -103,7 +103,7 @@
       <Filter>EffectServer</Filter>
     </ClInclude>
     <ClInclude Include="source\SoundServer\SourceVoiceItemEffect.h">
-      <Filter>ModeServer</Filter>
+      <Filter>SoundServer\SourceVoice</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +183,7 @@
       <Filter>EffectServer</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundServer\SourceVoiceItemEffect.cpp">
-      <Filter>Application</Filter>
+      <Filter>SoundServer\SourceVoice</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

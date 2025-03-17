@@ -7,12 +7,6 @@ class SoundServer;
 
 class SourceVoiceItem{
 public:
-
-	enum class EFFECT {
-		FADE,
-
-	};
-
 	SourceVoiceItem(std::string wavname,int playhz = 0,int loop = 0);
 	virtual ~SourceVoiceItem();
 
@@ -33,11 +27,16 @@ public:
 
 	virtual void ResetPlayTm(int playhz);
 
+	void AddEffect(class SourceVoiceItemEffectBase* effect);
+	void RemoveEffect(class SourceVoiceItemEffectBase* effect);
+
+
 	void Update();
 
 private:
 	std::string _WavName;
 	IXAudio2SourceVoice* _SV;
+	std::vector<class SourceVoiceItemEffectBase*> _Effects;
 
 	float _Volume;
 	bool _VolumeChanged;

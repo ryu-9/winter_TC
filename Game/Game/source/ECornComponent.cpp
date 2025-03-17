@@ -189,7 +189,7 @@ bool ECornComponent::CoolTime() {
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
-		_Status = STATUS::COOLTIME;
+		_Status = STATUS::SEARCH;
 	}
 	return false;
 }

@@ -215,7 +215,7 @@ bool ModeGame::Process() {
 bool ModeGame::Update()
 {
 	base::Update();
-	if (_Player[0]->GetModeNum() == 3 && _Player[1]->GetModeNum() == 3) {
+	if (_Player[0]->GetModeNum() == -1 && _Player[1]->GetModeNum() ==-1) {
 		ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
 	}
 	return false;

@@ -5,30 +5,40 @@ class SourceVoiceItem;
 class SourceVoiceItemEffectBase {
 public:
 	SourceVoiceItemEffectBase(class SourceVoiceItem* sv);
-	virtual ~SourceVoiceItemEffectBase() {};
+	virtual ~SourceVoiceItemEffectBase();
 
-	virtual void Update() = 0;
+	virtual void SetUp() {};
+	virtual void Update() {};
 	
 
 protected:
 	class SourceVoiceItem* _SV;
 	bool _Destroy;
 	bool _DestroyOwner;
+	bool _isUnique;				// 重複しないエフェクトか
 };
 
 class SVItemVolumeFade : public SourceVoiceItemEffectBase {
+	typedef SourceVoiceItemEffectBase base;
 public:
 	SVItemVolumeFade(class SourceVoiceItem* sv);
-	virtual ~SVItemVolumeFade();
 	void Update() override;
 
 
 private:
 	float _FadeTime;
 	float _FadeTimeMax;
-	float _Volume;
 	float _VolumeStart;
 	float _VolumeEnd;
 };
 
+class SVItemPitchRand : public SourceVoiceItemEffectBase {
+	typedef SourceVoiceItemEffectBase base;
+public:
+	SVItemPitchRand(class SourceVoiceItem* sv);
+	void SetUp() override;
+
+private:
+	int _Rand;
+};
 
