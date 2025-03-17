@@ -334,7 +334,6 @@ void SnowComponent::Draw()
 					int test = 0;
 				}
 			}
-			else { calc = 100; }
 
 		}
 		if(debugnum > 5000){
@@ -344,10 +343,85 @@ void SnowComponent::Draw()
 
 		auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
 		if (pl != nullptr) {
-			float tmp = vertexdepth * _Area / 10000000 / pl->GetSize().x;
-			pl->AddSize(tmp);
+			if (!pl->GetModeNum()) {
+				float tmp = vertexdepth * _Area / 10000000 / pl->GetSize().x;
+				pl->AddSize(tmp);
+			}
 		}
 	}
+
+
+
+
+	for (auto mc : _MCList2) {
+
+		float vertexdepth = 0;
+		if (mc == nullptr) {
+			continue;
+		}
+		num = 0;
+		que = 0;
+		olddist = 1000000000;
+		int debugnum = 0;
+		float size = mc->GetSize().x * mc->GetSize().x * 2;
+		for (int i = 0; i < _SnowSize; i++) {
+			debugnum++;
+			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0)));
+			if (dist > _Longest) {
+				break;
+			}
+			if (olddist > dist) {
+				flag = false;
+				olddist = dist;
+			}
+			if (num < i) {
+				if (flag) {
+					break;
+				}
+				que = sqrt(i * 2);
+				num = (que + 2) * (que + 3) / 2;
+				flag = true;
+			}
+
+			float depth = dist - size;
+			if (depth < 0) {
+				flag = false;
+				depth = sqrt(-depth);
+				if (depth < 30 && _Height[i] < -depth) {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = depth - 30;
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, +_Height[i], 0));
+				}
+				else {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = 0;
+				}
+				vertexdepth += depth - _Height[i];
+
+
+
+			}
+			calc--;
+			if (calc < 0) {
+				unsigned int nande = que * que * split;
+				if ((dist - size) > nande && flag) {
+					int t = dist - size;
+					t = sqrt(t);
+					t /= _Split;
+					t /= que + 1;
+					for (int j = 0; j < t; j++) {
+						i += que + j;
+					}
+					flag = false;
+					int test = 0;
+				}
+			}
+
+		}
+
+	}
+
+
 
 	if (_Flag) {
 		_Flag = FALSE;
@@ -378,6 +452,7 @@ void SnowComponent::Draw()
 
 	//_OldMCList = _MCList;
 	_MCList.clear();
+	_MCList2.clear();
 	return;
 
 }

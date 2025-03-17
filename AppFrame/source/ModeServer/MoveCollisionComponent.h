@@ -21,6 +21,8 @@ public:
 	void RefleshCollInfo();
 
 	VECTOR GetPosition();
+	void SetOldPosition(VECTOR pos) { OldPos = pos; }
+
 	VECTOR GetSize();
 
 	VECTOR GetUp();

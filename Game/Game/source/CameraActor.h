@@ -17,12 +17,15 @@ public:
 	 void SetTarget(VECTOR target) { _Taeget = target; }
 	 VECTOR GetTarget() { return _Taeget; }
 
+
+
 private:
 //	VECTOR	_vTarget;				// 距離
 	float	_clipNear, _clipFar;	// クリップ
 	class ActorClass* _Follow;		// 追従するアクター
 	class ModelComponent* _SkySphere;		// スカイスフィア
 	VECTOR _Taeget;
+
 };
 
 class CameraComponent : public Component
@@ -38,10 +41,18 @@ public:
 
 	float GetDist() const { return _Dist; }
 
+	void SetPosition2(VECTOR* pos) { _Position2 = pos; }
+	void DeletePosition2() { delete _Position2; }
+	void SetTarget2(VECTOR* target) { _Target2 = target; }
+	void DeleteTarget2() { delete _Target2; }
+	void SetEasing(int easing) { _Easing[0] = easing; _Easing[1] = easing; }
+
 private:
 	class CameraActor* _cOwner;
 	class PlayerActor* _Player[2];
 	class ShadowMapSpriteComponent* _ShadowMap[3];
 	float _Dist;
-	
+	VECTOR* _Position2;
+	VECTOR* _Target2;
+	int _Easing[2];
 };

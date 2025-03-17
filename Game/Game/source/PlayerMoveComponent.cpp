@@ -150,6 +150,7 @@ void PlayerMoveComponent::ProcessInput()
 	case 1:		// �����g�̈ړ�
 	case 3:
 	case 5:
+	case 7:
 	{
 
 
@@ -184,6 +185,10 @@ void PlayerMoveComponent::ProcessInput()
 				if (_DashDownTime >= 1000) {
 					dashFlag = true;
 					_DashTime -= dt;
+					if (_pOwner->GetModeNum() == 7) {
+						_DashTime += dt;
+						// ゴールデンは無敵！！！
+					}
 					_DashDownTime = 1000;
 					if (_DashTime <= 0) {
 						_DashTime = 0;
@@ -217,6 +222,9 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
+		if (_Key & PAD_INPUT_3 && _pOwner->GetModeNum() == 7) {
+			v.y = 10;
+		}
 
 		if (_Trg & PAD_INPUT_2) {
 			//_pOwner->SetSize(VGet(0.5, 0.5, 0.5));
@@ -237,6 +245,7 @@ void PlayerMoveComponent::ProcessInput()
 	case 2:
 	case 4:
 	case 6:
+	case 8:
 
 
 		//_pOwner->GetInput()->SetVelocity(_pOwner->GetFriend()->GetInput()->GetVelocity());

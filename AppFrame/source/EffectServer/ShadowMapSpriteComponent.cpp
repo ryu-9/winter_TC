@@ -43,6 +43,11 @@ void ShadowMapSpriteComponent::Draw()
 					}
 				}
 				if (flag) { continue; }
+				if (sp->GetOwner()->GetState() == ActorClass::State::eDead) {
+					RemoveSprite(sp);
+					continue;
+				}
+
 				sp->Draw();
 			}
 		}

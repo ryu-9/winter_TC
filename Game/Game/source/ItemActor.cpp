@@ -31,6 +31,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		_Model = new ModelComponent(this, "res/Stage/model/sword.mv1");
 		_Model->SetScale(VGet(3, 3, 3));
 		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+		_HCollision->SetIsActive(false);
 		_Move = new MoveComponent(this);
 		_Move->SetGravity(0.1);
 		_Move->SetFallLimit(2);
@@ -55,6 +56,7 @@ void ItemActor::UpdateActor()
 
 	if (_Move->GetStand()) {
 		_Move->SetVelocity(VGet(0, 0, 0));
+		_HCollision->SetIsActive(true);
 		if (_Type == 0) {
 			VECTOR size = _Model->GetScale();
 			size.y = 0.2;

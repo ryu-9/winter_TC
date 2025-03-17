@@ -170,7 +170,7 @@ bool ModeGame::Initialize() {
 	
 		
 	{ // デバッグ用
-		debug_hcoll_flag = true;
+		debug_hcoll_flag =false;
 		debug_mcoll_flag =false;
 
 		auto box = new StageBox(this);
@@ -350,13 +350,16 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			box->SetDirection(rot);
 			box->SetSize(scale);
 			box->GetMCollision()->RefleshCollInfo();
+			box->GetHCollision()->RefleshCollInfo();
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
+			_Player[0]->SetStartPos(pos);
 			_Player[0]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
+			_Player[1]->SetStartPos(pos);
 			_Player[1]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 		} else if (name == "GroupAttack_EnemySpawn") {

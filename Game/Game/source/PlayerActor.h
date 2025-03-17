@@ -46,6 +46,8 @@ public:
 
 	int GetSeparateTime() { return _SeparateTime; }
 
+	void SetStartPos(VECTOR pos) { _StartPos = pos; }
+
 
 private:
 
@@ -57,6 +59,7 @@ private:
 		Punch,
 		Laser,
 		Blade,
+		Daikanpa,
 		Damage,
 		Num
 	};
@@ -106,9 +109,11 @@ private:
 
 	int _ItemNum;
 
+	int _FallTime;
 
 	int _SeparateTime;
 
+	VECTOR _StartPos;
 
 };
 

@@ -62,12 +62,21 @@ std::deque<HitCollisionComponent*>& HitCollisionComponent::IsHit()
 			if (hcoll->GetOwner() != _Owner)
 			{
 				if (Type <= 2) {
-					if (HitCheck_Capsule_Capsule(GetPosition(), OldPos, GetSize().x, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x)) {
-						_IsHitList.insert(_IsHitList.begin(), hcoll);
+					if (hcoll->GetType() <= 2) {
+						if (HitCheck_Capsule_Capsule(GetPosition(), OldPos, GetSize().x, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x)) {
+							_IsHitList.insert(_IsHitList.begin(), hcoll);
+						}
 					}
+					else {
+						auto m = MV1CollCheck_Capsule(hcoll->GetHandle(), -1, GetPosition(), GetOldPosition(), GetSize().x);
+						if (m.HitNum > 0) {
+							_IsHitList.insert(_IsHitList.begin(), hcoll);
+						}
+						MV1CollResultPolyDimTerminate(m);
+					}
+
 				}
 				else {
-
 					auto m = MV1CollCheck_Capsule(Handle, -1, hcoll->GetPosition(), hcoll->GetOldPosition(), hcoll->GetSize().x);
 					if (m.HitNum > 0) {
 						_IsHitList.insert(_IsHitList.begin(), hcoll);
@@ -98,17 +107,23 @@ VECTOR HitCollisionComponent::GetSize() {
 
 VECTOR HitCollisionComponent::GetUp()
 {
-	return VECTOR();
+	if (Type <= 2) {
+		return VGet(0, 1, 0);
+	}
+	return _Model->GetUp();
 }
 
 VECTOR HitCollisionComponent::GetFront()
 {
-	return VECTOR();
+	if (Type <= 2) {
+		return VGet(0, 0, 1);
+	}
+	return _Model->GetFront();
 }
 
 VECTOR HitCollisionComponent::GetRight()
 {
-	return VECTOR();
+	return VCross(GetUp(), GetFront());
 }
 
 void HitCollisionComponent::DebugDraw()
@@ -117,11 +132,13 @@ void HitCollisionComponent::DebugDraw()
 		DrawCapsule3D(OldPos, GetPosition(), GetSize().x, 5, GetColor(0, 0, 255), 0, false);
 	}
 	else {
-		VECTOR test = GetPosition();
+		VECTOR pos = GetPosition();
 		MV1SetPosition(Handle, GetPosition());
-		test = GetSize();
+		VECTOR size = GetSize();
 		MV1SetScale(Handle, GetSize());
-		//MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
+		VECTOR front = GetFront();
+		VECTOR up = GetUp();
+		MV1SetRotationZYAxis(Handle, GetFront(), GetUp(), 0);
 		MV1DrawModel(Handle);
 	}
 
@@ -133,6 +150,7 @@ void HitCollisionComponent::SetRotation(VECTOR rot)
 
 void HitCollisionComponent::RefleshCollInfo()
 {
+	VECTOR pos = GetPosition();
 	MV1SetPosition(Handle, GetPosition());
 	VECTOR size = GetSize();
 	MV1SetScale(Handle, GetSize());
