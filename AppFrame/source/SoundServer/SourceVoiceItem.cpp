@@ -36,6 +36,7 @@ void SourceVoiceItem::Stop() {
 	auto s = new SVItemVolumeFade(this);
 	s->SetFadeTime(10);
 	s->SetVolume(0);
+
 	AddEffect(s);
 }
 

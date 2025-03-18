@@ -31,6 +31,10 @@ void SVItemVolumeFade::Update() {
 	vol *= vol;
 	_svItem->SetVolume(vol);
 
+	if (_FadeTime >= _FadeTimeMax && _Destroy) {
+		delete this;
+	}
+
 }
 
 SVItemPitchRand::SVItemPitchRand(SourceVoiceItem* sv)
