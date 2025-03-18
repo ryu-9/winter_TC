@@ -1,4 +1,5 @@
 #include "SourceVoiceItem.h"
+#include "SourceVoiceItemEffect.h"
 
 SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz,int loop)
 	:_SV(nullptr)
@@ -99,6 +100,12 @@ void SourceVoiceItem::RemoveEffect(SourceVoiceItemEffectBase* effect) {
 }
 
 void SourceVoiceItem::Update() {
+
+	// エフェクトの更新
+	for (auto effect : _Effects) {
+		effect->Update();
+	}
+
 	if (_Volume == 0.0f) {
 		_SV->Stop();
 		if (_ToDestroy == true) {
@@ -112,12 +119,7 @@ void SourceVoiceItem::Update() {
 	if (_VolumeChanged == false) {
 		return;
 	}
-	/* //別の場所に移動予定
-	auto vol = _Volume;
-	if (vol <= 1.0) {
-		vol *= _Volume;
-	}
-	*/
+	
 	_SV->SetVolume(_Volume);
 
 	_VolumeChanged = false;

@@ -1,6 +1,7 @@
 #pragma once
 
 class SourceVoiceItem;
+class ActorClass;
 
 class SourceVoiceItemEffectBase {
 public:
@@ -10,12 +11,11 @@ public:
 	virtual void SetUp() {};
 	virtual void Update() {};
 	
-
+	virtual bool IsUnique() { return false; }
 protected:
-	class SourceVoiceItem* _SV;
+	class SourceVoiceItem* _svItem;
 	bool _Destroy;
 	bool _DestroyOwner;
-	bool _isUnique;				// 重複しないエフェクトか
 };
 
 class SVItemVolumeFade : public SourceVoiceItemEffectBase {
@@ -38,7 +38,27 @@ public:
 	SVItemPitchRand(class SourceVoiceItem* sv);
 	void SetUp() override;
 
+	bool IsUnique() override { return true; }
 private:
 	int _Rand;
 };
 
+class SVItemDistanceDecay : public SourceVoiceItemEffectBase {
+	typedef SourceVoiceItemEffectBase base;
+public:
+	SVItemDistanceDecay(class SourceVoiceItem* sv);
+	void Update() override;
+
+private:
+	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
+};
+
+class SVItemPanning : public SourceVoiceItemEffectBase {
+	typedef SourceVoiceItemEffectBase base;
+public:
+	SVItemPanning(class SourceVoiceItem* sv);
+	void Update() override;
+
+private:
+	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
+};

@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 
+
+class Component;
 class SoundServer;
 
 class SourceVoiceItem{
@@ -30,6 +32,7 @@ public:
 	void AddEffect(class SourceVoiceItemEffectBase* effect);
 	void RemoveEffect(class SourceVoiceItemEffectBase* effect);
 
+	class Component* GetOwner() { return _Owner; }
 
 	void Update();
 
@@ -37,6 +40,7 @@ private:
 	std::string _WavName;
 	IXAudio2SourceVoice* _SV;
 	std::vector<class SourceVoiceItemEffectBase*> _Effects;
+	class Component* _Owner;
 
 	float _Volume;
 	bool _VolumeChanged;
