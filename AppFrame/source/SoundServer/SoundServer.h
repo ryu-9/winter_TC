@@ -23,12 +23,13 @@ public:
 
 
 	// ÉTÉEÉìÉhê∂ê¨ån
-	bool Add(std::string path,std::string name,bool isoverwrite);
+	bool Add(std::string path,std::string name,bool isoverwrite = false);
 	bool Create(class SEComponent* owner, std::string name);
 	bool Create(std::string name,IXAudio2SourceVoice*& sv,int hz = 0,int loop = 0);
 
-	bool Create(ActorClass* p, std::string name, std::string dataname);
+	bool Create(ActorClass* p, std::string name, std::string dataname , std::string mapname);
 
+	SourceVoiceItem* GetSourceVoice(ActorClass* p, std::string name) { return _SV[p][name]; }
 
 	void UpdateSound(ActorClass* p);
 

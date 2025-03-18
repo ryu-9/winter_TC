@@ -6,8 +6,8 @@ BGMComponent::BGMComponent(ActorClass* owner, bool deadtype, std::string name1, 
 	:SoundComponent(owner,deadtype)
 {
 	_Mode = dynamic_cast<ModeGame*>(owner->GetMode());
-	SetSourceVoice(new SourceVoiceItem(name1,0,XAUDIO2_LOOP_INFINITE));
-	if (name2 != "") { SetSourceVoice(new SourceVoiceItem(name2, 44100 * 3)); }
+	SetSourceVoice(new SourceVoiceItem());
+	if (name2 != "") { SetSourceVoice(new SourceVoiceItem()); }
 	_SV[0]->SetVolume(0.4);
 	if (_SV.size() > 2) { _SV[1]->SetVolume(0.4); }
 	

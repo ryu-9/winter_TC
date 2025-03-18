@@ -29,7 +29,7 @@ bool ModeTitle::Initialize()
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_ATTEND.wav", "tdx_attend");
 
 	auto s=new SoundComponent(ac,0);
-	auto sv = new SourceVoiceItem("sdx_bgm1");
+	auto sv = new SourceVoiceItem();
 	s->SetSourceVoice(sv);
 	_Bgm = ac;
 	sv->SetVolume(0.1);

@@ -35,7 +35,7 @@ SoundServer::~SoundServer() {
 }
 
 
-bool SoundServer::Add(std::string path,std::string name, bool isoverwrite) {
+bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 	// ƒTƒEƒ“ƒh‚Ì“Ç‚Ýž‚Ý
 	if (_WavData.count(name)&& !isoverwrite) { return true; }	
 	else {
@@ -75,7 +75,7 @@ bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int l
 	return true;
 }
 
-bool SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname) {
+bool SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname,std::string mapname) {
 	if (_WavData.count(wavname) == 0) { return false; }
 	
 	IXAudio2SourceVoice* sourceVoice = nullptr;
@@ -97,7 +97,7 @@ bool SoundServer::Create(ActorClass* p, std::string wavname, std::string datanam
 	auto sv = new SourceVoiceItem();
 	sv->SetSourceVoice(sourceVoice);
 	
-	_SV[p][dataname] = sv;
+	_SV[p][mapname] = sv;
 	
 	return true;
 }
