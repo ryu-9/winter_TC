@@ -10,6 +10,7 @@ PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	,_colSubY(40.f)
 	,_DashTime(0)
 	,_DashDir(VGet(0,0,1))
+	, _IsActive(true)
 	, _DashFlag(false)
 {
 
@@ -25,7 +26,7 @@ void PlayerMoveComponent::ProcessInput()
 	_Key = ApplicationMain::GetInstance()->GetKey(pn);
 	_Trg = ApplicationMain::GetInstance()->GetTrg(pn);
 
-	
+	if (!_IsActive) { return; }
 
 	// �J�����̌����Ă���p�x��擾
 	float sx = _pOwner->GetMode()->GetCamera()->GetPosition().x - _pOwner->GetMode()->GetCamera()->GetDirection().x;

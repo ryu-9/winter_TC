@@ -25,6 +25,7 @@ public:
 	void SetModel(class ModelComponent* model) { delete _Model; _Model = model; }
 	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
+	HitCollisionComponent* GetHitCollision() { return _HCollision; }
 private:
 
 

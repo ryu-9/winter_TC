@@ -3,6 +3,8 @@
 #include "Dxlib.h"
 #include "ModeBase.h"
 
+#include <map>
+
 
 class ModelComponent : public Component
 {
@@ -74,12 +76,14 @@ public:
 	void Draw() override;
 	void SetImage() override;
 
+	void AddMaterial(std::string name, COLOR_F value) { _Material[name] = value; }
+	void DelMaterial(std::string name) { _Material.erase(name); }
 	
 private:
 
 	class ModelComponent* _Model;
-
-
+	//std::deque<std::string> _Material;
+	std::map<std::string, COLOR_F> _Material;
 	
 };
 

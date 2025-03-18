@@ -22,6 +22,8 @@ public:
 
 	void SetDashDownTime(int time) { _DashDownTime = time; }	
 
+	void SetIsActive(bool flag) { _IsActive = flag; }
+
 private:
 	class PlayerActor* _pOwner;
 	int _DashTime;
@@ -36,6 +38,8 @@ private:
 	bool _JumpFlag;
 	
 	int _DashDownTime;
+
+	bool _IsActive;
 
 };
 

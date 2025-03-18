@@ -35,6 +35,8 @@ public:
 
 	void SetChangeFlag(bool flag) { _ChangeFlag = flag; }
 
+	void SetChangeTime(int time) { _ChangeTime = time; }
+
 	int GetKnockBackTime() { return _KnockBackTime; }
 
 	void Init();

@@ -171,8 +171,42 @@ void ModelSpriteComponent::Draw()
 	{
 		_Model->SetModelInfo();
 		// 描画
+		if (_Material.size() > 0)
+		{
+			MATERIALPARAM MatParam;
+			for (auto m : _Material)
+			{
+				if (m.first == "diffuse")
+				{
+					MatParam.Diffuse = m.second;	// ディフューズカラー
+				}
+				if (m.first == "ambient")
+				{
+					MatParam.Ambient = m.second;	// アンビエントカラー
+				}
+				if (m.first == "specular")
+				{
+					MatParam.Specular = m.second;	// スペキュラカラー
+					SetMaterialUseVertSpcColor(false);
+				}
+				if (m.first == "emissive")
+				{
+					MatParam.Emissive = m.second;	// エミッシブカラー
+				}
+				if (m.first == "power")
+				{
+					MatParam.Power = m.second.a;	// スペキュラの強さ
+				}
+			}
+			int debug = SetMaterialParam(MatParam);
+			int test = 0;
+		}
+
+
+
 		MV1DrawModel(_Model->GetHandle());
 		//DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
+		SetMaterialUseVertSpcColor(true);
 	}
 }
 

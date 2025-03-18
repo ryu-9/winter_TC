@@ -14,7 +14,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		_Model = new ModelComponent(this, "res/Stage/model/tree_tsumoriyuki.mv1");
 		_Model->SetScale(VGet(0.35, 0.4, 0.35));
 		_Model->SetPosition(VGet(0, -75, 0));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 300, 0), VGet(100, 100, 100), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
 		_Move = new MoveComponent(this);
 		position = VGet(0, 300, 0);
 		break;
@@ -22,7 +22,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	case 1:
 		_Model = new ModelComponent(this, "res/Stage/model/Denchi.mv1");
 		_Model->SetScale(VGet(6, 6, 6));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
 		_Move = new MoveComponent(this);
 		_Move->SetGravity(0.1);
 		_Move->SetFallLimit(2);
@@ -30,7 +30,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	case 2:
 		_Model = new ModelComponent(this, "res/Stage/model/sword.mv1");
 		_Model->SetScale(VGet(3, 3, 3));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
 		_HCollision->SetIsActive(false);
 		_Move = new MoveComponent(this);
 		_Move->SetGravity(0.1);
@@ -40,7 +40,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	case 11:
 		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
 		_Model->SetScale(VGet(0.4, 0.4, 0.4));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(30, 30, 30), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
 		_Move = new MoveComponent(this);
 		position = VGet(0, 200, 0);
 		break;
@@ -48,7 +48,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	case 12:
 		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
 		_Model->SetScale(VGet(0.4, 0.4, 0.4));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 200, 0), VGet(30, 30, 30), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
 		_Move = new MoveComponent(this);
 		position = VGet(0, 200, 0);
 		break;

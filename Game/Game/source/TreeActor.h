@@ -16,5 +16,7 @@ private:
 	HitCollisionComponent* _HCollision;
 	ModelComponent* _Model;
 	std::vector<class ItemActor*> _Item;
+	int _AnimTime;
+	float _AnimRate;
 };
 
