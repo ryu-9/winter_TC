@@ -170,7 +170,7 @@ bool ModeGame::Initialize() {
 	
 		
 	{ // デバッグ用
-		debug_hcoll_flag =false;
+		debug_hcoll_flag =true;
 		debug_mcoll_flag =false;
 
 		auto box = new StageBox(this);

@@ -25,7 +25,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1"));
 	_AnimMV1.push_back(0);
-	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));			// TODO: �Ђ�݃��[�V�����ɍ����ւ�
+	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/hirumimotion.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));
 
 	// �A�j���[�V�������̐ݒ�
@@ -34,7 +34,8 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	}
 
 	// ���f���̓ǂݍ���
-	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");		// �{��
+	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");
+	_Model[0]->SetVisible(false);
 
 	{
 		auto index = MV1GetAnimIndex(_AnimMV1[_Action], _AnimName[0]);
@@ -46,8 +47,10 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// �^�C�����C���̐ݒ�
 	std::vector<ACTION_TIMELINE> timeline;
-	timeline.push_back({ ACTION::PUNCH_FALL, 2000 });
-	timeline.push_back({ ACTION::PUNCH, 18000 });
+	timeline.push_back({ ACTION::BEAM, 6000 });
+	timeline.push_back({ ACTION::BULLET, 6000 });
+	timeline.push_back({ ACTION::BEAM, 6000 });
+	timeline.push_back({ ACTION::PUNCH, 4000 });
 	timeline.push_back({ ACTION::BULLET, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 
@@ -95,7 +98,15 @@ void BossActor::UpdateActor() {
 
 	MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex.back(), _AnimTime);
 
-	_HitPoint--;
+	// 当たり判定
+	auto hit = _HCollision->IsHit();
+	for (auto h : hit) {
+		auto p = dynamic_cast<PlayerActor*>(h);
+		if (p != nullptr) {
+			_HitPoint -= 10;
+		}
+	}
+
 	if (_HitPoint == 0) {
 		ChangeAnim(ACTION::DIE);
 		ChangeAction(ACTION::DIE);
@@ -195,7 +206,7 @@ bool BossActor::Bullet() {
 	} else {
 		_AnimTime += t / 20.f;
 	}
-	if (_AnimTime > 50) {
+	if (_AnimTime > 50 && _CurrentTime < 3000) {
 		_AnimTime = 47;
 	}
 	if (_CurrentTime > 2000 && _GenerateCnt == 0) {
@@ -208,7 +219,7 @@ bool BossActor::Bullet() {
 
 	if (_AnimTime > _AnimTotalTime) {
 		ChangeAnim(ACTION::WAIT);
-		ChangeAction(ACTION::WAIT);
+		ChangeAction(ACTION::WAIT); _GenerateCnt = 0;
 		return true;
 	}
 	return false;
@@ -217,12 +228,13 @@ bool BossActor::Bullet() {
 bool BossActor::Beam() {
 	auto t = (float)GetMode()->GetStepTm();
 	_AnimTime += t / 40.f;
-	if (_CurrentTime > 3000 && _GenerateCnt == 0) {
+	if (_CurrentTime > 2800 && _GenerateCnt == 0) {
 		GenerateBeam();
 	}
 	if (_AnimTime > _AnimTotalTime) {
 		ChangeAnim(ACTION::WAIT);
 		ChangeAction(ACTION::WAIT);
+		_GenerateCnt = 0;
 		return true;
 	}
 	return false;
@@ -292,9 +304,6 @@ void BossActor::GenerateBullet() {
 	if (_GenerateCnt == 0) {
 		auto ac = new BossAttackActor(GetMode());
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
-		auto m = new ModelComponent(ac, "res/model/Sundercross/untitled.mv1");
-		m->SetIndipendent(true);
-		m->SetScale(VGet(25, 25, 25));
 		
 		auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 		ac->SetHitCollision(h);
@@ -302,14 +311,13 @@ void BossActor::GenerateBullet() {
 		mv->SetGravity(false);
 		auto dir = VGet(0,0,-30);
 		mv->SetVelocity(dir);
+		auto ef = new EffectSpriteComponent(ac, "res/model/Sundercross/Lazer_TDX.efkefc", VGet(0, 0, 0), VGet(0,0,1), 50, true);
 		_GenerateCnt++;
 	}
 	if (_GenerateCnt == 1) {
 		auto ac = new BossAttackActor(GetMode());
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
-		auto m = new ModelComponent(ac, "res/model/Sundercross/untitled.mv1");
-		m->SetIndipendent(true);
-		m->SetScale(VGet(25, 25, 25));
+		
 		auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 		ac->SetHitCollision(h);
 		auto mv = new MoveComponent(ac);
@@ -318,14 +326,13 @@ void BossActor::GenerateBullet() {
 		auto dir = VGet(0, 0, -30);
 		dir = VScale(VGet(cos(rot), 0, sin(rot)), -30);
 		mv->SetVelocity(dir);
-		m->SetRotation(VGet(0, DEG2RAD(-15), 0));
+		auto ef = new EffectSpriteComponent(ac, "res/model/Sundercross/Lazer_TDX.efkefc", VGet(0, 0, 0), VNorm(dir), 50, true);
+		
 
 		// 2個目
 		ac = new BossAttackActor(GetMode());
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
-		m = new ModelComponent(ac, "res/model/Sundercross/untitled.mv1");
-		m->SetIndipendent(true);
-		m->SetScale(VGet(25, 25, 25));
+		
 		h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 		ac->SetHitCollision(h);
 		mv = new MoveComponent(ac);
@@ -334,7 +341,7 @@ void BossActor::GenerateBullet() {
 		auto dir2 = VGet(0, 0, -30);
 		dir2 = VScale(VGet(cos(rot), 0, sin(rot)), -30);
 		mv->SetVelocity(dir2);
-		m->SetRotation(VGet(0, DEG2RAD(15), 0));
+		 ef = new EffectSpriteComponent(ac, "res/model/Sundercross/Lazer_TDX.efkefc", VGet(0, 0, 0), VNorm(dir2), 50, true);
 
 		_GenerateCnt+=2;
 	}
@@ -343,16 +350,15 @@ void BossActor::GenerateBullet() {
 void BossActor::GenerateBeam() {
 	auto ac = new BossAttackActor(GetMode());
 	auto p = GetMode()->GetPlayer(0);
-	ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
-	auto m = new ModelComponent(ac, "res/model/Sundercross/untitled.mv1");
-	m->SetIndipendent(true);
-	m->SetScale(VGet(25, 25, 25));
-	auto h = new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
+	auto pos = VGet(GetPosition().x, 600, GetPosition().z);
+	ac->SetPosition(pos);
+	auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 	ac->SetHitCollision(h);
-	auto mv = new MoveComponent(ac);
-	mv->SetGravity(false);
-	mv->SetVelocity(VGet(0, 0, -30));
-
+	
+	auto tmpos = VSub( GetPosition(), p->GetPosition());
+	auto dir = VNorm(VGet(tmpos.x, 0, tmpos.z));
+	//auto dir = VGet(0, 0, 1);
+	new EffectSpriteComponent(this, "res/model/Sundercross/Daikanpa_Boss.efkefc", VGet(0, 2000, 0), dir,50);
 	
 
 	_GenerateCnt++;
