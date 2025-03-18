@@ -25,7 +25,7 @@ SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
 
 void SVItemVolumeFade::Update() {
 	// TODO: Mode‚ÉG‚Á‚ÄŠÔ‚ğæ“¾‚·‚é
-	_FadeTime += 0.016;
+	_FadeTime += 16;
 	float rate = _FadeTime / _FadeTimeMax;
 	auto vol = _VolumeStart + (_VolumeEnd - _VolumeStart) * rate;
 	vol *= vol;

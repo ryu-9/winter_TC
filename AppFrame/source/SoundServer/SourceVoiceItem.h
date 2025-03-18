@@ -9,7 +9,7 @@ class SoundServer;
 
 class SourceVoiceItem{
 public:
-	SourceVoiceItem(std::string wavname,int playhz = 0,int loop = 0);
+	SourceVoiceItem();
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
@@ -32,7 +32,7 @@ public:
 	void AddEffect(class SourceVoiceItemEffectBase* effect);
 	void RemoveEffect(class SourceVoiceItemEffectBase* effect);
 
-	class Component* GetOwner() { return _Owner; }
+	void SetSourceVoice(IXAudio2SourceVoice* sv) { _SV = sv; }
 
 	void Update();
 
@@ -40,7 +40,6 @@ private:
 	std::string _WavName;
 	IXAudio2SourceVoice* _SV;
 	std::vector<class SourceVoiceItemEffectBase*> _Effects;
-	class Component* _Owner;
 
 	float _Volume;
 	bool _VolumeChanged;

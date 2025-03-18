@@ -1,19 +1,14 @@
 #include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
 
-SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz,int loop)
+SourceVoiceItem::SourceVoiceItem()
 	:_SV(nullptr)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
 	, _Pitch(1.0f)
-	, _WavName(wavname)
 {
-	// ƒTƒEƒ“ƒh‚Ìì¬
-	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz,loop) == false) {
-		printf("CreateSourceVoice failed\n");
-		delete this;
-	}
-	_SV->SetVolume(_Volume);
+	
+//	_SV->SetVolume(_Volume);
 //	_SV->SetFrequencyRatio(_Pitch);
 }
 
@@ -38,7 +33,10 @@ bool SourceVoiceItem::IsPlay() {
 }
 
 void SourceVoiceItem::Stop() {
-	_SV->Stop();
+	auto s = new SVItemVolumeFade(this);
+	s->SetFadeTime(10);
+	s->SetVolume(0);
+	AddEffect(s);
 }
 
 void SourceVoiceItem::ForceStop() {

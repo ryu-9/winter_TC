@@ -24,6 +24,8 @@ public:
 	SVItemVolumeFade(class SourceVoiceItem* sv);
 	void Update() override;
 
+	void SetFadeTime(float time) { _FadeTimeMax = time; }
+	void SetVolume(float vol) { _VolumeEnd = vol; }
 
 private:
 	float _FadeTime;

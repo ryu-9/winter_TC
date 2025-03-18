@@ -34,16 +34,12 @@ SoundServer::~SoundServer() {
 	CoUninitialize();
 }
 
-void SoundServer::Clear()
-{
-}
 
-bool SoundServer::Add(std::string path,std::string name) {
+bool SoundServer::Add(std::string path,std::string name, bool isoverwrite) {
 	// サウンドの読み込み
-	// もうあったら作らない
-	if (_m.count(name)) { return true; }
+	if (_WavData.count(name)&& !isoverwrite) { return true; }	
 	else {
-		if (WAVRead::Read(path.c_str(), &_m[name]) == false) {
+		if (WAVRead::Read(path.c_str(), &_WavData[name]) == false) {
 			return false;
 		}
 	}
@@ -51,7 +47,7 @@ bool SoundServer::Add(std::string path,std::string name) {
 }
 
 bool SoundServer::Create(SEComponent* secon, std::string name) {
-	auto sv = new SourceVoiceItem(name);
+	auto sv = new SourceVoiceItem();
 	secon->SetSourceVoice(sv);
 	return true;
 }
@@ -59,8 +55,8 @@ bool SoundServer::Create(SEComponent* secon, std::string name) {
 
 bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int loop) {
 	IXAudio2SourceVoice* sourceVoice = nullptr;
-	if (_m.count(name) == 0) { return false; }
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat,XAUDIO2_VOICE_USEFILTER,16.0f);
+	if (_WavData.count(name) == 0) { return false; }
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[name].wFormat,XAUDIO2_VOICE_USEFILTER,16.0f);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
 		return false;
@@ -68,21 +64,51 @@ bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int l
 
 	// 音声データの設定
 	XAUDIO2_BUFFER xAudio2Buffer{};
-	xAudio2Buffer.pAudioData = (BYTE*)_m[name].sBuffer;
+	xAudio2Buffer.pAudioData = (BYTE*)_WavData[name].sBuffer;
 	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
-	xAudio2Buffer.AudioBytes = _m[name].size;
+	xAudio2Buffer.AudioBytes = _WavData[name].size;
 	
 	xAudio2Buffer.PlayBegin = hz;
 	xAudio2Buffer.LoopCount = loop;
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 	sv = sourceVoice;
 	return true;
-};
+}
+
+bool SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname) {
+	if (_WavData.count(wavname) == 0) { return false; }
+	
+	IXAudio2SourceVoice* sourceVoice = nullptr;
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[dataname].wFormat, XAUDIO2_VOICE_USEFILTER, 16.0f);
+	if (FAILED(hr)) {
+		printf("CreateSourceVoice failed: %#X\n", hr);
+		return false;
+	}
+
+	// 音声データの設定
+	XAUDIO2_BUFFER xAudio2Buffer{};
+	xAudio2Buffer.pAudioData = (BYTE*)_WavData[wavname].sBuffer;
+	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
+	xAudio2Buffer.AudioBytes = _WavData[wavname].size;
+
+	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
+
+	// ソースボイスの作成
+	auto sv = new SourceVoiceItem();
+	sv->SetSourceVoice(sourceVoice);
+	
+	_SV[p][dataname] = sv;
+	
+	return true;
+}
+;
 
 
-bool SoundServer::Del(std::string name)
-{
-	return false;
+
+void SoundServer::UpdateSound(ActorClass* p) {
+	for (auto& sv : _SV[p]) {
+		sv.second->Update();
+	}
 }
 
 
