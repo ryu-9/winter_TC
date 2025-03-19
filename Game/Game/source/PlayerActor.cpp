@@ -94,7 +94,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
+	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
@@ -657,6 +657,7 @@ void PlayerActor::UpdateActor() {
 				tmppos = VAdd(GetPosition(), tmppos);
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
+				tmpdir = VGet(0, 0, 1);
 
 
 				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), tmpdir, GetSize().x * 3);
@@ -670,16 +671,21 @@ void PlayerActor::UpdateActor() {
 			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 50) {
 				_AnimTime = 45;
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
-				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
+				VECTOR tmppos = VScale(VGet(-100, -100, -50), GetSize().x);
+
+
 
 				//tmppos = VGet(0, 0, 0);
-				tmppos = VAdd(GetPosition(), tmppos);
+
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
 				tmpdir.x += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.y += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.z += (float)(rand() % 101 - 50) / 1000.0f;
+
+				tmppos = VTransform(tmppos, MGetRotVec2(VGet(0, 0, 1), tmpdir));
+
+				tmppos = VAdd(GetPosition(), tmppos);
 
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
 

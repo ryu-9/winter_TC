@@ -19,23 +19,11 @@ EffectSpriteComponent::EffectSpriteComponent(ActorClass* owner, const TCHAR* fil
 		sm[0]->AddRemoveSprite(this);
 	}
 	_Scale = VGet(size, size, size);
-	VECTOR rot2 = VGet(0, 0, 0);
-	if (rot.z >= 0) {
-		rot2.x = asin(rot.y);
-		if (rot.z == 0) {
-			rot2.y = DX_PI/2;
-		}
-		else {
-			rot2.y = atan(rot.x / rot.z);
-		}
-	}
-	else {
-		rot2.x = 2 * DX_PI - asin(rot.y);
-		rot2.y = DX_PI + atan(rot.x / rot.z);
-	}
+
+	MATRIX m = MGetRotVec2(VGet(0, 0, 1), rot);
+	GetMatrixZXYRotation(&m, &_Rotation.x, &_Rotation.y, &_Rotation.z);
 
 
-	_Rotation = rot2;
 	int debug = SetSpeedPlayingEffekseer3DEffect(_Handle, speed);
 	if (speed < 1) {
 		int test = 0;
