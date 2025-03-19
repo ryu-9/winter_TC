@@ -25,7 +25,7 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
 	MV1SetVisible(model->GetHandle(), FALSE);
 	auto s = new SoundComponent(this,false);
-	s->SetSourceVoice(new SourceVoiceItem("punch"));
+	s->SetSourceVoice(new SourceVoiceItem());
 	s->Play(0);
 	s->SetTimer(_LifeTime);
 
@@ -48,7 +48,7 @@ void PunchActor::UpdateActor()
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
 			auto s = new SoundComponent(a,true);
-			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+			s->SetSourceVoice(new SourceVoiceItem());
 			s->Play(0);
 			s->SetTimer(500);
 		}
