@@ -408,7 +408,6 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			new BreakableBoxActor(this, pos, scale);
 		} else if (name == "bossspawner") {
 			auto b = new BossActor(this, pos);
-			b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
 		}
 		else {
 			auto ac = new ActorClass(this);

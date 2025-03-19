@@ -15,8 +15,7 @@ public:
 	void SetModel(class ModelComponent* model,int index) { delete _Model[index]; _Model[index] = model; }
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 
-private:
-	
+
 	enum ACTION {
 		WAIT,			// 待機
 		PUNCH,			// パンチ
@@ -27,6 +26,7 @@ private:
 		DIE,			// 死亡
 		ACTION_COUNT	// アクション数
 	};
+private:
 
 	// アクション関数(関数ポインタ)
 	typedef bool(BossActor::* ACTIONFUNCTION)();

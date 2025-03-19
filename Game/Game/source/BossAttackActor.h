@@ -1,9 +1,11 @@
 #pragma once
 #include "appframe.h"
+#include "BossActor.h"
 
 class BossAttackActor : public ActorClass{
+	typedef BossActor::ACTION B_ACT;
 public:
-	BossAttackActor(ModeBase* mode);
+	BossAttackActor(ModeBase* mode, B_ACT type);
 	virtual ~BossAttackActor();
 	void UpdateActor() override;
 
@@ -11,5 +13,7 @@ public:
 private:
 	class HitCollisionComponent* _HCollision;
 	int _Time;
+	B_ACT _Type;
+	int _LifeTime;
 };
 

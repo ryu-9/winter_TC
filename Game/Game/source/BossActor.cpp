@@ -35,7 +35,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// ���f���̓ǂݍ���
 	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");
-	_Model[0]->SetVisible(false);
+	
 
 	{
 		auto index = MV1GetAnimIndex(_AnimMV1[_Action], _AnimName[0]);
@@ -47,14 +47,16 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// �^�C�����C���̐ݒ�
 	std::vector<ACTION_TIMELINE> timeline;
-	timeline.push_back({ ACTION::BEAM, 6000 });
-	timeline.push_back({ ACTION::BULLET, 6000 });
-	timeline.push_back({ ACTION::BEAM, 6000 });
-	timeline.push_back({ ACTION::PUNCH, 4000 });
+	timeline.push_back({ ACTION::BEAM, 4000 });
+	timeline.push_back({ ACTION::BULLET, 8000 });
+	timeline.push_back({ ACTION::BEAM, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 8000 });
 	timeline.push_back({ ACTION::BULLET, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 
 	_ActionTimeline.push_back(timeline);
+
+	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 100, 0), VGet(70, 70, 70), 2, true, true);
 }
 
 BossActor::~BossActor() {
@@ -64,9 +66,7 @@ void BossActor::UpdateActor() {
 	(this->*_ActionFunc[(int)_Action])();
 
 	_CurrentTime += (float)GetMode()->GetStepTm();
-	if (_Action == DIE) {
-		return;
-	}
+	
 	if (_HitPoint > 0) {
 
 		if (_CurrentTime >= _ActionTimeline[_TimelineIndex][_ActionIndex].time) {
@@ -98,10 +98,14 @@ void BossActor::UpdateActor() {
 
 	MV1SetAttachAnimTime(_Model[0]->GetHandle(), _AnimIndex.back(), _AnimTime);
 
+	if (_Action == DIE) {
+		return;
+	}
+
 	// 当たり判定
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {
-		auto p = dynamic_cast<PlayerActor*>(h);
+		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
 		if (p != nullptr) {
 			_HitPoint -= 10;
 		}
@@ -155,6 +159,7 @@ bool BossActor::ChangeAction(ACTION a) {
 		break;
 	}
 	_Action = a;
+	_GenerateCnt = 0;
 	return false;
 }
 
@@ -275,7 +280,8 @@ bool BossActor::Die() {
 		_AnimTime += t / 20.f;
 		if (_AnimTime > _AnimTotalTime) {
 			_AnimTime = _AnimTotalTime;
-			new GoalItemActor(GetMode(), VGet(0,500,0),true);
+			auto g = new GoalItemActor(GetMode(), VGet(0,500,0),true);
+			g->SetSize(VGet(3, 3, 3));
 		}
 	}
 	
@@ -283,7 +289,7 @@ bool BossActor::Die() {
 }
 
 void BossActor::GeneratePunch() {
-	auto ac = new BossAttackActor(GetMode());
+	auto ac = new BossAttackActor(GetMode(),_Action);
 	auto p = GetMode()->GetPlayer(0);
 	auto dir = VGet(p->GetPosition().x - GetPosition().x, 0, p->GetPosition().z - GetPosition().z);
 	ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
@@ -302,7 +308,7 @@ void BossActor::GeneratePunch() {
 
 void BossActor::GenerateBullet() {
 	if (_GenerateCnt == 0) {
-		auto ac = new BossAttackActor(GetMode());
+		auto ac = new BossAttackActor(GetMode(), _Action);
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
 		
 		auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
@@ -315,7 +321,7 @@ void BossActor::GenerateBullet() {
 		_GenerateCnt++;
 	}
 	if (_GenerateCnt == 1) {
-		auto ac = new BossAttackActor(GetMode());
+		auto ac = new BossAttackActor(GetMode(), _Action);
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
 		
 		auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
@@ -330,7 +336,7 @@ void BossActor::GenerateBullet() {
 		
 
 		// 2個目
-		ac = new BossAttackActor(GetMode());
+		ac = new BossAttackActor(GetMode(), _Action);
 		ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
 		
 		h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
@@ -348,24 +354,25 @@ void BossActor::GenerateBullet() {
 }
 
 void BossActor::GenerateBeam() {
-	auto ac = new BossAttackActor(GetMode());
+	auto ac = new BossAttackActor(GetMode(), _Action);
 	auto p = GetMode()->GetPlayer(0);
-	auto pos = VGet(GetPosition().x, 600, GetPosition().z);
+	auto pos = VGet(GetPosition().x, 300, GetPosition().z);
 	ac->SetPosition(pos);
 	auto h = new HitCollisionComponent(ac, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 	ac->SetHitCollision(h);
-	
+	auto mv = new MoveComponent(ac);
+	mv->SetGravity(false);
 	auto tmpos = VSub( GetPosition(), p->GetPosition());
 	auto dir = VNorm(VGet(tmpos.x, 0, tmpos.z));
 	//auto dir = VGet(0, 0, 1);
-	new EffectSpriteComponent(this, "res/model/Sundercross/Daikanpa_Boss.efkefc", VGet(0, 2000, 0), dir,50);
+	new EffectSpriteComponent(this, "res/model/Sundercross/Daikanpa_Boss.efkefc", VGet(0, 2000, -800), dir,50,false,0.7);
 	
 
 	_GenerateCnt++;
 }
 
 void BossActor::GeneratePunchFall() {
-	auto ac = new BossAttackActor(GetMode());
+	auto ac = new BossAttackActor(GetMode(), _Action);
 	auto n = rand() % 2;
 	auto p = GetMode()->GetPlayer(n)->GetPosition();
 	ac->SetPosition(VGet(p.x, 1000, p.z));

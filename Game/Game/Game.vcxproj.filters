@@ -401,14 +401,14 @@
     <ClInclude Include="source\UITextComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\BossAttackActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\GimmickWallActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
     <ClInclude Include="source\DaikanpaActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BossAttackActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
