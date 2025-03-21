@@ -186,6 +186,7 @@
     <ClCompile Include="source\ioJsonText.cpp" />
     <ClCompile Include="source\ItemActor.cpp" />
     <ClCompile Include="source\LaserActor.cpp" />
+    <ClCompile Include="source\LavaActor.cpp" />
     <ClCompile Include="source\ModeEnemyCon.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameGoal.cpp" />
@@ -246,6 +247,7 @@
     <ClInclude Include="source\ioJsonText.h" />
     <ClInclude Include="source\ItemActor.h" />
     <ClInclude Include="source\LaserActor.h" />
+    <ClInclude Include="source\LavaActor.h" />
     <ClInclude Include="source\ModeEnemyCon.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameGoal.h" />

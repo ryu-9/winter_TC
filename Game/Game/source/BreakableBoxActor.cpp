@@ -7,7 +7,7 @@ BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 {
 	SetPosition(pos);
 	SetSize(scale);
-	_Model = new ModelComponent(this, "res/model/Ice_Broken/Ice_Broken_Opacity.mv1", 101);
+	_Model = new ModelComponent(this, "res/model/Ice_Broken/Ice_Broken_Opacity.mv1", 102);
 	_Model->SetScale(VGet(2, 2, 2));
 	_Model->SetPosition(VGet(0, -50, 0));
 	int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
@@ -21,7 +21,7 @@ BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 	_Model->SetVisible(false);
 
 
-	_Model2 = new ModelComponent(this, "res/model/Ice_Broken/Ice_Broken_Opacity_NoCrack.mv1", 101);
+	_Model2 = new ModelComponent(this, "res/model/Ice_Broken/Ice_Broken_Opacity_NoCrack.mv1", 102);
 	_Model2->SetScale(VGet(2, 2, 2));
 	_Model2->SetPosition(VGet(0, -50, 0));
 	_AnimIndex = MV1AttachAnim(_Model2->GetHandle(), index, _Model->GetHandle(), TRUE);

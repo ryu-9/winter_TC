@@ -200,13 +200,18 @@ void ModelSpriteComponent::Draw()
 			}
 			int debug = SetMaterialParam(MatParam);
 			int test = 0;
+			SetMaterialUseVertSpcColor(true);
+		}
+
+		else {
+			SetMaterialUseVertSpcColor(false);
 		}
 
 
 
 		MV1DrawModel(_Model->GetHandle());
 		//DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
-		SetMaterialUseVertSpcColor(true);
+
 	}
 }
 

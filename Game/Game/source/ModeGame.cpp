@@ -26,6 +26,7 @@
 #include "GoalItemActor.h"
 #include "GimmickWallActor.h"
 #include "ModeScenario.h"
+#include "LavaActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -110,7 +111,7 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	//auto item = new ItemActor(this,VGet(0, 75, 500), 0, -1);
+	auto item = new ItemActor(this,VGet(0, 75, 500), 1, -1);
 	//auto tree = new TreeActor(this, VGet(0, 50, 500));
 	//tree->SetItem(item);
 //	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
@@ -119,6 +120,7 @@ bool ModeGame::Initialize() {
 
 
 	//auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
+	//auto lava = new LavaActor(this, VGet(0, 200, 500), VGet(10, 10, 10));
 	
 	// 雑実装
 	switch (gGlobal._SelectStage) {
@@ -235,7 +237,7 @@ bool ModeGame::Render() {
 
 	SetUseLighting(TRUE);
 
-
+	SetGlobalAmbientLight(GetColorF(0.0f, 0.0f, 0.25f, 1.0f));
 
 
 #if 1	
@@ -368,6 +370,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "BP_01EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(0);
+		//	esa->SetType(1);
 		} else if (name == "BP_02EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(1);
@@ -409,6 +412,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "bossspawner") {
 			auto b = new BossActor(this, pos);
 			b->SetHitCollision(new HitCollisionComponent(b, nullptr, VGet(0, 0, 0), VGet(1000, 1000, 1000), 2, true, true));
+		}
+		else if (name == "maguma") {
+			auto l = new LavaActor(this, pos, scale);
 		}
 		else {
 			auto ac = new ActorClass(this);

@@ -54,7 +54,9 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		break;
 	}
 
-
+	if (_Type != 0) {
+		new EffectSpriteComponent(this, "res/model/Item_Circl/Item_Circl.efkefc", VGet(0, 50, -25), VGet(0, 0, 0), 10, false, 0.3);
+	}
 	auto mcoll = new MoveCollisionComponent(this, _Model, position, VGet(100, 100, 100), 2, true, true);
 }
 

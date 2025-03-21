@@ -28,7 +28,7 @@ public:
 
 	void ChangeMode(int mode);
 
-	void Damage(float damage);
+	void Damage(float damage, int time = 1000);
 	void KnockBack(VECTOR dir, float power);
 	bool IsMoved();
 	void ChangeAnim(int a);
@@ -99,13 +99,15 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[(int)anim::Num];
+	int _AnimationModel[(int)anim::Num + 2];
 	bool _AnimChangingflag;
 
 	int _PunchIndex[2];
 
 	bool _PunchFlag;
 	int _InvincibleTime;
+
+	bool _LavaFlag;
 
 	bool _ChangeFlag;
 
