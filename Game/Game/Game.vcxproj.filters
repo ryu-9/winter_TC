@@ -234,6 +234,9 @@
     <ClCompile Include="source\DaikanpaActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="source\UIBossHPClass.cpp">
+      <Filter>ソース ファイル\Mode\Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -409,6 +412,9 @@
     </ClInclude>
     <ClInclude Include="source\BossAttackActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIBossHPClass.h">
+      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

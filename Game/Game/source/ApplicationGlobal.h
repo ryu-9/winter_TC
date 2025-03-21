@@ -17,6 +17,9 @@ public:
 	float	_PlayerHP[2] = {0.1,0.1};
 	bool	_IsPlayerDead[2] ;
 
+	// ボスのHP
+	float	_BossHP;
+
 	// ステージ選択
 	int		_SelectStage;
 

@@ -3,6 +3,7 @@
 #include "ApplicationGlobal.h"
 #include "UITextComponent.h"
 #include "PlayerActor.h"
+#include "UIBossHPClass.h"
 
 
 bool ModeGameUI::Initialize() {
@@ -18,7 +19,9 @@ bool ModeGameUI::Initialize() {
 	new UIChipFadeComponent(_UIChip[3], 0, 0);
 	new UIChipFadeComponent(_UIChip[4], 0, 0);
 
-	
+	if (gGlobal._SelectStage == 3) {
+		_UIChip.push_back(new UIBossHPClass(this, VGet(415, 0, 0), "", 0));
+	}
 
 	new UITextComponent(ui, "Scenario");
 	ChangeFont("BIZ UDPÉSÉVÉbÉN Bold");
