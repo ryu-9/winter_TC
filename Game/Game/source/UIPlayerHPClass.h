@@ -4,21 +4,21 @@
 
 class UIPlayerHPClass : public UIChipClass {
 public:
-	UIPlayerHPClass(class ModeBase* mode, VECTOR pos, const TCHAR* fname,int type, int draworder = 100);
+	UIPlayerHPClass(class ModeBase* mode, VECTOR pos, const TCHAR* fname, int type, int main, int left, int draworder = 100);
 	virtual ~UIPlayerHPClass();
 	
 };
 
 class UIPlayerHPSpriteComponent : public UIChipSpriteComponent {
 public:
-	UIPlayerHPSpriteComponent(class UIChipClass* owner,int type, int drawOrder);
+	UIPlayerHPSpriteComponent(class UIChipClass* owner, int type, int main,  int left, int drawOrder);
 	virtual ~UIPlayerHPSpriteComponent();
 	void Draw() override;
 
 private:
-	int _Type;		// タイプ	
-	int _DrawType;
-	int _Mask;		// マスク
-	int _MaskHandle;	// マスクハンドル
+	int _Main;
+	int _Side;
+	int _DrawType;		// タイプ	
+	int _ModeType;
 };
 

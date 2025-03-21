@@ -1,16 +1,16 @@
 #include "UIBossHPClass.h"
 #include "ApplicationGlobal.h"
 
-UIBossHPClass::UIBossHPClass(ModeBase* mode, VECTOR pos, const TCHAR* fname, int type, int draworder) 
+UIBossHPClass::UIBossHPClass(ModeBase* mode, VECTOR pos, const TCHAR* fname, int draworder) 
 	: UIChipClass(mode, pos, fname, draworder)
 {
-	new UIBossHPSpriteComponent(this, type, draworder);
+	new UIBossHPSpriteComponent(this, draworder);
 }
 
 UIBossHPClass::~UIBossHPClass() {
 }
 
-UIBossHPSpriteComponent::UIBossHPSpriteComponent(UIChipClass* owner, int type, int drawOrder) 
+UIBossHPSpriteComponent::UIBossHPSpriteComponent(UIChipClass* owner, int drawOrder) 
 	: UIChipSpriteComponent(owner, drawOrder)
 {
 	

@@ -27,7 +27,14 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter");
 	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select");
 
+	LPCSTR font_path = "res/Corporate-Logo-Bold-ver3.otf";
+	if (AddFontResourceExA(font_path, FR_PRIVATE, NULL) > 0) {
+	} else {
+		int test = 0;
+	}
+	ChangeFont("コーポレート・ロゴ ver3 Bold");
 
+	
 	// ���[�h�̓o�^
 
 //	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");

@@ -1,116 +1,95 @@
 #include "UIPlayerHPClass.h"
 #include "ApplicationGlobal.h"
 
-UIPlayerHPClass::UIPlayerHPClass(ModeBase* mode, VECTOR pos, const TCHAR* fname,int type, int draworder )
+UIPlayerHPClass::UIPlayerHPClass(ModeBase* mode, VECTOR pos, const TCHAR* fname, int type, int main,  int left, int draworder )
 	:UIChipClass(mode, pos,fname,draworder)
 {
-	new UIPlayerHPSpriteComponent(this, type, draworder);
+	new UIPlayerHPSpriteComponent(this, type, main,left, draworder);
 	
 }
 
 UIPlayerHPClass::~UIPlayerHPClass() {
 }
 
-UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int type, int drawOrder)
+UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int type, int main, int left, int drawOrder)
 	:UIChipSpriteComponent(owner, drawOrder)
-	, _Type(0) 
-	, _DrawType(type)
-{
-	CreateMaskScreen();
-	_Mask = MakeScreen(1920, 1080, TRUE);
-	if (type == 0) {
-		_MaskHandle = LoadMask("res/UI/UI_HPBAR_MASK.png");
-		_CGData.clear();
-		SetImage("res/UI/UI_HP_LOW.png");
-		SetImage("res/UI/UI_HPBAR_LOW.png");
-		_CGData.back().pos = VGet(164, 66, 0);
-		SetImage("res/UI/JIN_ICON.png");
-		_CGData.back().pos = VGet(-10, -10, 0);
+	, _DrawType(0)
+	, _ModeType(type)
+	, _Main(main)
+	, _Side(left) {
+	_CGData.clear();
+	if (_ModeType == 0) {
+		if (_Main) {
+			SetImage("res/UI/HP/UI_HP_CIRCLE_EMPTY.png");
+			SetImage("res/UI/HP/UI_HP_CIRCLE_EMPTY_M_OK.png");
+			SetImage("res/UI/HP/UI_HP_CIRCLE.png");
+			SetImage("res/UI/HP/UI_HP_CIRCLE_M_OK.png");
+			if (_Side) {
+				SetImage("res/UI/HP/JIN_ICON.png");
+			} else {
+				SetImage("res/UI/HP/BEL_ICON.png");
+			}
+		} else {
+			SetImage("res/UI/HP/SUB/UI_HP_CIRCLE_EMPTY.png");
+			SetImage("res/UI/HP/SUB/UI_HP_CIRCLE_EMPTY_M_OK.png");
+			SetImage("res/UI/HP/SUB/UI_HP_CIRCLE.png");
+			SetImage("res/UI/HP/SUB/UI_HP_CIRCLE_M_OK.png");
+			if (_Side) {
+				SetImage("res/UI/HP/SUB/BEL_ICON.png");
+			} else {
 
-		SetImage("res/UI/UI_HP_MARGE.png");
-		SetImage("res/UI/UI_HPBAR_MARGE.png");
-		_CGData.back().pos = VGet(164, 66, 0);
-		SetImage("res/UI/BEL_ICON.png");
-		_CGData.back().pos = VGet(-5, -5, 0);
+				SetImage("res/UI/HP/SUB/JIN_ICON.png");
+			}
+		}
 	} else {
-		_MaskHandle = LoadMask("res/UI/TDX_UI_MARGE_BAR_MASK.png");
-		_CGData.clear();
-		SetImage("res/UI/TDX_UI_MARGE_POW.png");
-		SetImage("res/UI/TDX_UI_MARGE_DUSH.png");
-		SetImage("res/UI/TDX_UI_MARGE_BAR.png");
-		_CGData.back().pos = VGet(164, 66, 0);
-		
-		
+		if (_Main) {
+			SetImage("res/UI/MAIN/POWER_ENPTY.png");
+			SetImage("res/UI/MAIN/POWER_BAR.png");
+			SetImage("res/UI/MAIN/POWER_NAME.png");
+		} else {
+			SetImage("res/UI/SUB/POWER_ENPTY.png");
+			SetImage("res/UI/SUB/POWER_BAR.png");
+			SetImage("res/UI/SUB/POWER_NAME.png");
+		}
 	}
 }
 
-UIPlayerHPSpriteComponent::~UIPlayerHPSpriteComponent() {
-}
+	UIPlayerHPSpriteComponent::~UIPlayerHPSpriteComponent() {
+	}
 
 
 
-void UIPlayerHPSpriteComponent::Draw() {
-	SetDrawBlendMode(_UIc->GetUIData()->blendMode,_UIc->GetUIData()->blendParam);
+	void UIPlayerHPSpriteComponent::Draw() {
+		SetDrawBlendMode(_UIc->GetUIData()->blendMode, _UIc->GetUIData()->blendParam);
 
-	auto tmpy = 0;
-	auto tmpx = 0;
-	if (_DrawType == 0) {
-		for (auto i = 0; i < 2; i++) {
-			auto hp = gGlobal._PlayerHP[i];
-			if (hp >= 1) {
-				_Type = 3;
-				hp -= 1;
-				hp *= 10;
-				// 0‚©‚ç1‚Ü‚Å‚ÌŠÔ‚Å•Ï‰»
-				tmpx = (hp / (hp + 10)) * 256;
-
-
-			} else {
-				_Type = 0;
-				tmpx = hp * 256;
-				if (tmpx > 256) {
-					tmpx = 256;
+		auto tmpy = 0;
+		auto tmpx = 0;
+		if (_ModeType == 0) {
+				auto hp = gGlobal._PlayerHP[_Side^_Main];
+				if (hp >= 1) {
+					hp -= 1;
+					hp *= 10;
+					hp = (hp / (hp + 10)) * 100;
+					_DrawType = 1;
+				} else {
+					hp *= 100;
+					_DrawType = 0;
 				}
-			}
-			if (gGlobal._IsPlayerDead[i] == TRUE) {
-				tmpx = -200;
-			} else {
-				tmpx += 0;
-			}
+				if (gGlobal._IsPlayerDead[_Side ^ _Main] == TRUE) {
+					hp = 0;
+				} else {
+
+				}
 
 
-			DrawGraph(_UIc->GetPosition().x, _UIc->GetPosition().y + tmpy, _CGData[_Type].handle, TRUE);
-			SetUseMaskScreenFlag(TRUE);
-			FillMaskScreen(1);
-			auto pos = GetCameraPosition();
-			auto dir = GetCameraTarget();
-			SetDrawScreen(_Mask);
-			DrawMask(_UIc->GetPosition().x + _CGData[_Type + 1].pos.x - 256 + tmpx, _UIc->GetPosition().y + _CGData[_Type + 1].pos.y + tmpy, _MaskHandle, DX_MASKTRANS_WHITE);
-			SetDrawScreen(DX_SCREEN_BACK);
-
-			DrawGraph(_UIc->GetPosition().x + _CGData[_Type + 1].pos.x, _UIc->GetPosition().y + _CGData[_Type + 1].pos.y + tmpy, _CGData[_Type + 1].handle, TRUE);
-			SetUseMaskScreenFlag(FALSE);
-			DrawGraph(_UIc->GetPosition().x + _CGData[3 * (i + 1) - 1].pos.x, _UIc->GetPosition().y + _CGData[3 * (i + 1) - 1].pos.y + tmpy, _CGData[3 * (i + 1) - 1].handle, TRUE);
-			SetCameraPositionAndTarget_UpVecY(pos, dir);
-			tmpy += 160;
+				DrawGraph(_UIc->GetPosition().x - (_CGData[1 * _DrawType + 0].width * 0.5), _UIc->GetPosition().y - (_CGData[1 * _DrawType + 0].height * 0.5), _CGData[1 * _DrawType + 0].handle, TRUE);
+				DrawCircleGauge(_UIc->GetPosition().x, _UIc->GetPosition().y, hp, _CGData[1 * _DrawType + 2].handle, 0);
+				DrawGraph(_UIc->GetPosition().x - (_CGData[4].width * 0.5), _UIc->GetPosition().y - (_CGData[4].height * 0.5), _CGData[4].handle, TRUE);
+		
+		} else {
+			DrawGraph(_UIc->GetPosition().x - (_CGData[0].width * 0.5), _UIc->GetPosition().y - (_CGData[0].height * 0.5), _CGData[0].handle, TRUE);
+			DrawCircleGauge(_UIc->GetPosition().x, _UIc->GetPosition().y, 0.7, _CGData[1].handle, 0);
+			DrawGraph(_UIc->GetPosition().x - (_CGData[2].width * 0.5), _UIc->GetPosition().y - (_CGData[2].height * 0.5), _CGData[2].handle, TRUE);
 		}
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 	}
-	else {
-		for (auto i = 0; i < 2; i++) {
-			DrawGraph(_UIc->GetPosition().x, _UIc->GetPosition().y + tmpy, _CGData[i].handle, TRUE);
-		//	SetUseMaskScreenFlag(TRUE);
-		//	FillMaskScreen(1);
-		//	auto pos = GetCameraPosition();
-		//	auto dir = GetCameraTarget();
-		//	SetDrawScreen(_Mask);
-		//	DrawMask(_UIc->GetPosition().x + _CGData[2].pos.x - 256 + tmpx, _UIc->GetPosition().y + _CGData[2].pos.y + tmpy, _MaskHandle, DX_MASKTRANS_WHITE);
-		//	SetDrawScreen(DX_SCREEN_BACK);
-
-		//	DrawGraph(_UIc->GetPosition().x + _CGData[2].pos.x, _UIc->GetPosition().y + _CGData[2].pos.y + tmpy, _CGData[2].handle, TRUE);
-		//	SetUseMaskScreenFlag(FALSE);
-		//	SetCameraPositionAndTarget_UpVecY(pos, dir);
-			tmpy += 160;
-		}
-	}
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-}

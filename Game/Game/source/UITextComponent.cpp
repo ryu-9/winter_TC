@@ -5,9 +5,9 @@
 #include <fstream>
 
 namespace {
-	int X = -450;			// X座標基準値
-	int Y = -70;			// Y座標基準値
-	int FONT_SIZE = 30;		// フォントサイズ
+	int X = -350;			// X座標基準値
+	int Y = -40;			// Y座標基準値
+	int FONT_SIZE = 22;		// フォントサイズ
 	int TEXT_SPEED = 70;	// テキスト表示速度
 }
 
@@ -23,6 +23,8 @@ UITextComponent::UITextComponent(UIChipClass* owner, std::string jsonkey)
 	if (jsonkey != "") {
 		LoadText("res/loadtext/LoadText.json", jsonkey);
 	}
+	
+	ChangeFont("コーポレート・ロゴ ver3 Bold");
 }
 
 
@@ -84,11 +86,11 @@ void UITextComponent::Draw() {
 	int x = _Owner->GetPosition().x + X;
 	int y = _Owner->GetPosition().y + Y;
 	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
-	y += FONT_SIZE;
+	y += FONT_SIZE + 7;
 	for (int i = 0; i < _TextData.size(); i++) {
 		auto text = iojson::ConvertString(_TextData[i].text);
 		if (_TextData[i].br) {
-			y += FONT_SIZE;
+			y += FONT_SIZE + 5;
 			x = _Owner->GetPosition().x + X;
 		}
 		DrawFormatString(x, y, _TextData[i].col, text.c_str());
