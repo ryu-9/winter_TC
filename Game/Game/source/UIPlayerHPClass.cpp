@@ -87,8 +87,19 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 				DrawGraph(_UIc->GetPosition().x - (_CGData[4].width * 0.5), _UIc->GetPosition().y - (_CGData[4].height * 0.5), _CGData[4].handle, TRUE);
 		
 		} else {
+			auto time = 0;
+			if (_Main) {
+				time = gGlobal._MargeTimer;
+				time = (time / gGlobal._MaxMargeTime) * 100;
+			} else {
+				time = gGlobal._DashTimer;
+				time = (time / gGlobal._MaxDashTime) * 100;
+			}
+			
+			
+
 			DrawGraph(_UIc->GetPosition().x - (_CGData[0].width * 0.5), _UIc->GetPosition().y - (_CGData[0].height * 0.5), _CGData[0].handle, TRUE);
-			DrawCircleGauge(_UIc->GetPosition().x, _UIc->GetPosition().y, 0.7, _CGData[1].handle, 0);
+			DrawCircleGauge(_UIc->GetPosition().x, _UIc->GetPosition().y, time, _CGData[1].handle, 0);
 			DrawGraph(_UIc->GetPosition().x - (_CGData[2].width * 0.5), _UIc->GetPosition().y - (_CGData[2].height * 0.5), _CGData[2].handle, TRUE);
 		}
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);

@@ -17,6 +17,15 @@ public:
 	float	_PlayerHP[2] = {0.1,0.1};
 	bool	_IsPlayerDead[2] ;
 
+	// アイテム
+	std::vector<int> _ItemList;
+
+	// 合体
+	float _MaxMargeTime;
+	float _MargeTimer;
+	float _MaxDashTime;
+	float _DashTimer;
+
 	// ボスのHP
 	float	_BossHP;
 

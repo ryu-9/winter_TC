@@ -9,37 +9,36 @@
 bool ModeGameUI::Initialize() {
 
 	
-//	_UIChip.push_back(new UIChipClass(this, VGet(960, 966, 0), "res/UI/BASE.png", 0));
-//	_UIChip.push_back(new UIChipClass(this, VGet(960, 1030, 0), "res/UI/item_stock.png", 0));
-//	_UIChip.push_back(new UIPlayerHPClass(this, VGet(150, 974, 0), "",0,1,1));
-//	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
-//	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
-//	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
-//	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_WINDOW.png",0);
-//	_UIChip.push_back(ui);
-	// 8ŒÂ
+	_UIChip.push_back(new UIChipClass(this, VGet(960, 966, 0), "res/UI/BASE.png", 0));
+	_UIChip.push_back(new UIChipClass(this, VGet(960, 1030, 0), "res/UI/item_stock.png", 0));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(150, 974, 0), "",0,1,1));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
+	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_WINDOW.png",0);
+	_UIChip.push_back(ui);
+	new UITextComponent(ui, "Scenario");
+	// 7ŒÂ
 
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_UI_MARGE.png", 0));
-	_UIChip.push_back(new UIChipClass(this, VGet(0, 900, 0), "res/UI/L.png", 0));
-	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/R.png", 0));
-	_UIChip.push_back(new UIPlayerHPClass(this, VGet(100, 900, 0), "", 1, 1, 1));
-	_UIChip.push_back(new UIPlayerHPClass(this, VGet(200, 900, 0), "", 1, 0, 1));
-	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1820, 900, 0), "", 1, 1, 0));
-	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1720, 900, 0), "", 1, 0, 0));
+	_UIChip.push_back(new UIChipClass(this, VGet(286, 990, 0), "res/UI/L.png", 0));
+	_UIChip.push_back(new UIChipClass(this, VGet(1634, 990, 0), "res/UI/R.png", 0));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(123, 985, 0), "", 1, 1, 1));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(420, 1025, 0), "", 1, 0, 1));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1800, 985, 0), "", 1, 1, 0));
+	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1500, 1025, 0), "", 1, 0, 0));
 
-	_UIChip.push_back(new UIBossHPClass(this, VGet(415, 0, 0), "", 0));
-//	_UIChip.push_back(new UIChipClass(this,VGet(960,540,0),"res/UI/TDX_UI_MARGE.png"));
-//	_UIChip.push_back(new UIChipClass(this, VGet(1400, 920, 0), "res/UI/TDX_UI_MARGE_WINDOW.png"));
-//	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1820, 900, 0), "",true,1,false));
-//	new UITextComponent(_UIChip[3], "Scenario");
-//	new UIChipFadeComponent(_UIChip[2],0, 0);
-//	new UIChipFadeComponent(_UIChip[3], 0, 0);
-//	new UIChipFadeComponent(_UIChip[4], 0, 0);
+	new UIChipFadeComponent(_UIChip[7], 0, 0);
+	new UIChipFadeComponent(_UIChip[8], 0, 0);
+	new UIChipFadeComponent(_UIChip[9], 0, 0);
+	new UIChipFadeComponent(_UIChip[10],0, 0);
+	new UIChipFadeComponent(_UIChip[11], 0, 0);
+	new UIChipFadeComponent(_UIChip[12], 0, 0);
+	new UIChipFadeComponent(_UIChip[13], 0, 0);
 
 	if (gGlobal._SelectStage == 3) {
 		_UIChip.push_back(new UIBossHPClass(this, VGet(415, 0, 0), "", 0));
-	}
-//	new UITextComponent(ui, "Scenario");
+	}	
 
 	return false;
 }
@@ -56,24 +55,40 @@ bool ModeGameUI::Process() {
 	if (game->GetPlayer()->GetModeNum() > 0) {
 		if (_AnimCount < 80) {
 			_AnimCount++;
-			auto pos = _UIChip[0]->GetPosition();
-			_UIChip[0]->SetPosition(VGet(pos.x - 10, pos.y, 0));
-			pos = _UIChip[1]->GetPosition();
-			_UIChip[1]->SetPosition(VGet(pos.x + 15, pos.y , 0));
-			new UIChipFadeComponent(_UIChip[2], 255, 1000);
-			new UIChipFadeComponent(_UIChip[3], 255, 1000);
-			new UIChipFadeComponent(_UIChip[4], 255, 1000);
+			auto pos = _UIChip[2]->GetPosition();
+			_UIChip[2]->SetPosition(VGet(pos.x - 15, pos.y, 0));
+			pos = _UIChip[3]->GetPosition();
+			_UIChip[3]->SetPosition(VGet(pos.x - 15, pos.y , 0));
+			pos = _UIChip[4]->GetPosition();
+			_UIChip[4]->SetPosition(VGet(pos.x + 15, pos.y, 0));
+			pos = _UIChip[5]->GetPosition();
+			_UIChip[5]->SetPosition(VGet(pos.x + 15, pos.y, 0));
+			new UIChipFadeComponent(_UIChip[7], 255, 1000);
+			new UIChipFadeComponent(_UIChip[8], 255, 1000);
+			new UIChipFadeComponent(_UIChip[9], 255, 1000);
+			new UIChipFadeComponent(_UIChip[10], 255, 1000);
+			new UIChipFadeComponent(_UIChip[11], 255, 1000);
+			new UIChipFadeComponent(_UIChip[12], 255, 1000);
+			new UIChipFadeComponent(_UIChip[13], 255, 1000);
 		}
 	} else {
 		if (_AnimCount > 0) {
 			_AnimCount--;
-			auto pos = _UIChip[0]->GetPosition();
-			_UIChip[0]->SetPosition(VGet(pos.x + 10, pos.y , 0));
-			pos = _UIChip[1]->GetPosition();
-			_UIChip[1]->SetPosition(VGet(pos.x - 15, pos.y, 0));
-			new UIChipFadeComponent(_UIChip[2], 0, 1000);
-			new UIChipFadeComponent(_UIChip[3], 0, 1000);
-			new UIChipFadeComponent(_UIChip[4], 0, 1000);
+			auto pos = _UIChip[2]->GetPosition();
+			_UIChip[2]->SetPosition(VGet(pos.x + 15, pos.y, 0));
+			pos = _UIChip[3]->GetPosition();
+			_UIChip[3]->SetPosition(VGet(pos.x + 15, pos.y, 0));
+			pos = _UIChip[4]->GetPosition();
+			_UIChip[4]->SetPosition(VGet(pos.x - 15, pos.y, 0));
+			pos = _UIChip[5]->GetPosition();
+			_UIChip[5]->SetPosition(VGet(pos.x - 15, pos.y, 0));
+			new UIChipFadeComponent(_UIChip[7], 0, 1000);
+			new UIChipFadeComponent(_UIChip[8], 0, 1000);
+			new UIChipFadeComponent(_UIChip[9], 0, 1000);
+			new UIChipFadeComponent(_UIChip[10], 0, 1000);
+			new UIChipFadeComponent(_UIChip[11], 0, 1000);
+			new UIChipFadeComponent(_UIChip[12], 0, 1000);
+			new UIChipFadeComponent(_UIChip[13], 0, 1000);
 		}
 	}
 	return false;
@@ -88,7 +103,7 @@ bool ModeGameUI::Render() {
 	auto sec = t / 1000 % 60;
 	auto msec = t % 1000 / 10;
 	SetFontSize(60);
-	DrawFormatString(20, 20, GetColor(255, 255, 255), "%02d:%02d", min, sec);
+	DrawFormatString(40, 20, GetColor(255, 255, 255), "%02d:%02d", min, sec);
 	SetFontSize(30);
 	DrawFormatString(210, 50, GetColor(255, 255, 255), "%02d", msec);
 	return false;

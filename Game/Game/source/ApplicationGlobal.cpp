@@ -22,6 +22,11 @@ bool ApplicationGlobal::Init() {
 	_StartTime = 0;
 	_EndTime = 0;
 	_PauseTime = 0;
+	_MaxMargeTime = -1;
+	_MargeTimer = 0;
+	_MaxDashTime = -1;
+	_DashTimer = 0;
+	_ItemList.clear();
 
 	return true;
 }

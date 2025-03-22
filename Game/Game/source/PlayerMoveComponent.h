@@ -19,6 +19,7 @@ public:
 	int GetTrg() const { return _Trg; }
 
 	void SetDashTime(int time) { _DashTime = time; }
+	int GetDashTime() { return _DashTime; }
 
 	void SetDashDownTime(int time) { _DashDownTime = time; }	
 

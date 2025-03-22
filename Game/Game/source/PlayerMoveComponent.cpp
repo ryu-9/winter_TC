@@ -239,7 +239,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 		// v��rad����]������
 
-	
+	gGlobal._DashTimer = _DashTime;
 		break;
 
 	case 2:
@@ -261,7 +261,7 @@ void PlayerMoveComponent::ProcessInput()
 
 
 	//
-
+	
 }
 
 void PlayerMoveComponent::Receive(int message)

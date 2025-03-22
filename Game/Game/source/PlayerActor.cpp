@@ -32,7 +32,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
 	, _FallTime(0)
-	, _ItemNum(3)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -608,6 +608,8 @@ void PlayerActor::UpdateActor() {
 
 
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
+	gGlobal._MargeTimer = _ChangeTime;
+	
 }
 
 void PlayerActor::ChangeMode(int mode)
@@ -642,6 +644,8 @@ void PlayerActor::ChangeMode(int mode)
 		}
 		Init();
 		_Cursor->SetActiveFalse();
+		gGlobal._MaxMargeTime = -1;
+		gGlobal._MaxDashTime =-1;
 		break;
 	case 1:
 		_ModeNum = 1;
@@ -751,7 +755,12 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 
 	}
-
+	if (mode > 0 && gGlobal._MaxMargeTime == -1) {
+		gGlobal._MaxMargeTime = _ChangeTime;
+	}
+	if (mode > 0 && gGlobal._MaxDashTime == -1) {
+		gGlobal._MaxDashTime = _Input->GetDashTime();
+	}
 	if (mode > 0) {
 		_ItemNum = 0;
 	}
