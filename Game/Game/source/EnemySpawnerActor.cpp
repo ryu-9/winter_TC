@@ -10,9 +10,12 @@ EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool groupflag,
 	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
 	// ƒvƒŒƒCƒ„[‚Ìæ“¾
 	auto game = static_cast<ModeGame*>(GetMode());
+
 	_Player[0] = game->GetPlayer(0);
 	_Player[1] = game->GetPlayer(1);
 	Init();
+
+	_HitCol = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(10, 10, 10), 2);
 }
 
 EnemySpawnerActor::~EnemySpawnerActor() {
@@ -24,7 +27,7 @@ void EnemySpawnerActor::Init() {
 	_Data.pop_range = 100;
 	_Data.pop_time = 2000;
 	_Data.active_range = 1000;
-
+	_HP = 20;
 
 }
 
@@ -49,9 +52,11 @@ void EnemySpawnerActor::UpdateActor() {
 
 		_TmCnt = 0;
 	}
-	if (_TotalPopCnt >= _Data.max_pop){
+	if (_TotalPopCnt >= _Data.max_pop && !_Breakable){
 		if (_ResetFlag == true) { _PopCnt = 0; }
 		else { SetState(State::eDead); }
 	}
-	
+	if (_HP <= 0) {
+		SetState(State::eDead);
+	}
 }

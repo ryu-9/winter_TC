@@ -4,6 +4,7 @@
 
 class EnemyActor;
 
+
 class EnemySpawnerActor : public ActorClass {
 public:
 	struct SPAWNER_DATA {
@@ -25,6 +26,8 @@ public:
 	void SetData(SPAWNER_DATA data) { _Data = data; }
 	void SetType(int type) { _Type = type; }
 	void SetCol(int col) { _Col = col; }
+
+	void Damage(int damage) { _HP -= damage; }
 private:
 	class PlayerActor* _Player[2];
 	int _TmCnt;						// 時間
@@ -34,8 +37,12 @@ private:
 	bool _ResetFlag;				// リセット有無フラグ
 	int _Type;						// 敵の種類
 	int _Col;						// 敵の色
+	bool _Breakable;				// 破壊可能フラグ
+	int _HP;						// HP
 	SPAWNER_DATA _Data;
 
 	std::vector<VECTOR> _SpawnerPos;
+
+	HitCollisionComponent* _HitCol;
 };
 

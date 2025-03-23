@@ -52,6 +52,7 @@ public:
 
 	void SetStartPos(VECTOR pos) { _StartPos = pos; }
 
+	int GetInvincibleTime() { return _InvincibleTime; }
 
 private:
 

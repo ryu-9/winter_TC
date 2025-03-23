@@ -2,7 +2,7 @@
 #include "ActorClass.h"
 #include "../ModelServer/ModelServer.h"
 
-ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file, int draworder)
+ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file, int draworder,bool useownersize)
 	:Component(owner)
 	, _Indipendent(false)
 	// 再生時間の初期化
@@ -15,12 +15,15 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file, int draword
 	, _Position(VGet(0, 0, 0))
 	, _Scale(VGet(1, 1, 1))
 	, _Center(VGet(0, 0, 0))
+	, _UseOwnerSize(true)
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");
 	_Handle = ModelServer::GetInstance()->Add(file);
 	_Sprite = new ModelSpriteComponent(_Owner, this, draworder);
 }
+
+
 
 ModelComponent::~ModelComponent()
 {
@@ -56,8 +59,15 @@ void ModelComponent::SetModelInfo()
 	v = VTransform(v, MGetRotZ(vRot.z));
 	v = VAdd(v, GetCenter());
 	// 位置
-	MV1SetPosition(_Handle, VAdd(VAdd(_Owner->GetPosition(), VMulti(_Position, _Owner->GetSize())), v));
-	MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
+	if (_UseOwnerSize) {
+		MV1SetPosition(_Handle, VAdd(VAdd(_Owner->GetPosition(), VMulti(_Position, _Owner->GetSize())), v));
+		MV1SetScale(_Handle, VMulti(_Owner->GetSize(), _Scale));
+	}
+	else {
+		MV1SetPosition(_Handle, VAdd(VAdd(_Owner->GetPosition(), _Position), v));
+		MV1SetScale(_Handle, _Scale);
+	}
+	
 
 }
 

@@ -17,7 +17,6 @@
 #include "ModeStageSelect.h"
 #include "PlayerMoveCollisionComponent.h"
 #include <EffekseerForDXLib.h>
-#include "EnemyController.h"
 #include "GroupAttackActor.h"
 #include "BossActor.h"
 #include "TreeActor.h"
@@ -393,6 +392,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			nm = nm.back();
 			auto n = std::stoi(nm) - 1;
 			poppos[n].push_back(pos);
+		} else if (name == "House_Spawner") {
+			
 		}
 		else if (name2 == "Wall"||(name2.erase(name2.size()-1,1)=="Wall")) {
 

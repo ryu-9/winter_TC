@@ -16,20 +16,25 @@ public:
 	void UpdateActor() override;
 	void DecrementPopCnt() { _PopCnt--; }
 	void SetData(SPAWNER_DATA data) { _Data = data; }
-	void AddPopPos(VECTOR pos) { _PopPos.push_back(pos); }
-	void SetPopPos(std::vector<VECTOR> pos) { _PopPos = pos; }
+	void AddPopPos(VECTOR pos);
 	void SetHCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 	bool GetActive() { return _Active; }
 
 private:
 	class PlayerActor* _Player[2];
 
-	
+	struct Spawner {
+		ModelComponent* model;
+		HitCollisionComponent* hCollision;
+		int hp;
+	};
+
 	class HitCollisionComponent* _HCollision;
 	int _TmCnt;						// éûä‘
 	int _PopCnt;					// ê∂ê¨êî
 	int _TotalPopCnt;				// ëçê∂ê¨êî
 	std::vector<VECTOR> _PopPos;	// ê∂ê¨à íu
+	std::vector<Spawner> _Spawner;
 	SPAWNER_DATA _Data;
 
 	bool _Active;

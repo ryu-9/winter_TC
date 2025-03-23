@@ -2,6 +2,10 @@
 #include "EnemyCreator.h"
 #include "ModeGame.h"
 #include "CameraActor.h"
+#include "PlayerActor.h"
+#include "PunchActor.h"
+#include "LaserActor.h"
+#include "SlashActor.h"
 
 GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos)
 	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0)
@@ -92,7 +96,55 @@ void GroupSpawnerActor::UpdateActor() {
 		_TmCnt = 0;
 
 		delete[] dist;
+
+		for (auto i = 0; i < _Spawner.size(); i++) {
+			if (_Spawner[i].hp <= 0) {
+				delete _Spawner[i].model;
+				delete _Spawner[i].hCollision;
+				_Spawner.erase(_Spawner.begin() + i);
+			}
+
+			auto hit = _Spawner[i].hCollision->IsHit();
+			for (auto h : hit) {
+				auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
+				if (p != nullptr) {
+					if (p->GetInvincibleTime() <= 0) {
+						p->Damage(0.05);
+						_Spawner[i].hp -= 5;
+					}
+					if (p->GetModeNum() > 0) {
+						_Spawner[i].hp -= 20;
+					}
+				}
+				auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
+				if (punch != nullptr) {
+					_Spawner[i].hp -= 20;
+				}
+				auto laser = dynamic_cast<LaserActor*>(h->GetOwner());
+				if (laser != nullptr) {
+					_Spawner[i].hp -= 1;
+				}
+				auto slash = dynamic_cast<SlashActor*>(h->GetOwner());
+				if (slash != nullptr) {
+					_Spawner[i].hp -= 20;
+				}
+			}
+		}
 		
 	}
+}
+
+void GroupSpawnerActor::AddPopPos(VECTOR pos) {
+	_PopPos.push_back(pos);
+	auto tmpos = VSub(_Position,pos);
+	tmpos.y = pos.y - (60*_Size.y);
+	auto model = new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1",100,false);
+	model->SetPosition(tmpos);
+	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(5, 5, 5), 2,false, true,false);
+	Spawner s;
+	s.model = model;
+	s.hCollision = hcol;
+	s.hp = 20;
+	_Spawner.push_back(s);
 }
 

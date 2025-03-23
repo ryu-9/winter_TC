@@ -173,7 +173,6 @@
     <ClCompile Include="source\EnemyActor.cpp" />
     <ClCompile Include="source\EnemyAttackComponent.cpp" />
     <ClCompile Include="source\EnemyComponent.cpp" />
-    <ClCompile Include="source\EnemyController.cpp" />
     <ClCompile Include="source\EnemyCreator.cpp" />
     <ClCompile Include="source\EnemyMoveComponent.cpp" />
     <ClCompile Include="source\EnemySearchComponent.cpp" />
@@ -235,7 +234,6 @@
     <ClInclude Include="source\EnemyActor.h" />
     <ClInclude Include="source\EnemyAttackComponent.h" />
     <ClInclude Include="source\EnemyComponent.h" />
-    <ClInclude Include="source\EnemyController.h" />
     <ClInclude Include="source\EnemyCreator.h" />
     <ClInclude Include="source\EnemyMoveComponent.h" />
     <ClInclude Include="source\EnemySearchComponent.h" />

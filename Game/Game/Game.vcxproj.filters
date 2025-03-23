@@ -120,9 +120,6 @@
     <ClCompile Include="source\EnemyCreator.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyController.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="source\BGMComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
@@ -240,6 +237,12 @@
     <ClCompile Include="source\UIItemClass.cpp">
       <Filter>ソース ファイル\Mode\Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="source\ChangeSnowBallActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LavaActor.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -291,9 +294,6 @@
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyCreator.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EnemyController.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyActor.h">
@@ -421,6 +421,12 @@
     </ClInclude>
     <ClInclude Include="source\UIItemClass.h">
       <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ChangeSnowBallActor.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LavaActor.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

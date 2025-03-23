@@ -9,7 +9,7 @@
 class ModelComponent : public Component
 {
 public:
-	ModelComponent(class ActorClass* owner, const TCHAR* file, int draworeder = 100);
+	ModelComponent(class ActorClass* owner, const TCHAR* file, int draworeder = 100,bool useownersize = true);
 	virtual ~ModelComponent();
 
 	void ProcessInput() override;
@@ -63,6 +63,7 @@ private:
 	VECTOR _Center;
 
 	bool _Indipendent;
+	bool _UseOwnerSize;
 
 	class ModelSpriteComponent* _Sprite;
 };

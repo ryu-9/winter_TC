@@ -3,11 +3,11 @@
 #include "ModelComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
 
-HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
+HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, bool useownersize, int handle)
 	: Component(owner)
 	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0)), OldMove(VGet(0, 0, 0)), devpos(VGet(0, 0, 0))
-	, flag(false), shomen(false)
+	, flag(false), shomen(false), _UseOwnerSize(useownersize)
 {
 	// ���[�h�ɂ��̃R���|�[�l���g��ǉ�
 	_Owner->GetMode()->AddHCollision(this);
