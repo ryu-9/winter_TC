@@ -1,11 +1,12 @@
 #include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
 
-SourceVoiceItem::SourceVoiceItem()
+SourceVoiceItem::SourceVoiceItem(std::string wavname)
 	:_SV(nullptr)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
 	, _Pitch(1.0f)
+	, _WavName(wavname)
 {
 	
 //	_SV->SetVolume(_Volume);
@@ -14,6 +15,7 @@ SourceVoiceItem::SourceVoiceItem()
 
 SourceVoiceItem::~SourceVoiceItem() {
 	if (_SV) {
+
 		_SV->DestroyVoice();
 		_SV = nullptr;
 	}
@@ -21,27 +23,18 @@ SourceVoiceItem::~SourceVoiceItem() {
 
 void SourceVoiceItem::Play() {
 	_SV->Start();
+	_IsPlay = true;
 }
 
-bool SourceVoiceItem::IsPlay() {
-	XAUDIO2_VOICE_STATE state;
-	_SV->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-	if (state.BuffersQueued > 0) {
-		return true;
-	}
-	return false;
-}
-
-void SourceVoiceItem::Stop() {
+void SourceVoiceItem::Stop(int tm) {
 	auto s = new SVItemVolumeFade(this);
-	s->SetFadeTime(10);
+	s->SetFadeTime(tm);
 	s->SetVolume(0);
-
-	AddEffect(s);
 }
 
 void SourceVoiceItem::ForceStop() {
 	_SV->Stop();
+	_IsPlay = false;
 }
 
 float SourceVoiceItem::GetVolume() {
@@ -107,6 +100,7 @@ void SourceVoiceItem::Update() {
 
 	if (_Volume == 0.0f) {
 		_SV->Stop();
+		_IsPlay = false;
 		if (_ToDestroy == true) {
 			delete this;
 		}

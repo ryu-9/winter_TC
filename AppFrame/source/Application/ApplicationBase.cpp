@@ -80,6 +80,7 @@ bool ApplicationBase::Process() {
 	_serverMode->ProcessInit();
 	_serverMode->Process();
 	_serverMode->ProcessFinish();
+	SoundServer::GetInstance()->UpdateDeleteSV();
 	return true;
 }
 

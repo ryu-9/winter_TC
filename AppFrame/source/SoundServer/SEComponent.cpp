@@ -6,7 +6,7 @@ SEComponent::SEComponent(ActorClass* owner,ActorClass* listner,bool deadtype)
 {
 	SoundServer::GetInstance()->Create(_Owner, "fire","fire","fire");
 	SetSourceVoice(SoundServer::GetInstance()->GetSourceVoice(_Owner, "fire"));
-	_SV[0]->Play();
+	//_SV[0]->Play();
 
 	float r = rand() % 25;
 	r *= 0.01f;

@@ -30,7 +30,7 @@ void SVItemVolumeFade::Update() {
 	auto vol = _VolumeStart + (_VolumeEnd - _VolumeStart) * rate;
 	vol *= vol;
 	_svItem->SetVolume(vol);
-
+	
 	if (_FadeTime >= _FadeTimeMax && _Destroy) {
 		delete this;
 	}

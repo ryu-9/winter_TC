@@ -6,15 +6,18 @@ UISoundActor::UISoundActor(ModeBase* mode)
 }
 
 UISoundActor::~UISoundActor() {
+	SoundServer::GetInstance()->Release(this);
 }
 
 void UISoundActor::UpdateActor() {
+	SoundServer::GetInstance()->Update(this);
 
 }
 
-void UISoundActor::PlayActSound(std::string actname) {
-	auto s = new SoundComponent(this,false);
-	s->SetSourceVoice(new SourceVoiceItem());
-	s->Play(0);
+void UISoundActor::AddSound(std::string actname, std::string svname) {
+	SoundServer::GetInstance()->Create(this, svname, "UI", actname);
+}
 
+void UISoundActor::PlayActSound(std::string actname) {
+	SoundServer::GetInstance()->GetSourceVoice(this, actname)->Play();
 }

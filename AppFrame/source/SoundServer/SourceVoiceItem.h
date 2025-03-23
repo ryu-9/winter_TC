@@ -9,12 +9,12 @@ class SoundServer;
 
 class SourceVoiceItem{
 public:
-	SourceVoiceItem();
+	SourceVoiceItem(std::string wavname = "");
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
-	virtual bool IsPlay();
-	virtual void Stop();
+	virtual bool IsPlay() { return _IsPlay; }
+	virtual void Stop(int tm = 100);
 	virtual void ForceStop();
 
 	virtual float GetVolume();
@@ -23,6 +23,7 @@ public:
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
+//	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
 	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
 	virtual bool IsToDestroy() { return _ToDestroy; }
@@ -47,5 +48,6 @@ private:
 	float _Pitch;
 
 	bool _ToDestroy;
+	bool _IsPlay;
 };
 

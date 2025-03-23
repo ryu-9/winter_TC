@@ -64,6 +64,12 @@
     <Filter Include="ヘッダー ファイル\Mode\Game\UI">
       <UniqueIdentifier>{590a6886-499b-4ef2-8730-381d558cb992}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Mode\Game\Sound">
+      <UniqueIdentifier>{91eaac1a-8b5d-4ae2-b3b4-3f3802306829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Mode\Game\Sound">
+      <UniqueIdentifier>{7c943f60-a652-4e95-9258-c94eec6d5a7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -233,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="source\DaikanpaActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BGMActor.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="source\DaikanpaActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BGMActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

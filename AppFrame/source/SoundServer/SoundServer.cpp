@@ -47,8 +47,8 @@ bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 }
 
 bool SoundServer::Create(SEComponent* secon, std::string name) {
-	auto sv = new SourceVoiceItem();
-	secon->SetSourceVoice(sv);
+//	auto sv = new SourceVoiceItem();
+//	secon->SetSourceVoice(sv);
 	return true;
 }
 
@@ -79,7 +79,7 @@ bool SoundServer::Create(ActorClass* p, std::string wavname, std::string datanam
 	if (_WavData.count(wavname) == 0) { return false; }
 	
 	IXAudio2SourceVoice* sourceVoice = nullptr;
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[dataname].wFormat, XAUDIO2_VOICE_USEFILTER, 16.0f);
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[wavname].wFormat, XAUDIO2_VOICE_USEFILTER, 16.0f);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
 		return false;
@@ -94,9 +94,8 @@ bool SoundServer::Create(ActorClass* p, std::string wavname, std::string datanam
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
 
 	// ソースボイスの作成
-	auto sv = new SourceVoiceItem();
+	auto sv = new SourceVoiceItem(wavname);
 	sv->SetSourceVoice(sourceVoice);
-	
 	_SV[p][mapname] = sv;
 	
 	return true;
@@ -105,10 +104,28 @@ bool SoundServer::Create(ActorClass* p, std::string wavname, std::string datanam
 
 
 
-void SoundServer::UpdateSound(ActorClass* p) {
+void SoundServer::Update(ActorClass* p) {
 	for (auto& sv : _SV[p]) {
 		sv.second->Update();
 	}
+}
+
+void SoundServer::UpdateDeleteSV() {
+	for (auto i = 0; i < _DeleteSV.size(); i++) {
+		_DeleteSV[i]->Update();
+		if (_DeleteSV[i]->IsPlay() == false) {
+			delete _DeleteSV[i];
+			_DeleteSV.erase(_DeleteSV.begin() + i);
+		}
+	}
+}
+
+void SoundServer::Release(ActorClass* p) {
+	for (auto& sv : _SV[p]) {
+		sv.second->Stop();
+		_DeleteSV.push_back(sv.second);
+	}
+	_SV[p].clear();
 }
 
 

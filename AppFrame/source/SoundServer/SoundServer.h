@@ -31,7 +31,10 @@ public:
 
 	SourceVoiceItem* GetSourceVoice(ActorClass* p, std::string name) { return _SV[p][name]; }
 
-	void UpdateSound(ActorClass* p);
+	void Update(ActorClass* p);
+	void UpdateDeleteSV();
+
+	void Release(ActorClass* p);
 
 protected:
 	bool Init();
@@ -40,6 +43,7 @@ protected:
 
 	std::map<std::string, WAVRead::WAVDATA> _WavData;
 	std::map<ActorClass*, std::map<std::string,SourceVoiceItem*>> _SV;
+	std::vector<SourceVoiceItem*> _DeleteSV;
 	
 };
 

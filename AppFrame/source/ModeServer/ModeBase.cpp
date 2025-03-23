@@ -208,6 +208,9 @@ void ModeBase::StepTime(unsigned long tmNow) {
 		_tmPauseStep = 0;
 	}
 	else {
+		if (tmNow - _tmOldFrame > 1000) {
+			_tmOldFrame = tmNow;
+		}
 		_tmMode = tmNow - _tmModeBase +_tmPauseStep;
 		_tmStep = tmNow - _tmOldFrame;
 	}

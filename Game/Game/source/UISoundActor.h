@@ -6,13 +6,11 @@ public:
 	virtual ~UISoundActor();
 	void UpdateActor() override;
 
-	void AddSound(std::string actname, std::string svname) {
-		_SoundMap[actname] = svname;
-	}
+	void AddSound(std::string actname, std::string svname);
+	
 
 	void PlayActSound(std::string actname);
 private:
-	std::map<std::string, std::string> _SoundMap;
 
 };
 
