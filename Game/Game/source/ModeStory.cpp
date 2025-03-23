@@ -47,7 +47,9 @@ bool ModeStory::Initialize() {
 //	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 950, 0), "res/UI/UI_TEXT_BACK.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_STORY_SIDE.png"));
-
+	if (gGlobal._SelectStage == gGlobal._Stageflg) {
+		gGlobal._Stageflg++;
+	}
 	return false;
 }
 

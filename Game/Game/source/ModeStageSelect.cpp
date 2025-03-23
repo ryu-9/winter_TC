@@ -15,10 +15,16 @@ bool ModeStageSelect::Initialize() {
 
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_WORLD1.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 1), 540, 0), "res/UI/UI_WORLD2.png", 0));
-	new UIChipFadeComponent(_UIChip.back(), 255, 500);
-	_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 2), 540, 0), "res/UI/UI_WORLD3.png", 0));
-	new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	if (gGlobal._Stageflg > 0) {
+		_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 1), 540, 0), "res/UI/UI_WORLD2.png", 0));
+		new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	}
+	if (gGlobal._Stageflg > 1) {
+		_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 2), 540, 0), "res/UI/UI_WORLD3.png", 0));
+		new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	}
+	
+	
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("enter", "enter");
 	_UISound->AddSound("select", "select");

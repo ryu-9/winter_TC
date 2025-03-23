@@ -7,6 +7,7 @@ ApplicationGlobal		gGlobal;
 
 ApplicationGlobal::ApplicationGlobal() {
 	_SelectStage = -1;
+	_Stageflg = 0;
 }
 
 ApplicationGlobal::~ApplicationGlobal() {
