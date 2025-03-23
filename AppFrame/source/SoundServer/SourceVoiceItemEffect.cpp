@@ -25,11 +25,15 @@ SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
 
 void SVItemVolumeFade::Update() {
 	// TODO: Mode‚ÉG‚Á‚ÄŽžŠÔ‚ðŽæ“¾‚·‚é
-	_FadeTime += 0.016;
+	_FadeTime += 16;
 	float rate = _FadeTime / _FadeTimeMax;
 	auto vol = _VolumeStart + (_VolumeEnd - _VolumeStart) * rate;
 	vol *= vol;
 	_svItem->SetVolume(vol);
+	
+	if (_FadeTime >= _FadeTimeMax && _Destroy) {
+		delete this;
+	}
 
 }
 
@@ -37,6 +41,7 @@ SVItemPitchRand::SVItemPitchRand(SourceVoiceItem* sv)
 	:base(sv)
 	, _Rand(25)
 {
+
 }
 
 void SVItemPitchRand::SetUp() {

@@ -25,6 +25,7 @@
 #include "GoalItemActor.h"
 #include "GimmickWallActor.h"
 #include "ModeScenario.h"
+#include "BGMActor.h"
 #include "LavaActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
@@ -125,36 +126,31 @@ bool ModeGame::Initialize() {
 	switch (gGlobal._SelectStage) {
 	case 0:
 		LoadStage("res/Stage/", "Stage1.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1_1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_1");
-		new BGMComponent(_Camera, 0, "bgm1_1", "bgm2_1");
+		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1_2");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_2");
-		new BGMComponent(_Camera, 0, "bgm1_2", "bgm2_2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1_3");
-		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2_3");
-		new BGMComponent(_Camera, 0, "bgm1_3", "bgm2_3");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		break;
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1_4");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
 	//	SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
-		new BGMComponent(_Camera, 0, "bgm1_4", "");
 		break;
 	default:
 		break;
 	}
-
+	new BGMActor(this);
 	
 
 	{
-		
 		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
@@ -166,7 +162,10 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
-		
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_OUTTIMER.wav", "alert");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CON_FIRE.wav", "cornfire");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK1.wav", "boxwalk1");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK2.wav", "boxwalk2");
 	}
 	
 		

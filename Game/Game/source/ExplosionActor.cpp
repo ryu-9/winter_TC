@@ -31,7 +31,7 @@ void ExplosionActor::UpdateActor()
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
 			auto s = new SoundComponent(a,true);
-			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+			s->SetSourceVoice(new SourceVoiceItem());
 			s->Play(0);
 			s->SetTimer(500);
 		}

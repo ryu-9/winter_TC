@@ -20,6 +20,8 @@ DaikanpaActor::DaikanpaActor(ModeBase* mode, PlayerActor* owner, VECTOR pos, VEC
 	Size *= 10;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 400, 0), VGet(Size, Size, Size), 2, true, true);
 
+	SoundServer::GetInstance()->Create(this, "daikanpa", "AttackSE", "daikanpa");
+	SoundServer::GetInstance()->GetSourceVoice(this, "daikanpa")->Play();
 }
 
 
@@ -45,7 +47,7 @@ void DaikanpaActor::UpdateActor()
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
 			auto s = new SoundComponent(a, true);
-			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+			s->SetSourceVoice(new SourceVoiceItem());
 			s->Play(0);
 			s->SetTimer(500);
 		}

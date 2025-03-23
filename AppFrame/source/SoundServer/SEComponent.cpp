@@ -4,8 +4,9 @@ SEComponent::SEComponent(ActorClass* owner,ActorClass* listner,bool deadtype)
 	:SoundComponent(owner,deadtype)
 	, _Listener(listner)
 {
-	SetSourceVoice(new SourceVoiceItem("fire"));
-	_SV[0]->Play();
+	SoundServer::GetInstance()->Create(_Owner, "fire","fire","fire");
+	SetSourceVoice(SoundServer::GetInstance()->GetSourceVoice(_Owner, "fire"));
+	//_SV[0]->Play();
 
 	float r = rand() % 25;
 	r *= 0.01f;

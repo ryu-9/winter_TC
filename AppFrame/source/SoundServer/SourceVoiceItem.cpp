@@ -1,24 +1,24 @@
 #include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
 
-SourceVoiceItem::SourceVoiceItem(std::string wavname,int playhz,int loop)
+SourceVoiceItem::SourceVoiceItem(std::string wavname,ActorClass* ac)
 	:_SV(nullptr)
 	, _Volume(1.0f)
 	, _VolumeChanged(false)
 	, _Pitch(1.0f)
 	, _WavName(wavname)
+	,_Actor(ac)
+	, _IsPlay(false)
+	, _Dead(false)
 {
-	// サウンドの作成
-	if (SoundServer::GetInstance()->Create(wavname, _SV,playhz,loop) == false) {
-		printf("CreateSourceVoice failed\n");
-		delete this;
-	}
-	_SV->SetVolume(_Volume);
+	
+//	_SV->SetVolume(_Volume);
 //	_SV->SetFrequencyRatio(_Pitch);
 }
 
 SourceVoiceItem::~SourceVoiceItem() {
 	if (_SV) {
+
 		_SV->DestroyVoice();
 		_SV = nullptr;
 	}
@@ -26,23 +26,18 @@ SourceVoiceItem::~SourceVoiceItem() {
 
 void SourceVoiceItem::Play() {
 	_SV->Start();
+	_IsPlay = true;
 }
 
-bool SourceVoiceItem::IsPlay() {
-	XAUDIO2_VOICE_STATE state;
-	_SV->GetState(&state, XAUDIO2_VOICE_NOSAMPLESPLAYED);
-	if (state.BuffersQueued > 0) {
-		return true;
-	}
-	return false;
-}
-
-void SourceVoiceItem::Stop() {
-	_SV->Stop();
+void SourceVoiceItem::Stop(int tm) {
+	auto s = new SVItemVolumeFade(this);
+	s->SetFadeTime(tm);
+	s->SetVolume(0);
 }
 
 void SourceVoiceItem::ForceStop() {
 	_SV->Stop();
+	_IsPlay = false;
 }
 
 float SourceVoiceItem::GetVolume() {
@@ -81,10 +76,10 @@ void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
 
 void SourceVoiceItem::ResetPlayTm(int playhz) {
 	// サウンドの作成
-	if (SoundServer::GetInstance()->Create(_WavName, _SV, playhz) == false) {
-		printf("CreateSourceVoice failed\n");
-		delete this;
-	}
+//	if (SoundServer::GetInstance()->Create(_WavName, _SV, playhz) == false) {
+//		printf("CreateSourceVoice failed\n");
+//		delete this;
+//	}
 	_SV->SetVolume(_Volume);
 }
 
@@ -101,6 +96,13 @@ void SourceVoiceItem::RemoveEffect(SourceVoiceItemEffectBase* effect) {
 
 void SourceVoiceItem::Update() {
 
+	XAUDIO2_VOICE_STATE state;
+	_SV->GetState(&state);
+	if ((state.BuffersQueued > 0) == false) {
+		//SoundServer::GetInstance()->DeleteSourceVoice(_Actor, _WavName);
+		_Dead = true;
+	}
+
 	// エフェクトの更新
 	for (auto effect : _Effects) {
 		effect->Update();
@@ -108,9 +110,7 @@ void SourceVoiceItem::Update() {
 
 	if (_Volume == 0.0f) {
 		_SV->Stop();
-		if (_ToDestroy == true) {
-			delete this;
-		}
+		_IsPlay = false;
 		return;
 	}
 
@@ -123,6 +123,8 @@ void SourceVoiceItem::Update() {
 	_SV->SetVolume(_Volume);
 
 	_VolumeChanged = false;
+
+
 }
 
 

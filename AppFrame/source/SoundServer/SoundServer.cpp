@@ -2,6 +2,7 @@
 #include <mmsystem.h>
 #include "SEComponent.h"
 #include "SoundComponent.h"
+#include "SourceVoiceItemEffect.h"
 #pragma comment(lib, "winmm.lib")
 
 
@@ -34,33 +35,23 @@ SoundServer::~SoundServer() {
 	CoUninitialize();
 }
 
-void SoundServer::Clear()
-{
-}
 
-bool SoundServer::Add(std::string path,std::string name) {
+bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 	// サウンドの読み込み
-	// もうあったら作らない
-	if (_m.count(name)) { return true; }
+	if (_WavData.count(name)&& !isoverwrite) { return true; }	
 	else {
-		if (WAVRead::Read(path.c_str(), &_m[name]) == false) {
+		if (WAVRead::Read(path.c_str(), &_WavData[name]) == false) {
 			return false;
 		}
 	}
 	return true;
 }
 
-bool SoundServer::Create(SEComponent* secon, std::string name) {
-	auto sv = new SourceVoiceItem(name);
-	secon->SetSourceVoice(sv);
-	return true;
-}
-
-
-bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int loop) {
+bool SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname,std::string mapname) {
+	if (_WavData.count(wavname) == 0) { return false; }
+	
 	IXAudio2SourceVoice* sourceVoice = nullptr;
-	if (_m.count(name) == 0) { return false; }
-	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_m[name].wFormat,XAUDIO2_VOICE_USEFILTER,16.0f);
+	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[wavname].wFormat, XAUDIO2_VOICE_USEFILTER, 16.0f);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
 		return false;
@@ -68,21 +59,78 @@ bool SoundServer::Create(std::string name, IXAudio2SourceVoice*& sv,int hz,int l
 
 	// 音声データの設定
 	XAUDIO2_BUFFER xAudio2Buffer{};
-	xAudio2Buffer.pAudioData = (BYTE*)_m[name].sBuffer;
+	xAudio2Buffer.pAudioData = (BYTE*)_WavData[wavname].sBuffer;
 	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
-	xAudio2Buffer.AudioBytes = _m[name].size;
-	
-	xAudio2Buffer.PlayBegin = hz;
-	xAudio2Buffer.LoopCount = loop;
+	xAudio2Buffer.AudioBytes = _WavData[wavname].size;
+
 	sourceVoice->SubmitSourceBuffer(&xAudio2Buffer);
-	sv = sourceVoice;
+
+	// ソースボイスの作成
+	auto sv = new SourceVoiceItem(mapname,p);
+	sv->SetSourceVoice(sourceVoice);
+	
+	if(dataname == "AttackSE"){
+		new SVItemPitchRand(sv);
+		new SVItemDistanceDecay(sv);
+	}
+
+	_SV[p][mapname] = sv;
+	
 	return true;
-};
+}
+;
 
 
-bool SoundServer::Del(std::string name)
-{
-	return false;
+
+void SoundServer::Update(ActorClass* p) {
+	std::vector<std::string> deleteList;
+	for (auto& sv : _SV[p]) {
+		if (sv.second->IsToDestroy()) {
+			deleteList.push_back(sv.first);
+		}
+	}
+	for (auto& name : deleteList) {
+		_SV[p].erase(name);
+		if (_SV[p].size() == 0) {
+			_SV.erase(p);
+		}
+	}
+	for (auto& sv : _SV[p]) {
+		sv.second->Update();
+	}
+}
+
+void SoundServer::UpdateDeleteSV() {
+	std::vector<SourceVoiceItem*> deleteSV;
+	for (auto i = 0; i < _DeleteSV.size(); i++) {
+		if (_DeleteSV[i]->IsToDestroy()) {
+			deleteSV.push_back(_DeleteSV[i]);
+			_DeleteSV.erase(_DeleteSV.begin() + i);
+		}
+	}
+	for (auto i = 0; i < deleteSV.size(); i++) {
+		delete deleteSV[i];
+	}
+	for (auto i = 0; i < _DeleteSV.size(); i++) {
+		_DeleteSV[i]->Update();
+	}
+}
+
+void SoundServer::Release(ActorClass* p) {
+	for (auto& sv : _SV[p]) {
+		sv.second->Stop();
+		_DeleteSV.push_back(sv.second);
+	}
+	_SV.erase(p);
+}
+
+void SoundServer::DeleteSourceVoice(ActorClass* p, std::string name) {
+	_SV[p][name]->Stop();
+	_DeleteSV.push_back(_SV[p][name]);
+	_SV[p].erase(name);
+	if (_SV[p].size() == 0) {
+		_SV.erase(p);
+	}
 }
 
 

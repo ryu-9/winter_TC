@@ -24,6 +24,8 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float heig
 	//auto model = new ModelComponent(this, "res/model/Sundercross/slashHit.mv1");
 	//model->SetScale(VGet(size, size/4, size));
 	//MV1SetVisible(model->GetHandle(), FALSE);
+	SoundServer::GetInstance()->Create(this, "blade", "AttackSE", "blade");
+	SoundServer::GetInstance()->GetSourceVoice(this, "blade")->Play();
 }
 
 SlashActor::~SlashActor()
@@ -41,7 +43,7 @@ void SlashActor::UpdateActor()
 			auto a = new ActorClass(GetMode());
 			a->SetPosition(enemy->GetPosition());
 			auto s = new SoundComponent(a,true);
-			s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+			s->SetSourceVoice(new SourceVoiceItem());
 			s->Play(0);
 			s->SetTimer(500);
 		}

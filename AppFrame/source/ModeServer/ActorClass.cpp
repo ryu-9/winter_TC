@@ -1,5 +1,6 @@
 #include "ActorClass.h"
 #include "ModeBase.h"
+#include "../SoundServer/SoundServer.h"
 
 
 ActorClass::ActorClass(ModeBase* mode)
@@ -23,6 +24,7 @@ ActorClass::~ActorClass()
 		i--;
 		j++;
 	}
+	SoundServer::GetInstance()->Release(this);
 }
 
 void ActorClass::ProcessInput() {
@@ -49,6 +51,7 @@ void ActorClass::Update() {
 		}
 		UpdateComponents();
 		UpdateActor();
+
 	}
 }
 
@@ -60,6 +63,7 @@ void ActorClass::UpdateComponents() {
 
 
 void ActorClass::UpdateActor() {
+	SoundServer::GetInstance()->Update(this);
 }
 
 

@@ -160,6 +160,12 @@ void PlayerActor::UpdateActor() {
 
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
+		if (_ChangeTime <= 1000) {
+			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
+			if (sv != nullptr) {
+				sv->Play();
+			}
+		}
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
 			_InvincibleTime = 1000;
@@ -450,7 +456,7 @@ void PlayerActor::UpdateActor() {
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a, 1);
-				s->SetSourceVoice(new SourceVoiceItem("KillEnemy2"));
+				s->SetSourceVoice(new SourceVoiceItem());
 				s->Play(0);
 				s->SetTimer(500);
 
@@ -552,7 +558,7 @@ void PlayerActor::UpdateActor() {
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a, true);
-				s->SetSourceVoice(new SourceVoiceItem("KillEnemy"));
+				s->SetSourceVoice(new SourceVoiceItem());
 				s->Play(0);
 				s->SetTimer(500);
 			}
@@ -930,6 +936,9 @@ void PlayerActor::ChangeMode(int mode)
 	}
 	if (mode > 0) {
 		_ItemNum = 0;
+		if (mode % 2 == 1) {
+			SoundServer::GetInstance()->Create(this, "alert", "SE", "alert");
+		}
 	}
 }
 

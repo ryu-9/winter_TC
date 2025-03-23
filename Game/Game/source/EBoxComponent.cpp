@@ -200,6 +200,11 @@ bool EBoxComponent::Move() {
 		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, _En->GetInput()->GetVelocity().y, 0));
 		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(VAdd(_StartRot, _AddRot));
+		auto n = rand() % 2;
+		std::string se = "boxwalk";
+		se += std::to_string(n);
+		SoundServer::GetInstance()->Create(_Owner, se, "AttackSE", se);
+		SoundServer::GetInstance()->GetSourceVoice(_Owner, se)->Play();
 		_Status = STATUS::SEARCH;
 	}
 

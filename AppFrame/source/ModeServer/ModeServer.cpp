@@ -4,6 +4,7 @@
 #include "ModeServer.h"
 
 
+
 /// インスタンス 
 ModeServer* ModeServer::_lpInstance = NULL;
 
@@ -234,7 +235,7 @@ int ModeServer::Process() {
 		if (_pauseProcessMode == (*ite)) { pause = true; }
 	}
 	_nowMode = NULL;
-
+	
 	return 0;
 }
 

@@ -113,9 +113,9 @@ bool ECornComponent::Attack(int n) {
 		new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(30, 30, 30), 2, true);
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
-		auto game = static_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
-		if (game != nullptr) { new SEComponent(ac, game->GetPlayer(),0); }
-		// TODO: new SEComponent(ac,cam);
+		SoundServer::GetInstance()->Create(ac, "cornfire", "AttackSE", "cornfire");
+		SoundServer::GetInstance()->GetSourceVoice(ac, "cornfire")->Play();
+		
 		
 
 	return true;

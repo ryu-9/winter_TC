@@ -23,9 +23,9 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	new EnemyCreator();
 
-	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "sdx_bgm1");
-	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter");
-	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select");
+	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm1",true);
+	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_ENTER.wav", "enter",false);
+	SoundServer::GetInstance()->Add("res/sound/SE/TDX_UI_SELECT.wav", "select",false);
 
 	LPCSTR font_path = "res/Corporate-Logo-Bold-ver3.otf";
 	if (AddFontResourceExA(font_path, FR_PRIVATE, NULL) > 0) {

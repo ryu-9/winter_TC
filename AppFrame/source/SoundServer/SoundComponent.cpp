@@ -34,7 +34,7 @@ void SoundComponent::Update() {
 
 void SoundComponent::Play(int index) {
 	if (_Timer > 0) { return; }
-	_SV[index]->Play();
+//	_SV[index]->Play();
 }
 
 void SoundComponent::SetSourceVoice(SourceVoiceItem* sv) {

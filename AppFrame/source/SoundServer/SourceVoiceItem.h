@@ -6,15 +6,16 @@
 
 class Component;
 class SoundServer;
+class ActorClass;
 
 class SourceVoiceItem{
 public:
-	SourceVoiceItem(std::string wavname,int playhz = 0,int loop = 0);
+	SourceVoiceItem(std::string wavname = "",ActorClass* ac = nullptr);
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
-	virtual bool IsPlay();
-	virtual void Stop();
+	virtual bool IsPlay() { return _IsPlay; }
+	virtual void Stop(int tm = 100);
 	virtual void ForceStop();
 
 	virtual float GetVolume();
@@ -23,30 +24,33 @@ public:
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
+//	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
-	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
-	virtual bool IsToDestroy() { return _ToDestroy; }
+	virtual void SetToDestroy(bool flg) { _Dead = flg; }
+	virtual bool IsToDestroy() { return _Dead; }
 
 	virtual void ResetPlayTm(int playhz);
 
 	void AddEffect(class SourceVoiceItemEffectBase* effect);
 	void RemoveEffect(class SourceVoiceItemEffectBase* effect);
 
-	class Component* GetOwner() { return _Owner; }
+	void SetSourceVoice(IXAudio2SourceVoice* sv) { _SV = sv; }
+	IXAudio2SourceVoice* GetSourceVoice() { return _SV; }
 
 	void Update();
 
 private:
 	std::string _WavName;
+	class ActorClass* _Actor;
 	IXAudio2SourceVoice* _SV;
 	std::vector<class SourceVoiceItemEffectBase*> _Effects;
-	class Component* _Owner;
 
 	float _Volume;
 	bool _VolumeChanged;
 
 	float _Pitch;
 
-	bool _ToDestroy;
+	bool _Dead;
+	bool _IsPlay;
 };
 
