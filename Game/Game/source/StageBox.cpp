@@ -1,29 +1,56 @@
 #include "StageBox.h"
 #include "SnowComponent.h"
 
-StageBox::StageBox(ModeBase* mode)
+StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int type)
 	:ActorClass(mode)
 {
-	/*
-	auto m = new ModelComponent(this, "res/model/Mapchip/Mapchip.mv1");
-	m->SetScale(VGet(2,2,2));
-	m->SetPosition(VGet(0, -50, 0));
-	SetDirection(VGet(0, 0, 0));
-	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this, m, VGet(0,1,0), VGet(0.5,0.5,0.5),6, false, true, handle);
-	*/
-	_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken.mv1", 101);
-	_Model->SetScale(VGet(2, 2, 2));
-	_Model->SetPosition(VGet(0, -50, 0));
-	int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
-	_AnimIndex = MV1AttachAnim(_Model->GetHandle(), index, _Model->GetHandle(), TRUE);
-	_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);
-	SetDirection(VGet(0, 0, 0));
-	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
-	handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+	SetPosition(pos);
+	SetDirection(rot);
+	SetSize(scale);
+	switch (type) {
 
+		case 0:
+		{
+			_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken.mv1", 101);
+			_Model->SetScale(VGet(2, 2, 2));
+			_Model->SetPosition(VGet(0, -50, 0));
+			int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
+			_AnimIndex = MV1AttachAnim(_Model->GetHandle(), index, _Model->GetHandle(), TRUE);
+			_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);		
+			int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			handle = ModelServer::GetInstance()->Add("res/cube.mv1");
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			break;
+		}
+
+
+		case 1:
+		{
+			_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
+			_Model->SetScale(VGet(0.5, 0.5, 0.5));
+			_AnimTotalTime = 0;;
+			int handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			break;
+		}
+	
+	
+	case 2:
+		{
+			_Model = new ModelComponent(this, "res/Stage/model/laststage.mv1");
+			_AnimTotalTime = 0;
+			int handle = ModelServer::GetInstance()->Add("res/Stage/model/laststage.mv1");
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
+			handle = ModelServer::GetInstance()->Add("res/Stage/model/laststage.mv1");
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
+			break;
+		}
+	}
+
+	Init();
 
 }
 
@@ -53,6 +80,11 @@ void StageBox::UpdateActor()
 
 void StageBox::Init()
 {
+	auto sc = GetComponent<SnowComponent>();
+	for(auto s : sc)
+	{
+		delete s;
+	}
 	MV1_COLL_RESULT_POLY_DIM p = MV1CollCheck_Sphere(_MCollision->GetHandle(), -1, _MCollision->GetPosition(), 10000);
 	for (int i = 0; i < p.HitNum; i++)
 	{
@@ -63,6 +95,8 @@ void StageBox::Init()
 		}
 	}
 	MV1CollResultPolyDimTerminate(p);
+	_MCollision->RefleshCollInfo();
+	_HCollision->RefleshCollInfo();
 }
 
 void StageBox::StartBreak()

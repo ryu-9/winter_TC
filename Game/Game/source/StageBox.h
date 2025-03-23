@@ -4,7 +4,7 @@
 class StageBox : public ActorClass
 {
 public:
-	StageBox(class ModeBase* mode);
+	StageBox(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0), VECTOR rot = VGet(0, 0, 0), VECTOR scale = VGet(1, 1, 1), int type = 0);
 	virtual ~StageBox();
 
 	void UpdateActor() override;

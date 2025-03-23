@@ -346,12 +346,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
-			auto box = new StageBox(this);
-			box->SetPosition(pos);
-			box->SetDirection(rot);
-			box->SetSize(scale);
-			box->GetMCollision()->RefleshCollInfo();
-			box->GetHCollision()->RefleshCollInfo();
+			auto box = new StageBox(this, pos, rot, scale, 0);
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
