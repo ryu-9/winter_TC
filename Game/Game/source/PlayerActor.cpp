@@ -34,7 +34,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
 	, _FallTime(0)
-	, _ItemNum(0)
+	, _ItemNum(2)
 	, _LavaFlag(false)
 
 {
@@ -774,6 +774,7 @@ void PlayerActor::UpdateActor() {
 
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 	gGlobal._MargeTimer = _ChangeTime;
+	gGlobal._ItemNum = _ItemNum;
 	
 }
 

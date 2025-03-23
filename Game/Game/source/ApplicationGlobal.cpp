@@ -27,6 +27,7 @@ bool ApplicationGlobal::Init() {
 	_MaxDashTime = -1;
 	_DashTimer = 0;
 	_ItemList.clear();
+	_ItemNum = -1;
 
 	return true;
 }

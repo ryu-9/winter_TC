@@ -19,6 +19,7 @@ public:
 
 	// ƒAƒCƒeƒ€
 	std::vector<int> _ItemList;
+	int _ItemNum;
 
 	// ‡‘Ì
 	float _MaxMargeTime;
