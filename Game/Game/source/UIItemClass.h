@@ -4,7 +4,7 @@
 
 class UIItemClass : public UIChipClass {
 public:
-	UIItemClass(class ModeBase* mode, VECTOR pos, int draworder = 100);
+	UIItemClass(class ModeBase* mode, VECTOR pos, const TCHAR* name, int draworder = 100);
 	virtual ~UIItemClass();
 };
 
