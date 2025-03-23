@@ -1,6 +1,5 @@
 #include "EnemyActor.h"
 #include "EnemyMoveComponent.h"
-#include "EnemyAttackComponent.h"
 #include "ECornComponent.h"
 #include "EBoxComponent.h"
 #include "PlayerActor.h"
@@ -8,6 +7,7 @@
 #include "EnemySpawnerActor.h"
 #include "GroupAttackActor.h"
 #include "ItemActor.h"
+#include "TimerComponent.h"
 
 EnemyActor::EnemyActor(ModeBase* mode,VECTOR pos, EnemySpawnerActor* es)
 	:ActorClass(mode)
@@ -60,8 +60,7 @@ void EnemyActor::UpdateActor() {
 	}
 }
 
-void EnemyActor::Death() {
-	//todo: actorƒNƒ‰ƒX‚ðÁ‚³‚È‚«‚á
+void EnemyActor::Death(int type) {
 	{
 		auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, 100, 0)), 11 + rand() % 2);
 		auto m = item->GetComponent<MoveComponent>()[0];
@@ -73,7 +72,20 @@ void EnemyActor::Death() {
 		auto ac = new ActorClass(GetMode());
 		ac->SetPosition(GetPosition());
 		auto sp = new EffectSpriteComponent(ac, "res/model/hit/hit.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), 20);
-
+		switch (type) {
+		case 0:
+			SoundServer::GetInstance()->Create(ac, "KillEnemy", "AttackSE", "KillEnemy");
+			SoundServer::GetInstance()->GetSourceVoice(ac, "KillEnemy")->Play();
+			break;
+		case 1:
+			SoundServer::GetInstance()->Create(ac, "KillEnemy2", "AttackSE", "KillEnemy2");
+			SoundServer::GetInstance()->GetSourceVoice(ac, "KillEnemy2")->Play();
+			break;
+		default:
+			break;
+		}
+		new TimerComponent(ac, 1000);
+		
 	}
 	SetState(State::eDead);
 }

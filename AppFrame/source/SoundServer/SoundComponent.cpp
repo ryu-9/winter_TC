@@ -18,7 +18,7 @@ SoundComponent::~SoundComponent() {
 
 void SoundComponent::Update() {
 	for (auto sv : _SV) {
-		sv->Update();
+
 	}
 	if (_Timer > 0) {
 		_Timer -= _Owner->GetMode()->GetStepTm();

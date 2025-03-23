@@ -17,7 +17,7 @@ public:
 	void Init();
 	void UpdateActor() override;
 
-	void Death();
+	void Death(int type);
 
 	
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode); }

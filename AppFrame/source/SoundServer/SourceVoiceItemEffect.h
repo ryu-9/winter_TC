@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 class SourceVoiceItem;
 class ActorClass;
 
@@ -9,7 +11,7 @@ public:
 	virtual ~SourceVoiceItemEffectBase();
 
 	virtual void SetUp() {};
-	virtual void Update() {};
+	virtual void Update(class ActorClass* p) {};
 	
 	virtual bool IsUnique() { return false; }
 protected:
@@ -22,7 +24,7 @@ class SVItemVolumeFade : public SourceVoiceItemEffectBase {
 	typedef SourceVoiceItemEffectBase base;
 public:
 	SVItemVolumeFade(class SourceVoiceItem* sv);
-	void Update() override;
+	void Update(class ActorClass* p) override;
 
 	void SetFadeTime(float time) { _FadeTimeMax = time; }
 	void SetVolume(float vol) { _VolumeEnd = vol; }
@@ -49,7 +51,7 @@ class SVItemDistanceDecay : public SourceVoiceItemEffectBase {
 	typedef SourceVoiceItemEffectBase base;
 public:
 	SVItemDistanceDecay(class SourceVoiceItem* sv);
-	void Update() override;
+	void Update(class ActorClass* p) override;
 
 private:
 	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
@@ -59,7 +61,7 @@ class SVItemPanning : public SourceVoiceItemEffectBase {
 	typedef SourceVoiceItemEffectBase base;
 public:
 	SVItemPanning(class SourceVoiceItem* sv);
-	void Update() override;
+	void Update(class ActorClass* p) override;
 
 private:
 	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)

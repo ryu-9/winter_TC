@@ -1,7 +1,7 @@
 #include "SoundServer.h"
 #include <mmsystem.h>
-#include "SEComponent.h"
 #include "SoundComponent.h"
+#include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
 #pragma comment(lib, "winmm.lib")
 
@@ -47,19 +47,25 @@ bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 	return true;
 }
 
-bool SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname,std::string mapname) {
-	if (_WavData.count(wavname) == 0) { return false; }
+SourceVoiceItem* SoundServer::Create(ActorClass* p, std::string wavname, std::string dataname,std::string mapname, int startTime , int loopflag) {
+	if (_WavData.count(wavname) == 0) { return nullptr; }
 	
 	IXAudio2SourceVoice* sourceVoice = nullptr;
 	HRESULT hr = _XAudio2->CreateSourceVoice(&sourceVoice, &_WavData[wavname].wFormat, XAUDIO2_VOICE_USEFILTER, 16.0f);
 	if (FAILED(hr)) {
 		printf("CreateSourceVoice failed: %#X\n", hr);
-		return false;
+		return nullptr;
 	}
 
 	// ‰¹ºƒf[ƒ^‚ÌÝ’è
 	XAUDIO2_BUFFER xAudio2Buffer{};
 	xAudio2Buffer.pAudioData = (BYTE*)_WavData[wavname].sBuffer;
+	if (loopflag) {
+		xAudio2Buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
+	}
+	if (startTime != 0) {
+		xAudio2Buffer.PlayBegin = startTime;
+	}
 	xAudio2Buffer.Flags = XAUDIO2_END_OF_STREAM;
 	xAudio2Buffer.AudioBytes = _WavData[wavname].size;
 
@@ -71,12 +77,11 @@ bool SoundServer::Create(ActorClass* p, std::string wavname, std::string datanam
 	
 	if(dataname == "AttackSE"){
 		new SVItemPitchRand(sv);
-		new SVItemDistanceDecay(sv);
 	}
-
+	
 	_SV[p][mapname] = sv;
 	
-	return true;
+	return sv;
 }
 ;
 
@@ -96,7 +101,7 @@ void SoundServer::Update(ActorClass* p) {
 		}
 	}
 	for (auto& sv : _SV[p]) {
-		sv.second->Update();
+		sv.second->Update(p);
 	}
 }
 
@@ -112,7 +117,7 @@ void SoundServer::UpdateDeleteSV() {
 		delete deleteSV[i];
 	}
 	for (auto i = 0; i < _DeleteSV.size(); i++) {
-		_DeleteSV[i]->Update();
+		_DeleteSV[i]->Update(nullptr);
 	}
 }
 

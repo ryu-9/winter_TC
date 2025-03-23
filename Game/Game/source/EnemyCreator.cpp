@@ -1,6 +1,5 @@
 #include "EnemyCreator.h"
 #include "EnemyActor.h"
-#include "EnemyAttackComponent.h"
 #include "ECornComponent.h"
 #include "EBoxComponent.h"
 

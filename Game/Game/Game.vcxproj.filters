@@ -132,9 +132,6 @@
     <ClCompile Include="source\EnemyActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyAttackComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\EnemyComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
@@ -155,9 +152,6 @@
     </ClCompile>
     <ClCompile Include="source\ModeTestStage.cpp">
       <Filter>ソース ファイル\Dev</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SnowComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeScenario.cpp">
       <Filter>ソース ファイル\Mode</Filter>
@@ -216,9 +210,6 @@
     <ClCompile Include="source\ModeStory.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UISoundActor.cpp">
-      <Filter>ソース ファイル\Mode\Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeGameOver.cpp">
       <Filter>ソース ファイル\Mode\Game</Filter>
     </ClCompile>
@@ -248,9 +239,18 @@
     </ClCompile>
     <ClCompile Include="source\LavaActor.cpp">
       <Filter>ソース ファイル</Filter>
-       </ClCompile>
+    </ClCompile>
     <ClCompile Include="source\BGMActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SnowComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISoundActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TimerComponent.cpp">
+      <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +310,6 @@
     </ClInclude>
     <ClInclude Include="source\BGMComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EnemyAttackComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyMoveComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
@@ -436,9 +433,12 @@
     </ClInclude>
     <ClInclude Include="source\LavaActor.h">
       <Filter>ヘッダー ファイル</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="source\BGMActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TimerComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

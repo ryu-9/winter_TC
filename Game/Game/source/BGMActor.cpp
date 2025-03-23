@@ -5,8 +5,8 @@
 BGMActor::BGMActor(ModeBase* mode) 
 	: ActorClass(mode)
 {
-	SS::GetInstance()->Create(this, "bgm1", "BGM", "bgm1");
-	SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2");
+	SS::GetInstance()->Create(this, "bgm1", "BGM", "bgm1",0,true);
+	SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2",44100*3);
 	SS::GetInstance()->GetSourceVoice(this, "bgm1")->SetVolume(0.4);
 	SS::GetInstance()->GetSourceVoice(this, "bgm2")->SetVolume(0.4);
 	//TODO: W’cí‚ÌBGM
@@ -60,6 +60,7 @@ void BGMActor::UpdateActor() {
 	if (bgm2->IsPlay()) {
 		if (n < 1) {
 			bgm2->Stop();
+			bgm2->ResetPlayTm(44100 * 3);
 			bgm1->Play();
 		}
 	}

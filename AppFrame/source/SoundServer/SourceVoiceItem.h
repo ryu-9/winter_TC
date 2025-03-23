@@ -37,7 +37,7 @@ public:
 	void SetSourceVoice(IXAudio2SourceVoice* sv) { _SV = sv; }
 	IXAudio2SourceVoice* GetSourceVoice() { return _SV; }
 
-	void Update();
+	void Update(class ActorClass* p);
 
 private:
 	std::string _WavName;

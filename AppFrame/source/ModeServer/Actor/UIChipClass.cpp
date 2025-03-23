@@ -5,8 +5,10 @@ UIChipClass::UIChipClass(ModeBase* mode, VECTOR pos,const TCHAR* fname, int draw
 	:ActorClass(mode)
 	, _Num(0)
 {
-	_Sp = new UIChipSpriteComponent(this,draworder);
-	_Sp->SetImage(fname);
+	if (fname != "") {
+		_Sp = new UIChipSpriteComponent(this, draworder);
+		_Sp->SetImage(fname);
+	}
 	_Position = pos;
 	_Data.scale = VGet(1, 1, 1);
 	_Data.angle = 0;

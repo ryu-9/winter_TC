@@ -21,6 +21,7 @@ DaikanpaActor::DaikanpaActor(ModeBase* mode, PlayerActor* owner, VECTOR pos, VEC
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 400, 0), VGet(Size, Size, Size), 2, true, true);
 
 	SoundServer::GetInstance()->Create(this, "daikanpa", "AttackSE", "daikanpa");
+
 	SoundServer::GetInstance()->GetSourceVoice(this, "daikanpa")->Play();
 }
 
@@ -43,13 +44,7 @@ void DaikanpaActor::UpdateActor()
 	for (auto h : hit) {
 		auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 		if (enemy != nullptr) {
-			enemy->Death();
-			auto a = new ActorClass(GetMode());
-			a->SetPosition(enemy->GetPosition());
-			auto s = new SoundComponent(a, true);
-			s->SetSourceVoice(new SourceVoiceItem());
-			s->Play(0);
-			s->SetTimer(500);
+			enemy->Death(1);
 		}
 
 

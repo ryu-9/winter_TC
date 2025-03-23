@@ -75,9 +75,6 @@
     <ClInclude Include="source\SoundServer\WAVRead.h">
       <Filter>SoundServer</Filter>
     </ClInclude>
-    <ClInclude Include="source\SoundServer\SEComponent.h">
-      <Filter>SoundServer</Filter>
-    </ClInclude>
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h">
       <Filter>SoundServer\SourceVoice</Filter>
     </ClInclude>
@@ -153,9 +150,6 @@
       <Filter>SoundServer</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundServer\WAVRead.cpp">
-      <Filter>SoundServer</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundServer\SEComponent.cpp">
       <Filter>SoundServer</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp">

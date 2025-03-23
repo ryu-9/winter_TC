@@ -25,7 +25,7 @@ public:
 	// ÉTÉEÉìÉhê∂ê¨ån
 	bool Add(std::string path,std::string name,bool isoverwrite = false);
 
-	bool Create(ActorClass* p, std::string name, std::string dataname , std::string mapname);
+	SourceVoiceItem* Create(ActorClass* p, std::string name, std::string dataname , std::string mapname, int startTime = 0, int loopflag = false);
 
 	SourceVoiceItem* GetSourceVoice(ActorClass* p, std::string name) { return _SV[p][name]; }
 
@@ -34,6 +34,8 @@ public:
 
 	void Release(ActorClass* p);
 	void DeleteSourceVoice(ActorClass* p, std::string name);
+
+
 
 protected:
 	bool Init();

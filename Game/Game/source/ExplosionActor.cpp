@@ -27,13 +27,7 @@ void ExplosionActor::UpdateActor()
 	for (auto h : hit) {
 		auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 		if (enemy != nullptr) {
-			enemy->Death();
-			auto a = new ActorClass(GetMode());
-			a->SetPosition(enemy->GetPosition());
-			auto s = new SoundComponent(a,true);
-			s->SetSourceVoice(new SourceVoiceItem());
-			s->Play(0);
-			s->SetTimer(500);
+			enemy->Death(1);
 		}
 
 		auto ice = dynamic_cast<BreakableBoxActor*>(h->GetOwner());

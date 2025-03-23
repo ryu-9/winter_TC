@@ -76,10 +76,11 @@ void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
 
 void SourceVoiceItem::ResetPlayTm(int playhz) {
 	// サウンドの作成
-//	if (SoundServer::GetInstance()->Create(_WavName, _SV, playhz) == false) {
-//		printf("CreateSourceVoice failed\n");
-//		delete this;
-//	}
+	_SV->DestroyVoice();
+	if (SoundServer::GetInstance()->Create(_Actor, _WavName, _WavName,_WavName,playhz) == nullptr) {
+		printf("CreateSourceVoice failed\n");
+		
+	}
 	_SV->SetVolume(_Volume);
 }
 
@@ -94,7 +95,7 @@ void SourceVoiceItem::RemoveEffect(SourceVoiceItemEffectBase* effect) {
 	}
 }
 
-void SourceVoiceItem::Update() {
+void SourceVoiceItem::Update(ActorClass* p) {
 
 	XAUDIO2_VOICE_STATE state;
 	_SV->GetState(&state);
@@ -105,7 +106,7 @@ void SourceVoiceItem::Update() {
 
 	// エフェクトの更新
 	for (auto effect : _Effects) {
-		effect->Update();
+		effect->Update(p);
 	}
 
 	if (_Volume == 0.0f) {

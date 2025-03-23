@@ -152,8 +152,8 @@ bool ModeGame::Initialize() {
 
 	{
 		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy2");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jump");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_LAND.wav", "land");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "punch");

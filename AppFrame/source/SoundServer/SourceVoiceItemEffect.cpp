@@ -23,9 +23,9 @@ SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
 
 
 
-void SVItemVolumeFade::Update() {
-	// TODO: Modeに触って時間を取得する
-	_FadeTime += 16;
+void SVItemVolumeFade::Update(ActorClass* p) {
+	if (p == nullptr) { _FadeTime += 16;}
+	else { _FadeTime += p->GetMode()->GetStepTm(); }
 	float rate = _FadeTime / _FadeTimeMax;
 	auto vol = _VolumeStart + (_VolumeEnd - _VolumeStart) * rate;
 	vol *= vol;
@@ -54,11 +54,12 @@ void SVItemPitchRand::SetUp() {
 SVItemDistanceDecay::SVItemDistanceDecay(SourceVoiceItem* sv)
 	:base(sv)
 {
+	_Listener = nullptr;
 }
 
-void SVItemDistanceDecay::Update() {
-	// 距離による音量減衰
-	auto pos =VGet(0,0,0);// _Owner->GetPosition();
+void SVItemDistanceDecay::Update(ActorClass* p) {
+
+	auto pos = p->GetPosition	();
 	auto lpos = _Listener->GetPosition();
 
 	auto dist = VSize(VSub(pos, lpos));
@@ -71,15 +72,16 @@ void SVItemDistanceDecay::Update() {
 
 SVItemPanning::SVItemPanning(SourceVoiceItem* sv) 
 	:base(sv)
+	, _Listener(nullptr)
 {
-
+	
 }
 
-void SVItemPanning::Update() {
-	// パンニング
+void SVItemPanning::Update(ActorClass* p) {
 
-	auto pos = VGet(0, 0, 0);// _Owner->GetPosition();
-	auto lpos = _Listener->GetPosition();
+	auto pos = p->GetPosition();
+	auto lpos = VGet(960, 540, 0);
+	if (_Listener != nullptr) { auto lpos = _Listener->GetPosition(); }
 	// 角度の計算
 	pos = VNorm(pos);
 	lpos = VNorm(lpos);

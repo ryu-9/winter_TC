@@ -185,7 +185,6 @@
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
     <ClInclude Include="source\SoundServer\SoundComponent.h" />
-    <ClInclude Include="source\SoundServer\SEComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItemEffect.h" />
@@ -213,7 +212,6 @@
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundComponent.cpp" />
-    <ClCompile Include="source\SoundServer\SEComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItemEffect.cpp" />
