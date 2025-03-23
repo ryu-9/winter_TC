@@ -86,7 +86,9 @@ void CameraComponent::ProcessInput()
 	VECTOR v = VAdd(pos[0], pos[1]);
 	_Dist = VSize(VSub(pos[0], pos[1])) + 100;
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
+	//angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
+
 
 	angle = VTransform(angle, MGetRotY(rx/1000));
 	float camrad = atan2(angle.y, VSize(VGet(angle.x, 0, angle.z)));

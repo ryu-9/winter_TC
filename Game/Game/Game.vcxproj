@@ -148,7 +148,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>source/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,6 +166,7 @@
     <ClCompile Include="source\BreakableBoxActor.cpp" />
     <ClCompile Include="source\BulletComponent.cpp" />
     <ClCompile Include="source\CameraActor.cpp" />
+    <ClCompile Include="source\ChangeSnowBallActor.cpp" />
     <ClCompile Include="source\DaikanpaActor.cpp" />
     <ClCompile Include="source\EBoxComponent.cpp" />
     <ClCompile Include="source\ECornComponent.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="source\ioJsonText.cpp" />
     <ClCompile Include="source\ItemActor.cpp" />
     <ClCompile Include="source\LaserActor.cpp" />
+    <ClCompile Include="source\LavaActor.cpp" />
     <ClCompile Include="source\ModeEnemyCon.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameGoal.cpp" />
@@ -226,6 +228,7 @@
     <ClInclude Include="source\BreakableBoxActor.h" />
     <ClInclude Include="source\BulletComponent.h" />
     <ClInclude Include="source\CameraActor.h" />
+    <ClInclude Include="source\ChangeSnowBallActor.h" />
     <ClInclude Include="source\DaikanpaActor.h" />
     <ClInclude Include="source\EBoxComponent.h" />
     <ClInclude Include="source\ECornComponent.h" />
@@ -246,6 +249,7 @@
     <ClInclude Include="source\ioJsonText.h" />
     <ClInclude Include="source\ItemActor.h" />
     <ClInclude Include="source\LaserActor.h" />
+    <ClInclude Include="source\LavaActor.h" />
     <ClInclude Include="source\ModeEnemyCon.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameGoal.h" />

@@ -13,7 +13,9 @@
 #include "PlayerMoveCollisionComponent.h"
 #include "ItemActor.h"
 #include "TreeActor.h"
+#include "LavaActor.h"
 #include "BreakableBoxActor.h"
+#include "ChangeSnowBallActor.h"
 
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
@@ -33,6 +35,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _SeparateTime(0)
 	, _FallTime(0)
 	, _ItemNum(0)
+	, _LavaFlag(false)
 
 {
 	if (_PlayerNo == 1) {
@@ -101,9 +104,10 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[3] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dash_motion.mv1");
 	_AnimationModel[4] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_down.mv1");
 	_AnimationModel[5] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou_up.mv1");
-	_AnimationModel[6] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1");
-	_AnimationModel[7] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_ztaireitou.mv1");
-	_AnimationModel[8] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1");
+	_AnimationModel[6] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_beam_down.mv1");
+	_AnimationModel[7] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_beam_up.mv1");
+	_AnimationModel[8] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_ztaireitou.mv1");
+	_AnimationModel[9] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1");
 
 
 	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
@@ -111,7 +115,17 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	//EffectController::GetInstance()->AddEffectFlag(pee[pee.size() - 1], "Fog", false);
 	//EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 
-	
+	int debug;
+	if (_PlayerNo == 1) {
+		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Surprised");
+		debug = MV1AttachAnim(_BallModel->GetHandle(), 0, _BallModel->GetHandle(), TRUE);
+	}
+	else {
+		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Yukidama_sis_surprised");
+		debug = MV1AttachAnim(_BallModel->GetHandle(), 0, _BallModel->GetHandle(), TRUE);
+	}
+
+
 }
 
 PlayerActor::~PlayerActor()
@@ -152,11 +166,45 @@ void PlayerActor::UpdateActor() {
 		}
 	}
 
+	if (_ChangeTime < 0 && _ModeNum != 7 && _ModeNum != 8) {
+		_ChangeTime += dt;
+		_Input->SetVelocity(VGet(0, 0, 0));
+		_Input->SetStand(true);
+		if (_ChangeFlag) {
+			VECTOR fpos = _Friend->GetPosition();
+			VECTOR pos = GetPosition();
+			VECTOR target = VAdd(VGet(fpos.x, fpos.y + _Friend->GetSize().y * 80, fpos.z), VScale(VGet(0, 160, 0), GetSize().x));
+			VECTOR move = VSub(target, pos);
+			move = VScale(move, (2000+(float)_ChangeTime) / 2000);
+			SetPosition(VAdd(pos, move));
+		}
+
+
+		if (_ChangeTime >= 0) {
+			_ChangeTime = 0;
+			_Friend->SetChangeTime(0);
+			auto pe = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
+			for (auto p : pe) {
+				p->SetIsUse(true);
+			}
+			if (_ChangeFlag) {
+				_Friend->ChangeMode(1 + _ItemNum * 2);
+				ChangeMode(2 + _ItemNum * 2);
+			}
+			else {
+				_Friend->ChangeMode(2 + _ItemNum * 2);
+				ChangeMode(1 + _ItemNum * 2);
+			}
+			ChangeAnim((int)anim::Change);
+			_Friend->ChangeAnim((int)anim::Change);
+		}
+	}
 	
 	if (GetPosition().y < -750) {
 		_FallTime += dt;
 		if (_FallTime > 1000) {
 			Damage(GetSize().x/2);
+			_ChangeFlag = false;
 			_Input->SetVelocity(VGet(0, 0, 0));
 			if (_Friend->GetPosition().y > -750) {
 				SetPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
@@ -175,10 +223,30 @@ void PlayerActor::UpdateActor() {
 
 	int animOrder = (int)anim::Wait;
 
+	if (_ModeNum == 0) {
+		_AnimTime -= (float)dt/ 10;
+		if (_AnimTime < 0) {
+			_AnimTime = 0;
+		}
+		if (_AnimTime > 60) {
+			MV1SetAttachAnimTime(_BallModel->GetHandle(), 0, 60);
+		}
+		else {
+			MV1SetAttachAnimTime(_BallModel->GetHandle(), 0, _AnimTime);
+		}
+	
+	}
 	if (_ModeNum > 0) {
 
 		if (_Animation == (int)anim::Daikanpa) {
 			_AnimTime += (float)GetMode()->GetStepTm() / 30;
+		}
+		else if (_Animation == (int)anim::Change) {
+			_AnimTime += (float)GetMode()->GetStepTm() / 30;
+			_ChangeTime += dt;
+			if (_AnimTime > 50) {
+				_Input->SetIsActive(true);
+			}
 		}
 		else {
 			_AnimTime += (float)GetMode()->GetStepTm() / 10;
@@ -193,7 +261,7 @@ void PlayerActor::UpdateActor() {
 				ChangeAnim((int)anim::Wait);
 				//_AnimTime = 0;
 			}
-
+			
 
 
 		}
@@ -281,10 +349,12 @@ void PlayerActor::UpdateActor() {
 			_InvincibleTime -= dt;
 			if (_InvincibleTime / 50 % 2) {
 				_BallModel->SetVisible(false);
-			} else {
+			}
+			else {
 				_BallModel->SetVisible(true);
 			}
-		} else {
+		}
+		else {
 			_BallModel->SetVisible(true);
 		}
 
@@ -326,24 +396,52 @@ void PlayerActor::UpdateActor() {
 				dist = VSize(VSub(_Friend->GetPosition(), GetPosition()));
 				if (dist < (friSize + GetSize().y) * 100) {
 					if (_Friend->GetInput()->GetStand() == TRUE && _Input->GetStand() == FALSE) {
-
-
-						_Friend->ChangeMode(1 + _ItemNum * 2);
+						_ChangeTime = -2000;
+						_Input->SetIsActive(false);
+						new ChangeSnowBallActor(GetMode(), this, GetSize().x * 5);
+						_Friend->SetChangeTime(-2000);
+						_Friend->GetInput()->SetIsActive(false);
+						_Friend->SetChangeFlag(false);
+						new ChangeSnowBallActor(GetMode(), _Friend, _Friend->GetSize().x* 5);
+						auto pe = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
+						for (auto p : pe) {
+							p->SetIsUse(false);
+						}
+						/*
+												_Friend->ChangeMode(1 + _ItemNum * 2);
 						ChangeMode(2 + _ItemNum * 2);
 						ChangeAnim((int)anim::Change);
 						_Friend->ChangeAnim((int)anim::Change);
+						*/
 
-					} else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
-						_Friend->ChangeMode(2 + _ItemNum * 2);
+
+					}
+					else if (_Friend->GetInput()->GetStand() == FALSE && _Input->GetStand() == TRUE) {
+						_ChangeTime = -2000;
+						_Input->SetIsActive(false);
+						_ChangeFlag = false;
+						new ChangeSnowBallActor(GetMode(), this, GetSize().x);
+						_Friend->GetInput()->SetIsActive(false);
+						_Friend->SetChangeTime(-2000);
+						new ChangeSnowBallActor(GetMode(), _Friend, _Friend->GetSize().x);
+						auto pe = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
+						for (auto p : pe) {
+							p->SetIsUse(false);
+						}
+						/*
+												_Friend->ChangeMode(2 + _ItemNum * 2);
 						_Friend->ChangeAnim((int)anim::Change);
 						ChangeMode(1 + _ItemNum * 2);
 						ChangeAnim((int)anim::Change);
+						*/
+
 
 					}
 				}
 			}
 		}
 
+		_LavaFlag = false;
 		auto hit = _HCollision->IsHit();
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
@@ -379,17 +477,40 @@ void PlayerActor::UpdateActor() {
 					}
 					_ItemNum = item->GetType();
 					_Friend->SetItemNum(_ItemNum);
+					break;
+
+				case 11:
+				case 12:
+					_Item[itemnum - 11]++;
+					if (_Item[itemnum - 11] > 5) {
+						_Item[itemnum - 11] = 0;
+						if (_ItemNum == 0) {
+							_ItemNum = itemnum - 10;
+							_Friend->SetItemNum(_ItemNum);
+						}
+						else {
+							DropItem(VScale(_Input->GetDashDir(), -1), itemnum - 10);
+						}
+					}
+					_Friend->SetDropItem(itemnum - 11, _Item[itemnum - 11]);
+					break;
+
+					continue;
 				}
-				break;
-
-				continue;
 			}
-
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
 			if (tree != nullptr) {
-				tree->DropItem();
+				if (_Input->GetDashFlag()) {
+					tree->DropItem();
+					_Input->SetDashTime(0);
+				}
 			}
 
+			auto lava = dynamic_cast<LavaActor*>(h->GetOwner());
+			if (lava != nullptr) {
+				Damage(dt * 0.001, 100);
+				_LavaFlag = true;
+			}
 
 		}
 	}
@@ -425,6 +546,7 @@ void PlayerActor::UpdateActor() {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->SetState(State::eDead);
+				enemy->GetHitCollision()->SetIsActive(false);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a, true);
@@ -434,15 +556,42 @@ void PlayerActor::UpdateActor() {
 			}
 			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
 			if (item != nullptr) {
-				if (item->GetType()) {
+
+				int itemnum = item->GetType();
+				if (itemnum != 0) {
 					item->SetState(State::eDead);
-					if (_ItemNum != 0) {
-						DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
+					switch (itemnum) {
+					case 0:
+						AddSize(0.2, true);
+						break;
+					case 1:
+					case 2:
+						if (_ItemNum != 0) {
+							DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
+						}
+						_ItemNum = item->GetType();
+						_Friend->SetItemNum(_ItemNum);
+						break;
+
+					case 11:
+					case 12:
+						_Item[itemnum - 11]++;
+						if (_Item[itemnum - 11] > 5) {
+							_Item[itemnum - 11] = 0;
+							if (_ItemNum == 0) {
+								_ItemNum = itemnum - 10;
+								_Friend->SetItemNum(_ItemNum);
+							}
+							else {
+								DropItem(VScale(_Input->GetDashDir(), -1), itemnum - 10);
+							}
+						}
+						_Friend->SetDropItem(itemnum - 11, _Item[itemnum - 11]);
+						break;
+
+						continue;
 					}
-					_ItemNum = item->GetType();
-					_Friend->SetItemNum(_ItemNum);
 				}
-				continue;
 			}
 
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
@@ -483,13 +632,15 @@ void PlayerActor::UpdateActor() {
 		dir = VSub(tmphitpos, GetPosition());
 		dir = VScale(dir, -1);
 		dir = VNorm(dir);
+
+		//dir = VGet(0, 0, -1);
 		if (!_PunchFlag) {
 			_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 			_TopModel->SetUp(VGet(0, 1, 0));
 		}
 		if (_Input->GetKey() & PAD_INPUT_3) {
 			_SeparateTime += dt;
-			if (_SeparateTime > 1000&&_Friend->GetSeparateTime()>1000) {
+			if (_SeparateTime > 1000 && _Friend->GetSeparateTime() > 1000) {
 				ChangeMode(0);
 			}
 		}
@@ -504,17 +655,21 @@ void PlayerActor::UpdateActor() {
 
 			if (_AnimTime > 27 && !_PunchFlag) {
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
-				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
+				VECTOR tmppos = VScale(VGet(-100, -100, 50), GetSize().x);
 
-				//tmppos = VGet(0, 0, 0);
+
+
+				tmppos = VTransform(tmppos, MGetRotAxis(VGet(0, 1, 0), atan2(dir.x, dir.z)));
+				tmppos = VTransform(tmppos, MGetRotVec2(tmpdir, dir));
 				tmppos = VAdd(GetPosition(), tmppos);
+
+
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
 
 
 				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), tmpdir, GetSize().x * 3);
-				//punch->GetComponent<EffectSpriteComponent>()[0]->SetRotation(VGet(rot.x, rot.y, rot.z));
+
 				_PunchFlag = true;
 			}
 		}
@@ -524,16 +679,23 @@ void PlayerActor::UpdateActor() {
 			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 50) {
 				_AnimTime = 45;
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(GetSize().z * -100 * tmpdir.z, GetSize().x * -60, GetSize().x * 150 * tmpdir.x);
-				tmppos = VAdd(tmppos, VGet(GetSize().z * 100 * tmpdir.x, GetSize().x * -100, GetSize().x * -100 * tmpdir.z));
+				VECTOR tmppos = VScale(VGet(-40, -75, -275), GetSize().x);
+
+
+
+
+				tmppos = VTransform(tmppos, MGetRotAxis(VGet(0, 1, 0), atan2(dir.x, dir.z)));
+				tmppos = VTransform(tmppos, MGetRotVec2(tmpdir, dir));
+				tmppos = VAdd(GetPosition(), tmppos);
 
 				//tmppos = VGet(0, 0, 0);
-				tmppos = VAdd(GetPosition(), tmppos);
+
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
 				tmpdir.x += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.y += (float)(rand() % 101 - 50) / 1000.0f;
 				tmpdir.z += (float)(rand() % 101 - 50) / 1000.0f;
+
 
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
 
@@ -553,9 +715,10 @@ void PlayerActor::UpdateActor() {
 			if (_AnimTime > 40 && !_PunchFlag)
 			{
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(0, -GetSize().y * 80 - _Friend->GetSize().y * 160, 0);
+				VECTOR tmppos = VGet(0, -GetSize().y * 100 , 0);
 
-				auto slash = new SlashActor(GetMode(), this, tmppos, VGet(0, 0, 0), tmpdir, GetSize().x * 30);
+				float tmpsize = GetSize().x * 1.5 + _Friend->GetSize().y * 1.5;
+				auto slash = new SlashActor(GetMode(), this, tmppos, _Friend->GetSize().y * 150, VGet(0, 0, 0), tmpdir, VGet(GetSize().x * 10, tmpsize, GetSize().z * 10));
 				_PunchFlag = true;
 			}
 		}
@@ -568,7 +731,7 @@ void PlayerActor::UpdateActor() {
 
 				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
 				//tmppos = VAdd(tmppos, VGet(-200, 0, 0));
-				tmppos.y = -400;
+				tmppos.y = GetSize().y * -100;
 				//tmpdir = VScale(tmpdir, -1);
 				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
@@ -630,6 +793,7 @@ void PlayerActor::ChangeMode(int mode)
 		if (_ModeNum % 2 == 1) {
 			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, 2*GetSize().y, 0)));
 		}
+		_ChangeTime = 0;
 		_MCollision->SetIsActive(true);
 		_ModeNum = 0;
 		_Friend->ChangeMode(0);
@@ -653,13 +817,13 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetVisible(true);
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50,50,50), _Friend->GetSize().y / GetSize().y), 2, true, true);
-		_HCollision->SetRSize(VGet(200, 200, 200));
+		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
 		break;
 
 	case 2:
@@ -668,7 +832,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -681,13 +845,13 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetHandle(_BottomModelHandle[1]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
-		_HCollision->SetRSize(VGet(200, 200, 200));
+		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
 		break;
 
 	case 4:
@@ -707,13 +871,13 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetHandle(_BottomModelHandle[2]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
-		_HCollision->SetRSize(VGet(200, 200, 200));
+		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
 		break;
 
 	case 6:
@@ -733,13 +897,13 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetHandle(_BottomModelHandle[3]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
+		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
-		_HCollision->SetRSize(VGet(200, 200, 200));
+		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
 		break;
 
 	case 8:
@@ -788,6 +952,7 @@ void PlayerActor::ChangeAnim(int a) {
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
+
 		changeSucFlag = true;
 		break;
 
@@ -825,25 +990,29 @@ void PlayerActor::ChangeAnim(int a) {
 		break;
 
 	case (int)anim::Laser:
-		index = MV1GetAnimIndex(_AnimationModel[6], "beemmotion");
+		index = MV1GetAnimIndex(_AnimationModel[6], "beemmotion_down");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[6], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[6], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 		changeSucFlag = true;
+		_PunchIndex[0] = _AnimIndex;
+		index = MV1GetAnimIndex(_AnimationModel[7], "beemmotion");
+		_PunchIndex[1] = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[5], TRUE);
+		_PunchIndex[1] = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[5], TRUE);
 		break;
 
 	case (int)anim::Blade:
-		index = MV1GetAnimIndex(_AnimationModel[7], "ztaireito_motion2");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[7], TRUE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[7], TRUE);
+		index = MV1GetAnimIndex(_AnimationModel[8], "ztaireito_motion2");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[8], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[8], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 		changeSucFlag = true;
 		break;
 
 	case (int)anim::Daikanpa:
-		index = MV1GetAnimIndex(_AnimationModel[8], "dankanha_motion");
-		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[8], TRUE);
-		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[8], TRUE);
+		index = MV1GetAnimIndex(_AnimationModel[9], "dankanha_motion");
+		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[9], TRUE);
+		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[9], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
 		changeSucFlag = true;
 		break;
@@ -863,8 +1032,8 @@ void PlayerActor::ChangeAnim(int a) {
 			}
 		}
 		if (_Animation >= (int)anim::Punch) {
-			_PunchIndex[0] = -2;
-			_PunchIndex[1] = -2;
+			//_PunchIndex[0] = -2;
+			//_PunchIndex[1] = -2;
 		}
 
 		
@@ -915,7 +1084,7 @@ void PlayerActor::DropItem(VECTOR dir, int num)
 
 void PlayerActor::AddSize(float size, bool flag)
 {
-	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag)) {
+	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
 		float Size = size / GetSize().x;
 		SetSize(VAdd(GetSize(), VGet(size, size, size)));
 	}
@@ -925,9 +1094,10 @@ void PlayerActor::AddSize(float size, bool flag)
 
 
 
-void PlayerActor::Damage(float damage) {
+void PlayerActor::Damage(float damage, int time) {
 	if (_ModeNum == 0 && _InvincibleTime <= 0) {
-		_InvincibleTime = 1000;
+		_InvincibleTime = time;
+		_AnimTime = 120;
 		if (_Input->GetDashFlag()) {
 			damage /= 2;
 		}

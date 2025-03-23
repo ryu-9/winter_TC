@@ -14,6 +14,7 @@ PlayerEmphasisEffect::~PlayerEmphasisEffect()
 
 void PlayerEmphasisEffect::Draw()
 {
+	if (GetIsUse() == false) { return; }
 	int handle = GetDrawScreen();
 	VECTOR pos = GetCameraPosition();
 	VECTOR dir = GetCameraTarget();

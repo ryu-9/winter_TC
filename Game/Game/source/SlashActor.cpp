@@ -1,7 +1,7 @@
 #include "SlashActor.h"
 #include "EnemyActor.h"
 
-SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, VECTOR move, VECTOR rot, float scale)
+SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float height, VECTOR move, VECTOR rot, VECTOR scale)
 	:ActorClass(mode)
 	, _Owner(owner)
 	, _Pos(pos)
@@ -9,7 +9,7 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, VECTOR mov
 	_Move = new MoveComponent(this, false);
 	_Move->SetVelocity(move);
 	SetPosition(VAdd(_Pos, _Owner->GetPosition()));
-	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/slash.efkefc", VGet(0, 0, 0), rot, scale*1.5);
+	auto sp = new EffectSpriteComponent(this, "res/model/Sundercross/slash.efkefc", VGet(0, 0, 0), rot, scale.x * 4);
 
 	//EffectController::GetInstance()->GetShadowMap(0)->AddRemoveSprite(sp);
 	auto sm = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
@@ -18,10 +18,9 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, VECTOR mov
 	}
 	_LifeTime = 700;
 	//auto model = new ModelComponent(this, "nomodel");
-	float size = scale;
-	size /= 4;
+	//size /= 4;
 	int handle = ModelServer::GetInstance()->Add("res/model/Sundercross/slashHit.mv1");
-	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size/3, size), 6, true, true, handle);
+	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, -height, 0), scale, 6, true, true, handle);
 	//auto model = new ModelComponent(this, "res/model/Sundercross/slashHit.mv1");
 	//model->SetScale(VGet(size, size/4, size));
 	//MV1SetVisible(model->GetHandle(), FALSE);

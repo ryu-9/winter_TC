@@ -4,7 +4,7 @@
 class SlashActor : public ActorClass
 {
 public:
-	SlashActor(class ModeBase* mode, ActorClass* owner, VECTOR pos, VECTOR move, VECTOR rot, float scale);
+	SlashActor(class ModeBase* mode, ActorClass* owner, VECTOR pos, float height, VECTOR move, VECTOR rot, VECTOR scale);
 	~SlashActor();
 	void UpdateActor() override;
 

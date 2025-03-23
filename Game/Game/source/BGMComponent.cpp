@@ -7,7 +7,7 @@ BGMComponent::BGMComponent(ActorClass* owner, bool deadtype, std::string name1, 
 {
 	_Mode = dynamic_cast<ModeGame*>(owner->GetMode());
 	SetSourceVoice(new SourceVoiceItem(name1,0,XAUDIO2_LOOP_INFINITE));
-	if (name2 != "") { SetSourceVoice(new SourceVoiceItem(name2, 44100 * 3)); }
+	if (name2 != "") { SetSourceVoice(new SourceVoiceItem(name2, 0)); }
 	_SV[0]->SetVolume(0.4);
 	if (_SV.size() > 2) { _SV[1]->SetVolume(0.4); }
 	
@@ -45,7 +45,7 @@ void BGMComponent::Update() {
 		if (_SV.size() <= 1) { return; }
 		_SV[_Playnum]->Stop();
 		if (_Playnum == 1) {
-			_SV[_Playnum]->ResetPlayTm(44100 * 3);
+			_SV[_Playnum]->ResetPlayTm(0);
 		}
 		_Playnum = n;
 		_SV[_Playnum]->Play();

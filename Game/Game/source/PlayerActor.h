@@ -28,12 +28,14 @@ public:
 
 	void ChangeMode(int mode);
 
-	void Damage(float damage);
+	void Damage(float damage, int time = 1000);
 	void KnockBack(VECTOR dir, float power);
 	bool IsMoved();
 	void ChangeAnim(int a);
 
 	void SetChangeFlag(bool flag) { _ChangeFlag = flag; }
+
+	void SetChangeTime(int time) { _ChangeTime = time; }
 
 	int GetKnockBackTime() { return _KnockBackTime; }
 
@@ -41,6 +43,8 @@ public:
 
 	void SetItemNum(int num) { _ItemNum = num; }
 	void DropItem(VECTOR dir, int num);
+
+	void SetDropItem(int i, int n) { _Item[i] = n; }
 
 	void AddSize(float size, bool flag = false);
 
@@ -95,13 +99,15 @@ private:
 	float _AnimTime;
 	float _AnimTotalTime;
 	int _AnimIndex;
-	int _AnimationModel[(int)anim::Num];
+	int _AnimationModel[(int)anim::Num + 2];
 	bool _AnimChangingflag;
 
 	int _PunchIndex[2];
 
 	bool _PunchFlag;
 	int _InvincibleTime;
+
+	bool _LavaFlag;
 
 	bool _ChangeFlag;
 
@@ -114,6 +120,8 @@ private:
 	int _SeparateTime;
 
 	VECTOR _StartPos;
+
+	int _Item[2] = { 0,0 };
 
 };
 
