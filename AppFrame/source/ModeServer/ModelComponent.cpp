@@ -15,7 +15,7 @@ ModelComponent::ModelComponent(ActorClass* owner, const TCHAR* file, int draword
 	, _Position(VGet(0, 0, 0))
 	, _Scale(VGet(1, 1, 1))
 	, _Center(VGet(0, 0, 0))
-	, _UseOwnerSize(true)
+	, _UseOwnerSize(useownersize)
 {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	//_Handle = MV1LoadModel("res/Debug/chinpo.mv1");

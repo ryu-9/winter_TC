@@ -3,7 +3,7 @@
 #include "ModelComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
 
-HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, bool useownersize, int handle)
+HitCollisionComponent::HitCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle, bool useownersize)
 	: Component(owner)
 	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
 	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0)), OldMove(VGet(0, 0, 0)), devpos(VGet(0, 0, 0))
@@ -98,11 +98,19 @@ void HitCollisionComponent::Update()
 }
 
 VECTOR HitCollisionComponent::GetPosition() {
-	return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize()));
+	if (_UseOwnerSize) {
+		return VAdd(_Owner->GetPosition(), VMulti(Pos, _Owner->GetSize()));
+	} else {
+		return VAdd(_Owner->GetPosition(), Pos);
+	}
 }
 
 VECTOR HitCollisionComponent::GetSize() {
-	return VMulti(Size, _Owner->GetSize());
+	if (_UseOwnerSize) {
+		return VMulti(_Owner->GetSize(), Size);
+	} else {
+		return Size;
+	}
 }
 
 VECTOR HitCollisionComponent::GetUp()

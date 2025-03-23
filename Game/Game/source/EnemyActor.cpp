@@ -35,13 +35,7 @@ EnemyActor::~EnemyActor() {
 		_GroupSpawner->DecrementPopCnt();
 	}
 
-	//todo: Death()関数を作成して、そこで処理を行う
-
-	auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, 100, 0)), 11 + rand() % 2);
-	auto m = item->GetComponent<MoveComponent>()[0];
-	VECTOR dir = VGet(0, 0, 0);
-	dir = VTransform(dir, MGetRotY((float)(rand() % 360) / 180.0f * DX_PI));
-	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
+	
 }
 
 void EnemyActor::Init() {
@@ -58,6 +52,30 @@ void EnemyActor::UpdateActor() {
 		}
 	}
 	*/
+	if (GetPosition().y < -750) {
+		_Fallcnt += _Mode->GetStepTm();
+		if (_Fallcnt > 1000) {
+			SetState(State::eDead);
+		}
+	}
+}
+
+void EnemyActor::Death() {
+	//todo: actorクラスを消さなきゃ
+	{
+		auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, 100, 0)), 11 + rand() % 2);
+		auto m = item->GetComponent<MoveComponent>()[0];
+		VECTOR dir = VGet(0, 0, 0);
+		dir = VTransform(dir, MGetRotY((float)(rand() % 360) / 180.0f * DX_PI));
+		m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
+	}
+	{
+		auto ac = new ActorClass(GetMode());
+		ac->SetPosition(GetPosition());
+		auto sp = new EffectSpriteComponent(ac, "res/model/hit/hit.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), 20);
+
+	}
+	SetState(State::eDead);
 }
 
 int Drawing(std::vector<int> w)// 重み付き抽選

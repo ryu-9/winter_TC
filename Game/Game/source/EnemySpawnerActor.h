@@ -17,7 +17,7 @@ public:
 		float reset_time;			// ƒŠƒZƒbƒgŽžŠÔ
 	};
 
-	EnemySpawnerActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0),bool groupflag = false,bool resetflag = false);
+	EnemySpawnerActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0),bool breakableflag = false,bool resetflag = false);
 	virtual ~EnemySpawnerActor();
 
 	void Init();
@@ -26,6 +26,7 @@ public:
 	void SetData(SPAWNER_DATA data) { _Data = data; }
 	void SetType(int type) { _Type = type; }
 	void SetCol(int col) { _Col = col; }
+	
 
 	void Damage(int damage) { _HP -= damage; }
 private:

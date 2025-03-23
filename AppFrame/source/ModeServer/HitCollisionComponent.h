@@ -10,7 +10,7 @@ class HitCollisionComponent : public Component
 {
 public:
 	HitCollisionComponent(class ActorClass* owner, class ModelComponent* model, VECTOR pos = VGet(0, 0, 0), VECTOR size = VGet(1, 1, 1)
-		, int type = 0, bool move = FALSE, bool active = TRUE,bool useownersize = TRUE, int handle = -1);
+		, int type = 0, bool move = FALSE, bool active = TRUE, int handle = -1, bool useownersize = TRUE);
 
 	~HitCollisionComponent() override;
 

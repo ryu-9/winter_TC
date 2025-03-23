@@ -137,10 +137,10 @@ void GroupSpawnerActor::UpdateActor() {
 void GroupSpawnerActor::AddPopPos(VECTOR pos) {
 	_PopPos.push_back(pos);
 	auto tmpos = VSub(_Position,pos);
-	tmpos.y = pos.y - (60*_Size.y);
+	tmpos.y *= -1;//_Position.y -(100 * _Size.y);
 	auto model = new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1",100,false);
 	model->SetPosition(tmpos);
-	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(5, 5, 5), 2,false, true,false);
+	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(10, 10, 10), 2,false, true,-1,false);
 	Spawner s;
 	s.model = model;
 	s.hCollision = hcol;

@@ -393,7 +393,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto n = std::stoi(nm) - 1;
 			poppos[n].push_back(pos);
 		} else if (name == "House_Spawner") {
-			
+			auto esa = new EnemySpawnerActor(this, pos,true);
 		}
 		else if (name2 == "Wall"||(name2.erase(name2.size()-1,1)=="Wall")) {
 

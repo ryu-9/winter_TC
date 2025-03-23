@@ -1,11 +1,14 @@
 #include "EnemySpawnerActor.h"
 #include "PlayerActor.h"
 #include "EnemyCreator.h"
+#include "PlayerActor.h"
+#include "PunchActor.h"
+#include "LaserActor.h"
+#include "SlashActor.h"
 
-EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool groupflag, bool resetflag)
+EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool breakableflag, bool resetflag)
 	: ActorClass(mode)
-	, _TmCnt(0), _PopCnt(0), _GroupFlag(groupflag), _ResetFlag(resetflag), _Type(0), _Col(0), _TotalPopCnt(0)
-{
+	, _TmCnt(0), _PopCnt(0), _Breakable(breakableflag), _ResetFlag(resetflag), _Type(0), _Col(0), _TotalPopCnt(0) {
 	SetPosition(pos);
 	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
 	// ƒvƒŒƒCƒ„[‚ÌŽæ“¾
@@ -14,8 +17,7 @@ EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool groupflag,
 	_Player[0] = game->GetPlayer(0);
 	_Player[1] = game->GetPlayer(1);
 	Init();
-
-	_HitCol = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(10, 10, 10), 2);
+	if (_Breakable) { _HitCol = _HitCol = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(10, 10, 10), 2); }
 }
 
 EnemySpawnerActor::~EnemySpawnerActor() {
@@ -58,5 +60,32 @@ void EnemySpawnerActor::UpdateActor() {
 	}
 	if (_HP <= 0) {
 		SetState(State::eDead);
+	}
+	
+	if (!_Breakable) { return; }
+	auto hit = _HitCol->IsHit();
+	for (auto h : hit) {
+		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
+		if (p != nullptr) {
+			if (p->GetInvincibleTime() <= 0) {
+				p->Damage(0.05);
+				_HP -= 5;
+			}
+			if (p->GetModeNum() > 0) {
+				_HP -= 20;
+			}
+		}
+		auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
+		if (punch != nullptr) {
+			_HP -= 20;
+		}
+		auto laser = dynamic_cast<LaserActor*>(h->GetOwner());
+		if (laser != nullptr) {
+			_HP -= 1;
+		}
+		auto slash = dynamic_cast<SlashActor*>(h->GetOwner());
+		if (slash != nullptr) {
+			_HP -= 20;
+		}
 	}
 }

@@ -17,6 +17,8 @@ public:
 	void Init();
 	void UpdateActor() override;
 
+	void Death();
+
 	
 	class ModeGame* GetMode() override { return static_cast<ModeGame*>(_Mode); }
 	class MoveComponent* GetInput() { return _Input; }
@@ -27,7 +29,7 @@ public:
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 	HitCollisionComponent* GetHitCollision() { return _HCollision; }
 private:
-
+	int _Fallcnt;
 
 	class MoveComponent* _Input;
 	class ModelComponent* _Model;

@@ -446,7 +446,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				h->GetOwner()->SetState(State::eDead);
+				enemy->Death();
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());
 				auto s = new SoundComponent(a, 1);
@@ -547,7 +547,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				enemy->SetState(State::eDead);
+				enemy->Death();
 				enemy->GetHitCollision()->SetIsActive(false);
 				auto a = new ActorClass(GetMode());
 				a->SetPosition(enemy->GetPosition());

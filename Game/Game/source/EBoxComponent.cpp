@@ -21,6 +21,7 @@ EBoxComponent::EBoxComponent(ActorClass* owner)
 	_Weight.push_back(4);
 	_HalfSize = 50;
 	_Slanting = sqrtf(_HalfSize * _HalfSize + _HalfSize * _HalfSize);
+	auto sp = new EffectSpriteComponent(_Owner, "res/model/Fire_BIG/Fire_Big_003.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), 20,true);
 }
 
 
