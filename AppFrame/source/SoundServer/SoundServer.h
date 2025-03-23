@@ -24,8 +24,6 @@ public:
 
 	// ÉTÉEÉìÉhê∂ê¨ån
 	bool Add(std::string path,std::string name,bool isoverwrite = false);
-	bool Create(class SEComponent* owner, std::string name);
-	bool Create(std::string name,IXAudio2SourceVoice*& sv,int hz = 0,int loop = 0);
 
 	bool Create(ActorClass* p, std::string name, std::string dataname , std::string mapname);
 
@@ -35,6 +33,7 @@ public:
 	void UpdateDeleteSV();
 
 	void Release(ActorClass* p);
+	void DeleteSourceVoice(ActorClass* p, std::string name);
 
 protected:
 	bool Init();

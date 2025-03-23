@@ -21,6 +21,9 @@ LaserActor::LaserActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 	//auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
 	//MV1SetVisible(model->GetHandle(), FALSE);
+
+	SoundServer::GetInstance()->Create(this, "laser", "AttackSE", "laser");
+	SoundServer::GetInstance()->GetSourceVoice(this, "laser")->Play();
 }
 
 LaserActor::~LaserActor()

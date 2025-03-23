@@ -241,7 +241,7 @@
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
     <ClCompile Include="source\BGMActor.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Mode\Game\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

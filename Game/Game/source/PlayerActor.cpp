@@ -32,7 +32,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
 	, _FallTime(0)
-	, _ItemNum(3)
+	, _ItemNum(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -146,6 +146,12 @@ void PlayerActor::UpdateActor() {
 
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
+		if (_ChangeTime <= 1000) {
+			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
+			if (sv != nullptr) {
+				sv->Play();
+			}
+		}
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
 			_InvincibleTime = 1000;
@@ -751,9 +757,12 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 
 	}
-
+	
 	if (mode > 0) {
 		_ItemNum = 0;
+		if (mode % 2 == 1) {
+			SoundServer::GetInstance()->Create(this, "alert", "SE", "alert");
+		}
 	}
 }
 

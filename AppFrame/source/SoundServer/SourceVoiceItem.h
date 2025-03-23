@@ -6,10 +6,11 @@
 
 class Component;
 class SoundServer;
+class ActorClass;
 
 class SourceVoiceItem{
 public:
-	SourceVoiceItem(std::string wavname = "");
+	SourceVoiceItem(std::string wavname = "",ActorClass* ac = nullptr);
 	virtual ~SourceVoiceItem();
 
 	virtual void Play();
@@ -25,8 +26,8 @@ public:
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
 //	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
-	virtual void SetToDestroy(bool flg) { _ToDestroy = flg; }
-	virtual bool IsToDestroy() { return _ToDestroy; }
+	virtual void SetToDestroy(bool flg) { _Dead = flg; }
+	virtual bool IsToDestroy() { return _Dead; }
 
 	virtual void ResetPlayTm(int playhz);
 
@@ -34,11 +35,13 @@ public:
 	void RemoveEffect(class SourceVoiceItemEffectBase* effect);
 
 	void SetSourceVoice(IXAudio2SourceVoice* sv) { _SV = sv; }
+	IXAudio2SourceVoice* GetSourceVoice() { return _SV; }
 
 	void Update();
 
 private:
 	std::string _WavName;
+	class ActorClass* _Actor;
 	IXAudio2SourceVoice* _SV;
 	std::vector<class SourceVoiceItemEffectBase*> _Effects;
 
@@ -47,7 +50,7 @@ private:
 
 	float _Pitch;
 
-	bool _ToDestroy;
+	bool _Dead;
 	bool _IsPlay;
 };
 

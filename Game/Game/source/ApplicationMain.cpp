@@ -30,7 +30,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	// ���[�h�̓o�^
 
-	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
+//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 //	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
 //	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 //	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
@@ -39,10 +39,10 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 //	ModeServer::GetInstance()->Add(new ModeTestStage(), 1, "stage");
 //	ModeServer::GetInstance()->Add(new ModeGameOver(), 10, "gameover");
 
-//	gGlobal._SelectStage = 0;
-//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-//	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
-//	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+	gGlobal._SelectStage = 0;
+	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 
 	return true;
 }

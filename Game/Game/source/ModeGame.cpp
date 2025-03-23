@@ -150,7 +150,6 @@ bool ModeGame::Initialize() {
 	
 
 	{
-	//	SetUseASyncLoadFlag(TRUE);
 		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy2");
@@ -162,7 +161,10 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
-	//	SetUseASyncLoadFlag(FALSE);
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_OUTTIMER.wav", "alert");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CON_FIRE.wav", "cornfire");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK1.wav", "boxwalk1");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK2.wav", "boxwalk2");
 	}
 	
 		

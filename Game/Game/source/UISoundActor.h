@@ -11,6 +11,7 @@ public:
 
 	void PlayActSound(std::string actname);
 private:
+	std::map<std::string, std::string> _ActSV;
 
 };
 

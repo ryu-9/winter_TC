@@ -41,6 +41,7 @@ SVItemPitchRand::SVItemPitchRand(SourceVoiceItem* sv)
 	:base(sv)
 	, _Rand(25)
 {
+
 }
 
 void SVItemPitchRand::SetUp() {

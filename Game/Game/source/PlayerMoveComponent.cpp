@@ -127,11 +127,15 @@ void PlayerMoveComponent::ProcessInput()
 
 		if (_Trg & PAD_INPUT_4 && _DashTime <= -1000 && _JumpFlag) {
 			_DashTime = 500;
+			SoundServer::GetInstance()->Create(_pOwner, "dash", "SE", "dash");
+			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "dash")->Play();
 		}
 		if (_Trg & PAD_INPUT_3) {
 			_pOwner->SetChangeFlag(true);
 			if (_JumpFlag) {
 				velocity.y = 10;
+				SoundServer::GetInstance()->Create(_pOwner, "jump", "SE", "jump");
+				SoundServer::GetInstance()->GetSourceVoice(_pOwner, "jump")->Play();
 				_JumpFlag = false;
 			}
 		}

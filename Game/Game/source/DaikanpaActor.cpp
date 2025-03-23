@@ -19,6 +19,8 @@ DaikanpaActor::DaikanpaActor(ModeBase* mode, PlayerActor* owner, VECTOR pos, VEC
 	Size *= 10;
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 400, 0), VGet(Size, Size, Size), 2, true, true);
 
+	SoundServer::GetInstance()->Create(this, "daikanpa", "AttackSE", "daikanpa");
+	SoundServer::GetInstance()->GetSourceVoice(this, "daikanpa")->Play();
 }
 
 

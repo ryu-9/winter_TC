@@ -25,6 +25,8 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, VECTOR mov
 	//auto model = new ModelComponent(this, "res/model/Sundercross/slashHit.mv1");
 	//model->SetScale(VGet(size, size/4, size));
 	//MV1SetVisible(model->GetHandle(), FALSE);
+	SoundServer::GetInstance()->Create(this, "blade", "AttackSE", "blade");
+	SoundServer::GetInstance()->GetSourceVoice(this, "blade")->Play();
 }
 
 SlashActor::~SlashActor()

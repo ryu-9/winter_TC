@@ -15,6 +15,8 @@ BGMActor::BGMActor(ModeBase* mode)
 BGMActor::~BGMActor() {
 	SS::GetInstance()->GetSourceVoice(this, "bgm1")->Stop();
 	SS::GetInstance()->GetSourceVoice(this, "bgm2")->Stop();
+	SS::GetInstance()->DeleteSourceVoice(this, "bgm1");
+	SS::GetInstance()->DeleteSourceVoice(this, "bgm2");
 }
 
 void BGMActor::UpdateActor() {

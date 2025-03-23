@@ -24,11 +24,8 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(size, size, size), 2, true, true);
 	auto model = new ModelComponent(this, "res/Stage/model/Cube.mv1");
 	MV1SetVisible(model->GetHandle(), FALSE);
-	auto s = new SoundComponent(this,false);
-	s->SetSourceVoice(new SourceVoiceItem());
-	s->Play(0);
-	s->SetTimer(_LifeTime);
-
+	SoundServer::GetInstance()->Create(this, "punch", "AttackSE", "punch");
+	SoundServer::GetInstance()->GetSourceVoice(this, "punch")->Play();
 }
 
 PunchActor::~PunchActor()
@@ -38,6 +35,7 @@ PunchActor::~PunchActor()
 
 void PunchActor::UpdateActor()
 {
+	SoundServer::GetInstance()->Update(this);
 	_LifeTime -= GetMode()->GetStepTm();
 
 	auto hit = _HCollision->IsHit();
