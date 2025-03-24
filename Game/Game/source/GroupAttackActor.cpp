@@ -6,6 +6,8 @@
 #include "PunchActor.h"
 #include "LaserActor.h"
 #include "SlashActor.h"
+#include "UITextActor.h"
+#include "ApplicationGlobal.h"
 
 GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos)
 	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0)
@@ -47,6 +49,9 @@ void GroupSpawnerActor::UpdateActor() {
 					c->SetTarget2(&_Position);
 					c->SetPosition2(p);
 					c->SetEasing(1000);
+					if (gGlobal._SelectStage == 0) {
+						g->GetUIT()->AddText("Scenario", "group1", true);
+					}
 					break;
 				}
 			}
@@ -55,7 +60,7 @@ void GroupSpawnerActor::UpdateActor() {
 	}
 	else {
 		_TmCnt += GetMode()->GetStepTm();
-		if (_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0) {
+		if ((_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0)) {
 			_Active = false;
 			auto g = dynamic_cast<ModeGame*>(GetMode());
 			auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
@@ -63,46 +68,60 @@ void GroupSpawnerActor::UpdateActor() {
 			c->SetTarget2(nullptr);
 			c->SetPosition2(nullptr);
 			SetState(State::ePaused);
-		}
-		if (_TmCnt < _Data.pop_time) { return; }
-		if (_PopCnt >= _Data.max_pop) { return; }
-		if (_TotalPopCnt >= _Data.max_popcount) { return; }
-		
-		auto dist = new int[_PopPos.size()];
-		for (auto i = 0; i < _PopPos.size(); i++) {
-			dist[i] = VSize(VSub(_Player[0]->GetPosition(), _PopPos[i]));
-		}
-		for (auto i = 0; i < _PopPos.size(); i++) {
-			dist[i] += VSize(VSub(_Player[1]->GetPosition(), _PopPos[i]));
-		}
-
-		// ��ԉ����X�|�i�[���琶��
-		auto randdist = rand() % _Data.pop_range;
-		auto randangle = rand() % 360;
-		randangle = DEG2RAD(randangle);
-		auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
-		auto max = 0;
-		for (auto i = 0; i < _PopPos.size(); i++) {
-			if (dist[i] > dist[max]) {
-				max = i;
+			if (gGlobal._SelectStage == 0) {
+				g->GetUIT()->AddText("Scenario", "win", true);
 			}
 		}
 
-		// �G���A��ɐ���
+
+		auto skipflag = false;
+		if (_TmCnt < _Data.pop_time) { skipflag = true; }
+		if (_PopCnt >= _Data.max_pop) { skipflag = true; }
+		if (_TotalPopCnt >= _Data.max_popcount) { skipflag = true; }
 		
-		EnemyCreator::GetInstance()->Create(GetMode(), 0, VAdd(_PopPos[max], pos),this);
-		_PopCnt++;
-		_TotalPopCnt++;
-		_TmCnt = 0;
+		if (skipflag == false) {
+			auto dist = new int[_PopPos.size()];
+			for (auto i = 0; i < _PopPos.size(); i++) {
+				if (_Spawner[i].hp <= 0) { dist[i] = -1; } else {
+					dist[i] = VSize(VSub(_Player[0]->GetPosition(), _PopPos[i]));
+				}
+			}
+			for (auto i = 0; i < _PopPos.size(); i++) {
+				if (_Spawner[i].hp <= 0) { dist[i] = -1; } else {
+					dist[i] += VSize(VSub(_Player[1]->GetPosition(), _PopPos[i]));
+				}
+			}
 
-		delete[] dist;
+			// ��ԉ����X�|�i�[���琶��
+			auto randdist = rand() % _Data.pop_range;
+			auto randangle = rand() % 360;
+			randangle = DEG2RAD(randangle);
+			auto pos = VGet(cos(randangle) * randdist, 0, sin(randangle) * randdist);
+			auto max = 0;
+			for (auto i = 0; i < _PopPos.size(); i++) {
+				if (dist[i] > dist[max]) {
+					max = i;
+				}
+			}
 
+			// �G���A��ɐ���
+
+			EnemyCreator::GetInstance()->Create(GetMode(), 0, VAdd(_PopPos[max], pos), this);
+			_PopCnt++;
+			_TotalPopCnt++;
+			_TmCnt = 0;
+
+			delete[] dist;
+
+		}
+		auto deathcnt = 0;
 		for (auto i = 0; i < _Spawner.size(); i++) {
 			if (_Spawner[i].hp <= 0) {
 				//delete _Spawner[i].model;
 				//delete _Spawner[i].hCollision;
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
+				deathcnt++;
 				continue;
 			}
 
@@ -110,10 +129,11 @@ void GroupSpawnerActor::UpdateActor() {
 			for (auto h : hit) {
 				auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
 				if (p != nullptr) {
-						p->Damage(0.05);
-						_Spawner[i].hp -= 5;
 					if (p->GetModeNum() > 0) {
 						_Spawner[i].hp -= 20;
+					} else {
+						p->Damage(0.05);
+						_Spawner[i].hp -= 5;
 					}
 				}
 				auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
@@ -130,7 +150,10 @@ void GroupSpawnerActor::UpdateActor() {
 				}
 			}
 		}
-		
+		if (deathcnt >= _Spawner.size()) {
+			// ポーズできるようにしておく
+			_TotalPopCnt = _Data.max_popcount;
+		}
 	}
 }
 

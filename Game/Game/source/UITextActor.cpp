@@ -29,9 +29,9 @@ void UITextActor::UpdateActor() {
 
 void UITextActor::AddText(std::string jsonkey, std::string jsonkey2,bool isonce) {
 	if (isonce == true) {
-		if (_Data[jsonkey] == 1) { return; }
+		if (_Data[jsonkey2] >= 1) { return; }
 	}
 	auto t = new UITextComponent(this, jsonkey, jsonkey2);
 	_UIText.push_back(t);
-	_Data[jsonkey] += 1;
+	_Data[jsonkey2] += 1;
 }

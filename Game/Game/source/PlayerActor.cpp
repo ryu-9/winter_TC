@@ -16,6 +16,7 @@
 #include "LavaActor.h"
 #include "BreakableBoxActor.h"
 #include "ChangeSnowBallActor.h"
+#include "UITextActor.h"
 
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
@@ -162,8 +163,12 @@ void PlayerActor::UpdateActor() {
 		_ChangeTime -= dt;
 		if (_ChangeTime <= 3000) {
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
+
 			if (sv != nullptr && !sv->IsPlay()) {
 				sv->Play();
+			}
+			if (gGlobal._SelectStage == 0) {
+				GetMode()->GetUIT()->AddText("Scenario", "TDX_out", true);
 			}
 		}
 		if (_ChangeTime <= 0) {
@@ -201,13 +206,15 @@ void PlayerActor::UpdateActor() {
 			if (_ChangeFlag) {
 				_Friend->ChangeMode(1 + _ItemNum * 2);
 				ChangeMode(2 + _ItemNum * 2);
-			}
-			else {
+			} else {
 				_Friend->ChangeMode(2 + _ItemNum * 2);
 				ChangeMode(1 + _ItemNum * 2);
 			}
 			ChangeAnim((int)anim::Change);
 			_Friend->ChangeAnim((int)anim::Change);
+			if (gGlobal._SelectStage == 0) {
+				GetMode()->GetUIT()->AddText("Scenario", "marge", true);
+			}
 		}
 	}
 	

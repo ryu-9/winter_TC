@@ -6,7 +6,7 @@
 #include "applicationGlobal.h"
 
 namespace {
-	int X = -350;			// X座標基準値
+	int X = -360;			// X座標基準値
 	int Y = -40;			// Y座標基準値
 	int FONT_SIZE = 22;		// フォントサイズ
 	int TEXT_SPEED = 70;	// テキスト表示速度

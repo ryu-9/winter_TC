@@ -19,6 +19,7 @@ public:
 	void AddPopPos(VECTOR pos);
 	void SetHCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 	bool GetActive() { return _Active; }
+	void SetType(int type) { _Type = type; }
 
 private:
 	class PlayerActor* _Player[2];
@@ -38,6 +39,7 @@ private:
 	SPAWNER_DATA _Data;
 
 	bool _Active;
+	int _Type;
 };
 
 

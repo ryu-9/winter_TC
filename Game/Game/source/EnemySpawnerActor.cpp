@@ -36,13 +36,14 @@ void EnemySpawnerActor::Init() {
 
 void EnemySpawnerActor::UpdateActor() {
 	_TmCnt += GetMode()->GetStepTm();
-	
-	if (_TmCnt <_Data.pop_time) { return; }
+	auto skipflag = false;
+	if (_TmCnt <_Data.pop_time) { skipflag = true; }
+	if (_PopCnt >= _Data.max_popcount) { skipflag = true; }
 	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
 	auto dist2 = VSize(VSub(_Player[1]->GetPosition(), GetPosition()));
 	if (dist < _Data.active_range || dist2 < _Data.active_range) {
 		// “G¶¬
-		if (_PopCnt >= _Data.max_popcount) { return; }
+		
 		// ˆê’è‹——£“à‚É“G‚ğ¶¬
 		auto randdist = rand() % _Data.pop_range;
 		auto randangle = rand() % 360;
