@@ -25,7 +25,7 @@ void PlayerMoveComponent::ProcessInput()
 {
 	int pn = _pOwner->GetPlayerNo();
 
-	pn = 1;
+	//pn = 1;
 	_Key = ApplicationMain::GetInstance()->GetKey(pn);
 	_Trg = ApplicationMain::GetInstance()->GetTrg(pn);
 
@@ -47,7 +47,7 @@ void PlayerMoveComponent::ProcessInput()
 	if (_Key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (_Key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
-	GetJoypadDirectInputState(1, &_Input);
+	GetJoypadDirectInputState(pn, &_Input);
 	v.x = (float)_Input.Y / 1000;
 	v.z = (float)_Input.X / 1000;
 

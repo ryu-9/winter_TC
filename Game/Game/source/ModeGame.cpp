@@ -230,7 +230,7 @@ bool ModeGame::Process() {
 	int key = ApplicationMain::GetInstance()->GetKey(1);
 	int trg = ApplicationMain::GetInstance()->GetTrg(1);
 
-	
+	/*
 	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
 		
@@ -247,7 +247,7 @@ bool ModeGame::Process() {
 		
 		
 	}
-
+	*/
 
 	return true;
 }
