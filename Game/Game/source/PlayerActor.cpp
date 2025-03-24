@@ -756,7 +756,7 @@ void PlayerActor::UpdateActor() {
 	case -1:
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
-		if (dist < 200) {
+		if (dist < _Friend->GetSize().x * 100) {
 			ChangeMode(0);
 			gGlobal._IsPlayerDead[_PlayerNo - 1] = FALSE;
 		}
@@ -784,6 +784,7 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetVisible(false);
 		SetSize(VGet(0.1, 0.1, 0.1));
 		gGlobal._IsPlayerDead[_PlayerNo - 1] = TRUE;
+		new ItemActor(GetMode(), GetPosition(), -1, -1);
 		break;
 
 	case 0:
