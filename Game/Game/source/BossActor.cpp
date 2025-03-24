@@ -75,7 +75,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	timeline.push_back({ ACTION::PUNCH, 7000 });
 	timeline.push_back({ ACTION::PUNCH, 5000 });
 	timeline.push_back({ ACTION::PUNCH_FALL, 5000 });
-	timeline.push_back({ ACTION::PUNCH, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 9000 });
 	timeline.push_back({ ACTION::PUNCH, 5000 });
 	_ActionTimeline.push_back(timeline);
 
@@ -149,21 +149,21 @@ void BossActor::UpdateActor() {
 		if (punch != nullptr) {
 			_HitPoint -= 20;
 			gGlobal._BossHP = _HitPoint;
-			punch->SetState(State::eDead);
+			
 			break;
 		}
 		auto laser = dynamic_cast<LaserActor*>(h->GetOwner());
 		if (laser != nullptr) {
 			_HitPoint -= 1;
 			gGlobal._BossHP = _HitPoint;
-			laser->SetState(State::eDead);
+			
 			break;
 		}
 		auto slash = dynamic_cast<SlashActor*>(h->GetOwner());
 		if (slash != nullptr) {
-			_HitPoint -= 20;
+			_HitPoint -= 10;
 			gGlobal._BossHP = _HitPoint;
-			slash->SetState(State::eDead);
+			
 			break;
 		}
 		auto daik = dynamic_cast<DaikanpaActor*>(h->GetOwner());
@@ -370,7 +370,7 @@ bool BossActor::PunchFall() {
 			SetPosition(VGet(GetPosition().x, -1800, GetPosition().z));
 		}
 	}
-	if (_CurrentTime > 17000) {
+	if (_CurrentTime > 8000) {
 		ChangeAnim(ACTION::WAIT);
 		ChangeAction(ACTION::WAIT);
 		SetPosition(VGet(GetPosition().x, -1800, GetPosition().z));

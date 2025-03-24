@@ -483,7 +483,7 @@ void PlayerActor::UpdateActor() {
 				case 11:
 				case 12:
 					_Item[itemnum - 11]++;
-					gGlobal._ItemList[itemnum - 11]++;
+					
 					if (_Item[itemnum - 11] > 6) {
 						_Item[itemnum - 11] = 0;
 						gGlobal._ItemList[itemnum - 11] = 0;
@@ -769,7 +769,8 @@ void PlayerActor::UpdateActor() {
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 	gGlobal._MargeTimer = _ChangeTime;
 	gGlobal._ItemNum = _ItemNum;
-	
+	gGlobal._ItemList[0] = _Item[0];
+	gGlobal._ItemList[1] = _Item[1];
 }
 
 void PlayerActor::ChangeMode(int mode)

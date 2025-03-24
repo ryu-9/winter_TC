@@ -18,7 +18,7 @@ bool ModeGameUI::Initialize() {
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
 	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_MESSAGE2.png",0);
 	_UIChip.push_back(ui);
-	new UITextComponent(ui, "Scenario");
+//	new UITextComponent(ui, "Scenario");
 	// 7ŒÂ
 
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_UI_MARGE.png", 0));

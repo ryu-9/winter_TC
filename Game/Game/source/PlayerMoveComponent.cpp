@@ -64,6 +64,7 @@ void PlayerMoveComponent::ProcessInput()
 				length = mvSpeed * VSize(v);
 				if (gGlobal._StartTime == 0) {
 					gGlobal._StartTime = GetNowCount();
+					gGlobal._Text = "Stick_ok";
 				}
 			}
 		}

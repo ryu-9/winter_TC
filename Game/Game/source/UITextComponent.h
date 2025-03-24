@@ -3,12 +3,12 @@
 
 class UITextComponent :public SpriteComponent{
 public:
-	UITextComponent(class UIChipClass* owner, std::string jsonkey);
+	UITextComponent(class UIChipClass* owner, std::string jsonkey, std::string jsonkey2 = "");
 	virtual ~UITextComponent();
 	void Update() override;
 	void Draw() override;
 
-	virtual bool LoadText(const char* filename, std::string jsonkey);
+	virtual bool LoadText(const char* filename, std::string jsonkey,std::string jsonkey2 = "");
 private:
 	struct SCENARIO_DATA {
 		std::string name;

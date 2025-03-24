@@ -16,8 +16,8 @@ UIItemSpriteComponent::UIItemSpriteComponent(UIChipClass* owner, int drawOrder)
 {
 	SetImage("res/UI/seed_blade.png");
 	SetImage("res/UI/seed_lazer.png");
-	SetImage("res/UI/blade.png");
 	SetImage("res/UI/denchi.png");
+	SetImage("res/UI/blade.png");
 	SetImage("res/UI/denchi.png");
 }
 
@@ -29,7 +29,7 @@ void UIItemSpriteComponent::Draw() {
 	
 		for (auto i = 0; i < gGlobal._ItemList[0]; i++) {
 			auto x = tmpx * (6 - i);
-			DrawGraph(_Owner->GetPosition().x - x - (_CGData[1].width * 0.5) + 25, _Owner->GetPosition().y - 30, _CGData[0].handle, TRUE);
+			DrawGraph(_Owner->GetPosition().x - x - (_CGData[1].width * 0.5) - 24, _Owner->GetPosition().y - 30, _CGData[0].handle, TRUE);
 
 		}
 		for (auto i = 0; i < gGlobal._ItemList[1]; i++) {
@@ -38,7 +38,7 @@ void UIItemSpriteComponent::Draw() {
 
 		}
 	if (gGlobal._ItemNum > 0) {
-		DrawExtendGraph(_Owner->GetPosition().x - (_CGData[gGlobal._ItemNum + 1].width * 0.5 ), _Owner->GetPosition().y - (_CGData[gGlobal._ItemNum + 1].height * 0.5), _Owner->GetPosition().x + (_CGData[gGlobal._ItemNum + 1].width * 0.5), _Owner->GetPosition().y + (_CGData[gGlobal._ItemNum + 1].height * 0.5), _CGData[gGlobal._ItemNum + 1].handle, TRUE);
+		DrawExtendGraph(_Owner->GetPosition().x - (_CGData[gGlobal._ItemNum +1].width * 0.5 ), _Owner->GetPosition().y - (_CGData[gGlobal._ItemNum + 1].height * 0.5), _Owner->GetPosition().x + (_CGData[gGlobal._ItemNum + 1].width * 0.5), _Owner->GetPosition().y + (_CGData[gGlobal._ItemNum + 1].height * 0.5), _CGData[gGlobal._ItemNum +1].handle, TRUE);
 	}
 
 }

@@ -12,7 +12,7 @@ namespace {
 	int TEXT_SPEED = 70;	// テキスト表示速度
 }
 
-UITextComponent::UITextComponent(UIChipClass* owner, std::string jsonkey)
+UITextComponent::UITextComponent(UIChipClass* owner, std::string jsonkey, std::string jsonkey2)
 	:SpriteComponent(owner) {
 	
 	_CurrentTime = 0;
@@ -22,7 +22,7 @@ UITextComponent::UITextComponent(UIChipClass* owner, std::string jsonkey)
 	_TextCount = 0;
 	_TextData.push_back(TEXT_DATA());
 	if (jsonkey != "") {
-		LoadText("res/loadtext/LoadText.json", jsonkey);
+		LoadText("res/loadtext/LoadText.json", jsonkey,jsonkey2);
 	}
 	
 	ChangeFont("コーポレート・ロゴ ver3 Bold");
@@ -34,6 +34,7 @@ UITextComponent::~UITextComponent() {
 }
 
 void UITextComponent::Update() {
+	if (_ScenarioData.size() == 0) { return; }
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 	if (_CurrentTime > _TextCount * TEXT_SPEED) {
@@ -41,8 +42,9 @@ void UITextComponent::Update() {
 	}
 
 	if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
-		if (_ScenarioData[_TextIndex].next == "time") {
-			if (_CurrentTime > _TextCount * TEXT_SPEED + _ScenarioData[_TextIndex].time) {
+
+		if (_CurrentTime > _TextCount * TEXT_SPEED + _ScenarioData[_TextIndex].time) {
+			if (_ScenarioData[_TextIndex].next == "time") {
 				_TextIndex++;
 				_StCount = 0;
 				_TextCount = 0;
@@ -50,10 +52,9 @@ void UITextComponent::Update() {
 
 				_TextData.clear();
 				_TextData.push_back(TEXT_DATA());
+			} else if (_ScenarioData[_TextIndex].next == "end") {
+				delete this;
 			}
-		}
-		else if(_ScenarioData[_TextIndex].next == "end"){
-			
 		}
 	}
 
@@ -82,6 +83,7 @@ void UITextComponent::Update() {
 }
 
 void UITextComponent::Draw() {
+	if (_TextIndex >= _ScenarioData.size()) { return; }
 	SetFontSize(FONT_SIZE);
 	int x = _Owner->GetPosition().x + X;
 	int y = _Owner->GetPosition().y + Y;
@@ -98,20 +100,32 @@ void UITextComponent::Draw() {
 	}
 }
 
-bool UITextComponent::LoadText(const char* filename, std::string jsonkey) {
+bool UITextComponent::LoadText(const char* filename, std::string jsonkey,std::string jsonkey2) {
 	std::ifstream file(filename);
 	nlohmann::json json;
 	file >> json;
 	file.close();
 
 	nlohmann::json scenario = json[jsonkey];
-	for (auto& s : scenario) {
-		SCENARIO_DATA data;
-		data.name = iojson::ConvertString(s["name"]);
-		data.text = s["text"];
-		data.next = iojson::ConvertString(s["next"]);
-		data.time = s["time"];
-		_ScenarioData.push_back(data);
+	if (jsonkey2 != "") {
+		scenario = scenario[jsonkey2];
+		for (auto& s : scenario) {
+			SCENARIO_DATA data;
+			data.name = iojson::ConvertString(s["name"]);
+			data.text = s["text"];
+			data.next = iojson::ConvertString(s["next"]);
+			data.time = s["time"];
+			_ScenarioData.push_back(data);
+		}
+	} else {
+		for (auto& s : scenario) {
+			SCENARIO_DATA data;
+			data.name = iojson::ConvertString(s["name"]);
+			data.text = s["text"];
+			data.next = iojson::ConvertString(s["next"]);
+			data.time = s["time"];
+			_ScenarioData.push_back(data);
+		}
 	}
 	return true;
 }

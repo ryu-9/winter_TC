@@ -27,6 +27,7 @@
 #include "ModeScenario.h"
 #include "BGMActor.h"
 #include "LavaActor.h"
+#include "UITextComponent.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -102,7 +103,8 @@ bool ModeGame::Initialize() {
 
 //	SetFogEnable(TRUE);
 //	SetFogStartEnd(200, 10000);
-	
+	_UIT = new UIChipClass(this, VGet(960, 940, 0), "res/UI/UI_MESSAGE2.png", 0);
+	new UITextComponent(_UIT, "Scenario");
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);

@@ -24,6 +24,7 @@ public:
 
 	class CameraActor* GetCamera() { return _Camera; }
 	class PlayerActor* GetPlayer(int n = 0);
+	class UIChipClass* GetUIT() { return _UIT; }
 
 	bool debug_hcoll_flag;
 	bool debug_mcoll_flag;
@@ -33,6 +34,8 @@ protected:
 	class PlayerActor* _Player[2];
 
 	class EffectController* _EffectController;
+
+	class UIChipClass* _UIT;
 
 	
 private:
