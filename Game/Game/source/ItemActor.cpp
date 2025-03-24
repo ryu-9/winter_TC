@@ -46,6 +46,17 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		_Move->SetFallLimit(2);
 		break;
 
+	case 3:
+		_Model = new ModelComponent(this, "res/Stage/model/sword.mv1");
+		_Model->SetScale(VGet(3, 3, 3));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
+		_HCollision->SetIsActive(false);
+		_Move = new MoveComponent(this);
+		_Move->SetGravity(0.1);
+		_Move->SetFallLimit(2);
+		break;
+
+
 	case 11:
 		_Model = new ModelComponent(this, "res/model/DropItem/stoneL.mv1");
 		_Model->SetScale(VGet(10, 10, 10));

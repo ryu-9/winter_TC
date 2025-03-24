@@ -11,7 +11,7 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname,ActorClass* ac)
 	, _IsPlay(false)
 	, _Dead(false)
 {
-	
+	int test = 0;
 //	_SV->SetVolume(_Volume);
 //	_SV->SetFrequencyRatio(_Pitch);
 }

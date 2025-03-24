@@ -41,9 +41,16 @@ EffectSpriteComponent::~EffectSpriteComponent()
 void EffectSpriteComponent::Draw()
 {
 	_Count += _Owner->GetMode()->GetStepTm();
-	if (_Loop && IsEffekseer3DEffectPlaying(_Handle)<0)
+	if (IsEffekseer3DEffectPlaying(_Handle)<0)
 	{
-		Play();
+		if (_Loop) {
+			Play();
+		}
+		else {
+			delete this;
+			return;
+		}
+
 	}
 	VECTOR v = VAdd(_Position, _Owner->GetPosition());
 	SetPosPlayingEffekseer3DEffect(_Handle, v.x, v.y, v.z);

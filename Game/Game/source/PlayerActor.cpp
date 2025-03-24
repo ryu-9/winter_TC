@@ -34,7 +34,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _ChangeFlag(false)
 	, _SeparateTime(0)
 	, _FallTime(0)
-	, _ItemNum(2)
+	, _ItemNum(0)
 	, _LavaFlag(false)
 
 {
@@ -473,6 +473,7 @@ void PlayerActor::UpdateActor() {
 					break;
 				case 1:
 				case 2:
+				case 3:
 					if (_ItemNum != 0) {
 						DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
 					}
@@ -562,6 +563,7 @@ void PlayerActor::UpdateActor() {
 						break;
 					case 1:
 					case 2:
+					case 3:
 						if (_ItemNum != 0) {
 							DropItem(VScale(_Input->GetDashDir(), -1), _ItemNum);
 						}
@@ -593,8 +595,8 @@ void PlayerActor::UpdateActor() {
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
 			if (tree != nullptr) {
 				tree->DropItem();
-				_Input->SetDashTime(0);
-				_Input->SetVelocity(VGet(0, 0, 0));
+				//_Input->SetDashTime(0);
+				//_Input->SetVelocity(VGet(0, 0, 0));
 			}
 
 			auto ice = dynamic_cast<BreakableBoxActor*>(h->GetOwner());
@@ -790,6 +792,7 @@ void PlayerActor::ChangeMode(int mode)
 	case 0:
 		if (_ModeNum % 2 == 1) {
 			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, 2*GetSize().y, 0)));
+			_Friend->GetComponent<MoveCollisionComponent>()[0]->SetOldPosition(VAdd(GetPosition(), VGet(0, 2 * GetSize().y, 0)));
 		}
 		_ChangeTime = 0;
 		_MCollision->SetIsActive(true);
@@ -816,12 +819,13 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50,50,50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
+		new EffectSpriteComponent(this, "res/model/Sundercross/Tatsumaki/Tatsumaki_New.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 10);
 		break;
 
 	case 2:
@@ -830,7 +834,7 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
+		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -850,6 +854,8 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
+		new EffectSpriteComponent(this, "res/model/Sundercross/Tatsumaki/Tatsumaki_New.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 10);
+
 		break;
 
 	case 4:
@@ -876,6 +882,8 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
+		new EffectSpriteComponent(this, "res/model/Sundercross/Tatsumaki/Tatsumaki_New.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 10);
+
 		break;
 
 	case 6:
@@ -902,6 +910,8 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		_MCollision2 = new MoveCollisionComponent(this, _Friend->_BallModel, VGet(0, 50 * GetSize().y + 50 * _Friend->GetSize().y, 0), VScale(VGet(50, 50, 50), _Friend->GetSize().y / GetSize().y), 2, true, true);
 		_HCollision->SetRSize(VAdd(VGet(100, 100, 100), VScale(VGet(1, 1, 1), 100 / GetSize().x)));
+		new EffectSpriteComponent(this, "res/model/Sundercross/Tatsumaki/Tatsumaki_New.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 10);
+
 		break;
 
 	case 8:
@@ -1072,6 +1082,8 @@ void PlayerActor::Init()
 	}
 	_AnimationRate.clear();
 	_Animation = -1;
+	_ChangeFlag = false;
+
 }
 
 void PlayerActor::DropItem(VECTOR dir, int num)

@@ -30,7 +30,7 @@ bool ModeTitle::Initialize()
 
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("BGM", "bgm1");
-	SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
+	//SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
 	_UISound->AddSound("enter","enter");
 	_UISound->AddSound("select", "select");
 	_UISound->AddSound("0", "jin_title");
@@ -50,7 +50,7 @@ bool ModeTitle::Process() {
 base::Process();
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
-	_TitleTm += GetStepTm();
+	
 	int newstep = _Step;
 	switch (_Step)
 	{
@@ -105,7 +105,9 @@ base::Process();
 		break;
 	case 6:
 	{
-		_UISound->PlayActSound("BGM");
+		if (_TitleTm == 0) 	_UISound->PlayActSound("BGM");
+
+
 		
 		if (_TitleTm > 1500) {
 			newstep++;
@@ -140,16 +142,18 @@ base::Process();
 		}
 		break;
 	}
+	_TitleTm += GetStepTm();
 	if (newstep != _Step)
 	{
 		_Step = newstep;
 		_TitleTm = 0;
 	}
+	
 	return true;
 }
 
 bool ModeTitle::Render() {
 	base::Render();
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
 	return false;
 }
