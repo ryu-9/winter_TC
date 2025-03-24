@@ -44,9 +44,12 @@ void GroupSpawnerActor::UpdateActor() {
 					
 					VECTOR* p = new VECTOR;
 					*p = GetPosition();
-					p->y += 1000;
-					p->z += -500;
-					c->SetTarget2(&_Position);
+					p->y += GetSize().z * 80;
+					p->z += -GetSize().z * 55;
+					VECTOR * t = new VECTOR;
+					*t = GetPosition();
+					t->y += -GetSize().z * 50;
+					c->SetTarget2(t);
 					c->SetPosition2(p);
 					c->SetEasing(1000);
 					if (gGlobal._SelectStage == 0) {
@@ -65,8 +68,10 @@ void GroupSpawnerActor::UpdateActor() {
 			auto g = dynamic_cast<ModeGame*>(GetMode());
 			auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
 			c->DeletePosition2();
+			c->DeleteTarget2();
 			c->SetTarget2(nullptr);
 			c->SetPosition2(nullptr);
+			c->SetEasing(1000);
 			SetState(State::ePaused);
 			if (gGlobal._SelectStage == 0) {
 				g->GetUIT()->AddText("Scenario", "win", true);

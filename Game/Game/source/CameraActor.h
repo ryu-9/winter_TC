@@ -41,9 +41,9 @@ public:
 
 	float GetDist() const { return _Dist; }
 
-	void SetPosition2(VECTOR* pos) { _Position2 = pos; }
+	void SetPosition2(VECTOR* pos);
 	void DeletePosition2() { delete _Position2; }
-	void SetTarget2(VECTOR* target) { _Target2 = target; }
+	void SetTarget2(VECTOR* target);
 	void DeleteTarget2() { delete _Target2; }
 	void SetEasing(int easing) { _Easing[0] = easing; _Easing[1] = easing; }
 
@@ -54,5 +54,7 @@ private:
 	float _Dist;
 	VECTOR* _Position2;
 	VECTOR* _Target2;
+	VECTOR _Position;
+	VECTOR _Target;
 	int _Easing[2];
 };

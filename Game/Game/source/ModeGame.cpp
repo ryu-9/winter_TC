@@ -418,6 +418,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
+			pos.y += 4;
+			pos.y += scale.y * 1;
+			scale = VScale(scale, 0.985);
 			auto box = new StageBox(this, pos, rot, scale, 0);
 			box->Init();
 		}else if (name == "Ramp") {
@@ -487,6 +490,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto b = new BossActor(this, pos);
 		}
 		else if (name == "BP_maguma") {
+			pos.y -= scale.y * 15;
+			pos.y += 30;
+			scale = VScale(scale, 3.333);
+
+			scale.y = 5;
+
 			auto l = new LavaActor(this, pos, scale);
 		}
 		else {

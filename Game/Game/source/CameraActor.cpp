@@ -46,7 +46,8 @@ CameraComponent::CameraComponent(CameraActor* owner, int updateOrder)
 	:Component(owner, updateOrder)
 	, _cOwner(owner)
 {
-
+	_Target = VGet(0, 0, 0);
+	_Position = VGet(0, 0, 0);
 	SetCameraPositionAndTarget_UpVecY(_cOwner->GetPosition(), _cOwner->GetDirection());
 	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 4096, VGet(0.75, -1, 0.75), VGet(0, 0, 0), 0, 800));
 	EffectController::GetInstance()->AddEffect(new ShadowMapSpriteComponent(_Owner, 1024, VGet(0, -1, 0), VGet(0, 0, 0), 1, 800));
@@ -105,6 +106,8 @@ void CameraComponent::ProcessInput()
 	angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
 
+	angle = VGet(0, 200, -300);
+	angle = VNorm(angle);
 
 	angle = VTransform(angle, MGetRotY(rx/1000));
 	float camrad = atan2(angle.y, VSize(VGet(angle.x, 0, angle.z)));
@@ -128,10 +131,16 @@ void CameraComponent::ProcessInput()
 		smap[2]->SetMaxLength(VScale(_Player[1]->GetSize(), 200));
 	}
 
-
+	float dt = GetOwner()->GetMode()->GetStepTm();
 	VECTOR camtarget;
+	if(_Easing[0] == 0) { _Easing[0] = 1; }	
 	if (_Target2 == nullptr) {
-		camtarget = v;
+		camtarget = VAdd(VScale(_Target, (float)_Easing[1] / _Easing[0]), VScale(v, (float)(_Easing[0] - _Easing[1]) / _Easing[0]));
+		_Easing[1] -= GetOwner()->GetMode()->GetStepTm();
+		if (_Easing[1] < 0) { _Easing[1] = 0; }
+		if (_Easing[0] > 500) {
+			int tset = 0;
+		}
 	}
 	else {
 		camtarget = VAdd(VScale(*_Target2, (float)(_Easing[0] - _Easing[1])/_Easing[0]), VScale(v, (float)_Easing[1]/_Easing[0]));
@@ -141,7 +150,9 @@ void CameraComponent::ProcessInput()
 
 	VECTOR campos;
 	if (_Position2 == nullptr) {
-		campos = VAdd(v, VScale(angle, _Dist));
+		campos = VAdd(VScale(_Position, (float)_Easing[1] / _Easing[0]), VScale(VAdd(v, VScale(angle, _Dist)), (float)(_Easing[0] - _Easing[1]) / _Easing[0]));
+		_Easing[1] -= GetOwner()->GetMode()->GetStepTm();
+		if (_Easing[1] < 0) { _Easing[1] = 0; }
 	}
 	else {
 		campos = VAdd(VScale(*_Position2, (float)(_Easing[0] - _Easing[1]) / _Easing[0]), VScale(VAdd(v, VScale(angle, _Dist)), (float)_Easing[1] / _Easing[0]));
@@ -181,4 +192,20 @@ void CameraComponent::SetPlayer(PlayerActor* player1, PlayerActor* player2)
 	
 	//_ShadowMap[1]->AddSprite(player1->GetComponent<SpriteComponent>());
 	//_ShadowMap[2]->AddSprite(player2->GetComponent<SpriteComponent>());
+}
+
+void CameraComponent::SetPosition2(VECTOR* pos)
+{
+	_Position2 = pos;
+	if (pos != nullptr) { 
+		_Position = *_Position2;
+	}
+}
+
+void CameraComponent::SetTarget2(VECTOR* target)
+{
+	_Target2 = target;
+	if (target != nullptr) {
+		_Target = *_Target2;
+	}
 }
