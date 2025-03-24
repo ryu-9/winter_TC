@@ -29,8 +29,9 @@ bool ModeTitle::Initialize()
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_ATTEND.wav", "tdx_attend");
 
 	_UISound = new UISoundActor(this);
-	_UISound->AddSound("BGM", "bgm1");
-	SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
+//	_UISound->AddSound("BGM", "bgm1");
+//	SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
+	
 	_UISound->AddSound("enter","enter");
 	_UISound->AddSound("select", "select");
 	_UISound->AddSound("0", "jin_title");
@@ -105,7 +106,7 @@ base::Process();
 		break;
 	case 6:
 	{
-		_UISound->PlayActSound("BGM");
+//		_UISound->PlayActSound("BGM");
 		
 		if (_TitleTm > 1500) {
 			newstep++;

@@ -104,7 +104,7 @@ bool ModeGame::Initialize() {
 //	SetFogEnable(TRUE);
 //	SetFogStartEnd(200, 10000);
 	_UIT = new UIChipClass(this, VGet(960, 940, 0), "res/UI/UI_MESSAGE2.png", 0);
-	new UITextComponent(_UIT, "Scenario");
+	new UITextComponent(_UIT, "Scenario","start");
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);

@@ -62,7 +62,7 @@ SourceVoiceItem* SoundServer::Create(ActorClass* p, std::string wavname, std::st
 	xAudio2Buffer.pAudioData = (BYTE*)_WavData[wavname].sBuffer;
 	if (loopflag) {
 		xAudio2Buffer.LoopCount = XAUDIO2_LOOP_INFINITE;
-	}
+	} 
 	if (startTime != 0) {
 		xAudio2Buffer.PlayBegin = startTime;
 	}
@@ -75,6 +75,8 @@ SourceVoiceItem* SoundServer::Create(ActorClass* p, std::string wavname, std::st
 	auto sv = new SourceVoiceItem(mapname,p);
 	sv->SetSourceVoice(sourceVoice);
 	
+	sourceVoice->SetVolume(1.0f);
+	sourceVoice->SetFrequencyRatio(1.0f);
 	if(dataname == "AttackSE"){
 		auto p = new SVItemPitchRand(sv);
 		p->SetUp();

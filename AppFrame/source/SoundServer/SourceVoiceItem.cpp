@@ -10,10 +10,8 @@ SourceVoiceItem::SourceVoiceItem(std::string wavname,ActorClass* ac)
 	,_Actor(ac)
 	, _IsPlay(false)
 	, _Dead(false)
-{
+{	
 	
-//	_SV->SetVolume(_Volume);
-//	_SV->SetFrequencyRatio(_Pitch);
 }
 
 SourceVoiceItem::~SourceVoiceItem() {
