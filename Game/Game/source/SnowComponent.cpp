@@ -454,14 +454,15 @@ void SnowComponent::Draw()
 
 	MATERIALPARAM MatParam;
 
-	MatParam.Diffuse = GetColorF(1, 1, 1, 1.0f);	// ディフューズカラーは白
-	MatParam.Ambient = GetColorF(1, 1, 1, 1.0f);	// アンビエントカラーは白( ライトのアンビエントカラーをそのまま反映する )
+	MatParam.Diffuse = GetColorF(0.8, 0.8, 0.8, 1.0f);	// ディフューズカラーは白
+	MatParam.Ambient = GetColorF(0.8, 0.8, 0.8, 1.0f);	// アンビエントカラーは白( ライトのアンビエントカラーをそのまま反映する )
 	MatParam.Specular = GetColorF(0.0f, 0.0f, 0.0f, 0.0f);	// スペキュラカラーは無し
 	MatParam.Emissive = GetColorF(0.1f, 0.1f, 0.2f, 0.5f);	// エミッシブカラー( 自己発光 )もなし
 	MatParam.Power = 0.0f;						// スペキュラはないので０
 
 	// マテリアルのパラメータをセット
 	SetMaterialParam(MatParam);
+	SetMaterialUseVertSpcColor(true);
 	if (_Flag) { DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, _Handle, FALSE); }
 	else { DrawPolygonIndexed3D(_LowSnow, 6, _LowIndex, 7, _Handle, FALSE); }
 

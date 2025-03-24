@@ -46,26 +46,26 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 		{
 			switch (gGlobal._SelectStage) {
 			case 0:
-				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				_Model = new ModelComponent(this, "res/model/Mapchip/Ramp1.mv1");
 				break;
 			case 1:
-				_Model = new ModelComponent(this, "res/Stage/model/Ramp2.mv1");
+				_Model = new ModelComponent(this, "res/model/Mapchip/Ramp2.mv1");
 				break;
 			case 2:
-				_Model = new ModelComponent(this, "res/Stage/model/Ramp3.mv1");
+				_Model = new ModelComponent(this, "res/model/Mapchip/Ramp3.mv1");
 				break;
 			default:
-				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				_Model = new ModelComponent(this, "res/model/Mapchip/Ramp1.mv1");
 				break;
 			
 			}
 			//_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
-			_Model->SetScale(VGet(0.5, 0.5, 0.5));
+			//_Model->SetScale(VGet(0.5, 0.5, 0.5));
 			_AnimTotalTime = 0;;
 			int handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");
-			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
 			handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");
-			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
 			break;
 		}
 	
@@ -75,9 +75,10 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 			_Model = new ModelComponent(this, "res/Stage/model/laststage.mv1");
 			_AnimTotalTime = 0;
 			int handle = ModelServer::GetInstance()->Add("res/Stage/model/laststage.mv1");
-			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(1, 1, 1), 6, false, true, handle);
 			handle = ModelServer::GetInstance()->Add("res/Stage/model/laststage.mv1");
-			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(1, 1, 1), 6, false, true, handle);
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(1, 1, 1), 6, false, true, handle);
+			_HCollision->SetIsActive(false);
 			break;
 		}
 	}

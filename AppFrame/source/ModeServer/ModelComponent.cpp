@@ -210,11 +210,11 @@ void ModelSpriteComponent::Draw()
 			}
 			int debug = SetMaterialParam(MatParam);
 			int test = 0;
-			SetMaterialUseVertSpcColor(true);
+			//SetMaterialUseVertSpcColor(true);
 		}
 
 		else {
-			SetMaterialUseVertSpcColor(false);
+			SetMaterialUseVertSpcColor(true);
 		}
 
 
