@@ -10,8 +10,8 @@ BulletComponent::BulletComponent(ActorClass* owner, VECTOR pos, float speed)
 	_StartPos = owner->GetPosition();
 //	_StartPos.y += 20;
 	UpdateDir();
-	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
-	SetVelocity(v);
+	//auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	//SetVelocity(v);
 }
 
 BulletComponent::~BulletComponent()
@@ -21,19 +21,23 @@ BulletComponent::~BulletComponent()
 void BulletComponent::ProcessInput() {
 	// ƒS[ƒ‹‚ÉŒü‚¯‚ÄˆÚ“®
 	
-	//auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
 //	v.y -= _Gravity;
 //	v.y = GetVelocity().y + 0.1;
 //	v.y = GetVelocity().y;
-	//SetVelocity(v);
+	SetVelocity(v);
 
 }
 
 
 void BulletComponent::Update() {
-	if (GetStand()) {
-		_Speed = 0;
-		SetVelocity(VGet(0, 0, 0));
+
+	auto mc = _Owner->GetComponent<MoveCollisionComponent>();
+	if (mc.size() > 0) {
+		if (mc[0]->GetCollResult().size() > 0) {
+			_Speed = 0;
+			SetVelocity(VGet(0, 0, 0));
+		}
 	}
 	MoveComponent::Update();
 	_Cnt -= _Owner->GetMode()->GetStepTm();

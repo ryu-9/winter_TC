@@ -17,7 +17,7 @@ BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
 	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.4, 0.5, 0.4), 6, false, true, handle);
 	handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(1, 1,1), 6, false, true,handle);
+	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.4, 0.5, 0.4), 6, false, true,handle);
 	_Model->SetVisible(false);
 
 
