@@ -1,5 +1,6 @@
 #include "StageBox.h"
 #include "SnowComponent.h"
+#include "ApplicationGlobal.h"
 
 StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int type)
 	:ActorClass(mode)
@@ -11,7 +12,23 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 
 		case 0:
 		{
-			_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken.mv1", 101);
+			switch (gGlobal._SelectStage) {
+			case 0:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1", 101);
+				break;
+			case 1:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken2.mv1", 101);
+				break;
+			case 2:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken3.mv1", 101);
+				break;
+
+			default:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1", 101);
+				break;
+
+			}
+
 			_Model->SetScale(VGet(2, 2, 2));
 			_Model->SetPosition(VGet(0, -50, 0));
 			int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
@@ -27,7 +44,22 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 
 		case 1:
 		{
-			_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
+			switch (gGlobal._SelectStage) {
+			case 0:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				break;
+			case 1:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp2.mv1");
+				break;
+			case 2:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp3.mv1");
+				break;
+			default:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				break;
+			
+			}
+			//_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
 			_Model->SetScale(VGet(0.5, 0.5, 0.5));
 			_AnimTotalTime = 0;;
 			int handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");

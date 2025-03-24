@@ -109,7 +109,7 @@ void SourceVoiceItem::Update(ActorClass* p) {
 		if (effect == nullptr) {
 			continue;
 		}
-		effect->Update(p);
+//		effect->Update(p);
 	}
 
 	if (_Volume == 0.0f) {

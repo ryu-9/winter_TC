@@ -111,10 +111,10 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	auto item = new ItemActor(this,VGet(0, 75, 500), 1, -1);
+	auto item = new ItemActor(this,VGet(0, 150, 500), 11, -1);
 	//auto tree = new TreeActor(this, VGet(0, 50, 500));
 	//tree->SetItem(item);
-//	auto item = new ItemActor(this, VGet(0, 75, 100), 0, -1);
+	//auto item = new ItemActor(this, VGet(0, 75, 100), 11, -1);
 //	auto gw = new GimmickWallActor(this, VGet(0, 100, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
 	
 
@@ -235,7 +235,23 @@ bool ModeGame::Render() {
 
 	SetUseLighting(TRUE);
 
-	SetGlobalAmbientLight(GetColorF(0.0f, 0.0f, 0.25f, 1.0f));
+	switch (gGlobal._SelectStage) {
+	case 0:
+		SetGlobalAmbientLight(GetColorF(0.0f, 0.0f, 0.35f, 1.0f));
+		break;
+	case 1:
+		SetGlobalAmbientLight(GetColorF(0.35f, 0.3f, 0.0f, 1.0f));
+		break;
+	case 2:
+	case 3:
+		SetGlobalAmbientLight(GetColorF(0.35f, 0.0f, 0.0f, 1.0f));
+		break;
+
+	default:
+		break;
+
+	}
+
 
 
 #if 1	
