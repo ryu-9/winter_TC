@@ -10,7 +10,7 @@
 
 MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	: Component(owner)
-	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isActive(active), Handle(handle)
+	, _Model(model), Pos(pos), Size(size), Type(type), isMove(move), isCalc(move), isActive(active), Handle(handle)
 	, Rot(VGet(0, 0, 0)), Front(VGet(0, 0, 1)), Up(VGet(0, 1, 0)), OldMove(VGet(0, 0, 0)), devpos(VGet(0, 0, 0))
 	, flag(false), shomen(false)
 {
@@ -59,7 +59,7 @@ void MoveCollisionComponent::Update() {
 	devpos = VGet(0, 0, 0);
 	_CollResult.clear();
 
-	if (isActive == TRUE && isMove == TRUE) {
+	if (isActive == TRUE && isCalc == TRUE) {
 
 		int pushnum = 0;
 		debugpos.clear();
@@ -297,31 +297,36 @@ void MoveCollisionComponent::Update() {
 					continue;
 				}
 
-				_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
-				pushnum++;
+				if (isMove) {
+					_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
+					pushnum++;
 
-				debugpos.push_front(GetPosition());
 
-				movedList.push_front(move);
-				tmp = VSub(GetPosition(), OldPos);
-				OldMove = move;
-				devpos = VAdd(devpos, move);
+					debugpos.push_front(GetPosition());
 
-				if (move.y < 0.3) {
-					int test = 0;
+					movedList.push_front(move);
+					tmp = VSub(GetPosition(), OldPos);
+					OldMove = move;
+					devpos = VAdd(devpos, move);
+
+					if (move.y < 0.3) {
+						int test = 0;
+					}
+
+					MoveComponent* EnMoveCon = coll[i]->GetMove();
+					VECTOR EnMove;
+					if (EnMoveCon != nullptr) {
+						EnMove = EnMoveCon->GetVelocity();
+					}
+					else { EnMove = VGet(0, 0, 0); }
+					VECTOR velocity = _Move->GetVelocity();
+					if (VDot(move, velocity) < VDot(move, EnMove)) {
+						VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
+						_Move->SetVelocity(velocity);
+					}
 				}
 
-				MoveComponent* EnMoveCon = coll[i] -> GetMove();
-				VECTOR EnMove;
-				if (EnMoveCon != nullptr) {
-					EnMove = EnMoveCon->GetVelocity();
-				}
-				else { EnMove = VGet(0, 0, 0); }
-				VECTOR velocity = _Move->GetVelocity();
-				if (VDot(move, velocity) < VDot(move, EnMove)) {
-					VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
-					_Move->SetVelocity(velocity);
-				}
+
 
 
 				float deg = 0;
@@ -378,32 +383,36 @@ void MoveCollisionComponent::Update() {
 							}
 						}
 
-						_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
 
-						debugpos.push_front(GetPosition());
+						 if (isMove) {
+							 _Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
 
-						pushnum++;
+							 debugpos.push_front(GetPosition());
 
-						movedList.push_front(move);
-						tmp = VSub(GetPosition(), OldPos);
-						OldMove = move;
-						devpos = VAdd(devpos, move);
+							 pushnum++;
 
-						if (move.y < 0.3) {
-							int test = 0;
-						}
+							 movedList.push_front(move);
+							 tmp = VSub(GetPosition(), OldPos);
+							 OldMove = move;
+							 devpos = VAdd(devpos, move);
 
-						MoveComponent* EnMoveCon = coll[sqrtnum]->GetMove();
-						VECTOR EnMove;
-						if (EnMoveCon != nullptr) {
-							EnMove = EnMoveCon->GetVelocity();
-						}
-						else { EnMove = VGet(0, 0, 0); }
-						VECTOR velocity = _Move->GetVelocity();
-						if (VDot(move, velocity) < VDot(move, EnMove)) {
-							VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
-							_Move->SetVelocity(velocity);
-						}
+							 if (move.y < 0.3) {
+								 int test = 0;
+							 }
+
+							 MoveComponent* EnMoveCon = coll[sqrtnum]->GetMove();
+							 VECTOR EnMove;
+							 if (EnMoveCon != nullptr) {
+								 EnMove = EnMoveCon->GetVelocity();
+							 }
+							 else { EnMove = VGet(0, 0, 0); }
+							 VECTOR velocity = _Move->GetVelocity();
+							 if (VDot(move, velocity) < VDot(move, EnMove)) {
+								 VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
+								 _Move->SetVelocity(velocity);
+							 }
+						 }
+
 
 
 						if (move.y >= cos(deg / 180 * atan(1) * 4)) {

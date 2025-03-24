@@ -38,6 +38,7 @@ public:
 		auto ui = ModeServer::GetInstance()->Get("gameui");
 		ModeServer::GetInstance()->Del(ui);
 		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
+		gGlobal._SelectStage = 3;
 		return 1;
 	}
 };

@@ -84,6 +84,9 @@ protected:
 	//	アクティブか
 	bool isActive;
 
+	//	能動的に処理するか
+	bool isCalc;
+
 	//	モデルハンドル
 	int Handle;
 
