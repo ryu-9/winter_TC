@@ -37,6 +37,8 @@ public:
 	int		_StartTime;		// 開始時間
 	int		_EndTime;		// 終了時間
 	int		_PauseTime;		// 一時停止時間
+
+	std::string _Text;
 };
 
 // 他のソースでgGlobalを使えるように

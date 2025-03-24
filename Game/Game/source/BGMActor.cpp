@@ -65,7 +65,9 @@ void BGMActor::UpdateActor() {
 	if (_PlayBGM ==2) {
 		if (n < 0) {
 			bgm2->Stop();
-			bgm2->ResetPlayTm(44100 * 3);
+			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm2");
+			auto b = SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2", 44100 * 3);
+			b->SetVolume(0.4);
 			bgm1->Play();
 			_PlayBGM = 1;
 		}

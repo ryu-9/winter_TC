@@ -1095,7 +1095,7 @@ void PlayerActor::AddSize(float size, bool flag)
 
 
 void PlayerActor::Damage(float damage, int time) {
-	if (_ModeNum == 0 && _InvincibleTime <= 0) {
+	if (_ModeNum == 0 && _InvincibleTime <= 0 && _ChangeTime ==0) {
 		_InvincibleTime = time;
 		_AnimTime = 120;
 		if (_Input->GetDashFlag()) {

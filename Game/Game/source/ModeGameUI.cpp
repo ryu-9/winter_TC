@@ -16,7 +16,7 @@ bool ModeGameUI::Initialize() {
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
-	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_WINDOW.png",0);
+	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_MESSAGE2.png",0);
 	_UIChip.push_back(ui);
 	new UITextComponent(ui, "Scenario");
 	// 7ŒÂ

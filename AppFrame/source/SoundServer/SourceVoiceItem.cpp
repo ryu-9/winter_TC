@@ -81,7 +81,7 @@ void SourceVoiceItem::ResetPlayTm(int playhz) {
 		printf("CreateSourceVoice failed\n");
 		
 	}
-	_SV->SetVolume(_Volume);
+	
 }
 
 void SourceVoiceItem::AddEffect(SourceVoiceItemEffectBase* effect) {

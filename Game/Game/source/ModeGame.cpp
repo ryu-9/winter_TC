@@ -171,8 +171,8 @@ bool ModeGame::Initialize() {
 	
 		
 	{ // デバッグ用
-		debug_hcoll_flag =true;
-		debug_mcoll_flag =false;
+		debug_hcoll_flag =false;
+		debug_mcoll_flag =true;
 
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
@@ -333,7 +333,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 	case 2:
 		poppos.resize(3);
 		g.resize(3);
-		gw.resize(30);
+		gw.resize(9);
+		gwn = 18;
 		break;
 		// TODO: ウォールの個数修正
 	default:
@@ -364,6 +365,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
 			auto box = new StageBox(this, pos, rot, scale, 0);
+			box->Init();
+		}else if (name == "Ramp") {
+			auto box = new StageBox(this, pos, rot, scale, 1);
+			box->Init();
+		} else if (name == "laststage") {
+			auto box = new StageBox(this, pos, rot, scale, 2);
 			box->Init();
 		} else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
@@ -483,6 +490,25 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gw[11]->SetActor(g[5]);
 		gw[12]->SetActor(g[5]);
 		break;
+	case 2:
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(true);
+		gw[2]->SetIsActive(false);
+		gw[3]->SetIsActive(false);
+		gw[4]->SetIsActive(true);
+		gw[5]->SetIsActive(true);
+		gw[6]->SetIsActive(false);
+		gw[7]->SetIsActive(false);
+		gw[8]->SetIsActive(true);
+		gw[0]->SetActor(g[0]);
+		gw[1]->SetActor(g[0]);
+		gw[2]->SetActor(g[1]);
+		gw[3]->SetActor(g[1]);
+		gw[4]->SetActor(g[1]);
+		gw[5]->SetActor(g[1]);
+		gw[6]->SetActor(g[2]);
+		gw[7]->SetActor(g[2]);
+		gw[8]->SetActor(g[2]);
 	};
 
 	return true;

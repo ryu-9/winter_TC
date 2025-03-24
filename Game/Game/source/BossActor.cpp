@@ -409,7 +409,8 @@ bool BossActor::Die() {
 
 void BossActor::GeneratePunch() {
 	auto ac = new BossAttackActor(GetMode(),_Action);
-	auto p = GetMode()->GetPlayer(0);
+	auto n = rand() % 2;
+	auto p = GetMode()->GetPlayer(n);
 	auto dir = VGet(p->GetPosition().x - GetPosition().x, 0, p->GetPosition().z - GetPosition().z);
 	ac->SetPosition(VGet(GetPosition().x, 300, GetPosition().z));
 	

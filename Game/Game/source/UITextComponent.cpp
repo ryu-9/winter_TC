@@ -3,6 +3,7 @@
 #include "ioJsonText.h"
 #include "ApplicationMain.h"
 #include <fstream>
+#include "applicationGlobal.h"
 
 namespace {
 	int X = -350;			// X座標基準値
@@ -51,8 +52,8 @@ void UITextComponent::Update() {
 				_TextData.push_back(TEXT_DATA());
 			}
 		}
-		if (_ScenarioData[_TextIndex].next == "wait") {
-			// 待機
+		else if(_ScenarioData[_TextIndex].next == "end"){
+			
 		}
 	}
 
@@ -112,7 +113,6 @@ bool UITextComponent::LoadText(const char* filename, std::string jsonkey) {
 		data.time = s["time"];
 		_ScenarioData.push_back(data);
 	}
-	// TODO: 状況に合わせたデータの読み込み
 	return true;
 }
 
