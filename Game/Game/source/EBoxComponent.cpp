@@ -204,7 +204,7 @@ bool EBoxComponent::Move() {
 		std::string se = "boxwalk";
 		se += std::to_string(n);
 		SoundServer::GetInstance()->Create(_Owner, se, "AttackSE", se);
-		SoundServer::GetInstance()->GetSourceVoice(_Owner, se)->Play();
+		//SoundServer::GetInstance()->GetSourceVoice(_Owner, se)->Play();
 		_Status = STATUS::SEARCH;
 	}
 

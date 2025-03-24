@@ -362,8 +362,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		//	g->AddPopPos(pos);
 		} else if (name == "BP_01EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
-			esa->SetCol(0);
-		//	esa->SetType(1);
+		//	esa->SetCol(0);
+			esa->SetType(1);
 		} else if (name == "BP_02EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(1);

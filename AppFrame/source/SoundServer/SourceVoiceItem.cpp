@@ -106,6 +106,9 @@ void SourceVoiceItem::Update(ActorClass* p) {
 
 	// エフェクトの更新
 	for (auto effect : _Effects) {
+		if (effect == nullptr) {
+			continue;
+		}
 		effect->Update(p);
 	}
 
