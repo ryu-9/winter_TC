@@ -12,11 +12,11 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	{
 	case -1:
 		_Model = new ModelComponent(this, "res/Stage/model/tree_tsumoriyuki.mv1");
-		_Model->SetScale(VGet(0.15, 0.2, 0.15));
+		_Model->SetScale(VGet(0.05, 0.075, 0.05));
 		_Model->SetPosition(VGet(0, -75, 0));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(10, 10, 10), 2, true, true);
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(20, 20, 20), 2, true, true);
 		_Move = new MoveComponent(this);
-		position = VGet(0, 300, 0);
+		position = VGet(0, 100, 0);
 		break;
 
 	case 0:
@@ -64,7 +64,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		break;
 	}
 
-	if (_Type > 0) {
+	if (_Type != 0) {
 		new EffectSpriteComponent(this, "res/model/Item_Circl/Item_Circl.efkefc", VGet(0, 50, -25), VGet(0, 0, 0), 10, false, 0.3);
 	}
 	auto mcoll = new MoveCollisionComponent(this, _Model, position, VGet(100, 100, 100), 2, true, true);
@@ -85,7 +85,7 @@ void ItemActor::UpdateActor()
 	if (_Move->GetStand()) {
 		_Move->SetVelocity(VGet(0, 0, 0));
 		_HCollision->SetIsActive(true);
-		if (_Type == 0) {
+		if (_Type <= 0) {
 			if(_Model->GetScale().y >= _Model->GetScale().x){
 				VECTOR size = _Model->GetScale();
 				size.y /= 2;
