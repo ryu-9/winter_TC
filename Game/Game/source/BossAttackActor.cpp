@@ -25,6 +25,7 @@ BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 		break;
 	}
 	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
+	_MCollision->SetIsMove(false);
 
 }
 

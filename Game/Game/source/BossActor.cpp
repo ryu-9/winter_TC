@@ -363,7 +363,7 @@ bool BossActor::Damage() {
 	if (_AnimTime < _AnimTotalTime) {
 		auto t = (float)GetMode()->GetStepTm();
 		_AnimTime += t / 18.f;
-		if (_AnimTime > _AnimTotalTime) {
+		if (_AnimTime > _AnimTotalTime ) {
 			ChangeAnim(ACTION::WAIT);
 			ChangeAction(ACTION::WAIT);
 			return true;
@@ -489,7 +489,9 @@ void BossActor::GeneratePunchFall() {
 
 void BossActor::GenerateEnemy() {
 	auto pos = VGet(-500,500,200);
-	EnemyCreator::GetInstance()->Create(GetMode(), 0, GetPosition(), nullptr);
+	EnemyCreator::GetInstance()->Create(GetMode(), 0, pos, nullptr);
+	pos.x += 100;
+	EnemyCreator::GetInstance()->Create(GetMode(), 0, pos, nullptr);
 
 }
 
