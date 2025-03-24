@@ -10,6 +10,8 @@ BulletComponent::BulletComponent(ActorClass* owner, VECTOR pos, float speed)
 	_StartPos = owner->GetPosition();
 //	_StartPos.y += 20;
 	UpdateDir();
+	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	SetVelocity(v);
 }
 
 BulletComponent::~BulletComponent()
@@ -19,11 +21,11 @@ BulletComponent::~BulletComponent()
 void BulletComponent::ProcessInput() {
 	// ƒS[ƒ‹‚ÉŒü‚¯‚ÄˆÚ“®
 	
-	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	//auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
 //	v.y -= _Gravity;
 //	v.y = GetVelocity().y + 0.1;
 //	v.y = GetVelocity().y;
-	SetVelocity(v);
+	//SetVelocity(v);
 
 }
 
