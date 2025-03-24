@@ -9,8 +9,8 @@
 #include "UITextActor.h"
 #include "ApplicationGlobal.h"
 
-GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos)
-	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0)
+GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos,int num)
+	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0), _Active(false), _Num(num)
 {
 	SetPosition(pos);
 	_Player[0] = static_cast<ModeGame*>(GetMode())->GetPlayer(0);
@@ -53,7 +53,28 @@ void GroupSpawnerActor::UpdateActor() {
 					c->SetPosition2(p);
 					c->SetEasing(1000);
 					if (gGlobal._SelectStage == 0) {
-						g->GetUIT()->AddText("Scenario", "group1", true);
+						g->GetUIT()->AddText("Scenario", "g1-1", true);
+					}
+					if (gGlobal._SelectStage == 1) {
+						switch (_Num) {
+						case 0:
+							g->GetUIT()->AddText("Scenario", "g2-1", true);
+							break;
+						case 1:
+							g->GetUIT()->AddText("Scenario", "g2-2", true);
+							break;
+						case 2:
+							g->GetUIT()->AddText("Scenario", "g2-3", true);
+							break;
+						case 3:
+							g->GetUIT()->AddText("Scenario", "g2-4", true);
+							break;
+						case 4:
+							g->GetUIT()->AddText("Scenario", "g2-5", true);
+							break;
+						default:
+							break;
+						}
 					}
 					break;
 				}
@@ -75,6 +96,27 @@ void GroupSpawnerActor::UpdateActor() {
 			SetState(State::ePaused);
 			if (gGlobal._SelectStage == 0) {
 				g->GetUIT()->AddText("Scenario", "win", true);
+			}
+			if (gGlobal._SelectStage == 1) {
+				switch (_Num) {
+				case 0:
+					g->GetUIT()->AddText("Scenario", "g2-1win", true);
+					break;
+				case 1:
+					g->GetUIT()->AddText("Scenario", "g2-2win", true);
+					break;
+				case 2:
+					g->GetUIT()->AddText("Scenario", "g2-3win", true);
+					break;
+				case 3:
+					g->GetUIT()->AddText("Scenario", "g2-4win", true);
+					break;
+				case 4:
+					g->GetUIT()->AddText("Scenario", "g2-5win", true);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 
@@ -137,8 +179,10 @@ void GroupSpawnerActor::UpdateActor() {
 					if (p->GetModeNum() > 0) {
 						_Spawner[i].hp -= 20;
 					} else {
-						p->Damage(0.05);
-						_Spawner[i].hp -= 5;
+						if (p->GetInvincibleTime() <= 0) {
+							p->Damage(0.05);
+							_Spawner[i].hp -= 5;
+						}
 					}
 				}
 				auto punch = dynamic_cast<PunchActor*>(h->GetOwner());

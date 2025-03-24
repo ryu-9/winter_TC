@@ -37,7 +37,11 @@ UITextComponent::~UITextComponent() {
 }
 
 void UITextComponent::Update() {
-	if (_ScenarioData.size() == 0) { return; }
+	if (_ScenarioData.size() == 0) { 
+		SCENARIO_DATA data;
+		data.next = "end";
+		_ScenarioData.push_back(data);
+	}
 	if (_IsActive == false) { return; }
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	int trg = ApplicationMain::GetInstance()->GetTrg();

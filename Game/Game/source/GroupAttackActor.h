@@ -10,7 +10,7 @@ public:
 		int pop_range;				// ¶¬”ÍˆÍ
 		int pop_time;				// ¶¬ƒŠƒLƒƒƒXƒgŠÔ
 	};
-	GroupSpawnerActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0));
+	GroupSpawnerActor(class ModeBase* mode, VECTOR pos = VGet(0, 0, 0),int num = 0);
 	virtual ~GroupSpawnerActor();
 	void Init();
 	void UpdateActor() override;
@@ -40,6 +40,7 @@ private:
 
 	bool _Active;
 	int _Type;
+	int _Num;
 };
 
 

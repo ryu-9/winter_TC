@@ -212,9 +212,6 @@ bool ModeGame::Initialize() {
 		debug_hcoll_flag =false;
 		debug_mcoll_flag =false;
 
-		auto box = new StageBox(this);
-		box->SetPosition(VGet(0, 0, 0));
-	
 	}
 
 	PreLoad();
@@ -453,9 +450,10 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			nm = nm.back();
 		//	auto g = new GroupSpawnerActor(this, pos);
 			auto n = std::stoi(nm)-1;
-			g[n] = new GroupSpawnerActor(this, pos);
+			g[n] = new GroupSpawnerActor(this, pos,n);
 			g[n]->SetDirection(rot);
 			g[n]->SetSize(scale);
+		
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
 			m->SetPosition(VGet(0, 200, 0));
@@ -515,7 +513,6 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		}
 		//g[i]->SetPopPos(poppos[i]);
 	}
-	// TODO: ギミックウォールの詳細設定
 	switch (gGlobal._SelectStage) {
 	case 0:
 		gw[0]->SetIsActive(false);
@@ -524,6 +521,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gw[3]->SetIsActive(true);
 		gw[2]->SetActor(g[0]);
 		gw[3]->SetActor(g[0]);
+		g[0]->SetType(0);
 		break;
 	case 1:
 		gw[0]->SetIsActive(false);
@@ -552,6 +550,12 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gw[10]->SetActor(g[4]);
 		gw[11]->SetActor(g[5]);
 		gw[12]->SetActor(g[5]);
+		g[0]->SetType(1);
+		g[1]->SetType(4);
+		g[2]->SetType(4);
+		g[3]->SetType(4);
+		g[4]->SetType(4);
+		g[5]->SetType(4);
 		break;
 	case 2:
 		gw[0]->SetIsActive(false);
@@ -572,6 +576,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gw[6]->SetActor(g[2]);
 		gw[7]->SetActor(g[2]);
 		gw[8]->SetActor(g[2]);
+		g[0]->SetType(1);
+		g[1]->SetType(5);
+		g[2]->SetType(5);
 	};
 
 	return true;
