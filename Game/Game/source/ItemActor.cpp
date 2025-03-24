@@ -56,7 +56,7 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		break;
 
 	case 12:
-		_Model = new ModelComponent(this, "res/Stage/model/stone.mv1");
+		_Model = new ModelComponent(this, "res/model/DropItem/stone.mv1");
 		_Model->SetScale(VGet(100, 100, 100));
 		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true);
 		_Move = new MoveComponent(this);
