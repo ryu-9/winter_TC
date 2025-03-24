@@ -34,10 +34,10 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 			int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
 			_AnimIndex = MV1AttachAnim(_Model->GetHandle(), index, _Model->GetHandle(), TRUE);
 			_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);		
-			int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
-			handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			int handle = ModelServer::GetInstance()->Add("res/model/Mapchip/Mapchip.mv1");
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, -50, 0), VGet(2, 2, 2), 6, false, true, handle);
+			handle = ModelServer::GetInstance()->Add("res/model/Mapchip/Mapchip.mv1");
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, -50, 0), VGet(2, 2, 2), 6, false, true, handle);
 			break;
 		}
 

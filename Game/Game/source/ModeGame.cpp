@@ -112,7 +112,7 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	auto item = new ItemActor(this,VGet(0, 150, 500), 11, -1);
+	//auto item = new ItemActor(this,VGet(0, 150, 500), 11, -1);
 	//auto tree = new TreeActor(this, VGet(0, 50, 500));
 	//tree->SetItem(item);
 	//auto item = new ItemActor(this, VGet(0, 75, 100), 11, -1);

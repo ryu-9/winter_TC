@@ -20,6 +20,7 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	
 	std::vector<unsigned short> index;
 	std::vector<VERTEX3D> snow;
+	std::vector<float> height;
 	VECTOR root = m.Position[0];
 	VECTOR a = VSub(m.Position[1], root);
 	VECTOR b = VSub(m.Position[2], root);
@@ -114,23 +115,27 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 			tmp.su = 1;
 			tmp.sv = 1;
 			if (j == 0 && flag0) {
-				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+				tmp.pos = VAdd(tmp.pos, VGet(0, -15, 0));
 				snow.emplace_back(tmp);
+				height.emplace_back(100);
 				k++;
 				tmp.pos = p;
 			}
 			snow.emplace_back(tmp);
+			height.emplace_back(0);
 			if (j == i && flag1) {
-				tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+				tmp.pos = VAdd(tmp.pos, VGet(0, -15, 0));
 				snow.emplace_back(tmp);
+				height.emplace_back(100);
 				k++;
 			}
 
 			if (i == j &&i == num && flag2) {
 				for (int l = 0; l <= i; l++) {
 					tmp = snow[snow.size() - 1 - i - flag1];
-					tmp.pos = VAdd(tmp.pos, VGet(0, -30, 0));
+					tmp.pos = VAdd(tmp.pos, VGet(0, -15, 0));
 					snow.emplace_back(tmp);
+					height.emplace_back(100);
 
 					index.emplace_back(k - i + l - 1);
 					index.emplace_back(k - i + l - 2);
@@ -203,7 +208,7 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	_Height = new float[_SnowSize];
 	for (int i = 0; i < _SnowSize; i++) {
 		_Snow[i] = snow[i];
-		_Height[i] = 0;
+		_Height[i] = height[i];
 	}
 
 
@@ -227,7 +232,8 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 	_LowSnow[3] = _Snow[_SnowSize - num - 1]; _LowSnow[4] = _Snow[_SnowSize - num - 3]; _LowSnow[5] = _Snow[_SnowSize - 1];
 
 	_LowIndex[0] = 0; _LowIndex[1] = 1; _LowIndex[2] = 2; _LowIndex[3] = 1; _LowIndex[4] = 3; _LowIndex[5] = 2;
-	_LowIndex[6] = 3; _LowIndex[7] = 4; _LowIndex[8] = 5; _LowIndex[9] = 3; _LowIndex[10] = 5; _LowIndex[11] = 2;
+	_LowIndex[6] = 2; _LowIndex[7] = 5; _LowIndex[8] = 4;
+	_LowIndex[9] = 3; _LowIndex[10] = 5; _LowIndex[11] = 2;
 	_LowIndex[12] = 4; _LowIndex[13] = 5; _LowIndex[14] = 0; _LowIndex[15] = 5; _LowIndex[16] = 1; _LowIndex[17] = 0;
 	_LowIndex[18] = 0; _LowIndex[19] = 2; _LowIndex[20] = 4;
 
@@ -289,6 +295,9 @@ void SnowComponent::Draw()
 		int debugnum = 0;
 		float size = mc->GetSize().x * mc->GetSize().x;
 		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] > 0) {
+				continue;
+			}
 			debugnum++;
 			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), _Snow[i].pos);
 			if (dist > _Longest) {
@@ -311,7 +320,7 @@ void SnowComponent::Draw()
 			if (depth < 0) {
 				flag = false;
 				depth = sqrt(-depth);
-				if (depth > 30) { depth = 30; }
+				if (depth > 20) { depth = 20; }
 				vertexdepth += depth - _Height[i];
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
@@ -354,7 +363,6 @@ void SnowComponent::Draw()
 
 
 	for (auto mc : _MCList2) {
-
 		float vertexdepth = 0;
 		if (mc == nullptr) {
 			continue;
@@ -365,6 +373,10 @@ void SnowComponent::Draw()
 		int debugnum = 0;
 		float size = mc->GetSize().x * mc->GetSize().x * 2;
 		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] > 0) {
+				continue;
+			}
+
 			debugnum++;
 			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0)));
 			if (dist > _Longest) {
@@ -387,9 +399,9 @@ void SnowComponent::Draw()
 			if (depth < 0) {
 				flag = false;
 				depth = sqrt(-depth);
-				if (depth < 30 && _Height[i] < -depth) {
+				if (depth < 20 && _Height[i] < -depth) {
 					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
-					_Height[i] = depth - 30;
+					_Height[i] = depth - 20;
 					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, +_Height[i], 0));
 				}
 				else {
@@ -397,7 +409,10 @@ void SnowComponent::Draw()
 					_Height[i] = 0;
 				}
 				vertexdepth += depth - _Height[i];
-
+				if (_Height[i] > 0) {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = 0;
+				}
 
 
 			}
