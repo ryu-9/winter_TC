@@ -99,8 +99,8 @@ void GroupSpawnerActor::UpdateActor() {
 
 		for (auto i = 0; i < _Spawner.size(); i++) {
 			if (_Spawner[i].hp <= 0) {
-				delete _Spawner[i].model;
-				delete _Spawner[i].hCollision;
+				_Spawner[i].model->SetVisible(false);
+				_Spawner[i].hCollision->SetIsActive(false);
 				_Spawner.erase(_Spawner.begin() + i);
 			}
 
