@@ -37,7 +37,7 @@ void UIChipFadeComponent::ProcessInput() {
 	_UIChip->GetUIData()->blendParam = (_Data.end - _Data.start) * ((float)_Data.cnt / (float)_Data.tm) + _Data.start;
 	if (_Data.cnt >= _Data.tm) {
 		_UIChip->GetUIData()->blendParam = _Data.end;
-		_Owner->RemoveComponent(this);
+		delete this;
 	}
 }
 
@@ -149,7 +149,7 @@ void UIChipMoveComponent::ProcessInput()
 		_UIChip->SetPosition(tmp);
 		if (_Data.cnt >= _Data.tm) {
 			_UIChip->SetPosition(_Data.end);
-			_Owner->RemoveComponent(this);
+			delete this;
 		}
 	}
 	
@@ -181,7 +181,7 @@ void UIChipScaleComponent::ProcessInput() {
 		_UIChip->GetUIData()->scale = tmp;
 		if (_Data.cnt >= _Data.tm) {
 			_UIChip->GetUIData()->scale = _Data.end;
-			_Owner->RemoveComponent(this);
+			delete this;
 		}
 	}
 }

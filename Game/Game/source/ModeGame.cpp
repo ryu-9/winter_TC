@@ -28,6 +28,7 @@
 #include "BGMActor.h"
 #include "LavaActor.h"
 #include "UITextComponent.h"
+#include "UITextActor.h"
 
 class MenuItemOpenSelect : public MenuItemBase {
 public:
@@ -137,8 +138,9 @@ bool ModeGame::Initialize() {
 
 //	SetFogEnable(TRUE);
 //	SetFogStartEnd(200, 10000);
-	_UIT = new UIChipClass(this, VGet(960, 940, 0), "res/UI/UI_MESSAGE2.png", 0);
-	new UITextComponent(_UIT, "Scenario","start");
+	_UIT = new UITextActor(this);
+	_UIT->SetPosition(VGet(960, 940, 0));
+	_UIT->AddText("Scenario","start",true);
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
@@ -326,6 +328,8 @@ bool ModeGame::Render() {
 //*/
 	_EffectController->Draw();
 
+
+
 	if (debug_hcoll_flag) {
 		for (auto hc : _HCollision) {
 			hc->DebugDraw();
@@ -337,6 +341,7 @@ bool ModeGame::Render() {
 		}
 	}
 	
+
 	return true;
 
 	base::Render();
@@ -481,7 +486,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		} else if (name == "bossspawner") {
 			auto b = new BossActor(this, pos);
 		}
-		else if (name == "maguma") {
+		else if (name == "BP_maguma") {
 			auto l = new LavaActor(this, pos, scale);
 		}
 		else {

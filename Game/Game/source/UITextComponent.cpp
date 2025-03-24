@@ -12,14 +12,17 @@ namespace {
 	int TEXT_SPEED = 70;	// テキスト表示速度
 }
 
-UITextComponent::UITextComponent(UIChipClass* owner, std::string jsonkey, std::string jsonkey2)
-	:SpriteComponent(owner) {
+UITextComponent::UITextComponent(ActorClass* owner, std::string jsonkey, std::string jsonkey2)
+	:SpriteComponent(owner,200)
+
+{
 	
 	_CurrentTime = 0;
 	_Time = 0;
 	_StCount = 0;
 	_TextIndex = 0;
 	_TextCount = 0;
+	_IsActive = false;
 	_TextData.push_back(TEXT_DATA());
 	if (jsonkey != "") {
 		LoadText("res/loadtext/LoadText.json", jsonkey,jsonkey2);
@@ -35,6 +38,7 @@ UITextComponent::~UITextComponent() {
 
 void UITextComponent::Update() {
 	if (_ScenarioData.size() == 0) { return; }
+	if (_IsActive == false) { return; }
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 	if (_CurrentTime > _TextCount * TEXT_SPEED) {
@@ -43,7 +47,7 @@ void UITextComponent::Update() {
 
 	if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
 
-		if (_CurrentTime > _TextCount * TEXT_SPEED + _ScenarioData[_TextIndex].time) {
+		if (_CurrentTime > (_TextCount * TEXT_SPEED) + _ScenarioData[_TextIndex].time) {
 			if (_ScenarioData[_TextIndex].next == "time") {
 				_TextIndex++;
 				_StCount = 0;
@@ -53,7 +57,7 @@ void UITextComponent::Update() {
 				_TextData.clear();
 				_TextData.push_back(TEXT_DATA());
 			} else if (_ScenarioData[_TextIndex].next == "end") {
-				delete this;
+				
 			}
 		}
 	}
@@ -84,6 +88,7 @@ void UITextComponent::Update() {
 
 void UITextComponent::Draw() {
 	if (_TextIndex >= _ScenarioData.size()) { return; }
+	if (_IsActive == false) { return; }
 	SetFontSize(FONT_SIZE);
 	int x = _Owner->GetPosition().x + X;
 	int y = _Owner->GetPosition().y + Y;
@@ -98,6 +103,11 @@ void UITextComponent::Draw() {
 		DrawFormatString(x, y, _TextData[i].col, text.c_str());
 		x += GetDrawFormatStringWidth(text.c_str());
 	}
+}
+
+std::string UITextComponent::GetState() {
+	if (_ScenarioData.size() == 0) { return "non"; }
+	{ return _ScenarioData[_TextIndex].next; }
 }
 
 bool UITextComponent::LoadText(const char* filename, std::string jsonkey,std::string jsonkey2) {

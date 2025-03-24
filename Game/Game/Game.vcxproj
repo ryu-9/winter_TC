@@ -217,6 +217,7 @@
     <ClCompile Include="source\UIItemClass.cpp" />
     <ClCompile Include="source\UIPlayerHPClass.cpp" />
     <ClCompile Include="source\UISoundActor.cpp" />
+    <ClCompile Include="source\UITextActor.cpp" />
     <ClCompile Include="source\UITextComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -276,6 +277,7 @@
     <ClInclude Include="source\TimerComponent.h" />
     <ClInclude Include="source\UIBossHPClass.h" />
     <ClInclude Include="source\UIItemClass.h" />
+    <ClInclude Include="source\UITextActor.h" />
     <ClInclude Include="source\UITextComponent.h" />
     <ClInclude Include="source\TreeActor.h" />
     <ClInclude Include="source\UIPlayerHPClass.h" />

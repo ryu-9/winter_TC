@@ -13,17 +13,6 @@ namespace {
 
 
 bool ModeScenario::Initialize() {
-	if (!base::Initialize()) { return false; }
-	LoadScenario("res/loadtext/LoadText.json","Scenario");
-	SetFontSize(FONT_SIZE);
-	_CurrentTime = 0;
-	_Time = 0;
-	_StCount = 0;
-	_TextIndex = 0;
-	_TextCount = 0;
-	_TextData.push_back(TEXT_DATA());
-
-	new UIChipClass(this,VGet(960,965,0), "res/UI/UI_MESSAGE.png");
 	return true;
 }
 
@@ -33,54 +22,10 @@ bool ModeScenario::Terminate() {
 }
 
 bool ModeScenario::Process() {
-	_CurrentTime += GetStepTm();
-	// このモードより下のレイヤーはProcess()を呼ばない
-	ModeServer::GetInstance()->SkipProcessUnderLayer();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
-	if (_CurrentTime > _TextCount * TEXT_SPEED) {
-		AddText();
-	}
-
-	if (trg & PAD_INPUT_1) {
-		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
-			_StCount = 0;
-			_TextCount = 0;
-			_CurrentTime = 0;
-			_TextIndex++;
-			if (_TextIndex >= _ScenarioData.size()) {
-				ModeServer::GetInstance()->Del(this);
-				return true;
-			}
-			
-			_TextData.clear();
-			_TextData.push_back(TEXT_DATA());
-		} else {
-			for (auto i = 0; i < _ScenarioData[_TextIndex].text.size(); i++) {
-				AddText();
-			}
-		}
-
-	}
-
 	return true;
 }
 
 bool ModeScenario::Render() {
-	base::Render();
-	int x = X;
-	int y = Y;
-	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
-	y += FONT_SIZE;
-	for (int i = 0; i < _TextData.size(); i++) {
-		auto text = iojson::ConvertString(_TextData[i].text);
-		if (_TextData[i].br) {
-			y += FONT_SIZE;
-			x = X;
-		}
-		DrawFormatString(x, y, _TextData[i].col, text.c_str());
-		x += GetDrawFormatStringWidth(text.c_str());
-	}
-	
 	return true;
 }
 

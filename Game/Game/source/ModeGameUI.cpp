@@ -16,8 +16,8 @@ bool ModeGameUI::Initialize() {
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
-	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_MESSAGE2.png",0);
-	_UIChip.push_back(ui);
+//	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_MESSAGE2.png",0);
+	
 //	new UITextComponent(ui, "Scenario");
 	// 7ŒÂ
 
@@ -28,14 +28,14 @@ bool ModeGameUI::Initialize() {
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(420, 1025, 0), "", 1, 0, 1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1800, 985, 0), "", 1, 1, 0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1500, 1025, 0), "", 1, 0, 0));
-
+	new UIChipFadeComponent(_UIChip[6], 0, 0);
 	new UIChipFadeComponent(_UIChip[7], 0, 0);
 	new UIChipFadeComponent(_UIChip[8], 0, 0);
 	new UIChipFadeComponent(_UIChip[9], 0, 0);
 	new UIChipFadeComponent(_UIChip[10],0, 0);
 	new UIChipFadeComponent(_UIChip[11], 0, 0);
 	new UIChipFadeComponent(_UIChip[12], 0, 0);
-	new UIChipFadeComponent(_UIChip[13], 0, 0);
+	
 
 	if (gGlobal._SelectStage == 3) {
 		_UIChip.push_back(new UIBossHPClass(this, VGet(415, 0, 0), "", 0));
@@ -55,7 +55,7 @@ bool ModeGameUI::Process() {
 	auto game = dynamic_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
 	if (game->GetPlayer()->GetModeNum() > 0) {
 		if (_AnimCount < 80) {
-			_AnimCount++;
+			
 			auto pos = _UIChip[2]->GetPosition();
 			_UIChip[2]->SetPosition(VGet(pos.x - 15, pos.y, 0));
 			pos = _UIChip[3]->GetPosition();
@@ -64,17 +64,20 @@ bool ModeGameUI::Process() {
 			_UIChip[4]->SetPosition(VGet(pos.x + 15, pos.y, 0));
 			pos = _UIChip[5]->GetPosition();
 			_UIChip[5]->SetPosition(VGet(pos.x + 15, pos.y, 0));
-			new UIChipFadeComponent(_UIChip[7], 255, 1000);
-			new UIChipFadeComponent(_UIChip[8], 255, 1000);
-			new UIChipFadeComponent(_UIChip[9], 255, 1000);
-			new UIChipFadeComponent(_UIChip[10], 255, 1000);
-			new UIChipFadeComponent(_UIChip[11], 255, 1000);
-			new UIChipFadeComponent(_UIChip[12], 255, 1000);
-			new UIChipFadeComponent(_UIChip[13], 255, 1000);
+			if (_AnimCount == 0) {
+				new UIChipFadeComponent(_UIChip[7], 255, 1000);
+				new UIChipFadeComponent(_UIChip[8], 255, 1000);
+				new UIChipFadeComponent(_UIChip[9], 255, 1000);
+				new UIChipFadeComponent(_UIChip[10], 255, 1000);
+				new UIChipFadeComponent(_UIChip[11], 255, 1000);
+				new UIChipFadeComponent(_UIChip[12], 255, 1000);
+				new UIChipFadeComponent(_UIChip[6], 255, 1000);
+			}
+			_AnimCount++;
 		}
 	} else {
 		if (_AnimCount > 0) {
-			_AnimCount--;
+			
 			auto pos = _UIChip[2]->GetPosition();
 			_UIChip[2]->SetPosition(VGet(pos.x + 15, pos.y, 0));
 			pos = _UIChip[3]->GetPosition();
@@ -83,13 +86,16 @@ bool ModeGameUI::Process() {
 			_UIChip[4]->SetPosition(VGet(pos.x - 15, pos.y, 0));
 			pos = _UIChip[5]->GetPosition();
 			_UIChip[5]->SetPosition(VGet(pos.x - 15, pos.y, 0));
-			new UIChipFadeComponent(_UIChip[7], 0, 1000);
-			new UIChipFadeComponent(_UIChip[8], 0, 1000);
-			new UIChipFadeComponent(_UIChip[9], 0, 1000);
-			new UIChipFadeComponent(_UIChip[10], 0, 1000);
-			new UIChipFadeComponent(_UIChip[11], 0, 1000);
-			new UIChipFadeComponent(_UIChip[12], 0, 1000);
-			new UIChipFadeComponent(_UIChip[13], 0, 1000);
+			if (_AnimCount == 80) {
+				new UIChipFadeComponent(_UIChip[7], 0, 1000);
+				new UIChipFadeComponent(_UIChip[8], 0, 1000);
+				new UIChipFadeComponent(_UIChip[9], 0, 1000);
+				new UIChipFadeComponent(_UIChip[10], 0, 1000);
+				new UIChipFadeComponent(_UIChip[11], 0, 1000);
+				new UIChipFadeComponent(_UIChip[12], 0, 1000);
+				new UIChipFadeComponent(_UIChip[6], 0, 1000);
+			}
+			_AnimCount--;
 		}
 	}
 	return false;

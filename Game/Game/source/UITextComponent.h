@@ -3,12 +3,17 @@
 
 class UITextComponent :public SpriteComponent{
 public:
-	UITextComponent(class UIChipClass* owner, std::string jsonkey, std::string jsonkey2 = "");
+	UITextComponent(class ActorClass* owner, std::string jsonkey, std::string jsonkey2 = "");
 	virtual ~UITextComponent();
 	void Update() override;
 	void Draw() override;
 
-	virtual bool LoadText(const char* filename, std::string jsonkey,std::string jsonkey2 = "");
+	void SetActive(bool active) { _IsActive = active; }
+	bool GetActive() { return _IsActive; }
+
+	std::string GetState();
+
+	bool LoadText(const char* filename, std::string jsonkey,std::string jsonkey2 = "");
 private:
 	struct SCENARIO_DATA {
 		std::string name;
@@ -33,5 +38,6 @@ private:
 	int _TextIndex;		// 表示テキスト番号
 	int _TextCount;		// テキスト表示数
 	
+	bool _IsActive;
 };
 

@@ -3,6 +3,7 @@
 #include "PlayerActor.h"
 #include "CameraActor.h"
 #include "ApplicationGlobal.h"
+#include "UITextActor.h"
 
 PlayerMoveComponent::PlayerMoveComponent(PlayerActor* owner, int updateOrder)
 	:MoveComponent(owner, 1.0, updateOrder)
@@ -44,7 +45,7 @@ void PlayerMoveComponent::ProcessInput()
 	if (_Key & PAD_INPUT_LEFT) { v.z = -1; }
 	if (_Key & PAD_INPUT_RIGHT) { v.z = 1; }
 	*/
-	GetJoypadDirectInputState(pn, &_Input);
+	GetJoypadDirectInputState(1, &_Input);
 	v.x = (float)_Input.Y / 1000;
 	v.z = (float)_Input.X / 1000;
 
@@ -64,7 +65,10 @@ void PlayerMoveComponent::ProcessInput()
 				length = mvSpeed * VSize(v);
 				if (gGlobal._StartTime == 0) {
 					gGlobal._StartTime = GetNowCount();
-					gGlobal._Text = "Stick_ok";
+					if (gGlobal._SelectStage == 0) {
+						auto g = dynamic_cast<ModeGame*>(_Owner->GetMode());
+						g->GetUIT()->AddText("Scenario", "Stick_ok", false);
+					}
 				}
 			}
 		}
@@ -138,6 +142,10 @@ void PlayerMoveComponent::ProcessInput()
 				velocity.y = 10;
 				SoundServer::GetInstance()->Create(_pOwner, "jump", "SE", "jump");
 				SoundServer::GetInstance()->GetSourceVoice(_pOwner, "jump")->Play();
+				if (gGlobal._SelectStage == 0) {
+					auto g = dynamic_cast<ModeGame*>(_Owner->GetMode());
+					g->GetUIT()->AddText("Scenario", "jump", true);
+				}
 				_JumpFlag = false;
 			}
 		}
