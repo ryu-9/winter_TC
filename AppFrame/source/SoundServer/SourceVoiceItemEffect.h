@@ -53,6 +53,7 @@ public:
 	SVItemDistanceDecay(class SourceVoiceItem* sv);
 	void Update(class ActorClass* p) override;
 
+	void SetListener(class ActorClass* listener) { _Listener = listener; }
 private:
 	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
 };
@@ -63,6 +64,9 @@ public:
 	SVItemPanning(class SourceVoiceItem* sv);
 	void Update(class ActorClass* p) override;
 
+	void SetListener(class ActorClass* listener) { _Listener = listener; }
+
 private:
+	
 	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
 };

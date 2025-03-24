@@ -103,17 +103,15 @@ void GroupSpawnerActor::UpdateActor() {
 				//delete _Spawner[i].hCollision;
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
-				_Spawner.erase(_Spawner.begin() + i);
+				continue;
 			}
 
 			auto hit = _Spawner[i].hCollision->IsHit();
 			for (auto h : hit) {
 				auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
 				if (p != nullptr) {
-					if (p->GetInvincibleTime() <= 0) {
 						p->Damage(0.05);
 						_Spawner[i].hp -= 5;
-					}
 					if (p->GetModeNum() > 0) {
 						_Spawner[i].hp -= 20;
 					}
@@ -140,9 +138,11 @@ void GroupSpawnerActor::AddPopPos(VECTOR pos) {
 	_PopPos.push_back(pos);
 	auto tmpos = VSub(_Position,pos);
 	tmpos.y *= -1;//_Position.y -(100 * _Size.y);
-	auto model = new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1",100,false);
+	auto model = new ModelComponent(this, "res/Stage/model/EnemyWall/ENEMYWALL.mv1",100,false);
+	model->SetScale(VGet(0.5, 0.5, 0.5));
 	model->SetPosition(tmpos);
-	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(10, 10, 10), 2,false, true,-1,false);
+	tmpos.y += 100;
+	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(15, 15, 15), 2,false, true,-1,false);
 	Spawner s;
 	s.model = model;
 	s.hCollision = hcol;

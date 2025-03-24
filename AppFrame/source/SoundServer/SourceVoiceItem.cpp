@@ -72,6 +72,20 @@ void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
 	_SV->SetFilterParameters(&param);
 }
 
+void SourceVoiceItem::SetPan(float pan, float pan2) {
+	XAUDIO2_VOICE_DETAILS details;
+	_SV->GetVoiceDetails(&details); 
+	auto in = details.InputChannels;
+	SoundServer::GetInstance()->GetMasteringVoice()->GetVoiceDetails(&details);
+	auto out = details.InputChannels;
+	
+	float mat[2*2] = { pan,pan2,pan, pan2 };
+	
+	
+	_SV->SetOutputMatrix(NULL, in, out,mat );
+	
+}
+
 void SourceVoiceItem::ResetPlayTm(int playhz) {
 	// �T�E���h�̍쐬
 	_SV->DestroyVoice();

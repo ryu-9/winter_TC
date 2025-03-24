@@ -10,7 +10,8 @@ EnemySpawnerActor::EnemySpawnerActor(ModeBase* mode, VECTOR pos, bool breakablef
 	: ActorClass(mode)
 	, _TmCnt(0), _PopCnt(0), _Breakable(breakableflag), _ResetFlag(resetflag), _Type(0), _Col(0), _TotalPopCnt(0) {
 	SetPosition(pos);
-	new ModelComponent(this, "res/model/Enemy_corn/Enemy_corn.mv1");
+	if (_Breakable) { new ModelComponent(this, "res/Stage/model/EnemyWall/ENEMYWALL.mv1"); }
+	
 	// ÉvÉåÉCÉÑÅ[ÇÃéÊìæ
 	auto game = static_cast<ModeGame*>(GetMode());
 

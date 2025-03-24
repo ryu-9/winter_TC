@@ -24,6 +24,7 @@ public:
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
+	virtual void SetPan(float pan,float pan2);
 //	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
 	virtual void SetToDestroy(bool flg) { _Dead = flg; }

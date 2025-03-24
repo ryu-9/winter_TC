@@ -2,7 +2,10 @@
 #include "BulletComponent.h"
 #include "PlayerActor.h"
 #include "EnemyActor.h"
+#include "appframe.h"
 #include <iostream>
+#include "ModeGame.h"
+#include "CameraActor.h"
 
 
 ECornComponent::ECornComponent(ActorClass* owner)
@@ -115,8 +118,11 @@ bool ECornComponent::Attack(int n) {
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
 		SoundServer::GetInstance()->Create(ac, "cornfire", "AttackSE", "cornfire");
-		SoundServer::GetInstance()->GetSourceVoice(ac, "cornfire")->Play();
-		
+		auto sv = SoundServer::GetInstance()->GetSourceVoice(ac, "cornfire");
+		auto p = new SVItemPanning(sv);
+		auto g = dynamic_cast<ModeGame*>(_Owner->GetMode());
+		p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+		sv->Play();
 		
 
 	return true;

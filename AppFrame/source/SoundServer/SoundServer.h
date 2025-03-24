@@ -35,7 +35,7 @@ public:
 	void Release(ActorClass* p);
 	void DeleteSourceVoice(ActorClass* p, std::string name);
 
-
+	IXAudio2MasteringVoice* GetMasteringVoice() { return _MasteringVoice; }
 
 protected:
 	bool Init();

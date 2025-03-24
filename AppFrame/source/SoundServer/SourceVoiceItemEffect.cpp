@@ -79,7 +79,7 @@ SVItemPanning::SVItemPanning(SourceVoiceItem* sv)
 }
 
 void SVItemPanning::Update(ActorClass* p) {
-
+	if (p == nullptr) { return; }
 	auto pos = p->GetPosition();
 	auto lpos = VGet(960, 540, 0);
 	if (_Listener != nullptr) { auto lpos = _Listener->GetPosition(); }
@@ -96,4 +96,5 @@ void SVItemPanning::Update(ActorClass* p) {
 	auto pan1 = cos(angle);
 	auto pan2 = sin(angle);
 
+	_svItem->SetPan(pan1, pan2);
 }
