@@ -45,7 +45,7 @@ float SourceVoiceItem::GetVolume() {
 	return _Volume;
 }
 
-// ƒ{ƒŠƒ…[ƒ€‚ğ0.0f`1.0f‚Åİ’è
+// ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½0.0fï¿½`1.0fï¿½Åİ’ï¿½
 void SourceVoiceItem::SetVolume(float vol) {
 	if (_Volume != vol) {
 		_Volume = vol;
@@ -53,7 +53,7 @@ void SourceVoiceItem::SetVolume(float vol) {
 	}
 }
 
-// ƒ{ƒŠƒ…[ƒ€‚ğƒfƒVƒxƒ‹‚Åİ’è
+// ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½fï¿½Vï¿½xï¿½ï¿½ï¿½Åİ’ï¿½
 void SourceVoiceItem::SetVolumeDB(float db) {
 	//auto tmp = XAudio2AmplitudeRatioToDecibels(_Volume);
 //	if (tmp == db) { return; }
@@ -75,7 +75,7 @@ void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
 }
 
 void SourceVoiceItem::ResetPlayTm(int playhz) {
-	// ƒTƒEƒ“ƒh‚Ìì¬
+	// ï¿½Tï¿½Eï¿½ï¿½ï¿½hï¿½Ìì¬
 	_SV->DestroyVoice();
 	if (SoundServer::GetInstance()->Create(_Actor, _WavName, _WavName,_WavName,playhz) == nullptr) {
 		printf("CreateSourceVoice failed\n");
@@ -106,7 +106,7 @@ void SourceVoiceItem::Update(ActorClass* p) {
 		_Dead = true;
 	}
 
-	// ƒGƒtƒFƒNƒg‚ÌXV
+	// ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ÌXï¿½V
 	for (auto effect : _Effects) {
 		if (effect != nullptr) {
 			effect->Update(p);
@@ -119,8 +119,8 @@ void SourceVoiceItem::Update(ActorClass* p) {
 		return;
 	}
 
-	// ‰¹—Ê‚ÌXV
-	// SetVolume‚ªd‚¢‚ç‚µ‚¢‚Ì‚ÅA•ÏX‚ª‚ ‚Á‚½‚¾‚¯ŒÄ‚Ô
+	// ï¿½ï¿½ï¿½Ê‚ÌXï¿½V
+	// SetVolumeï¿½ï¿½ï¿½dï¿½ï¿½ï¿½ç‚µï¿½ï¿½ï¿½Ì‚ÅAï¿½ÏXï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½
 	if (_VolumeChanged == false) {
 		return;
 	}

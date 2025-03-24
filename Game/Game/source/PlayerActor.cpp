@@ -96,7 +96,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
-	SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
+	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");

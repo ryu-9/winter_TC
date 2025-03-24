@@ -38,19 +38,20 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 		break;
 
 	case 11:
-		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
-		_Model->SetScale(VGet(0.4, 0.4, 0.4));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
+		_Model = new ModelComponent(this, "res/model/DropItem/stoneL.mv1");
+		_Model->SetScale(VGet(10, 10, 10));
+		_Model->SetPosition(VGet(0, 100, 0));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true);
 		_Move = new MoveComponent(this);
-		position = VGet(0, 200, 0);
+		//position = VGet(0, -200, 0);
 		break;
 
 	case 12:
-		_Model = new ModelComponent(this, "res/Stage/model/Tree.mv1");
-		_Model->SetScale(VGet(0.4, 0.4, 0.4));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(200, 200, 200), 2, true, true);
+		_Model = new ModelComponent(this, "res/Stage/model/stone.mv1");
+		_Model->SetScale(VGet(100, 100, 100));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(100, 100, 100), 2, true, true);
 		_Move = new MoveComponent(this);
-		position = VGet(0, 200, 0);
+		//position = VGet(0, -200, 0);
 		break;
 	}
 

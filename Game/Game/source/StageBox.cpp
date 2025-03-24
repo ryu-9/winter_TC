@@ -1,5 +1,6 @@
 #include "StageBox.h"
 #include "SnowComponent.h"
+#include "ApplicationGlobal.h"
 
 StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int type)
 	:ActorClass(mode)
@@ -11,23 +12,54 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 
 		case 0:
 		{
-			_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken.mv1", 101);
+			switch (gGlobal._SelectStage) {
+			case 0:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1", 101);
+				break;
+			case 1:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken2.mv1", 101);
+				break;
+			case 2:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken3.mv1", 101);
+				break;
+
+			default:
+				_Model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1", 101);
+				break;
+
+			}
+
 			_Model->SetScale(VGet(2, 2, 2));
 			_Model->SetPosition(VGet(0, -50, 0));
 			int index = MV1GetAnimIndex(_Model->GetHandle(), "Ice_Broken");
 			_AnimIndex = MV1AttachAnim(_Model->GetHandle(), index, _Model->GetHandle(), TRUE);
 			_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);		
-			int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
-			handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 1, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
+			int handle = ModelServer::GetInstance()->Add("res/model/Mapchip/Mapchip.mv1");
+			_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, -50, 0), VGet(2, 2, 2), 6, false, true, handle);
+			handle = ModelServer::GetInstance()->Add("res/model/Mapchip/Mapchip.mv1");
+			_HCollision = new HitCollisionComponent(this, _Model, VGet(0, -50, 0), VGet(2, 2, 2), 6, false, true, handle);
 			break;
 		}
 
 
 		case 1:
 		{
-			_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
+			switch (gGlobal._SelectStage) {
+			case 0:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				break;
+			case 1:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp2.mv1");
+				break;
+			case 2:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp3.mv1");
+				break;
+			default:
+				_Model = new ModelComponent(this, "res/Stage/model/Ramp1.mv1");
+				break;
+			
+			}
+			//_Model = new ModelComponent(this, "res/Stage/model/Ramp.mv1");
 			_Model->SetScale(VGet(0.5, 0.5, 0.5));
 			_AnimTotalTime = 0;;
 			int handle = ModelServer::GetInstance()->Add("res/Stage/model/Ramp.mv1");

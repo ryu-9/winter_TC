@@ -1,5 +1,6 @@
 #include "CameraActor.h"
 #include "PlayerActor.h"
+#include "ApplicationGlobal.h"
 
 
 CameraActor::CameraActor(ModeBase* mode)
@@ -14,8 +15,23 @@ CameraActor::CameraActor(ModeBase* mode)
 	new CameraComponent(this);
 	_SkySphere = new ModelComponent(this, "res/Stage/model/Dorm_Haikei.mv1");
 	_SkySphere->SetIndipendent(true);
-	EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(150, 150, 255), 1000, 6000));
-	EffectController::GetInstance()->AddEffectFlag(_SkySphere->GetSprite(), "Fog", false);
+	switch (gGlobal._SelectStage) {
+	case 0:
+		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(150, 150, 255), 1000, 6000));
+		break;
+	case 1:
+		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(255, 225, 150), 1000, 6000));
+		break;
+	case 2:
+	case 3:
+		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(255, 150, 150), 1000, 6000));
+		break;
+
+	default:
+		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(125, 125, 225), 1000, 6000));
+		break;
+	}
+		EffectController::GetInstance()->AddEffectFlag(_SkySphere->GetSprite(), "Fog", false);
 }
 
 CameraActor::~CameraActor()
