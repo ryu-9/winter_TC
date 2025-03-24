@@ -109,7 +109,8 @@ bool ECornComponent::Attack(int n) {
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
 		auto m = new ModelComponent(ac, "res/model/Enemy_corn/Enemy_corn.mv1");
-		new EffectSpriteComponent(ac, "res/model/Fire_MINI/kannpekikamo.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), 100, false, 0.3);
+		m->SetVisible(false);
+		new EffectSpriteComponent(ac, "res/model/Fire_MINI/fire_mini_002.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), 100, false, 0.3);
 		new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(30, 30, 30), 2, true);
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
