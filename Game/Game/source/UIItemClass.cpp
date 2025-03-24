@@ -5,12 +5,7 @@ UIItemClass::UIItemClass(ModeBase* mode, VECTOR pos,const TCHAR* name, int drawo
 	:UIChipClass(mode, pos,name, draworder)
 {
 	new UIItemSpriteComponent(this, draworder);
-	gGlobal._ItemList.push_back(0);
-	gGlobal._ItemList.push_back(1);
-	gGlobal._ItemList.push_back(1);
-	gGlobal._ItemList.push_back(0);
-	gGlobal._ItemList.push_back(1);
-	gGlobal._ItemList.push_back(1);
+	
 }
 
 UIItemClass::~UIItemClass() {
@@ -30,13 +25,15 @@ UIItemSpriteComponent::~UIItemSpriteComponent() {
 
 void UIItemSpriteComponent::Draw() {
 	auto tmpx = 76;
-	
-	for (auto i = 0; i < gGlobal._ItemList.size(); i++) {
+
+	for (auto i = 0; i < 6; i++) {
 		auto x = tmpx * (6 - i);
-		DrawGraph(_Owner->GetPosition().x - x - (_CGData[0].width * 0.5) - 24, _Owner->GetPosition().y -30, _CGData[gGlobal._ItemList[i]].handle, TRUE);
-		DrawGraph(_Owner->GetPosition().x + x - (_CGData[0].width * 0.5) + 25 , _Owner->GetPosition().y -30, _CGData[gGlobal._ItemList[i]].handle, TRUE);
+		DrawGraph(_Owner->GetPosition().x - x - (_CGData[0].width * 0.5) - 24, _Owner->GetPosition().y - 30, _CGData[gGlobal._ItemList[0]].handle, TRUE);
+		DrawGraph(_Owner->GetPosition().x + x - (_CGData[1].width * 0.5) + 25, _Owner->GetPosition().y - 30, _CGData[gGlobal._ItemList[1]].handle, TRUE);
+
 	}
 	if (gGlobal._ItemNum > 0) {
 		DrawExtendGraph(_Owner->GetPosition().x - (_CGData[gGlobal._ItemNum + 1].width * 0.05), _Owner->GetPosition().y - (_CGData[gGlobal._ItemNum + 1].height * 0.05), _Owner->GetPosition().x + (_CGData[gGlobal._ItemNum + 1].width * 0.05), _Owner->GetPosition().y + (_CGData[gGlobal._ItemNum + 1].height * 0.05), _CGData[gGlobal._ItemNum + 1].handle, TRUE);
 	}
+
 }

@@ -13,6 +13,8 @@ private:
 	struct SCENARIO_DATA {
 		std::string name;
 		std::string text;
+		std::string next;
+		int time;
 	};
 	struct TEXT_DATA {
 		std::string text;
@@ -30,5 +32,6 @@ private:
 	int _StCount;		// string文字数
 	int _TextIndex;		// 表示テキスト番号
 	int _TextCount;		// テキスト表示数
+	
 };
 

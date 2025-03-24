@@ -18,7 +18,7 @@ public:
 	bool	_IsPlayerDead[2] ;
 
 	// ƒAƒCƒeƒ€
-	std::vector<int> _ItemList;
+	int _ItemList[2];
 	int _ItemNum;
 
 	// ‡‘Ì

@@ -38,6 +38,7 @@ public:
 		auto ui = ModeServer::GetInstance()->Get("gameui");
 		ModeServer::GetInstance()->Del(ui);
 		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
+		gGlobal._Stageflg = 3;
 		return 1;
 	}
 };
@@ -377,9 +378,10 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
-			m->SetPosition(VGet(0, 0, 0));
-			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 3, true, true);
+			m->SetPosition(VGet(0, 200, 0));
+			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
 			g[n]->SetHCollision(h);
+			h->RefleshCollInfo();
 			
 		} else if (name2== "Spawner") {
 			std::string nm = data.at("objectName");

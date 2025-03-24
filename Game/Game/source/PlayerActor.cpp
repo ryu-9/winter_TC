@@ -483,10 +483,10 @@ void PlayerActor::UpdateActor() {
 				case 11:
 				case 12:
 					_Item[itemnum - 11]++;
-					gGlobal._ItemList.push_back(itemnum - 11);
-					if (_Item[itemnum - 11] > 5) {
+					gGlobal._ItemList[itemnum - 11]++;
+					if (_Item[itemnum - 11] > 6) {
 						_Item[itemnum - 11] = 0;
-						gGlobal._ItemList.clear();
+						gGlobal._ItemList[itemnum - 11] = 0;
 						if (_ItemNum == 0) {
 							_ItemNum = itemnum - 10;
 							_Friend->SetItemNum(_ItemNum);

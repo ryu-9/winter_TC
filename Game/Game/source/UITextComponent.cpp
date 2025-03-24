@@ -40,20 +40,19 @@ void UITextComponent::Update() {
 	}
 
 	if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
-		if (_CurrentTime > _TextCount * TEXT_SPEED + 2000) {
-			_TextIndex++;
-			if (_TextIndex >= _ScenarioData.size()) {
-				_TextIndex--;
-				return;
-			}
-			_StCount = 0;
-			_TextCount = 0;
-			_CurrentTime = 0;
-			
-			
+		if (_ScenarioData[_TextIndex].next == "time") {
+			if (_CurrentTime > _TextCount * TEXT_SPEED + _ScenarioData[_TextIndex].time) {
+				_TextIndex++;
+				_StCount = 0;
+				_TextCount = 0;
+				_CurrentTime = 0;
 
-			_TextData.clear();
-			_TextData.push_back(TEXT_DATA());
+				_TextData.clear();
+				_TextData.push_back(TEXT_DATA());
+			}
+		}
+		if (_ScenarioData[_TextIndex].next == "wait") {
+			// 待機
 		}
 	}
 
@@ -109,6 +108,8 @@ bool UITextComponent::LoadText(const char* filename, std::string jsonkey) {
 		SCENARIO_DATA data;
 		data.name = iojson::ConvertString(s["name"]);
 		data.text = s["text"];
+		data.next = iojson::ConvertString(s["next"]);
+		data.time = s["time"];
 		_ScenarioData.push_back(data);
 	}
 	// TODO: 状況に合わせたデータの読み込み
