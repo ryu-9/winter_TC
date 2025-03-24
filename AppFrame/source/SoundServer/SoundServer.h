@@ -27,7 +27,7 @@ public:
 
 	SourceVoiceItem* Create(ActorClass* p, std::string name, std::string dataname , std::string mapname, int startTime = 0, int loopflag = false);
 
-	SourceVoiceItem* GetSourceVoice(ActorClass* p, std::string name) { return _SV[p][name]; }
+	SourceVoiceItem* GetSourceVoice(ActorClass* p, std::string name);
 
 	void Update(ActorClass* p);
 	void UpdateDeleteSV();

@@ -40,6 +40,9 @@ bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 	// ƒTƒEƒ“ƒh‚Ì“Ç‚İ‚İ
 	if (_WavData.count(name)&& !isoverwrite) { return true; }	
 	else {
+		if (_WavData.count(name)) {
+			_WavData.erase(name);
+		}
 		if (WAVRead::Read(path.c_str(), &_WavData[name]) == false) {
 			return false;
 		}
@@ -173,4 +176,10 @@ bool SoundServer::Init() {
 	}
 
 	return true;
+}
+
+SourceVoiceItem* SoundServer::GetSourceVoice(ActorClass* p, std::string name) {
+	if (_SV.count(p) == 0) { return nullptr; }
+	if (_SV[p].count(name) == 0) { return nullptr; }
+	return _SV[p][name];
 }

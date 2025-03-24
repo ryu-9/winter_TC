@@ -20,6 +20,6 @@ void UISoundActor::AddSound(std::string actname, std::string svname) {
 }
 
 void UISoundActor::PlayActSound(std::string actname) {
-	SoundServer::GetInstance()->Create(this, _ActSV[actname], "UI", actname);
+	auto p = SoundServer::GetInstance()->Create(this, _ActSV[actname], "UI", actname);
 	SoundServer::GetInstance()->GetSourceVoice(this, actname)->Play();
 }

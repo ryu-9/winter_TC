@@ -22,15 +22,14 @@ bool ModeTitle::Initialize()
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
-
+	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm1");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_TITLE.wav", "jin_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_TITLE.wav", "bel_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_TITLE.wav", "tdx_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_ATTEND.wav", "tdx_attend");
 
 	_UISound = new UISoundActor(this);
-//	_UISound->AddSound("BGM", "bgm1");
-//	SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
+	_UISound->AddSound("BGM", "bgm1");
 	
 	_UISound->AddSound("enter","enter");
 	_UISound->AddSound("select", "select");
@@ -106,7 +105,8 @@ base::Process();
 		break;
 	case 6:
 	{
-//		_UISound->PlayActSound("BGM");
+		_UISound->PlayActSound("BGM");
+		SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
 		
 		if (_TitleTm > 1500) {
 			newstep++;
