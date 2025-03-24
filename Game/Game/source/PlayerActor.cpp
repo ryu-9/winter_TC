@@ -169,6 +169,11 @@ void PlayerActor::UpdateActor() {
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
 			_InvincibleTime = 1000;
+			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
+			if (sv == nullptr) { sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
+			if (sv != nullptr) {
+				SoundServer::GetInstance()->DeleteSourceVoice(this,"alert");
+			}
 		}
 	}
 

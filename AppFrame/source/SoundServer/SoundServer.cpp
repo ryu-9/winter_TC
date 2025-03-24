@@ -137,6 +137,7 @@ void SoundServer::Release(ActorClass* p) {
 }
 
 void SoundServer::DeleteSourceVoice(ActorClass* p, std::string name) {
+	if (_SV[p].count(name) == 0) { return; }
 	_SV[p][name]->Stop();
 	_DeleteSV.push_back(_SV[p][name]);
 	_SV[p].erase(name);
