@@ -30,7 +30,6 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	LPCSTR font_path = "res/Corporate-Logo-Bold-ver3.otf";
 	if (AddFontResourceExA(font_path, FR_PRIVATE, NULL) > 0) {
 	} else {
-		int test = 0;
 	}
 	ChangeFont("コーポレート・ロゴ ver3 Bold");
 

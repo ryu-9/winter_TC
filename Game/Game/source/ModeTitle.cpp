@@ -37,6 +37,7 @@ bool ModeTitle::Initialize()
 	_UISound->AddSound("1", "bel_title");
 	_UISound->AddSound("2", "tdx_title");
 	_UISound->AddSound("tdx_attend", "tdx_attend");
+	ChangeFont("コーポレート・ロゴ ver3 Bold");
 	return true;
 }
 
