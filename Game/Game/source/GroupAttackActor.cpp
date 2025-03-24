@@ -76,7 +76,7 @@ void GroupSpawnerActor::UpdateActor() {
 			dist[i] += VSize(VSub(_Player[1]->GetPosition(), _PopPos[i]));
 		}
 
-		// ˆê”Ô‰“‚¢ƒXƒ|ƒi[‚©‚ç¶¬
+		// ï¿½ï¿½Ô‰ï¿½ï¿½ï¿½ï¿½Xï¿½|ï¿½iï¿½[ï¿½ï¿½ï¿½ç¶ï¿½ï¿½
 		auto randdist = rand() % _Data.pop_range;
 		auto randangle = rand() % 360;
 		randangle = DEG2RAD(randangle);
@@ -88,7 +88,7 @@ void GroupSpawnerActor::UpdateActor() {
 			}
 		}
 
-		// ƒGƒŠƒA“à‚É¶¬
+		// ï¿½Gï¿½ï¿½ï¿½Aï¿½ï¿½Éï¿½ï¿½ï¿½
 		
 		EnemyCreator::GetInstance()->Create(GetMode(), 0, VAdd(_PopPos[max], pos),this);
 		_PopCnt++;
@@ -99,6 +99,8 @@ void GroupSpawnerActor::UpdateActor() {
 
 		for (auto i = 0; i < _Spawner.size(); i++) {
 			if (_Spawner[i].hp <= 0) {
+				//delete _Spawner[i].model;
+				//delete _Spawner[i].hCollision;
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
 				_Spawner.erase(_Spawner.begin() + i);

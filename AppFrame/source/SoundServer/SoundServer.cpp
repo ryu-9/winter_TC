@@ -98,6 +98,7 @@ void SoundServer::Update(ActorClass* p) {
 	for (auto& sv : _SV[p]) {
 		if (sv.second->IsToDestroy()) {
 			deleteList.push_back(sv.first);
+
 		}
 	}
 	for (auto& name : deleteList) {
@@ -114,7 +115,7 @@ void SoundServer::Update(ActorClass* p) {
 void SoundServer::UpdateDeleteSV() {
 	std::vector<SourceVoiceItem*> deleteSV;
 	for (auto i = 0; i < _DeleteSV.size(); i++) {
-		if (_DeleteSV[i]->IsToDestroy()) {
+		if (!_DeleteSV[i]->IsPlay()) {
 			deleteSV.push_back(_DeleteSV[i]);
 			_DeleteSV.erase(_DeleteSV.begin() + i);
 		}

@@ -13,7 +13,7 @@ BGMActor::BGMActor(ModeBase* mode)
 	SS::GetInstance()->GetSourceVoice(this, "bgm1")->SetVolume(0.4);
 	
 	SS::GetInstance()->GetSourceVoice(this, "bgm2")->SetVolume(0.4);
-	//TODO: W’cí‚ÌBGM
+	//TODO: ï¿½Wï¿½cï¿½ï¿½ï¿½BGM
 }
 
 BGMActor::~BGMActor() {
@@ -64,7 +64,7 @@ void BGMActor::UpdateActor() {
 		}
 	}
 	if (_PlayBGM ==2) {
-		if (n <= 0) {
+		if (n < 1) {
 			bgm2->Stop();
 			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm2");
 			auto b = SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2", 44100 * 3);

@@ -97,6 +97,40 @@ public:
 	}
 };
 
+class MenuItem3 : public MenuItemBase {
+public:
+	MenuItem3(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new ItemActor(mdGame, p->GetPosition(), 3);
+		return 1;
+	}
+};
+
+class MenuItem11 : public MenuItemBase {
+public:
+	MenuItem11(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new ItemActor(mdGame, p->GetPosition(), 11);
+		return 1;
+	}
+};
+
+
+class MenuItem12 : public MenuItemBase {
+public:
+	MenuItem12(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		auto p = mdGame->GetPlayer(0);
+		new ItemActor(mdGame, p->GetPosition(), 12);
+		return 1;
+	}
+};
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
@@ -174,13 +208,14 @@ bool ModeGame::Initialize() {
 		
 	{ // デバッグ用
 		debug_hcoll_flag =false;
-		debug_mcoll_flag =true;
+		debug_mcoll_flag =false;
 
 		auto box = new StageBox(this);
 		box->SetPosition(VGet(0, 0, 0));
 	
 	}
 
+	PreLoad();
 	gGlobal.Init();
 	return true;
 }
@@ -205,6 +240,9 @@ bool ModeGame::Process() {
 		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
 		modeMenu->Add(new MenuItem1(this, "Item1"));
 		modeMenu->Add(new MenuItem2(this, "Item2"));
+		modeMenu->Add(new MenuItem3(this, "Item3"));
+		modeMenu->Add(new MenuItem11(this, "Item11"));
+		modeMenu->Add(new MenuItem12(this, "Item12"));
 		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 		
@@ -267,7 +305,7 @@ bool ModeGame::Render() {
 #endif
 
 
-
+/*
 	// 0,0,0地点にラインを描画
 	{
 		float linelength = 1000.f;
@@ -285,7 +323,7 @@ bool ModeGame::Render() {
 		DrawLine3D(VAdd(v, VGet(0, -linelength, 0)), VAdd(v, VGet(0, linelength, 0)), GetColor(0, 255, 0));
 		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
 	}
-
+//*/
 	_EffectController->Draw();
 
 	if (debug_hcoll_flag) {
@@ -304,6 +342,15 @@ bool ModeGame::Render() {
 	base::Render();
 
 	return true;
+}
+
+void ModeGame::PreLoad()
+{
+	ModelServer::GetInstance()->Add("res/model/SnowBall/gattai_ball.mv1");
+	auto ac = new ActorClass(this);
+	new EffectSpriteComponent(ac, "res/model/Sundercross/Explosion/Explosion.efkefc", VGet(0, 0, 0), VGet(0, 0, 0));
+	ac->SetState(ActorClass::State::eDead);
+
 }
 
 

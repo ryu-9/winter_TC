@@ -102,7 +102,7 @@ void CameraComponent::ProcessInput()
 	VECTOR v = VAdd(pos[0], pos[1]);
 	_Dist = VSize(VSub(pos[0], pos[1])) + 100;
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
-	//angle = VGet(0, 200, -300);
+	angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
 
 

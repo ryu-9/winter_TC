@@ -37,7 +37,7 @@ bool ModeTitle::Initialize()
 	_UISound->AddSound("1", "bel_title");
 	_UISound->AddSound("2", "tdx_title");
 	_UISound->AddSound("tdx_attend", "tdx_attend");
-	ChangeFont("ƒR[ƒ|ƒŒ[ƒgEƒƒS ver3 Bold");
+	ChangeFont("ï¿½Rï¿½[ï¿½|ï¿½ï¿½ï¿½[ï¿½gï¿½Eï¿½ï¿½ï¿½S ver3 Bold");
 	return true;
 }
 
@@ -50,7 +50,7 @@ bool ModeTitle::Process() {
 base::Process();
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetTrg();
-	_TitleTm += GetStepTm();
+	
 	int newstep = _Step;
 	switch (_Step)
 	{
@@ -141,16 +141,18 @@ base::Process();
 		}
 		break;
 	}
+	_TitleTm += GetStepTm();
 	if (newstep != _Step)
 	{
 		_Step = newstep;
 		_TitleTm = 0;
 	}
+	
 	return true;
 }
 
 bool ModeTitle::Render() {
 	base::Render();
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
 	return false;
 }

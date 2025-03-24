@@ -20,7 +20,7 @@ public:
 	virtual bool Update();
 	virtual bool Render();
 
-
+	void PreLoad();
 
 	class CameraActor* GetCamera() { return _Camera; }
 	class PlayerActor* GetPlayer(int n = 0);

@@ -142,10 +142,10 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 		if (_Trg & PAD_INPUT_2) {
-			_pOwner->SetSize(VGet(0.1, 0.1, 0.1));
+			//_pOwner->SetSize(VGet(0.1, 0.1, 0.1));
 		}
 		if (_Trg & PAD_INPUT_1) {
-			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
+			//_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
 		}
 
 		SetVelocity(velocity);
