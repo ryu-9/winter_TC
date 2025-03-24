@@ -42,9 +42,12 @@ void GroupSpawnerActor::UpdateActor() {
 					
 					VECTOR* p = new VECTOR;
 					*p = GetPosition();
-					p->y += 1000;
-					p->z += -500;
-					c->SetTarget2(&_Position);
+					p->y += GetSize().z * 80;
+					p->z += -GetSize().z * 55;
+					VECTOR * t = new VECTOR;
+					*t = GetPosition();
+					t->y += -GetSize().z * 50;
+					c->SetTarget2(t);
 					c->SetPosition2(p);
 					c->SetEasing(1000);
 					break;
@@ -60,8 +63,10 @@ void GroupSpawnerActor::UpdateActor() {
 			auto g = dynamic_cast<ModeGame*>(GetMode());
 			auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
 			c->DeletePosition2();
+			c->DeleteTarget2();
 			c->SetTarget2(nullptr);
 			c->SetPosition2(nullptr);
+			c->SetEasing(1000);
 			SetState(State::ePaused);
 		}
 		if (_TmCnt < _Data.pop_time) { return; }
@@ -97,6 +102,7 @@ void GroupSpawnerActor::UpdateActor() {
 
 		delete[] dist;
 
+		int size = _Spawner.size();
 		for (auto i = 0; i < _Spawner.size(); i++) {
 			if (_Spawner[i].hp <= 0) {
 				//delete _Spawner[i].model;
@@ -104,6 +110,8 @@ void GroupSpawnerActor::UpdateActor() {
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
 				_Spawner.erase(_Spawner.begin() + i);
+				i--;
+				size--;
 			}
 
 			auto hit = _Spawner[i].hCollision->IsHit();

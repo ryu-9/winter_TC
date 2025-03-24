@@ -1067,6 +1067,7 @@ void PlayerActor::Init()
 	_Input->SetVelocity(VGet(0, 0, 0));
 	_Input->SetDashTime(0);
 	_Input->SetGravity(1);
+	_Input->SetIsActive(true);
 	SetSize(VGet(0.1, 0.1, 0.1));
 	_HCollision->SetRSize(VGet(100, 100, 100));
 

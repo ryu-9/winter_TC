@@ -15,9 +15,9 @@ BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 	_AnimTotalTime = MV1GetAttachAnimTotalTime(_Model->GetHandle(), _AnimIndex);
 	SetDirection(VGet(0, 0, 0));
 	int handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.4, 0.5, 0.4), 6, false, true, handle);
+	_MCollision = new MoveCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.5, 0.5, 0.5), 6, false, true, handle);
 	handle = ModelServer::GetInstance()->Add("res/cube.mv1");
-	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.4, 0.5, 0.4), 6, false, true,handle);
+	_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(0.5, 0.5, 0.5), 6, false, true,handle);
 	_Model->SetVisible(false);
 
 

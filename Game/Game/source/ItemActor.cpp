@@ -13,10 +13,10 @@ ItemActor::ItemActor(ModeBase* mode,VECTOR pos, int type, int life)
 	case -1:
 		_Model = new ModelComponent(this, "res/Stage/model/tree_tsumoriyuki.mv1");
 		_Model->SetScale(VGet(0.05, 0.075, 0.05));
-		_Model->SetPosition(VGet(0, -75, 0));
-		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 100, 0), VGet(20, 20, 20), 2, true, true);
+		_Model->SetPosition(VGet(0, -175, 0));
+		_HCollision = new HitCollisionComponent(this, _Model, VGet(0, 0, 0), VGet(10, 10, 10), 2, true, true);
 		_Move = new MoveComponent(this);
-		position = VGet(0, 100, 0);
+		//position = VGet(0, 100, 0);
 		break;
 
 	case 0:
