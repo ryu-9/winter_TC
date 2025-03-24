@@ -4,10 +4,13 @@
 
 BGMActor::BGMActor(ModeBase* mode) 
 	: ActorClass(mode)
+	, _SetFilter(false)
+	, _PlayBGM(false)
 {
 	SS::GetInstance()->Create(this, "bgm1", "BGM", "bgm1",0,true);
 	SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2",44100*3);
 	SS::GetInstance()->GetSourceVoice(this, "bgm1")->SetVolume(0.4);
+	
 	SS::GetInstance()->GetSourceVoice(this, "bgm2")->SetVolume(0.4);
 	//TODO: W’cí‚ÌBGM
 }
@@ -24,14 +27,16 @@ void BGMActor::UpdateActor() {
 	auto bgm2 = SS::GetInstance()->GetSourceVoice(this, "bgm2");
 	if (!bgm1->IsPlay()&&!bgm2->IsPlay()) {
 		bgm1->Play();
+		_PlayBGM = 1;
 	}
 	auto n = dynamic_cast<ModeGame*>(_Mode)->GetPlayer()->GetModeNum();
 	if (n >= 2) { n = 1; }
 
-	if (bgm1->IsPlay()) {
+	if (_PlayBGM == 1) {
 		if (n >= 1) {
 			bgm1->Stop();
 			bgm2->Play();
+			_PlayBGM = 2;
 		}
 		auto n2 = dynamic_cast<ModeGame*>(_Mode)->GetPlayer(1)->GetModeNum();
 		if (n == -1 || n2 == -1) {
@@ -57,11 +62,12 @@ void BGMActor::UpdateActor() {
 			}
 		}
 	}
-	if (bgm2->IsPlay()) {
-		if (n < 1) {
+	if (_PlayBGM ==2) {
+		if (n < 0) {
 			bgm2->Stop();
 			bgm2->ResetPlayTm(44100 * 3);
 			bgm1->Play();
+			_PlayBGM = 1;
 		}
 	}
 	SS::GetInstance()->Update(this);

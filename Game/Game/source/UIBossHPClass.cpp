@@ -28,7 +28,7 @@ void UIBossHPSpriteComponent::Draw() {
 	SetDrawBlendMode(_UIc->GetUIData()->blendMode, _UIc->GetUIData()->blendParam);
 	auto hp = gGlobal._BossHP;
 	auto tmpx = 0;
-	auto hpp = hp / 500;
+	auto hpp = hp / 5000;
 	if (hpp < 0) { hpp = 0; }
 	if (hpp > 1) { hpp = 1; }
 	tmpx = 1453 * hpp;

@@ -12,6 +12,7 @@ public:
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 private:
 	class HitCollisionComponent* _HCollision;
+	class MoveCollisionComponent* _MCollision;
 	int _Time;
 	B_ACT _Type;
 	int _LifeTime;

@@ -3,6 +3,15 @@
 #include "BossAttackActor.h"
 #include "GoalItemActor.h"
 #include "ApplicationGlobal.h"
+#include "LaserActor.h"
+#include "SlashActor.h"
+#include "PunchActor.h"
+#include "DaikanpaActor.h"
+#include "ItemActor.h"
+#include "EnemyActor.h"
+#include "ECornComponent.h"
+#include "EBoxComponent.h"
+#include "EnemyCreator.h"
 
 BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	:ActorClass(mode)
@@ -14,7 +23,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	, _ActionIndex(0)
 	, _ActTime(0)
 	, _ActTotalTime(0)
-	, _HitPoint(500)
+	, _HitPoint(5000)
 {
 	SetPosition(pos);
 	_Input = new MoveComponent(this);
@@ -54,7 +63,6 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	timeline.push_back({ ACTION::PUNCH, 8000 });
 	timeline.push_back({ ACTION::BULLET, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
-
 	_ActionTimeline.push_back(timeline);
 
 	timeline.clear();
@@ -75,7 +83,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	gGlobal._BossHP = _HitPoint;
 
-	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 100, 0), VGet(70, 70, 70), 2, true, true);
+	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, 100, 0), VGet(50, 50, 50), 2, true, true);
 }
 
 BossActor::~BossActor() {
@@ -127,25 +135,70 @@ void BossActor::UpdateActor() {
 	
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {
-		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
-		if (p != nullptr) {
+		auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
+		if (punch != nullptr) {
+			_HitPoint -= 20;
+			gGlobal._BossHP = _HitPoint;
+		}
+		auto laser = dynamic_cast<LaserActor*>(h->GetOwner());
+		if (laser != nullptr) {
 			_HitPoint -= 1;
 			gGlobal._BossHP = _HitPoint;
-			break;
+		}
+		auto slash = dynamic_cast<SlashActor*>(h->GetOwner());
+		if (slash != nullptr) {
+			_HitPoint -= 20;
+			gGlobal._BossHP = _HitPoint;
+		}
+		auto daik = dynamic_cast<DaikanpaActor*>(h->GetOwner());
+		if (daik != nullptr) {
+			_HitPoint -= 20;
+			gGlobal._BossHP = _HitPoint;
+		}
+		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
+		if (p != nullptr) {
+			p->Damage(0.05);
 		}
 	}
-	if (_HitPoint <= 400 && _TimelineIndex==0) {
+	if (_HitPoint <= 4000 && _TimelineIndex==0) {
 		ChangeAnim(ACTION::DAMAGE);
 		ChangeAction(ACTION::DAMAGE);
 		_TimelineIndex = 1;
-	} else if ( _HitPoint <= 250 && _TimelineIndex == 1) {
+		_HitPoint = 4000;
+		auto pos = GetPosition();
+		pos.z -= 200;
+		new ItemActor(GetMode(), pos, 11);
+		pos.x += 100;
+		pos.y += 100;
+		new ItemActor(GetMode(), pos, 11);
+		pos.x -= 200;
+		new ItemActor(GetMode(), pos, 11);
+		_ActionIndex = 0;
+		_CurrentTime = 0;
+	} else if (_HitPoint <= 2500 && _TimelineIndex == 1) {
 		ChangeAnim(ACTION::DAMAGE);
 		ChangeAction(ACTION::DAMAGE);
 		_TimelineIndex = 2;
-	} else if (_HitPoint <= 50 && _TimelineIndex == 2) {
+		_HitPoint = 2500;
+		auto pos = GetPosition();
+		pos.z -= 200;
+		new ItemActor(GetMode(), pos, 12);
+		pos.x += 100;
+		pos.y += 100;
+		new ItemActor(GetMode(), pos, 12);
+		pos.x -= 200;
+		new ItemActor(GetMode(), pos, 12);
+		_ActionIndex = 0;
+		_CurrentTime = 0;
+	} else if (_HitPoint <= 500 && _TimelineIndex == 2) {
 		ChangeAnim(ACTION::DAMAGE);
 		ChangeAction(ACTION::DAMAGE);
 		_TimelineIndex = 3;
+		_HitPoint = 500;
+
+		GetMode()->GetPlayer(0)->SetItemNum(3);
+		_ActionIndex = 0;
+		_CurrentTime = 0;
 	}
 	if (_HitPoint == 0) {
 		ChangeAnim(ACTION::DIE);
@@ -309,7 +362,7 @@ bool BossActor::PunchFall() {
 bool BossActor::Damage() {
 	if (_AnimTime < _AnimTotalTime) {
 		auto t = (float)GetMode()->GetStepTm();
-		_AnimTime += t / 20.f;
+		_AnimTime += t / 18.f;
 		if (_AnimTime > _AnimTotalTime) {
 			ChangeAnim(ACTION::WAIT);
 			ChangeAction(ACTION::WAIT);
@@ -432,6 +485,12 @@ void BossActor::GeneratePunchFall() {
 	mv->SetVelocity(VGet(0, -15, 0));
 
 	_GenerateCnt++;
+}
+
+void BossActor::GenerateEnemy() {
+	auto pos = VGet(-500,500,200);
+	EnemyCreator::GetInstance()->Create(GetMode(), 0, GetPosition(), nullptr);
+
 }
 
 

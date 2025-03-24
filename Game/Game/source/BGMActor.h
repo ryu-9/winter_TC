@@ -10,5 +10,6 @@ public:
 
 private:
 	bool _SetFilter = false;
+	int _PlayBGM;
 };
 

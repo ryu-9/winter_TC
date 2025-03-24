@@ -76,7 +76,8 @@ SourceVoiceItem* SoundServer::Create(ActorClass* p, std::string wavname, std::st
 	sv->SetSourceVoice(sourceVoice);
 	
 	if(dataname == "AttackSE"){
-		new SVItemPitchRand(sv);
+		auto p = new SVItemPitchRand(sv);
+		p->SetUp();
 	}
 	
 	_SV[p][mapname] = sv;

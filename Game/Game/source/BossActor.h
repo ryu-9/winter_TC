@@ -54,6 +54,7 @@ private:
 	void GenerateBullet();
 	void GenerateBeam();
 	void GeneratePunchFall();
+	void GenerateEnemy();
 
 	bool ChangeAnim(ACTION a);
 	bool ChangeAction(ACTION a);

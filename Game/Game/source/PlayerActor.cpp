@@ -160,7 +160,7 @@ void PlayerActor::UpdateActor() {
 
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
-		if (_ChangeTime <= 1000) {
+		if (_ChangeTime <= 3000) {
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
 			if (sv != nullptr) {
 				sv->Play();

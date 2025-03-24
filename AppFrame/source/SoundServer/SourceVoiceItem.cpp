@@ -92,6 +92,8 @@ void SourceVoiceItem::RemoveEffect(SourceVoiceItemEffectBase* effect) {
 	auto iter = std::find(_Effects.begin(), _Effects.end(), effect);
 	if (iter != _Effects.end()) {
 		_Effects.erase(iter);
+	//	delete effect;
+		
 	}
 }
 
@@ -106,7 +108,9 @@ void SourceVoiceItem::Update(ActorClass* p) {
 
 	// エフェクトの更新
 	for (auto effect : _Effects) {
-		effect->Update(p);
+		if (effect != nullptr) {
+			effect->Update(p);
+		}
 	}
 
 	if (_Volume == 0.0f) {

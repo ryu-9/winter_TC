@@ -1,5 +1,6 @@
 #include "BossAttackActor.h"
 #include "PlayerActor.h"
+#include "SnowComponent.h"
 
 BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 	: ActorClass(mode)
@@ -23,6 +24,7 @@ BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 		_LifeTime = 0;
 		break;
 	}
+	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, 0, 0), VGet(500, 500, 500), 2, true, true);
 
 }
 
@@ -30,6 +32,12 @@ BossAttackActor::~BossAttackActor() {
 }
 
 void BossAttackActor::UpdateActor() {
+	for (auto mc : _MCollision->GetCollResult()) {
+		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
+		for (auto s : snow) {
+			s->AddMoveCollision2(_MCollision);
+		}
+	}
 	_Time += GetMode()->GetStepTm();
 	if (_Type == B_ACT::BEAM) {
 		if (_Time > 1200) {

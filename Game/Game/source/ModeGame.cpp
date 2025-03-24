@@ -143,7 +143,7 @@ bool ModeGame::Initialize() {
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
-	//	SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
 		break;
 	default:
 		break;
