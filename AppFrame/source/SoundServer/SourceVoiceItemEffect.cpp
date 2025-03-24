@@ -32,6 +32,7 @@ void SVItemVolumeFade::Update(ActorClass* p) {
 	_svItem->SetVolume(vol);
 	
 	if (_FadeTime >= _FadeTimeMax && _Destroy) {
+		_svItem->SetVolume(_VolumeEnd);
 		delete this;
 	}
 

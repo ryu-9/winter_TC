@@ -921,9 +921,7 @@ void PlayerActor::ChangeMode(int mode)
 	if (mode > 0 && gGlobal._MaxMargeTime == -1) {
 		gGlobal._MaxMargeTime = _ChangeTime;
 	}
-	if (mode > 0 && gGlobal._MaxDashTime == -1) {
-		gGlobal._MaxDashTime = _Input->GetDashTime();
-	}
+	
 	if (mode > 0) {
 		_ItemNum = 0;
 		if (mode % 2 == 1) {

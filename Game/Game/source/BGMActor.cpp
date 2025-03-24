@@ -1,6 +1,7 @@
 #include "BGMActor.h"
 #include "PlayerActor.h"
 #include "ModeGame.h"
+#include "appframe.h"
 
 BGMActor::BGMActor(ModeBase* mode) 
 	: ActorClass(mode)
@@ -63,12 +64,14 @@ void BGMActor::UpdateActor() {
 		}
 	}
 	if (_PlayBGM ==2) {
-		if (n < 0) {
+		if (n <= 0) {
 			bgm2->Stop();
 			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm2");
 			auto b = SS::GetInstance()->Create(this, "bgm2", "BGM", "bgm2", 44100 * 3);
 			b->SetVolume(0.4);
-			bgm1->Play();
+			bgm1->SetVolume(0.4);
+			bgm2 = SS::GetInstance()->GetSourceVoice(this, "bgm2");
+			SS::GetInstance()->GetSourceVoice(this, "bgm1")->Play();
 			_PlayBGM = 1;
 		}
 	}

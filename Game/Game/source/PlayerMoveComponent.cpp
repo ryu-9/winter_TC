@@ -181,7 +181,9 @@ void PlayerMoveComponent::ProcessInput()
 		VECTOR oldvPos = _pOwner->GetPosition();
 
 
-
+		if (gGlobal._MaxDashTime == -1) {
+			gGlobal._MaxDashTime = _pOwner->GetSize().x * 2000;
+		}
 
 		{
 			bool dashFlag = false;
