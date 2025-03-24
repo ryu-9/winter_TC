@@ -54,7 +54,7 @@ private:
 	void GenerateBullet();
 	void GenerateBeam();
 	void GeneratePunchFall();
-	void GenerateEnemy();
+	void GenerateEnemy(int n);
 
 	bool ChangeAnim(ACTION a);
 	bool ChangeAction(ACTION a);
@@ -92,6 +92,7 @@ private:
 	int _HitPoint;					// ヒットポイント
 
 	bool _UpdateRotf;				// 回転フラグ
+	int _Invincible;				// 無敵フラグ
 
 };
 

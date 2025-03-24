@@ -24,6 +24,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	, _ActTime(0)
 	, _ActTotalTime(0)
 	, _HitPoint(5000)
+	, _Invincible(-1)
 {
 	SetPosition(pos);
 	_Input = new MoveComponent(this);
@@ -57,27 +58,34 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// �^�C�����C���̐ݒ�
 	std::vector<ACTION_TIMELINE> timeline;
-	timeline.push_back({ ACTION::PUNCH, 8000 });
-	timeline.push_back({ ACTION::PUNCH, 8000 });
-	timeline.push_back({ ACTION::BEAM, 8000 });
-	timeline.push_back({ ACTION::PUNCH, 8000 });
-	timeline.push_back({ ACTION::BULLET, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
+	timeline.push_back({ ACTION::PUNCH, 10000 });
+	timeline.push_back({ ACTION::BULLET, 12000 });
 	_ActionTimeline.push_back(timeline);
 
 	timeline.clear();
 	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
-	timeline.push_back({ ACTION::PUNCH, 18000 });
-
+	timeline.push_back({ ACTION::PUNCH, 17000 });
+	timeline.push_back({ ACTION::PUNCH, 9000 });
+	timeline.push_back({ ACTION::BULLET, 8000 });
 	_ActionTimeline.push_back(timeline);
-	timeline.clear();
-	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
-	timeline.push_back({ ACTION::PUNCH, 18000 });
 
-	_ActionTimeline.push_back(timeline);
 	timeline.clear();
-	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
-	timeline.push_back({ ACTION::PUNCH, 18000 });
+	timeline.push_back({ ACTION::BEAM, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH_FALL, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 5000 });
+	_ActionTimeline.push_back(timeline);
+
+	timeline.clear();
+	timeline.push_back({ ACTION::BEAM, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::BULLET, 5000 });
 
 	_ActionTimeline.push_back(timeline);
 
@@ -91,7 +99,9 @@ BossActor::~BossActor() {
 
 void BossActor::UpdateActor() {
 	(this->*_ActionFunc[(int)_Action])();
-
+	if (_Invincible > 0) {
+		_Invincible -= (float)GetMode()->GetStepTm();
+	}
 	if (_Action != ACTION::DAMAGE) {
 		_CurrentTime += (float)GetMode()->GetStepTm();
 	}
@@ -139,21 +149,29 @@ void BossActor::UpdateActor() {
 		if (punch != nullptr) {
 			_HitPoint -= 20;
 			gGlobal._BossHP = _HitPoint;
+			punch->SetState(State::eDead);
+			break;
 		}
 		auto laser = dynamic_cast<LaserActor*>(h->GetOwner());
 		if (laser != nullptr) {
 			_HitPoint -= 1;
 			gGlobal._BossHP = _HitPoint;
+			laser->SetState(State::eDead);
+			break;
 		}
 		auto slash = dynamic_cast<SlashActor*>(h->GetOwner());
 		if (slash != nullptr) {
 			_HitPoint -= 20;
 			gGlobal._BossHP = _HitPoint;
+			slash->SetState(State::eDead);
+			break;
 		}
 		auto daik = dynamic_cast<DaikanpaActor*>(h->GetOwner());
 		if (daik != nullptr) {
 			_HitPoint -= 20;
 			gGlobal._BossHP = _HitPoint;
+			_Invincible = 400;
+			break;
 		}
 		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
 		if (p != nullptr) {
@@ -166,30 +184,32 @@ void BossActor::UpdateActor() {
 		_TimelineIndex = 1;
 		_HitPoint = 4000;
 		auto pos = GetPosition();
-		pos.z -= 200;
+		pos.y  = 300;
+		pos.z = 600;
 		new ItemActor(GetMode(), pos, 11);
 		pos.x += 100;
-		pos.y += 100;
 		new ItemActor(GetMode(), pos, 11);
 		pos.x -= 200;
 		new ItemActor(GetMode(), pos, 11);
 		_ActionIndex = 0;
 		_CurrentTime = 0;
+		GenerateEnemy(7);
 	} else if (_HitPoint <= 2500 && _TimelineIndex == 1) {
 		ChangeAnim(ACTION::DAMAGE);
 		ChangeAction(ACTION::DAMAGE);
 		_TimelineIndex = 2;
 		_HitPoint = 2500;
 		auto pos = GetPosition();
-		pos.z -= 200;
+		pos.y = 300;
+		pos.z = 600;
 		new ItemActor(GetMode(), pos, 12);
 		pos.x += 100;
-		pos.y += 100;
 		new ItemActor(GetMode(), pos, 12);
 		pos.x -= 200;
 		new ItemActor(GetMode(), pos, 12);
 		_ActionIndex = 0;
 		_CurrentTime = 0;
+		GenerateEnemy(7);
 	} else if (_HitPoint <= 500 && _TimelineIndex == 2) {
 		ChangeAnim(ACTION::DAMAGE);
 		ChangeAction(ACTION::DAMAGE);
@@ -199,6 +219,7 @@ void BossActor::UpdateActor() {
 		GetMode()->GetPlayer(0)->SetItemNum(3);
 		_ActionIndex = 0;
 		_CurrentTime = 0;
+		GenerateEnemy(7);
 	}
 	if (_HitPoint == 0) {
 		ChangeAnim(ACTION::DIE);
@@ -487,11 +508,12 @@ void BossActor::GeneratePunchFall() {
 	_GenerateCnt++;
 }
 
-void BossActor::GenerateEnemy() {
+void BossActor::GenerateEnemy(int n ) {
 	auto pos = VGet(-500,500,200);
-	EnemyCreator::GetInstance()->Create(GetMode(), 0, pos, nullptr);
-	pos.x += 100;
-	EnemyCreator::GetInstance()->Create(GetMode(), 0, pos, nullptr);
+	for (auto i = 0; i < n; i++) {
+		EnemyCreator::GetInstance()->Create(GetMode(), 0, pos, nullptr);
+		pos.x += 150;
+	}
 
 }
 
