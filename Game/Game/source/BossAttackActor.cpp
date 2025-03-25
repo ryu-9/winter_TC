@@ -47,17 +47,6 @@ void BossAttackActor::UpdateActor() {
 			_HCollision->SetOldPosition(pos);
 		}
 	}
-
-	auto hit = _HCollision->IsHit();
-	for (auto h : hit) {
-		auto player = dynamic_cast<PlayerActor*>(h->GetOwner());
-		if (player != nullptr) {
-			player->Damage(0.3);
-			if (_Type == B_ACT::PUNCH) {
-				SetState(State::eDead);
-			}
-		}
-	}
 	
 	if (_Time > _LifeTime) {
 		SetState(State::eDead);

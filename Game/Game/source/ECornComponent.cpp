@@ -154,7 +154,8 @@ bool ECornComponent::Attack(int n) {
 
 bool ECornComponent::NomalAttack() {
 	if (_CurrentTime == 0) {
-		_Duration = 4000;
+		auto r = rand() % 1000;
+		_Duration = 2000 + r;
 		Attack(0);
 	}
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
@@ -168,7 +169,8 @@ bool ECornComponent::NomalAttack() {
 
 bool ECornComponent::JumpAttack() {
 	if (_CurrentTime == 0) {
-		_Duration = 4000;
+		auto r = rand() % 1000;
+		_Duration = 2000 + r;
 		Jump();
 		
 		Attack(0);
@@ -190,8 +192,8 @@ bool ECornComponent::FrontAttack() {
 		if (GoTo(0)) { Attack(0); }
 	}
 	
-	
-	_CurrentTime += _Owner->GetMode()->GetStepTm();
+	auto tm = _Owner->GetMode()->GetStepTm();
+	_CurrentTime += tm;
 	if (_CurrentTime > _Duration) {
 		_CurrentTime = 0;
 		_Status = STATUS::COOLTIME;

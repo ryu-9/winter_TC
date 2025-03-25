@@ -17,6 +17,10 @@
 #include "BreakableBoxActor.h"
 #include "ChangeSnowBallActor.h"
 #include "UITextActor.h"
+#include "ModeGameGoal.h"
+#include "GoalItemActor.h"
+#include "BossAttackActor.h"
+
 
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
@@ -476,6 +480,11 @@ void PlayerActor::UpdateActor() {
 				continue;
 			}
 
+			auto b = dynamic_cast<BossAttackActor*>(h->GetOwner());
+			if (b != nullptr) {
+				Damage(0.5);
+				continue;
+			}
 			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
 			if (item != nullptr) {
 				item->SetState(State::eDead);
@@ -528,7 +537,11 @@ void PlayerActor::UpdateActor() {
 				Damage(dt * 0.001, 100);
 				_LavaFlag = true;
 			}
-
+			auto goal = dynamic_cast<GoalItemActor*>(h->GetOwner());
+			if (goal != nullptr) {
+				ModeServer::GetInstance()->Add(new ModeGameGoal(), 5, "goal");
+				goal->GetComponent<HitCollisionComponent>()[0]->SetIsActive(false);
+			}
 		}
 	}
 	break;
@@ -605,6 +618,7 @@ void PlayerActor::UpdateActor() {
 				}
 			}
 
+
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
 			if (tree != nullptr) {
 				tree->DropItem();
@@ -615,6 +629,11 @@ void PlayerActor::UpdateActor() {
 			auto ice = dynamic_cast<BreakableBoxActor*>(h->GetOwner());
 			if (ice != nullptr) {
 				ice->StartBreak();
+			}
+			auto goal = dynamic_cast<GoalItemActor*>(h->GetOwner());
+			if (goal != nullptr) {
+				ModeServer::GetInstance()->Add(new ModeGameGoal(), 5, "goal");
+				goal->GetComponent<HitCollisionComponent>()[0]->SetIsActive(false);
 			}
 
 		}
@@ -657,6 +676,21 @@ void PlayerActor::UpdateActor() {
 		}
 		else {
 			_SeparateTime = 0;
+		}
+
+		auto hit = _HCollision->IsHit();
+		for (auto h : hit) {
+			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
+			if (enemy != nullptr) {
+				enemy->Death(1);
+			}
+			
+			auto goal = dynamic_cast<GoalItemActor*>(h->GetOwner());
+			if (goal != nullptr) {
+				ModeServer::GetInstance()->Add(new ModeGameGoal(), 5, "goal");
+				goal->GetComponent<HitCollisionComponent>()[0]->SetIsActive(false);
+			}
+
 		}
 
 		if (_Animation == (int)anim::Punch) {

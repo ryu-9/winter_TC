@@ -39,14 +39,5 @@ void GoalItemActor::UpdateActor() {
 	VECTOR pos = GetPosition();
 	pos.y = _PosY + 10 * sin(_AnimCount * 0.005f);
 	SetPosition(pos);
-	if (_IsHitf) { return; }
-	auto hit = _HCollision->IsHit();
-	for (auto h : hit) {
-		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
-		if (p!=nullptr) {
-			//auto ui = ModeServer::GetInstance()->Get("gameui");
-			ModeServer::GetInstance()->Add(new ModeGameGoal(), 5, "goal");
-			_IsHitf = true;
-		}
-	}
+
 }
