@@ -31,22 +31,17 @@ void PlayerMoveComponent::ProcessInput()
 
 	if (!_IsActive) { return; }
 
-	// �J�����̌����Ă���p�x��擾
+	
 	float sx = _pOwner->GetMode()->GetCamera()->GetPosition().x - _pOwner->GetMode()->GetCamera()->GetDirection().x;
 	float sz = _pOwner->GetMode()->GetCamera()->GetPosition().z - _pOwner->GetMode()->GetCamera()->GetDirection().z;
 	float camrad = atan2(sz, sx);
 
 
 
-	// �ړ���������߂�
+	
 	VECTOR v = { 0,0,0 };
 	float mvSpeed = 6.f;
-	/*
-	if (_Key & PAD_INPUT_DOWN) { v.x = 1; }
-	if (_Key & PAD_INPUT_UP) { v.x = -1; }
-	if (_Key & PAD_INPUT_LEFT) { v.z = -1; }
-	if (_Key & PAD_INPUT_RIGHT) { v.z = 1; }
-	*/
+
 	GetJoypadDirectInputState(pn, &_Input);
 	v.x = (float)_Input.Y / 1000;
 	v.z = (float)_Input.X / 1000;
@@ -55,9 +50,9 @@ void PlayerMoveComponent::ProcessInput()
 
 
 	switch (_pOwner->GetModeNum()) {
-	case 0:		// �ʏ�ړ�
+	case 0:		
 	{
-		// v��rad����]������
+		
 		float length = 0.f;
 		if (VSize(v) > 0.f) {
 			if (VSize(v) > 1) {
@@ -147,6 +142,8 @@ void PlayerMoveComponent::ProcessInput()
 			_DashTime = 500;
 			SoundServer::GetInstance()->Create(_pOwner, "dash", "SE", "dash");
 			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "dash")->Play();
+			SoundServer::GetInstance()->Create(_pOwner, "bel_dash", "SE", "bel_dash");
+			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "bel_dash")->Play();
 		}
 		if (_Trg & PAD_INPUT_3) {
 			_pOwner->SetChangeFlag(true);

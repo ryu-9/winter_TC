@@ -190,7 +190,6 @@ bool ModeGame::Initialize() {
 	
 
 	{
-		SoundServer::GetInstance()->Add("res/debug/sound/fire.wav", "fire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy2");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jump");
@@ -205,6 +204,24 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CON_FIRE.wav", "cornfire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK1.wav", "boxwalk1");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK2.wav", "boxwalk2");
+
+		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_ATTACK.wav", "jin_dash");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_ATTACK.wav", "bel_dash");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_DAMAGE_LOW.wav", "jin_damage_l");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_DAMAGE_LOW.wav", "bel_damage_l");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_DAMAGE.wav", "jin_damage");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_DAMAGE.wav", "bel_damage");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_MARGEOK.wav", "jin_marge");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_MARGEOK.wav", "bel_marge");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_DOWN.wav", "jin_down");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_DOWN.wav", "bel_down");
+
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DASH.wav", "tdx_dash");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DASH2.wav", "tdx_dash2");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_PUNCH.wav", "tdx_punch");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_BLADE.wav", "tdx_blade");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_LAZER.wav", "tdx_lazer");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DKP.wav", "tdx_dkp");
 	}
 	
 		
