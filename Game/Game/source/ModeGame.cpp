@@ -233,7 +233,7 @@ bool ModeGame::Process() {
 	/*
 	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
-		
+
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
 		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
 		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
@@ -244,11 +244,10 @@ bool ModeGame::Process() {
 		modeMenu->Add(new MenuItem12(this, "Item12"));
 		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
-		
-		
+
+
 	}
 	*/
-
 	return true;
 }
 

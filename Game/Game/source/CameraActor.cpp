@@ -103,8 +103,7 @@ void CameraComponent::ProcessInput()
 	VECTOR v = VAdd(pos[0], pos[1]);
 	_Dist = VSize(VSub(pos[0], pos[1])) + 100;
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
-	angle = VGet(0, 200, -300);
-	angle = VNorm(angle);
+
 
 	angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
@@ -113,6 +112,9 @@ void CameraComponent::ProcessInput()
 	float camrad = atan2(angle.y, VSize(VGet(angle.x, 0, angle.z)));
 	camrad += ry / 1000;
 	angle.y = sin(camrad);
+
+	angle = VGet(0, 200, -300);
+	angle = VNorm(angle);
 
 	if (_Dist < 1000) { _Dist = 1000; }
 	if (_Dist > 10000) { _Dist = 10000; }

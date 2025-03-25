@@ -22,6 +22,7 @@ TreeActor::~TreeActor()
 
 void TreeActor::UpdateActor()
 {
+	_HCollision->SetOldPosition(VAdd(GetPosition(), VGet(0, 300, 0)));
 	if (_AnimRate > 0) {
 		_AnimTime += (float)GetMode()->GetStepTm()/10;
 		if (_AnimTime > 30) {

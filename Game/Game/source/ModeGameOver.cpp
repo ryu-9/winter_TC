@@ -2,6 +2,8 @@
 #include "ApplicationMain.h"
 #include "ModeGame.h"
 #include "ModeTitle.h"
+#include "ModeGameUI.h"
+#include "ModeLoading.h"
 
 bool ModeGameOver::Initialize() {
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_GAMEOVER_BACK.png");
@@ -49,9 +51,11 @@ bool ModeGameOver::Process() {
 	if (trg & PAD_INPUT_1) {
 		if (_Cur == 0) {
 			ModeServer::GetInstance()->Del(this);
-			auto g = ModeServer::GetInstance()->Get("game");
-			ModeServer::GetInstance()->Del(g);
+			ModeServer::GetInstance()->AllDel();
+			
 			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+			ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+			ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 		} else {
 			ModeServer::GetInstance()->Del(this);
 			auto g = ModeServer::GetInstance()->Get("game");

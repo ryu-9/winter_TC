@@ -12,16 +12,35 @@
 bool ModeStageSelect::Initialize() {
 
 	// セーブデータで分岐
-
+	
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_WORLD1.png", 0));
 	new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	
 	if (gGlobal._Stageflg > 0) {
 		_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 1), 540, 0), "res/UI/UI_WORLD2.png", 0));
 		new UIChipFadeComponent(_UIChip.back(), 255, 500);
+		
 	}
 	if (gGlobal._Stageflg > 1) {
 		_UIChip.push_back(new UIChipClass(this, VGet(960 + (1920 * 2), 540, 0), "res/UI/UI_WORLD3.png", 0));
 		new UIChipFadeComponent(_UIChip.back(), 255, 500);
+	}
+	
+	if (gGlobal._SelectStage == 0) {
+		for (auto i = 0; i < _UIChip.size(); i++) {
+			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920, 0, 0)), 10);
+			
+		}
+		_Cur = 1;
+		_Tm = 500;
+	}
+	else if (gGlobal._SelectStage >= 1) {
+		for (auto i = 0; i < _UIChip.size(); i++) {
+			new UIChipMoveComponent(_UIChip[i], VAdd(_UIChip[i]->GetPosition(), VGet(-1920 * 2, 0, 0)), 10);
+			
+		}
+		_Cur = 2;
+		_Tm = 500;
 	}
 	
 	

@@ -8,6 +8,7 @@
 #include "SlashActor.h"
 #include "UITextActor.h"
 #include "ApplicationGlobal.h"
+#include "ExplosionActor.h"
 
 GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos,int num)
 	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0), _Active(false), _Num(num)
@@ -37,6 +38,9 @@ void GroupSpawnerActor::UpdateActor() {
 			auto e = dynamic_cast<PlayerActor*>(h->GetOwner());
 			if (e != nullptr) {
 				n++;
+				if (e->GetModeNum() > 0) {
+					n++;
+				}
 				if (n >= 2) {
 					_Active = true;
 					auto g = dynamic_cast<ModeGame*>(GetMode());
@@ -180,6 +184,10 @@ void GroupSpawnerActor::UpdateActor() {
 						_Spawner[i].hp -= 20;
 					} else {
 						if (p->GetInvincibleTime() <= 0) {
+							VECTOR knock = VSub(p->GetPosition(), _PopPos[i]);
+							if (VSize(knock) == 0) { knock = VGet(0, 1, 0); }
+							knock = VNorm(knock);
+							p->KnockBack(VGet(knock.x, 0.2, knock.z), 10);
 							p->Damage(0.05);
 							_Spawner[i].hp -= 5;
 						}
@@ -187,6 +195,10 @@ void GroupSpawnerActor::UpdateActor() {
 				}
 				auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
 				if (punch != nullptr) {
+					_Spawner[i].hp -= 20;
+				}
+				auto exp = dynamic_cast<ExplosionActor*>(h->GetOwner());
+				if (exp != nullptr) {
 					_Spawner[i].hp -= 20;
 				}
 				auto laser = dynamic_cast<LaserActor*>(h->GetOwner());

@@ -15,11 +15,13 @@ void UITextActor::UpdateActor() {
 	if (_UIText.front()->GetState() == "end") {
 		delete _UIText.front();
 		_UIText.pop_front();
+		return;
 	}
 	if (_UIText.front()->GetState() == "wait") {
 		if (_UIText.size() > 1) {
 			delete _UIText.front();
 			_UIText.pop_front();
+			return;
 		}
 	}
 	if (_UIText.front()->GetActive() == false) {

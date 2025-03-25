@@ -175,7 +175,8 @@ void PlayerActor::UpdateActor() {
 			ChangeMode(0);
 			_InvincibleTime = 1000;
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
-			if (sv == nullptr) { sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
+			if (sv == nullptr) {
+				sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
 			if (sv != nullptr) {
 				SoundServer::GetInstance()->DeleteSourceVoice(this,"alert");
 			}
@@ -464,7 +465,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				enemy->Death(0);
+				//enemy->Death(0);
 				
 
 				VECTOR knock = VSub(GetPosition(), enemy->GetPosition());
