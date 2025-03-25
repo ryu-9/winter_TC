@@ -17,6 +17,7 @@ private:
 	ActorClass* _Actor;
 	bool _IsActive;
 	float _Move;
+	float _Height;
 
 };
 

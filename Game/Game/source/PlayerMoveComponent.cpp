@@ -92,31 +92,41 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 		else {
-			_DashFlag = true;
-			velocity = VScale(_DashDir, 20);
+			if (VDot(_DashDir, v) >= 0) {
+				_DashFlag = true;
+				velocity = VScale(_DashDir, 20);
+			}
+			else {
+				_DashTime = 0;
+				_DashFlag = false;
+				velocity = VGet(0, 0, 0);
+			}
+
 		}
 		_DashTime -= _Owner->GetMode()->GetStepTm();
 
 		{
 			int dt = _Owner->GetMode()->GetStepTm();
+			float limit = 1;
+			float accel = 500;
 			if (v.x > 0) {
-				if (v.x > velocity.x) {
-					velocity.x += v.x / 100 * dt;
+				if (v.x * limit > velocity.x) {
+					velocity.x += v.x / accel * dt;
 				}
 			}
 			else {
-				if (v.x < velocity.x) {
-					velocity.x += v.x / 100 * dt;
+				if (v.x * limit < velocity.x) {
+					velocity.x += v.x / accel * dt;
 				}
 			}
 			if (v.z > 0) {
-				if (v.z > velocity.z) {
-					velocity.z += v.z / 100 * dt;
+				if (v.z * limit > velocity.z) {
+					velocity.z += v.z / accel * dt;
 				}
 			}
 			else {
-				if (v.z < velocity.z) {
-					velocity.z += v.z / 100 * dt;
+				if (v.z * limit < velocity.z) {
+					velocity.z += v.z / accel * dt;
 				}
 			}
 		

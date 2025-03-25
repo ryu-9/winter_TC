@@ -17,6 +17,7 @@
 #include "BreakableBoxActor.h"
 #include "ChangeSnowBallActor.h"
 #include "UITextActor.h"
+#include "ModeGameOver.h"
 
 
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
@@ -37,6 +38,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	, _FallTime(0)
 	, _ItemNum(0)
 	, _LavaFlag(false)
+	, _DeadTime(0)
 
 {
 	if (_PlayerNo == 1) {
@@ -93,7 +95,8 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_Cursor = new PlayerCursorComponent(this, _PlayerNo);
 	
 	_Input = new PlayerMoveComponent(this);
-	
+	_Input->SetGravity(0.5);
+
 	SetPosition(VGet(0, 1000, 0));
 
 	SetSize(VGet(0.1, 0.1, 0.1));
@@ -385,7 +388,7 @@ void PlayerActor::UpdateActor() {
 		if (_Input->GetStand() && !_Input->GetDashFlag()) {
 			AddSize(size);
 
-			v = VSub(v, VScale(v, 0.001 * dt));
+			v = VSub(v, VScale(v, 0.0001 * dt));
 			_Input->SetVelocity(v);
 		}
 
@@ -465,7 +468,7 @@ void PlayerActor::UpdateActor() {
 		for (auto h : hit) {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
-				//enemy->Death(0);
+				enemy->Death(0);
 				
 
 				VECTOR knock = VSub(GetPosition(), enemy->GetPosition());
@@ -775,6 +778,10 @@ void PlayerActor::UpdateActor() {
 			ChangeMode(0);
 			gGlobal._IsPlayerDead[_PlayerNo - 1] = FALSE;
 		}
+		_DeadTime += dt;
+		if (_DeadTime > 5000) {
+			ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
+		}
 
 		break;
 	}
@@ -800,6 +807,7 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetVisible(false);
 		SetSize(VGet(0.1, 0.1, 0.1));
 		gGlobal._IsPlayerDead[_PlayerNo - 1] = TRUE;
+		_DeadTime = 0;
 		new ItemActor(GetMode(), GetPosition(), -1, -1);
 		break;
 
@@ -1105,7 +1113,7 @@ void PlayerActor::DropItem(VECTOR dir, int num)
 	
 	auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, hc->GetSize().y + 100, 0)), num);
 	auto m = item->GetComponent<MoveComponent>()[0];
-	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
+	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 2));
 }
 
 void PlayerActor::AddSize(float size, bool flag)

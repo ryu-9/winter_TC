@@ -130,7 +130,7 @@ bool ECornComponent::Attack(int n) {
 
 bool ECornComponent::NomalAttack() {
 	if (_CurrentTime == 0) {
-		_Duration = 4000;
+		_Duration = 2000;
 		Attack(0);
 	}
 	_CurrentTime += _Owner->GetMode()->GetStepTm();

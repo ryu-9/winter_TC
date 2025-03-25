@@ -97,9 +97,11 @@ void CameraComponent::ProcessInput()
 	if (_Player[0] != nullptr) {
 		pos[0] = _Player[0]->GetPosition();
 	}
+	if (pos[0].y < -750) { pos[0].y = -750; }
 	if (_Player[1] != nullptr) {
 		pos[1] = _Player[1]->GetPosition();
 	}
+	if (pos[1].y < -750) { pos[1].y = -750; }
 	VECTOR v = VAdd(pos[0], pos[1]);
 	_Dist = VSize(VSub(pos[0], pos[1])) + 100;
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());

@@ -4,7 +4,7 @@
 class ItemActor : public ActorClass
 {
 public:
-	ItemActor(class ModeBase* mode, VECTOR pos, int type, int life = 7000);
+	ItemActor(class ModeBase* mode, VECTOR pos, int type, int life = 10000);
 	virtual ~ItemActor();
 	void UpdateActor() override;
 

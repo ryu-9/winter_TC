@@ -8,6 +8,7 @@ BulletComponent::BulletComponent(ActorClass* owner, VECTOR pos, float speed)
 	, _Cnt(10000)
 {
 	_StartPos = owner->GetPosition();
+	SetGravity(0.1);
 //	_StartPos.y += 20;
 	UpdateDir();
 	//auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
@@ -21,7 +22,7 @@ BulletComponent::~BulletComponent()
 void BulletComponent::ProcessInput() {
 	// ƒS[ƒ‹‚ÉŒü‚¯‚ÄˆÚ“®
 	
-	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 1000);
+	auto v = VScale(_Dir, (_Speed * _Owner->GetMode()->GetStepTm()) / 2000);
 //	v.y -= _Gravity;
 //	v.y = GetVelocity().y + 0.1;
 //	v.y = GetVelocity().y;
@@ -50,7 +51,7 @@ void BulletComponent::Update() {
 	for (auto h : _Owner->GetComponent<HitCollisionComponent>()[0]->IsHit()) {
 		auto player = dynamic_cast<PlayerActor*>(h->GetOwner());
 		if (player != nullptr) {
-			player->Damage(0.1);
+			player->Damage(0.1, 100);
 			_Owner->SetState(ActorClass::State::eDead);
 		}
 	}
