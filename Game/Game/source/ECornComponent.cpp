@@ -6,6 +6,7 @@
 #include <iostream>
 #include "ModeGame.h"
 #include "CameraActor.h"
+#include "GroupAttackActor.h"
 
 
 ECornComponent::ECornComponent(ActorClass* owner)
@@ -20,7 +21,7 @@ ECornComponent::ECornComponent(ActorClass* owner)
 	_Weight.push_back(4);
 	_Weight.push_back(2);
 
-	_AttackType = rand() % 4;
+	_AttackType = 2;
 
 	_MoveData.duration = 1000;
 	_MoveData.dur_rand = 500;
@@ -60,15 +61,31 @@ void ECornComponent::ProcessInput() {
 			Jump();
 			break;
 		case 0:
-			if (_CurrentTime == 0) { _Duration = 2000; }
-			_CurrentTime += _Owner->GetMode()->GetStepTm();
+			{	if (_CurrentTime == 0) {
+				_Duration = 2000;
+				auto p = _En->GetGroupSpawner();
+				if (p != nullptr) {
+					// ’†S‚ðŒü‚­
+
+					auto pos = _Owner->GetPosition();
+					auto target = p->GetPosition();
+					auto dir = VSub(pos, target);
+					auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+					_Rot = atan2(dir.x, dir.z);
+					_Rot = _Rot - rot.y;
+				}
+			}
+			auto tm = _Owner->GetMode()->GetStepTm();
+			_CurrentTime += tm;
+			auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+			rot.y += _Rot * ((float)tm / (float)_Duration);
+			_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 			if (_CurrentTime > _Duration) {
 				_CurrentTime = 0;
-				auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
-				_Owner->GetComponent<ModelComponent>()[0]->SetRotation(VGet(0, rot.y + 0.3, 0));
 				_Status = STATUS::SEARCH;
 			}
 			break;
+		}
 		default:
 			break;
 		}
@@ -108,6 +125,7 @@ void ECornComponent::ProcessInput() {
 }
 
 bool ECornComponent::Attack(int n) {
+
 	
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
@@ -117,6 +135,12 @@ bool ECornComponent::Attack(int n) {
 		new HitCollisionComponent(ac, m, VGet(0, 0, 0), VGet(30, 30, 30), 2, true);
 		new MoveCollisionComponent(ac, m, VGet(0, 0, 0), VGet(10, 10, 10), 2, true);
 		new BulletComponent(ac, _Target[_Index[n]]->GetPosition(), 1000);
+		auto pos = _Owner->GetPosition();
+		auto target = _Target[n]->GetPosition();
+		auto dir = VSub(pos, target);
+		auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
+		rot.y = atan2(dir.x, dir.z);
+		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
 		SoundServer::GetInstance()->Create(ac, "cornfire", "AttackSE", "cornfire");
 		auto sv = SoundServer::GetInstance()->GetSourceVoice(ac, "cornfire");
 		auto p = new SVItemPanning(sv);
@@ -146,6 +170,7 @@ bool ECornComponent::JumpAttack() {
 	if (_CurrentTime == 0) {
 		_Duration = 4000;
 		Jump();
+		
 		Attack(0);
 	}
 	
@@ -257,9 +282,9 @@ bool ECornComponent::GoTo(int n) {
 
 
 	if (_CurrentTime >= _Duration) {
-		_CurrentTime = 0;
+//		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
-		_Status = STATUS::COOLTIME;
+//		_Status = STATUS::COOLTIME;
 		return true;
 	}
 

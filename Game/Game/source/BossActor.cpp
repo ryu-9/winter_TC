@@ -397,9 +397,10 @@ bool BossActor::PunchFall() {
 
 bool BossActor::Damage() {
 	if (_AnimTime == 0) {
-		while (_AnimIndex.size() > 0)
-		MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
-		_AnimIndex.pop();
+		while (_AnimIndex.size() > 1) {
+			MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
+			_AnimIndex.pop();
+		}
 		_AnimRate = 1.f;
 	}
 	if (_AnimTime < _AnimTotalTime) {

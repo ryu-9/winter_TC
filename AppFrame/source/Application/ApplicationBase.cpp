@@ -24,7 +24,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 	
 	SetUseDirect3DVersion(DX_DIRECT3D_11);	// Direct3D11を使用する
-
+	
 	if (DxLib_Init() == -1)
 	{	// エラーが起きたら直ちに終了
 		return false;
@@ -39,7 +39,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 	// 乱数初期化
 	srand((unsigned int)time(NULL));
-
+	
 	// モードサーバの初期化
 	_serverMode = new ModeServer();
 	_serverModel = new ModelServer();

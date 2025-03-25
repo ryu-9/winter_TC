@@ -36,13 +36,17 @@ void EnemySpawnerActor::Init() {
 
 void EnemySpawnerActor::UpdateActor() {
 	_TmCnt += GetMode()->GetStepTm();
-	auto skipflag = false;
-	if (_TmCnt <_Data.pop_time) { skipflag = true; }
-	if (_PopCnt >= _Data.max_popcount) { skipflag = true; }
-	if (!skipflag) {
-		auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
-		auto dist2 = VSize(VSub(_Player[1]->GetPosition(), GetPosition()));
-		if (dist < _Data.active_range || dist2 < _Data.active_range) {
+	auto dist = VSize(VSub(_Player[0]->GetPosition(), GetPosition()));
+	auto dist2 = VSize(VSub(_Player[1]->GetPosition(), GetPosition()));
+	if (dist < _Data.active_range || dist2 < _Data.active_range) {
+		if (!_Active) {
+			_Active = true;
+		}
+		auto skipflag = false;
+		if (_TmCnt < _Data.pop_time) { skipflag = true; }
+		if (_PopCnt >= _Data.max_popcount) { skipflag = true; }
+		if (!skipflag) {
+
 			// “G¶¬
 
 			// ˆê’è‹——£“à‚É“G‚ð¶¬
@@ -57,12 +61,19 @@ void EnemySpawnerActor::UpdateActor() {
 
 			_TmCnt = 0;
 		}
+	} else {
+		if (_Active) {
+			_Active = false;
+		}
 	}
 	if (_TotalPopCnt >= _Data.max_pop && !_Breakable){
 		if (_ResetFlag == true) { _PopCnt = 0; }
-		else { SetState(State::eDead); }
+		else { 
+			_Active = false;
+			SetState(State::eDead); }
 	}
 	if (_HP <= 0) {
+		_Active = false;
 		SetState(State::eDead);
 	}
 	

@@ -137,7 +137,8 @@ EnemyActor* EnemyCreator::Create(ModeBase* mode, int type, VECTOR vec, GroupSpaw
 		enemy->SetModel(m);
 		enemy->SetMoveCollision(new MoveCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
 		new EBoxComponent(enemy);
-		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(15, 15, 15), 2, true, true));
+		enemy->SetHitCollision(new HitCollisionComponent(enemy, m, VGet(0, 0, 0), VGet(20, 20, 20), 2, true, true));
+		enemy->SetSize(VGet(4, 4, 4));
 	}	break;
 	default:
 		break;

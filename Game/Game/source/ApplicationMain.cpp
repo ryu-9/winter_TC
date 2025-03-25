@@ -18,7 +18,7 @@ ApplicationMain				g_oApplicationMain;
 bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	if (!base::Initialize(hInstance)) { return false; }
 
-	
+	SetMainWindowText("TDX");
 	gGlobal.Init();
 
 	new EnemyCreator();
@@ -35,20 +35,16 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	
 	// ���[�h�̓o�^
-
+#if 0
 	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-//	ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
-//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-//	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
-//	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
-//	ModeServer::GetInstance()->Add(new ModeScenario(), 100, "scenario");
-//	ModeServer::GetInstance()->Add(new ModeTestStage(), 1, "stage");
-//	ModeServer::GetInstance()->Add(new ModeGameOver(), 10, "gameover");
+#endif
+#if 1
+	gGlobal._SelectStage = 1;
+	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
+	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 
-//	gGlobal._SelectStage = 0;
-//	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
-//	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
-//	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+#endif
 
 	return true;
 }

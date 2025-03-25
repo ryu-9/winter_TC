@@ -57,6 +57,26 @@ void EnemyActor::UpdateActor() {
 		if (_Fallcnt > 1000) {
 			SetState(State::eDead);
 		}
+	} else {
+		_Fallcnt = 0;
+	}
+	if (_Spawner != nullptr) {
+		if (!_Spawner->IsActive()) {
+			SetState(State::eDead);
+		}
+	}
+
+	if (_GroupSpawner != nullptr) {
+		bool in = false;
+		auto p = _GroupSpawner->GetPosition();
+		auto s = VScale(_GroupSpawner->GetSize(),50);
+		if (GetPosition().x > p.x - s.x && GetPosition().x < p.x + s.x &&
+			GetPosition().z > p.z - s.z && GetPosition().z < p.z + s.z) {
+			in = true;
+		}
+		if (in == false) {
+			SetState(State::eDead);
+		}
 	}
 }
 

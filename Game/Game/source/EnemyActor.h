@@ -28,6 +28,8 @@ public:
 	void SetMoveCollision(class MoveCollisionComponent* mcol) { delete _MCollision; _MCollision = mcol; }
 	void SetHitCollision(class HitCollisionComponent* hcol) { delete _HCollision; _HCollision = hcol; }
 	HitCollisionComponent* GetHitCollision() { return _HCollision; }
+
+	class GroupSpawnerActor* GetGroupSpawner() { return _GroupSpawner; }
 private:
 	int _Fallcnt;
 

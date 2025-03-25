@@ -31,6 +31,7 @@ protected:
 	Enemy::MOVE _MoveData;
 	WAIT_ACTION _WaitAction;
 	int _AttackType;
+	float _Rot;
 
 };
 

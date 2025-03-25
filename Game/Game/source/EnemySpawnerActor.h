@@ -27,9 +27,11 @@ public:
 	void SetType(int type) { _Type = type; }
 	void SetCol(int col) { _Col = col; }
 	
+	bool IsActive() const { return _Active; }
 
 	void Damage(int damage) { _HP -= damage; }
 private:
+	bool _Active;
 	class PlayerActor* _Player[2];
 	int _TmCnt;						// ŠÔ
 	int _PopCnt;					// ¶¬”
@@ -41,8 +43,6 @@ private:
 	bool _Breakable;				// ”j‰ó‰Â”\ƒtƒ‰ƒO
 	int _HP;						// HP
 	SPAWNER_DATA _Data;
-
-	std::vector<VECTOR> _SpawnerPos;
 
 	HitCollisionComponent* _HitCol;
 };
