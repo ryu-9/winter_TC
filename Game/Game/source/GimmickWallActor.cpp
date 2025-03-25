@@ -5,6 +5,7 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	, _Actor(actor)
 	, _IsActive(true)
 	, _Move(0)
+	, _Height(50)
 {
 	SetSize(size);
 	SetPosition(pos);
@@ -22,7 +23,7 @@ GimmickWallActor::GimmickWallActor(ModeBase* mode, VECTOR pos, VECTOR size, VECT
 	
 
 	if (!_IsActive) {
-		_Move = 300 * GetSize().y ;
+		_Move = _Height * GetSize().y ;
 		_Model->SetPosition(VGet(0, -_Move, 0));
 		_MCollision->SetIsActive(false);
 	}
@@ -49,17 +50,19 @@ void GimmickWallActor::UpdateActor()
 	}
 	if (_IsActive && _Move) {
 		float move = GetMode()->GetStepTm() * GetSize().y;
+		move /= 50;
 		_Move -= move;
 		if (_Move <= 50) {
 			_Move = 50;
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}
-	else if (!_IsActive && _Move < GetSize().y * 300) {
+	else if (!_IsActive && _Move < GetSize().y * _Height) {
 		float move = GetMode()->GetStepTm() * GetSize().y;
+		move /= 50;
 		_Move += move;
-		if (_Move >= GetSize().y * 300) {
-			_Move = GetSize().y * 300;
+		if (_Move >= GetSize().y * _Height) {
+			_Move = GetSize().y * _Height;
 		}
 		_Model->SetPosition(VGet(0, -_Move, 0));
 	}

@@ -54,7 +54,7 @@ void ECornComponent::ProcessInput() {
 	case STATUS::WAIT: {
 		switch (_WaitAction) {
 		case 1:
-			// ˆÚ“®
+			// ï¿½Ú“ï¿½
 			Move();
 			break;
 		case 2:
@@ -65,7 +65,7 @@ void ECornComponent::ProcessInput() {
 				_Duration = 2000;
 				auto p = _En->GetGroupSpawner();
 				if (p != nullptr) {
-					// ’†S‚ðŒü‚­
+					// ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½
 
 					auto pos = _Owner->GetPosition();
 					auto target = p->GetPosition();
@@ -239,8 +239,8 @@ bool ECornComponent::Move() {
 	auto t = _Owner->GetMode()->GetStepTm();
 	auto d = _MoveDist * t;
 	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
-	// TODO: ƒ‚ƒfƒ‹‚ÌŒü‚«’²®
-	// ‰¼‚Åƒtƒƒ“ƒg‚ð”½“]
+	// TODO: ï¿½ï¿½ï¿½fï¿½ï¿½ï¿½ÌŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½Åƒtï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ð”½“]
 	front = VScale(front, -1);
 
 	auto vel = _En->GetInput()->GetVelocity();
@@ -265,7 +265,7 @@ bool ECornComponent::GoTo(int n) {
 		float dur = static_cast<float>(_Duration);
 		_MoveDist = (_MoveData.dist + (rand() % _MoveData.dist_rand)) / dur;
 
-		// ƒvƒŒƒCƒ„[‚Ì•û‚ðŒü‚­
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		auto pos = _Owner->GetPosition();
 		auto target = _Target[n]->GetPosition();
 		auto dir = VSub(pos,target);

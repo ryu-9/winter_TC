@@ -6,7 +6,7 @@ EnemyComponent::EnemyComponent(ActorClass* owner)
 {
 	_En = dynamic_cast<EnemyActor*>(owner);
 
-	_SearchRef.dist = 1000;
+	_SearchRef.dist = 2000;
 	_SearchRef.angle = 60;
 }
 

@@ -292,7 +292,7 @@ void PlayerMoveCollisionComponent::Update()
 				}
 
 
-				float deg = 0;
+				float deg = 60;
 				if (move.y >= cos(deg / 180 * atan(1) * 4)) {
 					if (_Move != nullptr) {
 						_Move->SetStand(TRUE);

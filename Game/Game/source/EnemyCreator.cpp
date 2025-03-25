@@ -54,7 +54,7 @@ void EnemyCreator::Init() {
 		i++;
 	}
 		*/
-	_CreatePattern[0] = { 5, 2, 1, 0, 0 };
+	_CreatePattern[0] = { 5, 2, 1, 0, 4 };
 	_CreatePattern[1] = { 3, 1, 2, 1, 1 };
 	_CreatePattern[2] = { 1, 1, 1, 1, 1 };
 	_CreatePattern[3] = { 1, 2, 3, 2, 0 };
