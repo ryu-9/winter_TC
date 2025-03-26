@@ -353,7 +353,11 @@ void SnowComponent::Draw()
 		auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
 		if (pl != nullptr) {
 			if (!pl->GetModeNum()) {
-				float tmp = vertexdepth * _Area / 10000000 / pl->GetSize().x;
+				float tmpsize = pl->GetSize().x + 0.1;
+				float tmp = vertexdepth * _Area / 5000000 / tmpsize / tmpsize / tmpsize / tmpsize;
+				if (tmp > 0.01) {
+					tmp = 0.01;
+				}
 				pl->AddSize(tmp);
 			}
 		}

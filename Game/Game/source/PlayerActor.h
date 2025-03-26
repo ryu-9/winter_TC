@@ -54,6 +54,8 @@ public:
 
 	int GetInvincibleTime() { return _InvincibleTime; }
 
+	void SetChangeTime(float size);
+
 private:
 
 	enum class anim {

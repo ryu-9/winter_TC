@@ -386,7 +386,7 @@ void PlayerActor::UpdateActor() {
 		tmp.y = 0;
 		float size = VSize(tmp) / 20000;
 		if (_Input->GetStand() && !_Input->GetDashFlag()) {
-			AddSize(size);
+			//AddSize(size);
 
 			v = VSub(v, VScale(v, 0.0001 * dt));
 			_Input->SetVelocity(v);
@@ -485,7 +485,7 @@ void PlayerActor::UpdateActor() {
 				int itemnum = item->GetType();
 				switch (itemnum) {
 				case 0:
-					AddSize(0.2, true);
+					AddSize(0.2 * GetSize().x, true);
 					break;
 				case 1:
 				case 2:
@@ -575,7 +575,7 @@ void PlayerActor::UpdateActor() {
 					item->SetState(State::eDead);
 					switch (itemnum) {
 					case 0:
-						AddSize(0.2, true);
+						//AddSize(0.2 * GetSize().x, true);
 						break;
 					case 1:
 					case 2:
@@ -774,8 +774,12 @@ void PlayerActor::UpdateActor() {
 	case -1:
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
-		if (dist < _Friend->GetSize().x * 100) {
+		if (dist < _Friend->GetSize().x * 100 + 10) {
 			ChangeMode(0);
+			VECTOR kndir = _Friend->GetInput()->GetDashDir();
+			kndir.y = 0.25;
+			KnockBack(kndir, 20);
+			_InvincibleTime = 2000;
 			gGlobal._IsPlayerDead[_PlayerNo - 1] = FALSE;
 		}
 		_DeadTime += dt;
@@ -841,7 +845,8 @@ void PlayerActor::ChangeMode(int mode)
 		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
@@ -856,7 +861,8 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetVisible(true);
 		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -870,7 +876,8 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
@@ -885,7 +892,8 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetHandle(_TopModelHandle[1]);
 		_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -898,7 +906,8 @@ void PlayerActor::ChangeMode(int mode)
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
 		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
 		_Input->SetVelocity(VGet(0, 0, 0));
@@ -913,7 +922,8 @@ void PlayerActor::ChangeMode(int mode)
 		_TopModel->SetHandle(_TopModelHandle[2]);
 		_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
+		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
 		_Input->SetGravity(0);
@@ -1119,9 +1129,16 @@ void PlayerActor::DropItem(VECTOR dir, int num)
 void PlayerActor::AddSize(float size, bool flag)
 {
 	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
-		float Size = size / GetSize().x;
-		SetSize(VAdd(GetSize(), VGet(size, size, size)));
+		float Size = size / 2;
+		SetSize(VAdd(GetSize(), VGet(Size, Size, Size)));
 	}
+}
+
+void PlayerActor::SetChangeTime(float size)
+{
+	_ChangeTime = (size * size - 4) * 5000;
+	//_ChangeTime += 3000;
+
 }
 
 

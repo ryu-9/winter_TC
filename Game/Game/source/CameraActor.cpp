@@ -118,7 +118,7 @@ void CameraComponent::ProcessInput()
 	angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
 
-	if (_Dist < 1000) { _Dist = 1000; }
+	if (_Dist < 500) { _Dist = 500; }
 	if (_Dist > 10000) { _Dist = 10000; }
 	v = VScale(v, 0.5f);
 
