@@ -717,7 +717,8 @@ void PlayerActor::UpdateActor() {
 
 
 				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), tmpdir, GetSize().x * 3);
-
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_punch", "SE", "tdx_punch");
+				s->Play();
 				_PunchFlag = true;
 			}
 		}
@@ -746,7 +747,8 @@ void PlayerActor::UpdateActor() {
 
 
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
-
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "SE", "tdx_laser");
+				s->Play();
 			}
 			if (_AnimTime > 45 && _AnimTime < 60) {
 
@@ -767,6 +769,8 @@ void PlayerActor::UpdateActor() {
 
 				float tmpsize = GetSize().x * 1.5 + _Friend->GetSize().y * 1.5;
 				auto slash = new SlashActor(GetMode(), this, tmppos, _Friend->GetSize().y * 150, VGet(0, 0, 0), tmpdir, VGet(GetSize().x * 10, tmpsize, GetSize().z * 10));
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_blade", "SE", "tdx_blade");
+				s->Play();
 				_PunchFlag = true;
 			}
 		}
@@ -783,6 +787,8 @@ void PlayerActor::UpdateActor() {
 				//tmpdir = VScale(tmpdir, -1);
 				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_dkp", "SE", "tdx_dkp");
+				s->Play();
 				_PunchFlag = true;
 			}
 		}
@@ -1155,6 +1161,15 @@ void PlayerActor::AddSize(float size, bool flag)
 	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
 		float Size = size / GetSize().x;
 		SetSize(VAdd(GetSize(), VGet(size, size, size)));
+		if (GetSize().x >= 1.f) {
+			if (_PlayerNo == 1) {
+				auto s = SoundServer::GetInstance()->Create(this, "jin_marge", "SE", "jin_marge");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(this, "bel_marge", "SE", "bel_marge");
+				s->Play();
+			}
+		}
 	}
 }
 
@@ -1170,8 +1185,32 @@ void PlayerActor::Damage(float damage, int time) {
 			damage /= 2;
 		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
+		if (GetSize().x >= 1.f) {
+			if (_PlayerNo == 1) {
+				auto s =SoundServer::GetInstance()->Create(this, "jin_damage", "SE", "jin_damage");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(this, "bel_damage", "SE", "bel_damage");
+				s->Play();
+			}
+		} if (GetSize().x < 1.f) {
+			if (_PlayerNo == 1) {
+				auto s = SoundServer::GetInstance()->Create(this, "jin_damage_l", "SE", "jin_damage_l");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(this, "bel_damage_l", "SE", "bel_damage_l");
+				s->Play();
+			}
+		}
 		if (GetSize().x < 0.1) {
 			ChangeMode(-1);
+			if (_PlayerNo == 1) {
+				auto s = SoundServer::GetInstance()->Create(this, "jin_down", "SE", "jin_down");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(this, "bel_down", "SE", "bel_down");
+				s->Play();
+			}
 			Init();
 		}
 	}

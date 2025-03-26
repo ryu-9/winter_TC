@@ -142,8 +142,13 @@ void PlayerMoveComponent::ProcessInput()
 			_DashTime = 500;
 			SoundServer::GetInstance()->Create(_pOwner, "dash", "SE", "dash");
 			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "dash")->Play();
-			SoundServer::GetInstance()->Create(_pOwner, "bel_dash", "SE", "bel_dash");
-			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "bel_dash")->Play();
+			if (_pOwner->GetPlayerNo() == 1) {
+				auto s = SoundServer::GetInstance()->Create(_pOwner, "jin_dash", "SE", "jin_dash");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(_pOwner, "bel_dash", "SE", "bel_dash");
+				s->Play();
+			}
 		}
 		if (_Trg & PAD_INPUT_3) {
 			_pOwner->SetChangeFlag(true);
@@ -206,13 +211,23 @@ void PlayerMoveComponent::ProcessInput()
 			bool dashFlag = false;
 			int dt = _Owner->GetMode()->GetStepTm();
 			if (_Key & PAD_INPUT_4) {
-
+				
 				if (_DashDownTime >= 1000) {
 					dashFlag = true;
 					_DashTime -= dt;
 					if (_pOwner->GetModeNum() == 7) {
 						_DashTime += dt;
 						// ゴールデンは無敵！！！
+					}
+					if (_Trg & PAD_INPUT_4) {
+						auto n = rand() % 2;
+						if (n == 0) {
+							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "SE", "tdx_dash");
+							s->Play();
+						} else {
+							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "SE", "tdx_dash2");
+							s->Play();
+						}
 					}
 					_DashDownTime = 1000;
 					if (_DashTime <= 0) {

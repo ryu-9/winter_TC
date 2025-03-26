@@ -220,7 +220,7 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DASH2.wav", "tdx_dash2");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_PUNCH.wav", "tdx_punch");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_BLADE.wav", "tdx_blade");
-		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_LAZER.wav", "tdx_lazer");
+		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_LAZER.wav", "tdx_laser");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DKP.wav", "tdx_dkp");
 	}
 	
