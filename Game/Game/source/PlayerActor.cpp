@@ -1159,9 +1159,10 @@ void PlayerActor::DropItem(VECTOR dir, int num)
 void PlayerActor::AddSize(float size, bool flag)
 {
 	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
+		auto s = GetSize().x;
 		float Size = size / GetSize().x;
 		SetSize(VAdd(GetSize(), VGet(size, size, size)));
-		if (GetSize().x >= 1.f) {
+		if (GetSize().x >= 1.f && s < 1.f) {
 			if (_PlayerNo == 1) {
 				auto s = SoundServer::GetInstance()->Create(this, "jin_marge", "SE", "jin_marge");
 				s->Play();

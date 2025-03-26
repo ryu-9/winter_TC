@@ -140,7 +140,7 @@ bool ModeGame::Initialize() {
 //	SetFogStartEnd(200, 10000);
 	_UIT = new UITextActor(this);
 	_UIT->SetPosition(VGet(960, 940, 0));
-	_UIT->AddText("Scenario","start",true);
+	
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
 	_Camera = new CameraActor(this);
@@ -167,21 +167,25 @@ bool ModeGame::Initialize() {
 		LoadStage("res/Stage/", "Stage1.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		_UIT->AddText("Scenario", "start", true);
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		_UIT->AddText("Scenario", "Stage2", true);
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		_UIT->AddText("Scenario", "Stage3", true);
 		break;
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
+		_UIT->AddText("Scenario", "Stage4", true);
 		break;
 	default:
 		break;

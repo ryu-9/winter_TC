@@ -59,8 +59,9 @@ SVItemDistanceDecay::SVItemDistanceDecay(SourceVoiceItem* sv)
 }
 
 void SVItemDistanceDecay::Update(ActorClass* p) {
-
+	if (p == nullptr) { return; }
 	auto pos = p->GetPosition	();
+	if (_Listener == nullptr) { return; }
 	auto lpos = _Listener->GetPosition();
 
 	auto dist = VSize(VSub(pos, lpos));

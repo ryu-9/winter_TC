@@ -146,6 +146,8 @@ bool ECornComponent::Attack(int n) {
 		auto p = new SVItemPanning(sv);
 		auto g = dynamic_cast<ModeGame*>(_Owner->GetMode());
 		p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+		auto di = new SVItemDistanceDecay(sv);
+		di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
 		sv->Play();
 		
 
