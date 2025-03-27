@@ -102,7 +102,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		{
 			int dt = _Owner->GetMode()->GetStepTm();
-			float limit = 1;
+			float limit = 0.75;
 			float accel = 500;
 			if (v.x > 0) {
 				if (v.x * limit > velocity.x) {

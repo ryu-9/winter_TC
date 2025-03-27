@@ -60,6 +60,8 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// �^�C�����C���̐ݒ�
 	std::vector<ACTION_TIMELINE> timeline;
+	//timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 17000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::BULLET, 12000 });
@@ -444,7 +446,7 @@ void BossActor::GeneratePunch() {
 	auto mv = new MoveComponent(ac);
 	mv->SetGravity(false);
 	dir = VScale(VNorm(dir), -1);
-	auto effect = new EffectSpriteComponent(ac, "res/model/Sundercross/Panch_enemy_2.efkefc", VGet(0, 0, 0),dir, 8, true);
+	auto effect = new EffectSpriteComponent(ac, "res/model/Sundercross/Panch_enemy_2.efkefc", VGet(0, 0, 0),dir, 8, true, 0.5);
 	dir = VScale(VNorm(dir), -20);
 	mv->SetVelocity(dir);
 

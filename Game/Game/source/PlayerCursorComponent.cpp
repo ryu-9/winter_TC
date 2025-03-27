@@ -98,7 +98,7 @@ PlayerCursorSpriteComponent::~PlayerCursorSpriteComponent()
 void PlayerCursorSpriteComponent::Draw()
 {
 	if (!_ActiveFlag) { return; }
-	DrawGraph(_Position.x - 258 / 2, _Position.y - 237 / 2, _Handle, TRUE);
+	DrawGraph(_Position.x - 326 / 2, _Position.y - 326 / 2, _Handle, TRUE);
 	/*
 		
 	DrawCapsule3D(_Owner->GetPosition(), debugpos[1], 15, 5, GetColor(255, 0, 0), 0, TRUE);

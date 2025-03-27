@@ -314,8 +314,10 @@ bool ModeGame::Render() {
 		SetGlobalAmbientLight(GetColorF(0.35f, 0.3f, 0.0f, 1.0f));
 		break;
 	case 2:
-	case 3:
 		SetGlobalAmbientLight(GetColorF(0.35f, 0.0f, 0.0f, 1.0f));
+		break;
+	case 3:
+		SetGlobalAmbientLight(GetColorF(0.3f, 0.0f, 0.35f, 1.0f));
 		break;
 
 	default:
@@ -446,9 +448,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 
 		// ステージボックスで読み込み　ちらつかない
 		if (name == "SM_Cube" || name == "Cube") {
-			pos.y += 4;
-			pos.y += scale.y * 1;
-			scale = VScale(scale, 0.985);
+		//	pos.y += 4;
+		//	pos.y += scale.y * 1;
+		//	scale = VScale(scale, 0.985);
 			auto box = new StageBox(this, pos, rot, scale, 0);
 			box->Init();
 		}else if (name == "Ramp") {

@@ -283,6 +283,8 @@ void SnowComponent::Draw()
 		}
 	}
 
+	float angle = 15 * VSize(VGet(_Normal.x, 0, _Normal.z));
+
 	for (auto mc : mclist) {
 
 		float vertexdepth = 0;
@@ -293,14 +295,16 @@ void SnowComponent::Draw()
 		que = 0;
 		olddist = 1000000000;
 		int debugnum = 0;
-		float size = mc->GetSize().x * mc->GetSize().x;
+		float size = (mc->GetSize().x + angle + 5);
+		size *= size;
 		for (int i = 0; i < _SnowSize; i++) {
 			if (_Height[i] > 0) {
 				continue;
 			}
 			debugnum++;
 			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), _Snow[i].pos);
-			if (dist > _Longest) {
+			float depth = dist - size;
+			if (depth > _Longest) {
 				break;
 			}
 			if (olddist > dist) {
@@ -316,18 +320,19 @@ void SnowComponent::Draw()
 				flag = true;
 			}
 
-			float depth = dist - size;
+
 			if (depth < 0) {
 				flag = false;
 				depth = sqrt(-depth);
-				if (depth > 20) { depth = 20; }
-				vertexdepth += depth - _Height[i];
-				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+				if (depth > 20 + _Height[i]) { depth = 20 + _Height[i]; }
+				vertexdepth += depth;
+				//_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
 				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
-				_Height[i] = -depth;
+				_Height[i] -= depth;
 				_Flag = TRUE;
 
 			}
+
 			calc--;
 			if (calc < 0) {
 				unsigned int nande = que * que * split;
@@ -353,7 +358,17 @@ void SnowComponent::Draw()
 		auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
 		if (pl != nullptr) {
 			if (!pl->GetModeNum()) {
-				float tmp = vertexdepth * _Area / 10000000 / pl->GetSize().x;
+				float tmpsize = pl->GetSize().x + 0.5;
+				tmpsize *= tmpsize;
+				tmpsize *= tmpsize;
+				tmpsize *= tmpsize;
+				if (pl->GetSize().x > 1) {
+					tmpsize *= 2;
+				}
+				float tmp = vertexdepth * _Area / 500000 / tmpsize;
+				if (tmp > 0.002) {
+					tmp = 0.002;
+				}
 				pl->AddSize(tmp);
 			}
 		}
