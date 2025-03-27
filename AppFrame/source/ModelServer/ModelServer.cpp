@@ -89,7 +89,7 @@ bool ModelServer::AddEffectList(int handle, SpriteComponent* sp)
 		else
 		{
 			es->SetHandle(-99999);
-			delete it->second;
+			//delete it->second;
 		}
 		return false;
 	}
