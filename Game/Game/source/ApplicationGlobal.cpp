@@ -31,6 +31,7 @@ bool ApplicationGlobal::Init() {
 	_ItemList[1] = 0;
 	_ItemNum = -1;
 	_IsGroupAttack = false;
+	_IsRestart = false;
 
 	return true;
 }

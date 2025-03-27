@@ -32,6 +32,7 @@ public:
 
 	// ステージ選択
 	int		_SelectStage;
+	bool	_IsRestart;
 
 	bool _IsGroupAttack;
 

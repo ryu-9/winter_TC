@@ -52,6 +52,7 @@ bool ModeStageSelect::Initialize() {
 
 bool ModeStageSelect::Terminate() {
 	base::Terminate();
+
 	return false;
 }
 
@@ -87,6 +88,7 @@ bool ModeStageSelect::Process() {
 	if (trg & PAD_INPUT_1) {
 		// ステージ選択
 		gGlobal._SelectStage = _Cur;
+		gGlobal._IsRestart = false;
 		ModeServer::GetInstance()->Add(new ModeGame(),1,"game");
 		ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 		ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
@@ -95,6 +97,7 @@ bool ModeStageSelect::Process() {
 		ModeServer::GetInstance()->Del(this);
 
 		_UISound->PlayActSound("enter");
+		
 	}
 
 	if (trg & PAD_INPUT_3) {

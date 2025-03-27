@@ -1172,7 +1172,7 @@ void PlayerActor::AddSize(float size, bool flag)
 {
 	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
 		auto tmps = GetSize().x;
-		float Size = size / 2;
+		float Size = -size / 2;
 		SetSize(VAdd(GetSize(), VGet(Size, Size, Size)));
 
 		if (GetSize().x >= 1.f && tmps < 1.f) {

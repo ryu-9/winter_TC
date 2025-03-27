@@ -54,9 +54,12 @@ bool ModeGameOver::Process() {
 			ModeServer::GetInstance()->Del(this);
 			ModeServer::GetInstance()->AllDel();
 			
+			gGlobal._IsRestart = true;
+
 			ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 			ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 			ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+
 		} else {
 			gGlobal._SelectStage = -1;
 			ModeServer::GetInstance()->Del(this);
