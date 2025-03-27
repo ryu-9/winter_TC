@@ -12,6 +12,8 @@
 #include "ECornComponent.h"
 #include "EBoxComponent.h"
 #include "EnemyCreator.h"
+#include "ExplosionActor.h"
+#include "UITextActor.h"
 
 BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	:ActorClass(mode)
@@ -73,18 +75,18 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	timeline.clear();
 	timeline.push_back({ ACTION::BEAM, 8000 });
 	timeline.push_back({ ACTION::PUNCH, 7000 });
-	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
 	timeline.push_back({ ACTION::PUNCH_FALL, 5000 });
 	timeline.push_back({ ACTION::PUNCH, 9000 });
-	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
 	_ActionTimeline.push_back(timeline);
 
 	timeline.clear();
 	timeline.push_back({ ACTION::BEAM, 7000 });
 	timeline.push_back({ ACTION::PUNCH, 7000 });
-	timeline.push_back({ ACTION::PUNCH, 5000 });
-	timeline.push_back({ ACTION::PUNCH, 5000 });
-	timeline.push_back({ ACTION::PUNCH, 5000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
 	timeline.push_back({ ACTION::BULLET, 5000 });
 
 	_ActionTimeline.push_back(timeline);
@@ -233,6 +235,7 @@ void BossActor::UpdateActor() {
 				GetMode()->GetPlayer()->ChangeMode(7);
 			}
 			GenerateEnemy(7);
+			GetMode()->GetUIT()->AddText("Scenario", "boss_10", true);
 			_Invincible = 2000;
 		}
 		if (_HitPoint == 0) {

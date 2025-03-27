@@ -28,7 +28,7 @@ UITextComponent::UITextComponent(ActorClass* owner, std::string jsonkey, std::st
 		LoadText("res/loadtext/LoadText.json", jsonkey,jsonkey2);
 	}
 	
-	ChangeFont("コーポレート・ロゴ ver3 Bold");
+//	ChangeFont("コーポレート・ロゴ ver3 Bold");
 }
 
 
@@ -53,6 +53,11 @@ void UITextComponent::Update() {
 
 		if (_CurrentTime > (_TextCount * TEXT_SPEED) + _ScenarioData[_TextIndex].time) {
 			if (_ScenarioData[_TextIndex].next == "time") {
+				if (_TextIndex + 1 == _ScenarioData.size()) {
+					_ScenarioData[_TextIndex].next = "end";
+					return;
+				}
+
 				_TextIndex++;
 				_StCount = 0;
 				_TextCount = 0;
@@ -60,33 +65,9 @@ void UITextComponent::Update() {
 
 				_TextData.clear();
 				_TextData.push_back(TEXT_DATA());
-			} else if (_ScenarioData[_TextIndex].next == "end") {
-				
-			}
+			} 
 		}
 	}
-
-	/*if (trg & PAD_INPUT_1) {
-		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
-			_StCount = 0;
-			_TextCount = 0;
-			_CurrentTime = 0;
-			_TextIndex++;
-			if (_TextIndex >= _ScenarioData.size()) {
-				delete this;
-				return;
-			}
-
-			_TextData.clear();
-			_TextData.push_back(TEXT_DATA());
-		} else {
-			for (auto i = 0; i < _ScenarioData[_TextIndex].text.size(); i++) {
-				AddText();
-			}
-		}
-
-	}
-	*/
 
 }
 

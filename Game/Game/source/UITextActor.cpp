@@ -4,7 +4,7 @@
 UITextActor::UITextActor(ModeBase* base) 
 	:UIChipClass(base,VGet(0,0,0), "res/UI/UI_MESSAGE2.png",190)
 {
-
+	ChangeFont("コーポレート・ロゴ ver3 Bold");
 }
 
 UITextActor::~UITextActor() {

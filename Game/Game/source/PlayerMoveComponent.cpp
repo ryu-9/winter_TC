@@ -140,8 +140,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		if (_Trg & PAD_INPUT_4 && _DashTime <= -1000 && _JumpFlag) {
 			_DashTime = 500;
-			SoundServer::GetInstance()->Create(_pOwner, "dash", "SE", "dash");
-			SoundServer::GetInstance()->GetSourceVoice(_pOwner, "dash")->Play();
+			SoundServer::GetInstance()->Create(_pOwner, "jb_dash", "SE", "jb_dash")->Play();
 			if (_pOwner->GetPlayerNo() == 1) {
 				auto s = SoundServer::GetInstance()->Create(_pOwner, "jin_dash", "SE", "jin_dash");
 				s->Play();
@@ -154,8 +153,7 @@ void PlayerMoveComponent::ProcessInput()
 			_pOwner->SetChangeFlag(true);
 			if (_JumpFlag) {
 				velocity.y = 10;
-				SoundServer::GetInstance()->Create(_pOwner, "jump", "SE", "jump");
-				SoundServer::GetInstance()->GetSourceVoice(_pOwner, "jump")->Play();
+				SoundServer::GetInstance()->Create(_pOwner, "jb_jump", "SE", "jb_jump")->Play();
 				if (gGlobal._SelectStage == 0) {
 					auto g = dynamic_cast<ModeGame*>(_Owner->GetMode());
 					g->GetUIT()->AddText("Scenario", "jump", true);

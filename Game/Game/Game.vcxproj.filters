@@ -249,11 +249,11 @@
     <ClCompile Include="source\TimerComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="source\UITextActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="source\BulletComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UITextActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

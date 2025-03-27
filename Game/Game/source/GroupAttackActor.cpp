@@ -43,6 +43,7 @@ void GroupSpawnerActor::UpdateActor() {
 				}
 				if (n >= 2) {
 					_Active = true;
+					gGlobal._IsGroupAttack = true;
 					auto g = dynamic_cast<ModeGame*>(GetMode());
 					auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
 					
@@ -56,30 +57,11 @@ void GroupSpawnerActor::UpdateActor() {
 					c->SetTarget2(t);
 					c->SetPosition2(p);
 					c->SetEasing(1000);
-					if (gGlobal._SelectStage == 0) {
-						g->GetUIT()->AddText("Scenario", "g1-1", true);
-					}
-					if (gGlobal._SelectStage == 1) {
-						switch (_Num) {
-						case 0:
-							g->GetUIT()->AddText("Scenario", "g2-1", true);
-							break;
-						case 1:
-							g->GetUIT()->AddText("Scenario", "g2-2", true);
-							break;
-						case 2:
-							g->GetUIT()->AddText("Scenario", "g2-3", true);
-							break;
-						case 3:
-							g->GetUIT()->AddText("Scenario", "g2-4", true);
-							break;
-						case 4:
-							g->GetUIT()->AddText("Scenario", "g2-5", true);
-							break;
-						default:
-							break;
-						}
-					}
+					
+					auto s = gGlobal._SelectStage +1;
+					auto n = _Num +1;
+					std::string key = "g" + std::to_string(s) + "_" + std::to_string(n);
+					g->GetUIT()->AddText("Scenario", key, true);
 					break;
 				}
 			}
@@ -90,6 +72,7 @@ void GroupSpawnerActor::UpdateActor() {
 		_TmCnt += GetMode()->GetStepTm();
 		if ((_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0)) {
 			_Active = false;
+			gGlobal._IsGroupAttack = false;
 			auto g = dynamic_cast<ModeGame*>(GetMode());
 			auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
 			c->DeletePosition2();
@@ -104,19 +87,19 @@ void GroupSpawnerActor::UpdateActor() {
 			if (gGlobal._SelectStage == 1) {
 				switch (_Num) {
 				case 0:
-					g->GetUIT()->AddText("Scenario", "g2-1win", true);
+					g->GetUIT()->AddText("Scenario", "g2_1win", true);
 					break;
 				case 1:
-					g->GetUIT()->AddText("Scenario", "g2-2win", true);
+					g->GetUIT()->AddText("Scenario", "g2_2win", true);
 					break;
 				case 2:
-					g->GetUIT()->AddText("Scenario", "g2-3win", true);
+					g->GetUIT()->AddText("Scenario", "g2_3win", true);
 					break;
 				case 3:
-					g->GetUIT()->AddText("Scenario", "g2-4win", true);
+					g->GetUIT()->AddText("Scenario", "g2_4win", true);
 					break;
 				case 4:
-					g->GetUIT()->AddText("Scenario", "g2-5win", true);
+					g->GetUIT()->AddText("Scenario", "g2_5win", true);
 					break;
 				default:
 					break;

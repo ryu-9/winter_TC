@@ -40,9 +40,10 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 #endif
 #if 1
 	gGlobal._SelectStage = 1;
+	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
-	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
+	
 
 #endif
 

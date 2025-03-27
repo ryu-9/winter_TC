@@ -33,6 +33,8 @@ public:
 	// ステージ選択
 	int		_SelectStage;
 
+	bool _IsGroupAttack;
+
 	// タイマー用
 	int		_StartTime;		// 開始時間
 	int		_EndTime;		// 終了時間

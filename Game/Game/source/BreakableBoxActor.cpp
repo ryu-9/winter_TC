@@ -1,4 +1,5 @@
 #include "BreakableBoxActor.h"
+#include "appframe.h"
 
 BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 	: ActorClass(mode)
@@ -65,4 +66,5 @@ void BreakableBoxActor::StartBreak()
 	_AnimCount = 1;
 	_Model->SetVisible(true);
 	_Model2->SetVisible(false);
+	SoundServer::GetInstance()->Create(this, "objbreak", "SE", "objbreak")->Play();
 }

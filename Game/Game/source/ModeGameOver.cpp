@@ -4,6 +4,7 @@
 #include "ModeTitle.h"
 #include "ModeGameUI.h"
 #include "ModeLoading.h"
+#include "ApplicationGlobal.h"
 
 bool ModeGameOver::Initialize() {
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_GAMEOVER_BACK.png");
@@ -57,6 +58,7 @@ bool ModeGameOver::Process() {
 			ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 			ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 		} else {
+			gGlobal._SelectStage = -1;
 			ModeServer::GetInstance()->Del(this);
 			auto g = ModeServer::GetInstance()->Get("game");
 			ModeServer::GetInstance()->Del(g);

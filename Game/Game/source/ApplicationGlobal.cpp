@@ -30,6 +30,7 @@ bool ApplicationGlobal::Init() {
 	_ItemList[0] = 0;
 	_ItemList[1] = 0;
 	_ItemNum = -1;
+	_IsGroupAttack = false;
 
 	return true;
 }

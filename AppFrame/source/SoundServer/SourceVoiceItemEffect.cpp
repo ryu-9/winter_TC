@@ -67,7 +67,7 @@ void SVItemDistanceDecay::Update(ActorClass* p) {
 	auto dist = VSize(VSub(pos, lpos));
 
 	// 点音源のパターン
-	auto db = 10 * log10((10000) / (dist * dist));
+	auto db = 1 * log10((1000) / (dist * dist));
 
 	_svItem->SetVolumeDB(db);
 }

@@ -997,6 +997,7 @@ void PlayerActor::ChangeMode(int mode)
 		_ItemNum = 0;
 		if (mode % 2 == 1) {
 			SoundServer::GetInstance()->Create(this, "alert", "SE", "alert");
+			SoundServer::GetInstance()->Create(this, "tdxwake", "SE", "tdxwake")->Play();
 		}
 	}
 }
@@ -1179,7 +1180,7 @@ void PlayerActor::AddSize(float size, bool flag)
 
 
 void PlayerActor::Damage(float damage, int time) {
-	if (_ModeNum == 0 && _InvincibleTime <= 0 && _ChangeTime ==0) {
+	if (_ModeNum == 0 && _InvincibleTime <= 0 && _ChangeTime == 0) {
 		_InvincibleTime = time;
 		_AnimTime = 120;
 		if (_Input->GetDashFlag()) {
@@ -1188,18 +1189,10 @@ void PlayerActor::Damage(float damage, int time) {
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
 		if (GetSize().x >= 1.f) {
 			if (_PlayerNo == 1) {
-				auto s =SoundServer::GetInstance()->Create(this, "jin_damage", "SE", "jin_damage");
+				auto s = SoundServer::GetInstance()->Create(this, "jin_damage", "SE", "jin_damage");
 				s->Play();
 			} else {
 				auto s = SoundServer::GetInstance()->Create(this, "bel_damage", "SE", "bel_damage");
-				s->Play();
-			}
-		} if (GetSize().x < 1.f) {
-			if (_PlayerNo == 1) {
-				auto s = SoundServer::GetInstance()->Create(this, "jin_damage_l", "SE", "jin_damage_l");
-				s->Play();
-			} else {
-				auto s = SoundServer::GetInstance()->Create(this, "bel_damage_l", "SE", "bel_damage_l");
 				s->Play();
 			}
 		}
@@ -1214,6 +1207,17 @@ void PlayerActor::Damage(float damage, int time) {
 			}
 			Init();
 		}
+
+		else if (GetSize().x < 1.f) {
+			if (_PlayerNo == 1) {
+				auto s = SoundServer::GetInstance()->Create(this, "jin_damage_l", "SE", "jin_damage_l");
+				s->Play();
+			} else {
+				auto s = SoundServer::GetInstance()->Create(this, "bel_damage_l", "SE", "bel_damage_l");
+				s->Play();
+			}
+		}
+
 	}
 }
 

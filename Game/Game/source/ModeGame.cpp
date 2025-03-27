@@ -167,47 +167,58 @@ bool ModeGame::Initialize() {
 		LoadStage("res/Stage/", "Stage1.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE1_GRP_MATCH.wav", "bgm3", true);
 		_UIT->AddText("Scenario", "start", true);
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_GRP_MATCH.wav", "bgm3", true);
 		_UIT->AddText("Scenario", "Stage2", true);
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_GRP_MATCH.wav", "bgm3", true);
 		_UIT->AddText("Scenario", "Stage3", true);
 		break;
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm2");
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1" ,true);
 		_UIT->AddText("Scenario", "Stage4", true);
 		break;
 	default:
 		break;
 	}
+
 	new BGMActor(this);
+
+	
 	
 
 	{
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy2");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jump");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_LAND.wav", "land");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "punch");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RFLZ.wav", "laser");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BLADE.wav", "blade");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_OUTTIMER.wav", "alert");
-		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CON_FIRE.wav", "cornfire");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK1.wav", "boxwalk1");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK2.wav", "boxwalk2");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CLEAR2.wav", "clear");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_CON_FIRE.wav", "cornfire");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DASH.wav", "dash");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_DKP.wav", "daikanpa");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_DEATH.wav", "KillEnemy");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_ENM_HIT.wav", "KillEnemy2");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GAMEOVER2.wav", "gameover");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_GROUND.wav", "landing");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_ATK.wav", "jb_atk");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_DASH.wav", "jb_dash");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_JINBEL_JUMP.wav", "jb_jump");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_OBJ_BREAK.wav", "objbreak");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_OUTTIMER.wav", "alert");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RFLZ.wav", "laser");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "punch");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_STAGE_START.wav", "start");
+		SoundServer::GetInstance()->Add("res/sound/SE/TDX_WAKE_UP.wav", "tdxwake");
 
 		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_ATTACK.wav", "jin_dash");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_ATTACK.wav", "bel_dash");
