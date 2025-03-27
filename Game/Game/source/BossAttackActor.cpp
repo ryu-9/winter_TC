@@ -78,7 +78,7 @@ void BossAttackActor::UpdateActor() {
 
 		auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 		if (enemy != nullptr) {
-			enemy->SetState(State::eDead);
+			enemy->Death(0);
 			continue;
 		}
 	}
