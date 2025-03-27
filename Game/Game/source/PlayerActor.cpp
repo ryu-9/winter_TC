@@ -176,7 +176,7 @@ void PlayerActor::UpdateActor() {
 		}
 		if (_ChangeTime <= 0) {
 			ChangeMode(0);
-			_InvincibleTime = 1000;
+			_InvincibleTime = 3000;
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
 			if (sv == nullptr) {
 				sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
@@ -485,7 +485,7 @@ void PlayerActor::UpdateActor() {
 				int itemnum = item->GetType();
 				switch (itemnum) {
 				case 0:
-					AddSize(0.2 * GetSize().x, true);
+					AddSize(0.3 * GetSize().x, true);
 					break;
 				case 1:
 				case 2:
@@ -732,6 +732,7 @@ void PlayerActor::UpdateActor() {
 				VECTOR tmppos = VGet(0, -GetSize().y * 100 , 0);
 
 				float tmpsize = GetSize().x * 1.5 + _Friend->GetSize().y * 1.5;
+				tmpsize *= 1.5;
 				auto slash = new SlashActor(GetMode(), this, tmppos, _Friend->GetSize().y * 150, VGet(0, 0, 0), tmpdir, VGet(GetSize().x * 10, tmpsize, GetSize().z * 10));
 				_PunchFlag = true;
 			}
@@ -783,7 +784,7 @@ void PlayerActor::UpdateActor() {
 			gGlobal._IsPlayerDead[_PlayerNo - 1] = FALSE;
 		}
 		_DeadTime += dt;
-		if (_DeadTime > 5000) {
+		if (_DeadTime > 10000) {
 			ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
 		}
 

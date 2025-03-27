@@ -1,5 +1,6 @@
 #include "SlashActor.h"
 #include "EnemyActor.h"
+#include "SnowComponent.h"
 
 SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float height, VECTOR move, VECTOR rot, VECTOR scale)
 	:ActorClass(mode)
@@ -21,6 +22,8 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float heig
 	//size /= 4;
 	int handle = ModelServer::GetInstance()->Add("res/model/Sundercross/slashHit.mv1");
 	_HCollision = new HitCollisionComponent(this, nullptr, VGet(0, -height, 0), scale, 6, true, true, handle);
+	_MCollision = new MoveCollisionComponent(this, nullptr, VGet(0, -height, 0), scale, 6, true, true, handle);
+	_MCollision->SetIsMove(false);
 	//auto model = new ModelComponent(this, "res/model/Sundercross/slashHit.mv1");
 	//model->SetScale(VGet(size, size/4, size));
 	//MV1SetVisible(model->GetHandle(), FALSE);
@@ -34,6 +37,14 @@ SlashActor::~SlashActor()
 
 void SlashActor::UpdateActor()
 {
+
+	for (auto mc : _MCollision->GetCollResult()) {
+		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
+		for (auto s : snow) {
+			s->AddMoveCollision2(_MCollision);
+		}
+	}
+
 	_LifeTime -= GetMode()->GetStepTm();
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {

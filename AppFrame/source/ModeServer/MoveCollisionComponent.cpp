@@ -66,8 +66,11 @@ void MoveCollisionComponent::Update() {
 
 		drawpos[0] = GetPosition();
 
-		if (_Move == nullptr) {
-			_Move = _Owner->GetComponent<MoveComponent>()[0];
+		if (_Move == nullptr && isMove) {
+			auto mc = _Owner->GetComponent<MoveComponent>();
+			if (mc.size() > 0) {
+				_Move = mc[0];
+			}
 		}
 
 

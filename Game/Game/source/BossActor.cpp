@@ -58,6 +58,8 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 
 	// �^�C�����C���̐ݒ�
 	std::vector<ACTION_TIMELINE> timeline;
+	//timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 17000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::BULLET, 12000 });
@@ -397,9 +399,10 @@ bool BossActor::PunchFall() {
 
 bool BossActor::Damage() {
 	if (_AnimTime == 0) {
-		while (_AnimIndex.size() > 0)
-		MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
-		_AnimIndex.pop();
+		while (_AnimIndex.size() > 1) {
+			MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
+			_AnimIndex.pop();
+		}
 		_AnimRate = 1.f;
 	}
 	if (_AnimTime < _AnimTotalTime) {
@@ -440,7 +443,7 @@ void BossActor::GeneratePunch() {
 	auto mv = new MoveComponent(ac);
 	mv->SetGravity(false);
 	dir = VScale(VNorm(dir), -1);
-	auto effect = new EffectSpriteComponent(ac, "res/model/Sundercross/Panch_enemy_2.efkefc", VGet(0, 0, 0),dir, 8, true);
+	auto effect = new EffectSpriteComponent(ac, "res/model/Sundercross/Panch_enemy_2.efkefc", VGet(0, 0, 0),dir, 8, true, 0.5);
 	dir = VScale(VNorm(dir), -20);
 	mv->SetVelocity(dir);
 

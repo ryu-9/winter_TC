@@ -12,5 +12,6 @@ public:
 private:
 	int _LifeTime;
 	HitCollisionComponent* _HCollision;
+	MoveCollisionComponent* _MCollision;
 };
 
