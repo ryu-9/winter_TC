@@ -20,5 +20,8 @@ private:
 	int _Side;
 	int _DrawType;		// É^ÉCÉv	
 	int _ModeType;
+
+	int _TM;
+	int _Alpha;
 };
 

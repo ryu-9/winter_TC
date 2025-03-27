@@ -25,16 +25,16 @@ UIItemSpriteComponent::~UIItemSpriteComponent() {
 }
 
 void UIItemSpriteComponent::Draw() {
-	auto tmpx = 76;
+	auto tmpx = 45;
 	
 		for (auto i = 0; i < gGlobal._ItemList[0]; i++) {
 			auto x = tmpx * (6 - i);
-			DrawGraph(_Owner->GetPosition().x - x - (_CGData[1].width * 0.5) - 24, _Owner->GetPosition().y - 30, _CGData[0].handle, TRUE);
-
+			//DrawGraph(_Owner->GetPosition().x - x - (_CGData[1].width * 0.5) - 24, _Owner->GetPosition().y - 30, _CGData[0].handle, TRUE);
+			DrawExtendGraph(_Owner->GetPosition().x - x - (_CGData[0].width * 0.2) - 10, _Owner->GetPosition().y - (_CGData[0].height * 0.2) + 60, _Owner->GetPosition().x - x + (_CGData[0].width * 0.2) - 10, _Owner->GetPosition().y + (_CGData[0].height * 0.2) + 60, _CGData[0].handle, TRUE);
 		}
 		for (auto i = 0; i < gGlobal._ItemList[1]; i++) {
 			auto x = tmpx * (6 - i);
-			DrawGraph(_Owner->GetPosition().x + x - (_CGData[1].width * 0.5) + 25, _Owner->GetPosition().y - 30, _CGData[1].handle, TRUE);
+			DrawExtendGraph(_Owner->GetPosition().x - x - (_CGData[1].width * 0.2) - 10, _Owner->GetPosition().y - (_CGData[1].height * 0.2) + 60, _Owner->GetPosition().x - x + (_CGData[1].width * 0.2) - 10, _Owner->GetPosition().y + (_CGData[1].height * 0.2) + 60, _CGData[1].handle, TRUE);
 
 		}
 	if (gGlobal._ItemNum > 0) {

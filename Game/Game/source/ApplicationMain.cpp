@@ -35,10 +35,10 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	
 	// ���[�h�̓o�^
-#if 1
+#if 0
 	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 #endif
-#if 0
+#if 1
 	gGlobal._Stageflg = 2;
 	ModeServer::GetInstance()->Add(new ModeStageSelect(), 3, "select");
 

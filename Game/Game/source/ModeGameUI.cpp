@@ -11,7 +11,7 @@ bool ModeGameUI::Initialize() {
 
 	
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 966, 0), "res/UI/BASE.png", 0));
-	_UIChip.push_back(new UIItemClass(this, VGet(960, 1031, 0), "res/UI/item_stock.png", 0));
+	_UIChip.push_back(new UIItemClass(this, VGet(960, 1000, 0), "res/UI/item_stock.png", 0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(150, 974, 0), "",0,1,1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
