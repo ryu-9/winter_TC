@@ -1,5 +1,7 @@
 #include "BreakableBoxActor.h"
 #include "appframe.h"
+#include "ModeGame.h"
+#include "CameraActor.h"
 
 BreakableBoxActor::BreakableBoxActor(ModeBase* mode, VECTOR pos, VECTOR scale)
 	: ActorClass(mode)
@@ -66,5 +68,13 @@ void BreakableBoxActor::StartBreak()
 	_AnimCount = 1;
 	_Model->SetVisible(true);
 	_Model2->SetVisible(false);
-	SoundServer::GetInstance()->Create(this, "objbreak", "SE", "objbreak")->Play();
+	auto sv = SoundServer::GetInstance()->Create(this, "objbreak", "SE", "objbreak");
+	if (sv != nullptr) {
+		auto p = new SVItemPanning(sv);
+		auto g = dynamic_cast<ModeGame*>(GetMode());
+		p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+		auto di = new SVItemDistanceDecay(sv);
+		di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+		sv->Play();
+	}
 }

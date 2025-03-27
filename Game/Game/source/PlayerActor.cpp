@@ -21,6 +21,7 @@
 #include "ModeGameGoal.h"
 #include "GoalItemActor.h"
 #include "BossAttackActor.h"
+#include "CameraActor.h"
 
 
 
@@ -1177,11 +1178,25 @@ void PlayerActor::AddSize(float size, bool flag)
 
 		if (GetSize().x >= 1.f && tmps < 1.f) {
 			if (_PlayerNo == 1) {
-				auto s = SoundServer::GetInstance()->Create(this, "jin_marge", "SE", "jin_marge");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "jin_marge", "VOICE", "jin_marge");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			} else {
-				auto s = SoundServer::GetInstance()->Create(this, "bel_marge", "SE", "bel_marge");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "bel_marge", "VOICE", "bel_marge");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			}
 		}
 	}
@@ -1217,32 +1232,74 @@ void PlayerActor::Damage(float damage, int time) {
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
 		if (GetSize().x >= 1.f) {
 			if (_PlayerNo == 1) {
-				auto s = SoundServer::GetInstance()->Create(this, "jin_damage", "SE", "jin_damage");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "jin_damage", "VOICE", "jin_damage");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			} else {
-				auto s = SoundServer::GetInstance()->Create(this, "bel_damage", "SE", "bel_damage");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "bel_damage", "VOICE", "bel_damage");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			}
 		}
 		if (GetSize().x < 0.1) {
 			ChangeMode(-1);
 			if (_PlayerNo == 1) {
-				auto s = SoundServer::GetInstance()->Create(this, "jin_down", "SE", "jin_down");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "jin_down", "VOICE", "jin_down");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			} else {
-				auto s = SoundServer::GetInstance()->Create(this, "bel_down", "SE", "bel_down");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "bel_down", "VOICE", "bel_down");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			}
 			Init();
 		}
 
 		else if (GetSize().x < 1.f) {
 			if (_PlayerNo == 1) {
-				auto s = SoundServer::GetInstance()->Create(this, "jin_damage_l", "SE", "jin_damage_l");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "jin_damage_l", "VOICE", "jin_damage_l");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			} else {
-				auto s = SoundServer::GetInstance()->Create(this, "bel_damage_l", "SE", "bel_damage_l");
-				s->Play();
+				auto sv = SoundServer::GetInstance()->Create(this, "bel_damage_l", "VOICE", "bel_damage_l");
+				if (sv != nullptr) {
+					auto p = new SVItemPanning(sv);
+					auto g = dynamic_cast<ModeGame*>(GetMode());
+					p->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					auto di = new SVItemDistanceDecay(sv);
+					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
+					sv->Play();
+				}
 			}
 		}
 

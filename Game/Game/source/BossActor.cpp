@@ -59,6 +59,8 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	}
 
 	// �^�C�����C���̐ݒ�
+
+#if 0
 	std::vector<ACTION_TIMELINE> timeline;
 	//timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
 	timeline.push_back({ ACTION::PUNCH, 17000 });
@@ -90,8 +92,44 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	timeline.push_back({ ACTION::PUNCH, 7000 });
 	timeline.push_back({ ACTION::PUNCH, 7000 });
 	timeline.push_back({ ACTION::BULLET, 5000 });
-
 	_ActionTimeline.push_back(timeline);
+#endif
+#if 1
+	std::vector<ACTION_TIMELINE> timeline;
+	//
+	timeline.push_back({ ACTION::PUNCH, 10000 });
+	timeline.push_back({ ACTION::PUNCH, 10000 });
+	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 15000 });
+	_ActionTimeline.push_back(timeline);
+
+	timeline.clear();
+	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 15000 });
+	timeline.push_back({ ACTION::PUNCH, 9000 });
+	timeline.push_back({ ACTION::BULLET, 8000 });
+	_ActionTimeline.push_back(timeline);
+
+	timeline.clear();
+	timeline.push_back({ ACTION::BEAM, 8000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 7000 });
+	timeline.push_back({ ACTION::PUNCH_FALL, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 15000 });
+	timeline.push_back({ ACTION::BULLET, 7000 });
+	_ActionTimeline.push_back(timeline);
+
+	timeline.clear();
+	timeline.push_back({ ACTION::BEAM, 7000 });
+	timeline.push_back({ ACTION::PUNCH_FALL, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 15000 });
+	timeline.push_back({ ACTION::BEAM, 7000 });
+	timeline.push_back({ ACTION::PUNCH_FALL, 7000 });
+	timeline.push_back({ ACTION::PUNCH, 15000 });
+	timeline.push_back({ ACTION::BULLET, 5000 });
+	_ActionTimeline.push_back(timeline);
+
+#endif
 
 	gGlobal._BossHP = _HitPoint;
 
@@ -152,7 +190,7 @@ void BossActor::UpdateActor() {
 	for (auto h : hit) {
 		auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
 		if (punch != nullptr) {
-			_HitPoint -= 20;
+			_HitPoint -= 15;
 			gGlobal._BossHP = _HitPoint;
 
 			break;
@@ -363,7 +401,7 @@ bool BossActor::Bullet() {
 	if (_CurrentTime > 2000 && _GenerateCnt == 0) {
 		GenerateBullet();
 	}
-	if (_CurrentTime > 2500 && _GenerateCnt == 1) {
+	if (_CurrentTime > 3000 && _GenerateCnt == 1) {
 		GenerateBullet();
 	}
 
@@ -406,7 +444,7 @@ bool BossActor::PunchFall() {
 			SetPosition(VGet(GetPosition().x, -1800, GetPosition().z));
 		}
 	}
-	if (_CurrentTime > 8000) {
+	if (_CurrentTime > 12000) {
 		ChangeAnim(ACTION::WAIT);
 		ChangeAction(ACTION::WAIT);
 		SetPosition(VGet(GetPosition().x, -1800, GetPosition().z));
@@ -545,7 +583,7 @@ void BossActor::GeneratePunchFall() {
 	auto ac = new BossAttackActor(GetMode(), _Action);
 	auto n = rand() % 2;
 	auto p = GetMode()->GetPlayer(n)->GetPosition();
-	ac->SetPosition(VGet(p.x, 1000, p.z));
+	ac->SetPosition(VGet(p.x, 1300, p.z));
 	auto m = new ModelComponent(ac, "res/model/Sundercross/untitled.mv1");
 	m->SetIndipendent(true);
 	m->SetScale(VGet(10, 10, 10));

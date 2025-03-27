@@ -17,7 +17,7 @@ BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 		break;
 	case BossActor::BULLET:
 		_LifeTime = 5000;
-		mSize = VGet(500, 500, 500);
+		mSize = VGet(480, 480, 480);
 		break;
 	case BossActor::BEAM:
 		_LifeTime = 4000;

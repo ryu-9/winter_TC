@@ -98,6 +98,15 @@ void BGMActor::UpdateActor() {
 
 	}
 	if (_PlayBGM == 3) {
+		if (n >= 1 && bgm2 != nullptr) {
+			bgm3->Stop();
+			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm3");
+			auto b = SS::GetInstance()->Create(this, "bgm3", "BGM", "bgm3", 0, true);
+			b->SetVolume(0.4);
+			bgm2->SetVolume(0.4);
+			SS::GetInstance()->GetSourceVoice(this, "bgm2")->Play();
+			_PlayBGM = 2;
+		}
 		if (!gGlobal._IsGroupAttack) {
 			bgm3->Stop();
 			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm3");
