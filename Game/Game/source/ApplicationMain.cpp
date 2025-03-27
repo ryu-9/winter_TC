@@ -42,7 +42,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	gGlobal._Stageflg = 2;
 	ModeServer::GetInstance()->Add(new ModeStageSelect(), 3, "select");
 
-	//gGlobal._SelectStage = 1;
+	//gGlobal._SelectStage = 3;
 	//ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 	//ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	//ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");

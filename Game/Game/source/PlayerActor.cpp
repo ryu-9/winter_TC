@@ -483,11 +483,8 @@ void PlayerActor::UpdateActor() {
 				continue;
 			}
 
-			auto b = dynamic_cast<BossAttackActor*>(h->GetOwner());
-			if (b != nullptr) {
-				Damage(0.5);
-				continue;
-			}
+
+
 			auto item = dynamic_cast<ItemActor*>(h->GetOwner());
 			if (item != nullptr) {
 				item->SetState(State::eDead);

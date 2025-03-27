@@ -2,6 +2,7 @@
 #include "PlayerActor.h"
 #include "SnowComponent.h"
 #include "ItemActor.h"
+#include "EnemyActor.h"
 
 BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 	: ActorClass(mode)
@@ -59,6 +60,26 @@ void BossAttackActor::UpdateActor() {
 			pos.z -= 5000;
 			_HCollision->SetOldPosition(pos);
 			_MCollision->SetOldPosition(pos);
+		}
+	}
+
+	auto hit = _HCollision->IsHit();
+	for (auto h : hit) {
+		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());
+		if (p != nullptr) {
+			if (p->GetModeNum() == 0) {
+				p->Damage(0.5);
+			}
+			if (_Type == B_ACT::PUNCH || _Type == B_ACT::PUNCH_FALL) {
+				SetState(State::eDead);
+			}
+			continue;
+		}
+
+		auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
+		if (enemy != nullptr) {
+			enemy->SetState(State::eDead);
+			continue;
 		}
 	}
 
