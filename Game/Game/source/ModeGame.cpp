@@ -165,29 +165,34 @@ bool ModeGame::Initialize() {
 	switch (gGlobal._SelectStage) {
 	case 0:
 		LoadStage("res/Stage/", "Stage1.json");
+		_UIT->AddText("Scenario", "Stage1", true);
+		if (gGlobal._IsRestart) { break; }
 		SoundServer::GetInstance()->Add("res/sound/BGM/STG_BGM1.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE1_GRP_MATCH.wav", "bgm3", true);
-		_UIT->AddText("Scenario", "start", true);
 		break;
 	case 1:
 		LoadStage("res/Stage/", "Stage2.json");
+		_UIT->AddText("Scenario", "Stage2", true);
+		if (gGlobal._IsRestart) { break; }
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE2_GRP_MATCH.wav", "bgm3", true);
-		_UIT->AddText("Scenario", "Stage2", true);
 		break;
 	case 2:
 		LoadStage("res/Stage/", "Stage3.json");
+		_UIT->AddText("Scenario", "Stage3", true);
+		if (gGlobal._IsRestart) { break; }
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_NOMAL.wav", "bgm1",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm2",true);
 		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_STAGE3_GRP_MATCH.wav", "bgm3", true);
-		_UIT->AddText("Scenario", "Stage3", true);
+		
 		break;
 	case 3:
 		LoadStage("res/Stage/", "Stage4.json");
-		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1" ,true);
 		_UIT->AddText("Scenario", "Stage4", true);
+		if (gGlobal._IsRestart) { break; }
+		SoundServer::GetInstance()->Add("res/sound/BGM/TDX_BOSS.wav", "bgm1" ,true);
 		break;
 	default:
 		break;
@@ -488,7 +493,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 		
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
-			m->SetVisible(false);
+			//m->SetVisible(false);
 			m->SetPosition(VGet(0, 200, 0));
 			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
 			g[n]->SetHCollision(h);

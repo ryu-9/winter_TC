@@ -45,6 +45,7 @@ bool SoundServer::Add(std::string path,std::string name, bool isoverwrite ) {
 		if (_WavData.count(name)) {
 			_WavData.erase(name);
 		}
+		
 		if (WAVRead::Read(path.c_str(), &_WavData[name]) == false) {
 			return false;
 		}

@@ -23,8 +23,11 @@ CameraActor::CameraActor(ModeBase* mode)
 		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(255, 225, 150), 1000, 6000));
 		break;
 	case 2:
-	case 3:
+
 		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(255, 150, 150), 1000, 6000));
+		break;
+	case 3:
+		EffectController::GetInstance()->AddEffect(new FogSpriteComponent(this, -1000000, GetColor(225, 150, 255), 1000, 6000));
 		break;
 
 	default:
@@ -32,6 +35,7 @@ CameraActor::CameraActor(ModeBase* mode)
 		break;
 	}
 		EffectController::GetInstance()->AddEffectFlag(_SkySphere->GetSprite(), "Fog", false);
+		EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>()[0]->AddRemoveSprite(_SkySphere->GetSprite());
 }
 
 CameraActor::~CameraActor()
