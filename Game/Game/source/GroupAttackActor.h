@@ -27,6 +27,7 @@ private:
 	struct Spawner {
 		ModelComponent* model;
 		HitCollisionComponent* hCollision;
+		EffectSpriteComponent* effect;
 		int hp;
 	};
 

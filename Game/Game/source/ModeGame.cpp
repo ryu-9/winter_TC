@@ -224,6 +224,7 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_RZK2.wav", "punch");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_STAGE_START.wav", "start");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_WAKE_UP.wav", "tdxwake");
+		SoundServer::GetInstance()->Add("res/sound/SE/fire.wav", "bonefire");
 
 		SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_ATTACK.wav", "jin_dash");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_ATTACK.wav", "bel_dash");
@@ -242,6 +243,8 @@ bool ModeGame::Initialize() {
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_BLADE.wav", "tdx_blade");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_LAZER.wav", "tdx_laser");
 		SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_DKP.wav", "tdx_dkp");
+
+
 	}
 	
 		
@@ -494,7 +497,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 		
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
-			//m->SetVisible(false);
+			m->SetVisible(false);
 			//m->SetPosition(VGet(0, 200, 0));
 			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
 			g[n]->SetHCollision(h);

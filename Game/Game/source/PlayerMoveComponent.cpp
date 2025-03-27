@@ -25,7 +25,7 @@ void PlayerMoveComponent::ProcessInput()
 {
 	int pn = _pOwner->GetPlayerNo();
 
-	//pn = 1;
+	pn = 1;
 	_Key = ApplicationMain::GetInstance()->GetKey(pn);
 	_Trg = ApplicationMain::GetInstance()->GetTrg(pn);
 

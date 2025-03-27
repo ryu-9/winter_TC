@@ -12,9 +12,13 @@ public:
 
 	void Play();
 
-	bool GetLoopFlag() { return _Loop; }
+	void Stop();
+
+	bool GetLoopFlag() const { return _Loop; }
 
 	void SetHandle(int handle) { _Handle = handle; }
+
+	void SetIsLoop(bool loop) { _Loop = loop; }
 
 	VECTOR debugpos[2];
 

@@ -11,7 +11,7 @@
 #include "ExplosionActor.h"
 
 GroupSpawnerActor::GroupSpawnerActor(ModeBase* mode, VECTOR pos,int num)
-	: ActorClass(mode), _TmCnt(0), _PopCnt(0), _TotalPopCnt(0), _Active(false), _Num(num)
+	: ActorClass(mode), _TmCnt(-1000), _PopCnt(0), _TotalPopCnt(0), _Active(false), _Num(num)
 {
 	SetPosition(pos);
 	_Player[0] = static_cast<ModeGame*>(GetMode())->GetPlayer(0);
@@ -58,6 +58,7 @@ void GroupSpawnerActor::UpdateActor() {
 					c->SetPosition2(p);
 					c->SetEasing(1000);
 					
+
 					auto s = gGlobal._SelectStage +1;
 					auto n = _Num +1;
 					std::string key = "g" + std::to_string(s) + "_" + std::to_string(n);
@@ -69,7 +70,20 @@ void GroupSpawnerActor::UpdateActor() {
 
 	}
 	else {
-		_TmCnt += GetMode()->GetStepTm();
+		if (_TmCnt < 0) {
+			_TmCnt += GetMode()->GetStepTm();
+			if(_TmCnt < 0) { return; }
+
+			for (auto i = 0; i < _PopPos.size(); i++) {
+				auto tmpos = VSub(_PopPos[i], _Position);
+				_Spawner[i].effect = new EffectSpriteComponent(this, "res/model/Fire_MINI/fire_mini_002.efkefc", tmpos, VGet(0, 0, 0), 50, true, 0.3);
+			}
+			SoundServer::GetInstance()->Create(this, "bonefire", "AttackSE", "bonefire")->Play();
+		}
+		else {
+			_TmCnt += GetMode()->GetStepTm();
+		}
+
 		if ((_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0)) {
 			_Active = false;
 			gGlobal._IsGroupAttack = false;
@@ -155,6 +169,10 @@ void GroupSpawnerActor::UpdateActor() {
 				//delete _Spawner[i].hCollision;
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
+				if (_Spawner[i].effect != nullptr) {
+				delete _Spawner[i].effect;
+				_Spawner[i].effect = nullptr;
+				}
 				deathcnt++;
 				continue;
 			}
@@ -203,13 +221,13 @@ void GroupSpawnerActor::UpdateActor() {
 
 void GroupSpawnerActor::AddPopPos(VECTOR pos) {
 	_PopPos.push_back(pos);
-	auto tmpos = VSub(_Position,pos);
-	tmpos.y *= -1;//_Position.y -(100 * _Size.y);
-	auto model = new ModelComponent(this, "res/Stage/model/EnemyWall/ENEMYWALL.mv1",100,false);
-	model->SetScale(VGet(0.5, 0.5, 0.5));
+	auto tmpos = VSub(pos, _Position);
+	tmpos.y -= 50;
+	auto model = new ModelComponent(this, "res/Stage/model/Bonefire/fire.mv1",100,false);
+	//model->SetScale(VGet(0.5, 0.5, 0.5));
 	model->SetPosition(tmpos);
-	tmpos.y += 100;
-	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(15, 15, 15), 2,false, true,-1,false);
+	tmpos.y += 50;
+	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(30, 30, 30), 2,false, true,-1,false);
 	Spawner s;
 	s.model = model;
 	s.hCollision = hcol;

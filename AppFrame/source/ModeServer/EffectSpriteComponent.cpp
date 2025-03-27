@@ -46,7 +46,7 @@ void EffectSpriteComponent::Draw()
 		if (_Loop) {
 			Play();
 		}
-		else {
+		else if(GetOwner() == nullptr){
 			delete this;
 			return;
 		}
@@ -72,6 +72,12 @@ void EffectSpriteComponent::Play()
 	_Handle = PlayEffekseer3DEffect(_SourceHandle);
 	ModelServer::GetInstance()->AddEffectList(_Handle, this);
 	_Count = 0;
+}
+
+void EffectSpriteComponent::Stop()
+{
+	StopEffekseer3DEffect(_Handle);
+	ModelServer::GetInstance()->DelEffectList(_Handle);
 }
 
 
