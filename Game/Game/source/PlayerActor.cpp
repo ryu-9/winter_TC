@@ -717,7 +717,7 @@ void PlayerActor::UpdateActor() {
 
 
 				auto punch = new PunchActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 20), tmpdir, GetSize().x * 3);
-				auto s = SoundServer::GetInstance()->Create(this, "tdx_punch", "SE", "tdx_punch");
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_punch", "TDX", "tdx_punch");
 				s->Play();
 				_PunchFlag = true;
 			}
@@ -747,7 +747,7 @@ void PlayerActor::UpdateActor() {
 
 
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
-				auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "SE", "tdx_laser");
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "TDX", "tdx_laser");
 				s->Play();
 			}
 			if (_AnimTime > 45 && _AnimTime < 60) {
@@ -770,7 +770,7 @@ void PlayerActor::UpdateActor() {
 				float tmpsize = GetSize().x * 1.5 + _Friend->GetSize().y * 1.5;
 				tmpsize *= 1.5;
 				auto slash = new SlashActor(GetMode(), this, tmppos, _Friend->GetSize().y * 150, VGet(0, 0, 0), tmpdir, VGet(GetSize().x * 10, tmpsize, GetSize().z * 10));
-				auto s = SoundServer::GetInstance()->Create(this, "tdx_blade", "SE", "tdx_blade");
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_blade", "TDX", "tdx_blade");
 				s->Play();
 				_PunchFlag = true;
 			}
@@ -788,7 +788,7 @@ void PlayerActor::UpdateActor() {
 				//tmpdir = VScale(tmpdir, -1);
 				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
-				auto s = SoundServer::GetInstance()->Create(this, "tdx_dkp", "SE", "tdx_dkp");
+				auto s = SoundServer::GetInstance()->Create(this, "tdx_dkp", "TDX", "tdx_dkp");
 				s->Play();
 				_PunchFlag = true;
 			}

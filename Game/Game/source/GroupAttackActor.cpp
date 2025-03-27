@@ -151,8 +151,6 @@ void GroupSpawnerActor::UpdateActor() {
 		auto deathcnt = 0;
 		for (auto i = 0; i < _Spawner.size(); i++) {
 			if (_Spawner[i].hp <= 0) {
-				//delete _Spawner[i].model;
-				//delete _Spawner[i].hCollision;
 				_Spawner[i].model->SetVisible(false);
 				_Spawner[i].hCollision->SetIsActive(false);
 				deathcnt++;
@@ -203,12 +201,10 @@ void GroupSpawnerActor::UpdateActor() {
 
 void GroupSpawnerActor::AddPopPos(VECTOR pos) {
 	_PopPos.push_back(pos);
-	auto tmpos = VSub(_Position,pos);
-	tmpos.y *= -1;//_Position.y -(100 * _Size.y);
+	auto tmpos = VSub(pos, _Position);
 	auto model = new ModelComponent(this, "res/Stage/model/EnemyWall/ENEMYWALL.mv1",100,false);
 	model->SetScale(VGet(0.5, 0.5, 0.5));
 	model->SetPosition(tmpos);
-	tmpos.y += 100;
 	auto hcol = new HitCollisionComponent(this, nullptr, tmpos, VGet(15, 15, 15), 2,false, true,-1,false);
 	Spawner s;
 	s.model = model;

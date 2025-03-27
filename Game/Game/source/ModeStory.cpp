@@ -9,7 +9,7 @@
 #include "ModeTitle.h"
 
 namespace {
-	int X = 400;			// X座標基準値
+	int X = 350;			// X座標基準値
 	int Y = 700;			// Y座標基準値
 	int FONT_SIZE = 30;		// フォントサイズ
 	int TEXT_SPEED = 60;	// テキスト表示速度

@@ -22,7 +22,7 @@ bool ModeTitle::Initialize()
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 	auto ac = new ActorClass(this);
-	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm1");
+	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgm1",true);
 	SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_TITLE.wav", "jin_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_TITLE.wav", "bel_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_TITLE.wav", "tdx_title");
@@ -37,7 +37,7 @@ bool ModeTitle::Initialize()
 	_UISound->AddSound("1", "bel_title");
 	_UISound->AddSound("2", "tdx_title");
 	_UISound->AddSound("tdx_attend", "tdx_attend");
-	ChangeFont("�R�[�|���[�g�E���S ver3 Bold");
+	ChangeFont("コーポレート・ロゴ ver3 Bold");
 	return true;
 }
 

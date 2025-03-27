@@ -165,7 +165,7 @@ void PlayerMoveComponent::ProcessInput()
 			//_pOwner->SetSize(VGet(0.1, 0.1, 0.1));
 		}
 		if (_Trg & PAD_INPUT_1) {
-			//_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
+			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
 		}
 
 		SetVelocity(velocity);
@@ -220,10 +220,10 @@ void PlayerMoveComponent::ProcessInput()
 					if (_Trg & PAD_INPUT_4) {
 						auto n = rand() % 2;
 						if (n == 0) {
-							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "SE", "tdx_dash");
+							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "TDX", "tdx_dash");
 							s->Play();
 						} else {
-							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "SE", "tdx_dash2");
+							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "TDX", "tdx_dash2");
 							s->Play();
 						}
 					}

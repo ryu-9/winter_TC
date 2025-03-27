@@ -104,6 +104,7 @@ bool ModeGameUI::Process() {
 bool ModeGameUI::Render() {
 	base::Render();
 	if (gGlobal._StartTime == 0) { return false; }
+	ChangeFontType(DX_FONTTYPE_ANTIALIASING_EDGE_4X4);
 	auto tm = gGlobal._StartTime;
 	auto t = GetNowCount() - tm;
 	auto min = t / 1000 / 60;
@@ -113,5 +114,6 @@ bool ModeGameUI::Render() {
 	DrawFormatString(40, 20, GetColor(255, 255, 255), "%02d:%02d", min, sec);
 	SetFontSize(30);
 	DrawFormatString(210, 50, GetColor(255, 255, 255), "%02d", msec);
+	ChangeFontType(DX_FONTTYPE_NORMAL);
 	return false;
 }

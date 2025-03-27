@@ -3,6 +3,8 @@
 #include "SoundComponent.h"
 #include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
+#include <xapofx.h>
+#include "xaudio2fx.h"
 #pragma comment(lib, "winmm.lib")
 
 
@@ -83,6 +85,23 @@ SourceVoiceItem* SoundServer::Create(ActorClass* p, std::string wavname, std::st
 	if(dataname == "AttackSE"){
 		auto p = new SVItemPitchRand(sv);
 		p->SetUp();
+	}
+	if (dataname == "TDX") {
+		IUnknown* xapo;
+		XAudio2CreateReverb(&xapo);
+
+		XAUDIO2_EFFECT_DESCRIPTOR descriptor;
+		descriptor.InitialState = TRUE;
+		descriptor.OutputChannels = 2;
+		descriptor.pEffect = xapo;
+
+		XAUDIO2_EFFECT_CHAIN chain;
+		chain.EffectCount = 1;
+		chain.pEffectDescriptors = &descriptor;
+
+		sourceVoice->SetEffectChain(&chain);
+
+		xapo->Release();
 	}
 	
 	_SV[p][mapname] = sv;

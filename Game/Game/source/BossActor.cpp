@@ -229,23 +229,39 @@ void BossActor::UpdateActor() {
 		GetMode()->GetPlayer(0)->SetItemNum(3);
 		_ActionIndex = 0;
 		_CurrentTime = 0;
-		if (auto num = GetMode()->GetPlayer()->GetModeNum() > 0) {
+		if (auto num = GetMode()->GetPlayer(0)->GetModeNum() > 0) {
 			if (num % 2 == 0) {
-				GetMode()->GetPlayer()->ChangeMode(8);
+				auto size1 = GetMode()->GetPlayer(0)->GetSize();
+				auto size2 = GetMode()->GetPlayer(1)->GetSize();
+				GetMode()->GetPlayer(0)->ChangeMode(0);
+				GetMode()->GetPlayer(1)->ChangeMode(0);
+				GetMode()->GetPlayer(0)->SetSize(size1);
+				GetMode()->GetPlayer(1)->SetSize(size2);
+				GetMode()->GetPlayer(0)->ChangeMode(8);
+				GetMode()->GetPlayer(1)->ChangeMode(7);
 			}
 			else {
-				GetMode()->GetPlayer()->ChangeMode(7);
+				auto size1 = GetMode()->GetPlayer(0)->GetSize();
+				auto size2 = GetMode()->GetPlayer(1)->GetSize();
+				GetMode()->GetPlayer(0)->ChangeMode(0);
+				GetMode()->GetPlayer(1)->ChangeMode(0);
+				GetMode()->GetPlayer(0)->SetSize(size1);
+				GetMode()->GetPlayer(1)->SetSize(size2);
+				GetMode()->GetPlayer(0)->ChangeMode(7);
+				GetMode()->GetPlayer(1)->ChangeMode(8);
 			}
-			GenerateEnemy(7);
-			GetMode()->GetUIT()->AddText("Scenario", "boss_10", true);
-			_Invincible = 2000;
+			
+		} else {
+			GetMode()->GetPlayer()->SetItemNum(3);
 		}
-		if (_HitPoint == 0) {
-			ChangeAnim(ACTION::DIE);
-			ChangeAction(ACTION::DIE);
-
-		}
-
+		GenerateEnemy(7);
+		GetMode()->GetUIT()->AddText("Scenario", "boss_10", true);
+		_Invincible = 2000;
+	}
+	if (_HitPoint == 0) {
+		ChangeAnim(ACTION::DIE);
+		ChangeAction(ACTION::DIE);
+		GetMode()->GetUIT()->AddText("Scenario", "beat", true);
 	}
 }
 
@@ -421,6 +437,13 @@ bool BossActor::Damage() {
 }
 
 bool BossActor::Die() {
+	if (_AnimTime == 0) {
+		while (_AnimIndex.size() > 1) {
+			MV1DetachAnim(_Model[0]->GetHandle(), _AnimIndex.front());
+			_AnimIndex.pop();
+		}
+		_AnimRate = 1.f;
+	}
 	if (_AnimTime < _AnimTotalTime) {
 		auto t = (float)GetMode()->GetStepTm();
 		_AnimTime += t / 20.f;

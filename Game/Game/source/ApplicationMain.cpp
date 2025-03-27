@@ -35,11 +35,11 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	
 	// ���[�h�̓o�^
-#if 0
+#if 1
 	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 #endif
-#if 1
-	gGlobal._SelectStage = 1;
+#if 0
+	gGlobal._SelectStage = 3;
 	ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");

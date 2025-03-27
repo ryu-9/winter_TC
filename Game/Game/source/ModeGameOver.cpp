@@ -17,7 +17,7 @@ bool ModeGameOver::Initialize() {
 	u->AddImage("res/UI/UI_GAMEOVER_END_SELECT.png");
 	_Button.push_back(u);
 	_Cur = 0;
-
+	SoundServer::GetInstance()->Create(u, "gameover", "SE", "gameover")->Play();
 	return false;
 }
 

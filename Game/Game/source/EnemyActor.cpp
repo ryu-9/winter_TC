@@ -44,14 +44,7 @@ void EnemyActor::Init() {
 }
 
 void EnemyActor::UpdateActor() {
-	/*
-	for (auto mc : _MCollision->GetCollResult()) {
-		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
-		for (auto s : snow) {
-			s->AddMoveCollision(_MCollision);
-		}
-	}
-	*/
+	
 	if (GetPosition().y < -750) {
 		_Fallcnt += _Mode->GetStepTm();
 		if (_Fallcnt > 1000) {
