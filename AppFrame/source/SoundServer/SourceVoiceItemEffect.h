@@ -70,3 +70,19 @@ private:
 	
 	class ActorClass* _Listener;		// リスナー(とりあえずアクタのみ)
 };
+
+class SVItemFilterFade : public SourceVoiceItemEffectBase {
+	typedef SourceVoiceItemEffectBase base;
+public:
+	SVItemFilterFade(class SourceVoiceItem* sv);
+	void Update(class ActorClass* p) override;
+
+	void SetFadeTime(float time) { _FadeTimeMax = time; }
+	void SetFilParam(float fil) { _FilterEnd = fil; }
+
+private:
+	float _FadeTime;
+	float _FadeTimeMax;
+	float _FilterStart;
+	float _FilterEnd;
+};

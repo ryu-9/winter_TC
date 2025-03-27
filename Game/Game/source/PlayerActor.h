@@ -127,6 +127,6 @@ private:
 	int _Item[2] = { 0,0 };
 
 	int _DeadTime;
-
+	float _AlertTime;
 };
 

@@ -29,108 +29,8 @@
 #include "LavaActor.h"
 #include "UITextComponent.h"
 #include "UITextActor.h"
+#include "ModeOption.h"
 
-class MenuItemOpenSelect : public MenuItemBase {
-public:
-	MenuItemOpenSelect(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		ModeStageSelect* modeSelect = new ModeStageSelect();
-		ModeServer::GetInstance()->Del(mdGame);
-		auto ui = ModeServer::GetInstance()->Get("gameui");
-		ModeServer::GetInstance()->Del(ui);
-		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
-		gGlobal._Stageflg = 3;
-		return 1;
-	}
-};
-
-class MenuItemHColl : public MenuItemBase {
-public:
-	MenuItemHColl(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->debug_hcoll_flag = !mdGame->debug_hcoll_flag;
-		return 1;
-	}
-};
-
-class MenuItemMColl : public MenuItemBase {
-public:
-	MenuItemMColl(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->debug_mcoll_flag = !mdGame->debug_mcoll_flag;
-		return 1;
-	}
-};
-
-class MenuItemGameClear : public MenuItemBase {
-public:
-	MenuItemGameClear(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new GoalItemActor(mdGame, p->GetPosition());
-		return 1;
-	}
-};
-
-class MenuItem1 : public MenuItemBase {
-public:
-	MenuItem1(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 1);
-		return 1;
-	}
-};
-
-class MenuItem2 : public MenuItemBase {
-public:
-	MenuItem2(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 2);
-		return 1;
-	}
-};
-
-class MenuItem3 : public MenuItemBase {
-public:
-	MenuItem3(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 3);
-		return 1;
-	}
-};
-
-class MenuItem11 : public MenuItemBase {
-public:
-	MenuItem11(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 11);
-		return 1;
-	}
-};
-
-
-class MenuItem12 : public MenuItemBase {
-public:
-	MenuItem12(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 12);
-		return 1;
-	}
-};
 
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
@@ -200,8 +100,6 @@ bool ModeGame::Initialize() {
 
 	new BGMActor(this);
 
-	
-	
 
 	{
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BLADE.wav", "blade");
@@ -267,24 +165,13 @@ bool ModeGame::Process() {
 	int key = ApplicationMain::GetInstance()->GetKey(1);
 	int trg = ApplicationMain::GetInstance()->GetTrg(1);
 
-	/*
-	if (trg & PAD_INPUT_9) {
-		ModeMenu* modeMenu = new ModeMenu();
 
-		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
-		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
-		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
-		modeMenu->Add(new MenuItem1(this, "Item1"));
-		modeMenu->Add(new MenuItem2(this, "Item2"));
-		modeMenu->Add(new MenuItem3(this, "Item3"));
-		modeMenu->Add(new MenuItem11(this, "Item11"));
-		modeMenu->Add(new MenuItem12(this, "Item12"));
-		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
-		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
+	if (trg & PAD_INPUT_9) {
+		auto p = new ModeOption();
+		ModeServer::GetInstance()->Add(p, 99, "menu");
 
 
 	}
-	*/
 	return true;
 }
 
@@ -493,7 +380,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			g[n]->SetSize(scale);
 		
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
-			//m->SetVisible(false);
+			m->SetVisible(false);
 			m->SetPosition(VGet(0, 200, 0));
 			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
 			g[n]->SetHCollision(h);

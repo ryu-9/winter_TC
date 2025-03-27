@@ -168,7 +168,7 @@ void PlayerActor::UpdateActor() {
 
 	if (_ChangeTime > 0) {
 		_ChangeTime -= dt;
-		if (_ChangeTime <= 3000) {
+		if (_ChangeTime <= _AlertTime) {
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
 
 			if (sv != nullptr && !sv->IsPlay()) {
@@ -185,7 +185,7 @@ void PlayerActor::UpdateActor() {
 			if (sv == nullptr) {
 				sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
 			if (sv != nullptr) {
-				SoundServer::GetInstance()->DeleteSourceVoice(this,"alert");
+				sv->Stop();
 			}
 		}
 	}
@@ -1190,6 +1190,15 @@ void PlayerActor::AddSize(float size, bool flag)
 void PlayerActor::SetChangeTime(float size)
 {
 	_ChangeTime = (size * size - 4) * 5000;
+
+	_AlertTime = _ChangeTime * 0.1f;
+	if (_AlertTime > 3000) {
+		_AlertTime = 3000;
+	}
+	if (_AlertTime < 500) {
+		_AlertTime = 500;
+	}
+
 	//_ChangeTime += 3000;
 
 }

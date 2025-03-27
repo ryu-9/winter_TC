@@ -100,9 +100,6 @@ bool ModeStageSelect::Process() {
 		
 	}
 
-	if (trg & PAD_INPUT_3) {
-		ModeServer::GetInstance()->Add(new ModeOption(), 99, "option");
-	}
 	return false;
 }
 

@@ -69,7 +69,13 @@ void SourceVoiceItem::SetPitch(float pitch) {
 }
 
 void SourceVoiceItem::SetFilter(XAUDIO2_FILTER_PARAMETERS param) {
+	_FilterParam = param;
 	_SV->SetFilterParameters(&param);
+}
+
+void SourceVoiceItem::SetFilter(float param) {
+	_FilterParam.Frequency = param;
+	_SV->SetFilterParameters(&_FilterParam);
 }
 
 void SourceVoiceItem::SetPan(float pan, float pan2) {

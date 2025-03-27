@@ -38,7 +38,13 @@ void BGMActor::UpdateActor() {
 	auto bgm2 = SS::GetInstance()->GetSourceVoice(this, "bgm2");
 	auto bgm3 = SS::GetInstance()->GetSourceVoice(this, "bgm3");
 	if (_PlayBGM == 0) {
+		XAUDIO2_FILTER_PARAMETERS param;
+		param.Type = LowPassOnePoleFilter;
+		param.Frequency = 1.f;
+		param.OneOverQ = 1.0;
+		bgm1->SetFilter(param);
 		bgm1->Play();
+
 		_PlayBGM = 1;
 	}
 	auto n = dynamic_cast<ModeGame*>(_Mode)->GetPlayer()->GetModeNum();
@@ -58,21 +64,17 @@ void BGMActor::UpdateActor() {
 		auto n2 = dynamic_cast<ModeGame*>(_Mode)->GetPlayer(1)->GetModeNum();
 		if (n == -1 || n2 == -1) {
 			if (_SetFilter == false) {
-				XAUDIO2_FILTER_PARAMETERS param;
-				param.Type = LowPassOnePoleFilter;
-				param.Frequency = 0.05;
-				param.OneOverQ = 1.0;
-				bgm1->SetFilter(param);
+				auto f = new SVItemFilterFade(bgm1);
+				f->SetFadeTime(600);
+				f->SetFilParam(0.1);
 				_SetFilter = true;
 			}
 		}
 		else if (n == 0) {
 			if (_SetFilter == true) {
-				XAUDIO2_FILTER_PARAMETERS param;
-				param.Type = LowPassOnePoleFilter;
-				param.Frequency = 1;
-				param.OneOverQ = 1.0;
-				bgm1->SetFilter(param);
+				auto f =new SVItemFilterFade(bgm1);
+				f->SetFadeTime(600);
+				f->SetFilParam(1);
 				_SetFilter = false;
 			}
 		}

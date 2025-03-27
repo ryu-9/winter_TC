@@ -11,6 +11,7 @@ SourceVoiceItemEffectBase::~SourceVoiceItemEffectBase() {
 	_svItem->RemoveEffect(this);
 }
 
+
 SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
 	:base(sv) 
 	, _FadeTime(0)
@@ -31,9 +32,11 @@ void SVItemVolumeFade::Update(ActorClass* p) {
 	vol *= vol;
 	_svItem->SetVolume(vol);
 	
-	if (_FadeTime >= _FadeTimeMax && _Destroy) {
+	if (_FadeTime >= _FadeTimeMax) {
 		_svItem->SetVolume(_VolumeEnd);
-		delete this;
+		if (_Destroy) {
+			delete this;
+		}
 	}
 
 }
@@ -46,7 +49,7 @@ SVItemPitchRand::SVItemPitchRand(SourceVoiceItem* sv)
 }
 
 void SVItemPitchRand::SetUp() {
-	float r = rand() %_Rand;
+	float r = rand() % _Rand;
 	r *= 0.01f;
 	if (rand() % 2 == 0) r *= -1;
 	_svItem->SetPitch(1.0f + r);
@@ -98,4 +101,33 @@ void SVItemPanning::Update(ActorClass* p) {
 	auto pan2 = sin(angle);
 
 	_svItem->SetPan(pan1, pan2);
+}
+
+SVItemFilterFade::SVItemFilterFade(SourceVoiceItem* sv)
+	:base(sv)
+	, _FilterStart(0)
+	, _FilterEnd(0)
+	, _FadeTime(0)
+	, _FadeTimeMax(0)
+{
+	XAUDIO2_FILTER_PARAMETERS param2;
+	sv->GetSourceVoice()->GetFilterParameters(&param2);
+	_FilterStart = param2.Frequency;
+	_Destroy = true;
+
+}
+
+void SVItemFilterFade::Update(ActorClass* p) {
+	if (p == nullptr) { _FadeTime += 16; } else { _FadeTime += p->GetMode()->GetStepTm(); }
+	float rate = _FadeTime / _FadeTimeMax;
+	auto prm = _FilterStart + (_FilterEnd - _FilterStart) * rate;
+	
+	_svItem->SetFilter(prm);
+
+	if (_FadeTime >= _FadeTimeMax) {
+		_svItem->SetFilter(_FilterEnd);
+		if (_Destroy) {
+			delete this;
+		}
+	}
 }

@@ -24,6 +24,7 @@ public:
 	virtual float GetPitch();
 	virtual void SetPitch(float pitch);
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
+	virtual void SetFilter(float param);
 	virtual void SetPan(float pan,float pan2);
 //	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
@@ -45,6 +46,7 @@ private:
 	class ActorClass* _Actor;
 	IXAudio2SourceVoice* _SV;
 	std::vector<class SourceVoiceItemEffectBase*> _Effects;
+	XAUDIO2_FILTER_PARAMETERS _FilterParam;
 
 	float _Volume;
 	bool _VolumeChanged;
