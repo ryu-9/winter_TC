@@ -159,17 +159,17 @@ void CameraComponent::ProcessInput()
 
 	_Owner->SetPosition(camtarget);
 	_Owner->SetDirection(campos);
-	_Owner->SetSize(VScale(VGet(0.1, 0.1, 0.1), _Dist));
+
 	//SetCameraPositionAndTarget_UpVecY(VGet(v.x + dist, v.y + dist, v.z), v);
 	SetCameraPositionAndTarget_UpVecY(_Owner->GetDirection(), _cOwner->GetPosition());
 	SetCameraNearFar(_cOwner->GetClipNear(), _cOwner->GetClipFar());
 
 	auto smap = EffectController::GetInstance()->GetEffect<ShadowMapSpriteComponent>();
 	if (smap.size() >= 3) {
-		float dist = VSize(VSub(camtarget, campos));
-		smap[0]->SetTarget(VGet(camtarget.x, -100, camtarget.z));
-		smap[0]->SetMinLength(VGet(-2 * dist, -2 * dist, -2 * dist));
-		smap[0]->SetMaxLength(VGet(2 * dist, 4 * dist, dist * 6));
+		_Dist = VSize(VSub(camtarget, campos));
+		smap[0]->SetTarget(camtarget);
+		smap[0]->SetMinLength(VGet(-2 * _Dist, -2 * _Dist, -2 * _Dist));
+		smap[0]->SetMaxLength(VGet(2 * _Dist, 4 * _Dist, _Dist * 6));
 		if (gGlobal._SelectStage == 3) {
 			smap[0]->SetDirection(VGet(0, -1, 0));
 		}
@@ -183,6 +183,7 @@ void CameraComponent::ProcessInput()
 		smap[2]->SetMinLength(VGet(-_Player[1]->GetSize().x * 200, -_Player[1]->GetPosition().y, -_Player[1]->GetSize().x * 200));
 		smap[2]->SetMaxLength(VScale(_Player[1]->GetSize(), 200));
 	}
+	_Owner->SetSize(VScale(VGet(0.3, 0.3, 0.3), _Dist));
 }
 
 void CameraComponent::Update()
