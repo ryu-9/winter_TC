@@ -29,10 +29,14 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 	if (type == 2) { return; }
 
 	// modelがnullptrならModelComponentを取得
-	ModelComponent* modelComp;
+	ModelComponent* modelComp = nullptr;
 	if (model == nullptr)
 	{
-		modelComp = _Owner->GetComponent<ModelComponent>()[0];
+		auto modelC = _Owner->GetComponent<ModelComponent>();
+		if (modelC.size() > 0) {
+			modelComp = modelC[0];
+		}
+
 	}
 	else
 	{

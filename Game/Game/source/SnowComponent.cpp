@@ -365,9 +365,9 @@ void SnowComponent::Draw()
 				if (pl->GetSize().x > 1) {
 					tmpsize *= 2;
 				}
-				float tmp = vertexdepth * _Area / 500000 / tmpsize;
-				if (tmp > 0.002) {
-					tmp = 0.002;
+				float tmp = vertexdepth * _Area / 300000 / tmpsize;
+				if (tmp > 0.003) {
+					tmp = 0.003;
 				}
 				pl->AddSize(tmp);
 			}

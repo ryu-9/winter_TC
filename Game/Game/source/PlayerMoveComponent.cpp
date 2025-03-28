@@ -25,7 +25,7 @@ void PlayerMoveComponent::ProcessInput()
 {
 	int pn = _pOwner->GetPlayerNo();
 
-	pn = 1;
+//	pn = 1;
 	_Key = ApplicationMain::GetInstance()->GetKey(pn);
 	_Trg = ApplicationMain::GetInstance()->GetTrg(pn);
 
@@ -102,8 +102,8 @@ void PlayerMoveComponent::ProcessInput()
 
 		{
 			int dt = _Owner->GetMode()->GetStepTm();
-			float limit = 0.75;
-			float accel = 500;
+			float limit = 1.0;
+			float accel = 100;
 			if (v.x > 0) {
 				if (v.x * limit > velocity.x) {
 					velocity.x += v.x / accel * dt;
@@ -138,7 +138,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 
-		if (_Trg & PAD_INPUT_4 && _DashTime <= -1000 && _JumpFlag) {
+		if (_Trg & PAD_INPUT_1 && _DashTime <= -1000 && _JumpFlag) {
 			_DashTime = 500;
 			SoundServer::GetInstance()->Create(_pOwner, "jb_dash", "SE", "jb_dash")->Play();
 			if (_pOwner->GetPlayerNo() == 1) {
@@ -149,7 +149,7 @@ void PlayerMoveComponent::ProcessInput()
 				s->Play();
 			}
 		}
-		if (_Trg & PAD_INPUT_3) {
+		if (_Trg & PAD_INPUT_2) {
 			_pOwner->SetChangeFlag(true);
 			if (_JumpFlag) {
 				velocity.y = 10;
@@ -161,11 +161,11 @@ void PlayerMoveComponent::ProcessInput()
 				_JumpFlag = false;
 			}
 		}
-		if (_Trg & PAD_INPUT_2) {
+		if (_Trg & PAD_INPUT_3) {
 			//_pOwner->SetSize(VGet(0.1, 0.1, 0.1));
 		}
-		if (_Trg & PAD_INPUT_1) {
-			_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
+		if (_Trg & PAD_INPUT_4) {
+		//	_pOwner->SetSize(VScale(_pOwner->GetSize(),2));
 		}
 
 		SetVelocity(velocity);
@@ -208,7 +208,7 @@ void PlayerMoveComponent::ProcessInput()
 		{
 			bool dashFlag = false;
 			int dt = _Owner->GetMode()->GetStepTm();
-			if (_Key & PAD_INPUT_4) {
+			if (_Key & PAD_INPUT_1) {
 				
 				if (_DashDownTime >= 1000) {
 					dashFlag = true;
@@ -217,7 +217,7 @@ void PlayerMoveComponent::ProcessInput()
 						_DashTime += dt;
 						// ゴールデンは無敵！！！
 					}
-					if (_Trg & PAD_INPUT_4) {
+					if (_Trg & PAD_INPUT_1) {
 						auto n = rand() % 2;
 						if (n == 0) {
 							auto s = SoundServer::GetInstance()->Create(_pOwner, "tdx_dash", "TDX", "tdx_dash");
@@ -260,7 +260,7 @@ void PlayerMoveComponent::ProcessInput()
 
 		v.y = GetVelocity().y;
 
-		if (_Key & PAD_INPUT_3 && _pOwner->GetModeNum() == 7) {
+		if (_Key & PAD_INPUT_1 && _pOwner->GetModeNum() == 7) {
 			v.y = 10;
 		}
 
@@ -290,7 +290,7 @@ void PlayerMoveComponent::ProcessInput()
 		//VECTOR fripos = _pOwner->GetFriend()->GetPosition();
 		//_pOwner->SetPosition(VAdd(VGet(fripos.x, fripos.y + (_pOwner->GetFriend()->GetSize().y + _pOwner -> GetFriend()->GetSize().y) * 40, fripos.z), VScale( VGet(0, 160, 0), _pOwner->GetSize().x)));
 		
-		if (_Trg & PAD_INPUT_4) {
+		if (_Trg & PAD_INPUT_1) {
 			_pOwner->ChangeAnim(3 + _pOwner->GetModeNum() / 2);
 		}
 

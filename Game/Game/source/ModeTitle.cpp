@@ -62,6 +62,7 @@ base::Process();
 		if (_TitleTm > _StepTm[_Step]) { newstep++; }
 		else if (trg & PAD_INPUT_1) {
 			newstep = 2;
+			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/UI/UI_LOGO.png"));
 			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
 		}
 		break;

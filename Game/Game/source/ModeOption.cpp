@@ -60,7 +60,7 @@ bool ModeOption::Initialize() {
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/BACK_ALL.png");
 	new UIChipClass(this, VGet(1446, 540, 0), "res/UI/UI_POSE_BACKGROUND.png");
 	new UIChipClass(this, VGet(1518, 270, 0), "res/UI/UI_POSE_MENU.png");
-	new UIChipClass(this, VGet(438, 237, 0), "res/UI/UI_POSE_HOW_MOVE.png");
+	new UIChipClass(this, VGet(438, 540, 0), "res/UI/UI_POSE_HOW_MOVE.png");
 	_Cur = 0;
 	Add(new OpMenuItemContinue(this));
 	Add(new OpMenuOpenSelect(this));

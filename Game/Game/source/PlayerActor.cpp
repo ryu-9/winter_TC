@@ -492,7 +492,7 @@ void PlayerActor::UpdateActor() {
 				int itemnum = item->GetType();
 				switch (itemnum) {
 				case 0:
-					AddSize(0.3 * GetSize().x, true);
+					AddSize(0.5 * GetSize().x, true);
 					break;
 				case 1:
 				case 2:
@@ -552,7 +552,7 @@ void PlayerActor::UpdateActor() {
 	case 5:
 	case 7:
 	{
-		if (_Input->GetKey() & PAD_INPUT_3) {
+		if (_Input->GetKey() & PAD_INPUT_2) {
 			_SeparateTime += dt;
 			if (_SeparateTime > 1000 && _Friend->GetSeparateTime() > 1000) {
 				ChangeMode(0);
@@ -669,7 +669,7 @@ void PlayerActor::UpdateActor() {
 			_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 			_TopModel->SetUp(VGet(0, 1, 0));
 		}
-		if (_Input->GetKey() & PAD_INPUT_3) {
+		if (_Input->GetKey() & PAD_INPUT_2) {
 			_SeparateTime += dt;
 			if (_SeparateTime > 1000 && _Friend->GetSeparateTime() > 1000) {
 				ChangeMode(0);
@@ -695,7 +695,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		if (_Animation == (int)anim::Punch) {
-			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 25 && !_PunchFlag) {
+			if (_Input->GetKey() & PAD_INPUT_1 && _AnimTime > 25 && !_PunchFlag) {
 				_AnimTime = 25;
 			}
 
@@ -723,7 +723,7 @@ void PlayerActor::UpdateActor() {
 
 		if (_Animation == (int)anim::Laser) {
 
-			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 50) {
+			if (_Input->GetKey() & PAD_INPUT_1 && _AnimTime > 50) {
 				_AnimTime = 45;
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
 				VECTOR tmppos = VScale(VGet(-40, -75, -275), GetSize().x);
@@ -756,7 +756,7 @@ void PlayerActor::UpdateActor() {
 		}
 
 		if (_Animation == (int)anim::Blade) {
-			if (_Input->GetKey() & PAD_INPUT_4 && _AnimTime > 25 && !_PunchFlag) {
+			if (_Input->GetKey() & PAD_INPUT_1 && _AnimTime > 25 && !_PunchFlag) {
 				_AnimTime = 25;
 			}
 
@@ -1202,6 +1202,7 @@ void PlayerActor::AddSize(float size, bool flag)
 void PlayerActor::SetChangeTime(float size)
 {
 	_ChangeTime = (size * size - 4) * 5000;
+	_ChangeTime += 3000;
 
 	_AlertTime = _ChangeTime * 0.1f;
 	if (_AlertTime > 3000) {
@@ -1211,7 +1212,7 @@ void PlayerActor::SetChangeTime(float size)
 		_AlertTime = 500;
 	}
 
-	//_ChangeTime += 3000;
+
 
 }
 

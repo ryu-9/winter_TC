@@ -26,8 +26,6 @@ UIItemSpriteComponent::~UIItemSpriteComponent() {
 
 void UIItemSpriteComponent::Draw() {
 	auto tmpx = 42;
-	gGlobal._ItemList[0] = 6;
-	gGlobal._ItemList[1] = 6;
 		for (auto i = 0; i < gGlobal._ItemList[0]; i++) {
 			auto x = tmpx * (6 - i);
 			

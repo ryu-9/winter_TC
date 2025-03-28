@@ -133,6 +133,18 @@ public:
 	}
 };
 
+class Big : public MenuItemBase {
+public:
+	Big(void* param, std::string text) : MenuItemBase(param, text) {}
+	virtual int Selected() {
+		ModeGame* mdGame = static_cast<ModeGame*>(_param);
+		mdGame->GetPlayer(0) -> SetSize(VGet(2, 2, 2));
+		mdGame->GetPlayer(1)->SetSize(VGet(2, 2, 2));
+		
+		return 1;
+	}
+};
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
@@ -140,7 +152,7 @@ bool ModeGame::Initialize() {
 //	SetFogEnable(TRUE);
 //	SetFogStartEnd(200, 10000);
 	_UIT = new UITextActor(this);
-	_UIT->SetPosition(VGet(960, 940, 0));
+	_UIT->SetPosition(VGet(960, 840, 0));
 	
 	SetDrawCollision(TRUE);
 	_EffectController = new EffectController(this);
@@ -270,14 +282,14 @@ bool ModeGame::Process() {
 	int trg = ApplicationMain::GetInstance()->GetTrg(1);
 
 
-	if (trg & PAD_INPUT_9) {
+	if (trg & PAD_INPUT_10) {
 		auto p = new ModeOption();
 		ModeServer::GetInstance()->Add(p, 99, "menu");
 
 
 	}
 
-	if (trg & KEY_INPUT_INSERT) {
+	if (trg & PAD_INPUT_9) {
 		ModeMenu* modeMenu = new ModeMenu();
 		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
 		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
@@ -287,6 +299,7 @@ bool ModeGame::Process() {
 		modeMenu->Add(new MenuItem3(this, "Item3"));
 		modeMenu->Add(new MenuItem11(this, "Item11"));
 		modeMenu->Add(new MenuItem12(this, "Item12"));
+		modeMenu->Add(new Big(this, "Big"));
 		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
 		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
 	}
@@ -347,25 +360,6 @@ bool ModeGame::Render() {
 #endif
 
 
-/*
-	// 0,0,0地点にラインを描画
-	{
-		float linelength = 1000.f;
-		VECTOR v = { 0, 0, 0 };
-		DrawLine3D(VAdd(v, VGet(-linelength, 0, 0)), VAdd(v, VGet(linelength, 0, 0)), GetColor(255, 0, 0));
-		DrawLine3D(VAdd(v, VGet(0, -linelength, 0)), VAdd(v, VGet(0, linelength, 0)), GetColor(0, 255, 0));
-		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
-	}
-
-	// カメラのターゲット位置にラインを描画
-	{
-		float linelength = 10.f;
-		VECTOR v = _Camera->GetDirection();
-		DrawLine3D(VAdd(v, VGet(-linelength, 0, 0)), VAdd(v, VGet(linelength, 0, 0)), GetColor(255, 0, 0));
-		DrawLine3D(VAdd(v, VGet(0, -linelength, 0)), VAdd(v, VGet(0, linelength, 0)), GetColor(0, 255, 0));
-		DrawLine3D(VAdd(v, VGet(0, 0, -linelength)), VAdd(v, VGet(0, 0, linelength)), GetColor(0, 0, 255));
-	}
-//*/
 	_EffectController->Draw();
 
 
@@ -426,10 +420,10 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gwn = 5;
 		break;
 	case 2:
-		poppos.resize(3);
-		g.resize(3);
-		gw.resize(9);
-		gwn = 18;
+		poppos.resize(6);
+		g.resize(6);
+		gw.resize(20);
+		gwn = 5;
 		break;
 		// TODO: ウォールの個数修正
 	default:
@@ -566,7 +560,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gw[3]->SetActor(g[0]);
 		g[0]->SetType(0);
 		break;
-	case 1:
+	case 2:
 		gw[0]->SetIsActive(false);
 		gw[1]->SetIsActive(true);
 		gw[2]->SetIsActive(true);
@@ -600,7 +594,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		g[4]->SetType(4);
 		g[5]->SetType(4);
 		break;
-	case 2:
+	case 1:
 		gw[0]->SetIsActive(false);
 		gw[1]->SetIsActive(true);
 		gw[2]->SetIsActive(false);

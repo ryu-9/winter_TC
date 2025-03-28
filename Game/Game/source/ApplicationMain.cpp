@@ -39,7 +39,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 #endif
 #if 1
-	gGlobal._Stageflg = 2;
+	gGlobal._Stageflg = 3;
 	ModeServer::GetInstance()->Add(new ModeStageSelect(), 3, "select");
 
 	//gGlobal._SelectStage = 3;

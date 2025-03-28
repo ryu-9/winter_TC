@@ -119,6 +119,21 @@ void GroupSpawnerActor::UpdateActor() {
 					break;
 				}
 			}
+			if (gGlobal._SelectStage == 2) {
+				switch (_Num) {
+				case 0:
+					g->GetUIT()->AddText("Scenario", "g3_1win", true);
+					break;
+				case 1:
+					g->GetUIT()->AddText("Scenario", "g3_2win", true);
+					break;
+				case 2:
+					g->GetUIT()->AddText("Scenario", "g3_3win", true);
+					break;
+				default:
+					break;
+				}
+			}
 		}
 
 

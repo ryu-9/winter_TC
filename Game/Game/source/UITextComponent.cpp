@@ -6,9 +6,9 @@
 #include "applicationGlobal.h"
 
 namespace {
-	int X = -360;			// X座標基準値
-	int Y = -40;			// Y座標基準値
-	int FONT_SIZE = 22;		// フォントサイズ
+	int X = -380;			// X座標基準値
+	int Y = -100;			// Y座標基準値
+	int FONT_SIZE = 24;		// フォントサイズ
 	int TEXT_SPEED = 70;	// テキスト表示速度
 }
 
@@ -77,7 +77,7 @@ void UITextComponent::Draw() {
 	SetFontSize(FONT_SIZE);
 	int x = _Owner->GetPosition().x + X;
 	int y = _Owner->GetPosition().y + Y;
-	DrawFormatString(x, y, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
+	DrawFormatString(x, y + 150, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
 	y += FONT_SIZE + 7;
 	for (int i = 0; i < _TextData.size(); i++) {
 		auto text = iojson::ConvertString(_TextData[i].text);
