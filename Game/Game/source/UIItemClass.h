@@ -15,7 +15,5 @@ public:
 	virtual ~UIItemSpriteComponent();
 	void Draw() override;
 
-private:
-
 };
 

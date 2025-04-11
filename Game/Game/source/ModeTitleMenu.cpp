@@ -6,6 +6,7 @@
 #include "UISoundActor.h"
 #include "ApplicationGlobal.h"
 
+// 初めから開始ボタン
 class TMenuItemStart : public MenuItemBase
 {
 public:
@@ -27,7 +28,7 @@ public:
 	}
 };
 
-
+// 続きから開始ボタン
 class TMenuItemContinue : public MenuItemBase {
 public:
 	TMenuItemContinue(void* param, std::string text) : MenuItemBase(param, text) {
@@ -47,6 +48,7 @@ public:
 	}
 };
 
+// ゲーム終了ボタン
 class TMenuItemExit : public MenuItemBase {
 public:
 	TMenuItemExit(void* param, std::string text) : MenuItemBase(param, text) {
@@ -62,18 +64,20 @@ public:
 	}
 };
 
-bool ModeTitleMenu::Initialize()
-{
+bool ModeTitleMenu::Initialize() {
+	if (!base::Initialize()) { return false; }
+	// メニューの初期化
 	new UIChipClass(this, VGet(1446, 540, 0), "res/UI/UI_START_BACKGROUND.png", 110);
 	new UIChipClass(this, VGet(1518, 270, 0), "res/UI/UI_START_MENU.png", 110);
 	Add(new TMenuItemStart(this, "はじめから"));
-	// if(もしセーブデータがあったら)
 	Add(new TMenuItemContinue(this, "つづきから"));
 	Add(new TMenuItemExit(this, "ゲーム終了"));
 	
+	// カーソルの初期化
 	_Cur = 0;
 	_vItems[_Cur]->Send(1);
 
+	// サウンドの追加
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("enter", "enter");
 	_UISound->AddSound("select", "select");

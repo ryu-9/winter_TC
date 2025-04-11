@@ -14,13 +14,11 @@ public:
 
 
 private:
-	std::vector<UIChipClass*> _UIChip;
-	int _Step;
-	int _TitleTm;
-	std::vector<int> _StepTm;
-	class ActorClass* _Bgm;
-	class UISoundActor* _UISound;
-
+	std::vector<UIChipClass*> _UIChip;		// UI
+	int _Step;								// 現在のステップ
+	int _TitleTm;							// タイトル表示時間
+	std::vector<int> _StepTm;				// ステップ時間
+	class UISoundActor* _UISound;			// UIサウンド
 };
 
 

@@ -3,9 +3,8 @@
 #include "BossActor.h"
 
 class BossAttackActor : public ActorClass{
-	typedef BossActor::ACTION B_ACT;
 public:
-	BossAttackActor(ModeBase* mode, B_ACT type);
+	BossAttackActor(ModeBase* mode, BossActor::ACTION type);
 	virtual ~BossAttackActor();
 	void UpdateActor() override;
 
@@ -13,8 +12,8 @@ public:
 private:
 	class HitCollisionComponent* _HCollision;
 	class MoveCollisionComponent* _MCollision;
-	int _Time;
-	B_ACT _Type;
-	int _LifeTime;
+	int _Time;					// ŠÔ
+	BossActor::ACTION _Type;	// UŒ‚‚Ìí—Ş
+	int _LifeTime;				// UŒ‚‚Ì‘±ŠÔ
 };
 

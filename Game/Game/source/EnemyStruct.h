@@ -7,12 +7,6 @@ namespace Enemy {
 		float angle;	// ’TõŠp“x
 	};
 
-	struct SEARCH_RES {
-		bool isFind;
-		float dist;
-		class ActorClass* actor;
-	};
-
 	struct MOVE {
 		int duration;		// ˆÚ“®ŠÔ_Šî–{
 		int dur_rand;		// ˆÚ“®ŠÔ_ƒ‰ƒ“ƒ_ƒ€•ª

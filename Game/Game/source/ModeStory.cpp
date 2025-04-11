@@ -77,7 +77,6 @@ bool ModeStory::Process() {
 
 				ModeServer::GetInstance()->Del(this);
 				if (gGlobal._SelectStage == -1) {
-				//	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 				} else if (gGlobal._SelectStage == 2) {
 					gGlobal._SelectStage = 3;
 					ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");

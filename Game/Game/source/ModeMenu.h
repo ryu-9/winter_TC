@@ -1,6 +1,5 @@
 #pragma once
 #include "appframe.h"
-
 #include <string>
 #include <vector>
 
@@ -31,25 +30,5 @@ public:
 	void* _param;
 	std::string		_text;
 	std::vector<ActorClass*> _vAct;
-};
-
-
-class ModeMenu : public ModeBase
-{
-	typedef ModeBase base;
-public:
-	virtual bool Initialize();
-	virtual bool Terminate();
-	virtual bool Process();
-	virtual bool Render();
-
-	void	Add(MenuItemBase* itemBase);
-	void	Clear();
-
-protected:
-	std::vector<MenuItemBase*>	_vItems;
-
-	int		_curPos;
-	int		_curAnimCnt;
 };
 

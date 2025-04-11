@@ -9,7 +9,7 @@ public:
 	void UpdateActor() override;
 
 private:
-	bool _SetFilter = false;
-	int _PlayBGM;
+	bool _SetFilter = false;	// フィルター適用中か
+	int _PlayBGM;				// BGMのID
 };
 

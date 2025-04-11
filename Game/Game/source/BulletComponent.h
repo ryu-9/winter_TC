@@ -13,11 +13,11 @@ public:
 	void SetGoalPos(const VECTOR& pos) { _GoalPos = pos; }
 	void UpdateDir();
 private:
-	float _Speed;
-	float _Gravity;
-	VECTOR _Dir;
-	VECTOR _StartPos;
-	VECTOR _GoalPos;
-	int _Cnt;
+	float _Speed;		// 速度
+	float _Gravity;		// 重力
+	VECTOR _Dir;		// 移動方向
+	VECTOR _StartPos;	// 開始位置
+	VECTOR _GoalPos;	// 目標位置
+	int _Cnt;			// カウント
 };
 

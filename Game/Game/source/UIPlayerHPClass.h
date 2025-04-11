@@ -16,12 +16,12 @@ public:
 	void Draw() override;
 
 private:
-	int _Main;
-	int _Side;
+	int _Main;			// メインのスプライトかどうか
+	int _Left;			// 左のスプライトかどうか
 	int _DrawType;		// タイプ	
-	int _ModeType;
+	int _ModeType;		// モードのタイプ
 
-	int _TM;
-	int _Alpha;
+	int _TM;			// タイマー
+	int _Alpha;			// アルファ値
 };
 

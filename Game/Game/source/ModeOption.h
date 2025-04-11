@@ -1,3 +1,8 @@
+/**
+ * @file ModeOption.h
+ * @brief ゲーム中のオプションメニュー画面
+ */
+
 #pragma once
 #include "appframe.h"
 #include "ModeMenu.h"
