@@ -23,29 +23,29 @@
 #include "BossAttackActor.h"
 #include "CameraActor.h"
 
-
-
+// コンストラクタ
+// プレイヤーの初期化を行う
 PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
-	:ActorClass(mode)
-	, _ModeNum(0)
-	, _PlayerNo(playerNo)
-	, _ChangeTime(0)
-	, _Animation(1)
-	, _AnimTime(0)
-	, _AnimTotalTime(0)
-	, _AnimIndex(-1)
-	, _AnimChangingflag(false)
-	, _PunchFlag(false)
-	, _InvincibleTime(0)
-	, _PunchIndex{ -2, -2 }
-	, _ChangeFlag(false)
-	, _SeparateTime(0)
-	, _FallTime(0)
-	, _ItemNum(0)
-	, _LavaFlag(false)
-	, _DeadTime(0)
-
+	: ActorClass(mode)
+	, _ModeNum(0) // 現在のモード番号
+	, _PlayerNo(playerNo) // プレイヤー番号
+	, _ChangeTime(0) // モード変更の残り時間
+	, _Animation(1) // 現在のアニメーション
+	, _AnimTime(0) // アニメーションの経過時間
+	, _AnimTotalTime(0) // アニメーションの合計時間
+	, _AnimIndex(-1) // 現在のアニメーションインデックス
+	, _AnimChangingflag(false) // アニメーション変更中フラグ
+	, _PunchFlag(false) // パンチ中フラグ
+	, _InvincibleTime(0) // 無敵時間
+	, _PunchIndex{ -2, -2 } // パンチアニメーションのインデックス
+	, _ChangeFlag(false) // モード変更フラグ
+	, _SeparateTime(0) // 分離時間
+	, _FallTime(0) // 落下時間
+	, _ItemNum(0) // 所持アイテム番号
+	, _LavaFlag(false) // 溶岩接触フラグ
+	, _DeadTime(0) // 死亡時間
 {
+	// プレイヤー番号に応じたモデルの設定
 	if (_PlayerNo == 1) {
 		_BallModel = new ModelComponent(this, "res/model/Yukidama_bro/Yukidama_Bro.mv1");
 		_BallModel->SetScale(VGet(3, 3, 3));
@@ -61,6 +61,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 
 	_BallModel->SetIndipendent(true);
 
+	// 上半身モデルの設定
 	float pi = 3.14159265358979323846;
 	_TopModel = new ModelComponent(this, "res/model/Sundercross/Upbody_not outlined.mv1");
 	_TopModelHandle[0] = _TopModel->GetHandle();
@@ -71,13 +72,12 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 		MV1SetVisible(_TopModelHandle[i], FALSE);
 	}
 
-
 	_TopModel->SetScale(VGet(2, 2, 2));
 	_TopModel->SetPosition(VGet(0, -340, 0));
 	_TopModel->SetRotation(VGet(0, pi, 0));
-	_TopModel->SetCenter(VGet(0, 0 ,0 ));
-	//new OutlineComponent(this, "res/model/Sundercross/Upbody_outlined.mv1", _TopModel);
+	_TopModel->SetCenter(VGet(0, 0, 0));
 
+	// 下半身モデルの設定
 	_BottomModel = new ModelComponent(this, "res/model/Sundercross/Downbody_not outlined.mv1");
 	_BottomModelHandle[0] = _BottomModel->GetHandle();
 	_BottomModelHandle[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/L_Downbody_not outlined.mv1");
@@ -92,21 +92,19 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModel->SetRotation(VGet(0, pi, pi));
 	_TopModel->SetVisible(false);
 	_BottomModel->SetVisible(false);
-	//new OutlineComponent(this, "res/model/Sundercross/Downbody_outlined.mv1", _BottomModel);
-	//_MCollision = new MoveCollisionComponent(this);
-	//_MCollision->SetIsMove(true);
-	//_MCollision = new MoveCollisionComponent(this,_BallModel, VGet(0,0,0), VGet(100, 100, 100), 2, true, true);
-	//_HCollision = new HitCollisionComponent(this, _BallModel, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true);
+
+	// カーソルコンポーネントの初期化
 	_Cursor = new PlayerCursorComponent(this, _PlayerNo);
-	
+
+	// 移動コンポーネントの初期化
 	_Input = new PlayerMoveComponent(this);
 	_Input->SetGravity(0.5);
 
+	// 初期位置とサイズの設定
 	SetPosition(VGet(0, 1000, 0));
-
 	SetSize(VGet(0.1, 0.1, 0.1));
-	//SetSize(VGet(2/_PlayerNo, 2 / _PlayerNo, 2 / _PlayerNo));
 
+	// アニメーションモデルの設定
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
 	_AnimationModel[1] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1");
 	_AnimationModel[2] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_move_motion.mv1");
@@ -118,12 +116,10 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_AnimationModel[8] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_ztaireitou.mv1");
 	_AnimationModel[9] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_dankanha_motion.mv1");
 
-
+	// エフェクトの追加
 	EffectController::GetInstance()->AddEffect(new PlayerEmphasisEffect(this, GetComponent<SpriteComponent>()[0], 122, 1920, 1080));
-	//auto pee = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
-	//EffectController::GetInstance()->AddEffectFlag(pee[pee.size() - 1], "Fog", false);
-	//EffectController::GetInstance()->AddEmphasisEffect(GetComponent<SpriteComponent>()[0], 122, 1920, 1080);
 
+	// デバッグ用アニメーションの設定
 	int debug;
 	if (_PlayerNo == 1) {
 		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Surprised");
@@ -133,79 +129,86 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 		int test = MV1GetAnimIndex(_BallModel->GetHandle(), "Yukidama_sis_surprised");
 		debug = MV1AttachAnim(_BallModel->GetHandle(), 0, _BallModel->GetHandle(), TRUE);
 	}
-
-
 }
 
-PlayerActor::~PlayerActor()
-{
+// デストラクタ
+// リソースの解放を行う
+PlayerActor::~PlayerActor() {}
 
-}
 
+// アクターの更新処理
+// プレイヤーの状態、アニメーション、衝突判定、モード変更などを更新する
 void PlayerActor::UpdateActor() {
-
+	// 衝突判定の結果を取得し、SnowComponentに対して処理を行う
 	for (auto mc : _MCollision->GetCollResult()) {
 		auto snow = mc.mc->GetOwner()->GetComponent<SnowComponent>();
 		for (auto s : snow) {
 			if (!_ModeNum) {
+				// 通常モードの場合、移動衝突を追加
 				s->AddMoveCollision(_MCollision);
 			}
 			else {
+				// その他のモードの場合、別の移動衝突を追加
 				s->AddMoveCollision2(_MCollision);
 			}
 		}
 	}
 
-	VECTOR v;
+	// 各種変数の初期化
+	VECTOR v;       // プレイヤーの速度
+	VECTOR rot;     // 回転量
+	VECTOR rot2;    // 回転量（補助）
+	float friSize;  // フレンドのサイズ
+	float dist;     // 距離
+	int dt = GetMode()->GetStepTm(); // フレーム間の時間差
 
-	VECTOR rot;
-	VECTOR rot2;
-
-	float friSize;
-	float dist;
-	int dt = GetMode()->GetStepTm();
-
-
-
+	// モード変更中の処理
 	if (_ChangeTime > 0) {
-		_ChangeTime -= dt;
+		_ChangeTime -= dt; // 残り時間を減少
 		if (_ChangeTime <= _AlertTime) {
+			// アラート音を再生
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
-
 			if (sv != nullptr && !sv->IsPlay()) {
 				sv->Play();
 			}
+			// ステージが選択されている場合、UIにテキストを追加
 			if (gGlobal._SelectStage == 0) {
 				GetMode()->GetUIT()->AddText("Scenario", "TDX_out", true);
 			}
 		}
+
 		if (_ChangeTime <= 0) {
+			// モードを通常モードに変更
 			ChangeMode(0);
-			_InvincibleTime = 3000;
+			_InvincibleTime = 3000; // 無敵時間を設定
 			auto sv = SoundServer::GetInstance()->GetSourceVoice(this, "alert");
 			if (sv == nullptr) {
-				sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert"); }
+				sv = SoundServer::GetInstance()->GetSourceVoice(_Friend, "alert");
+			}
 			if (sv != nullptr) {
-				sv->Stop();
+				sv->Stop(); // アラート音を停止
 			}
 		}
 	}
 
+
+	// モード変更が負の値の場合の処理
 	if (_ChangeTime < 0 && _ModeNum != 7 && _ModeNum != 8) {
-		_ChangeTime += dt;
-		_Input->SetVelocity(VGet(0, 0, 0));
-		_Input->SetStand(true);
+		_ChangeTime += dt; // 残り時間を増加
+		_Input->SetVelocity(VGet(0, 0, 0)); // プレイヤーの速度をリセット
+		_Input->SetStand(true); // プレイヤーを立たせる
 		if (_ChangeFlag) {
+			// フレンドの位置に基づいてプレイヤーの位置を補正
 			VECTOR fpos = _Friend->GetPosition();
 			VECTOR pos = GetPosition();
 			VECTOR target = VAdd(VGet(fpos.x, fpos.y + _Friend->GetSize().y * 80, fpos.z), VScale(VGet(0, 160, 0), GetSize().x));
 			VECTOR move = VSub(target, pos);
-			move = VScale(move, (2000+(float)_ChangeTime) / 2000);
+			move = VScale(move, (2000 + (float)_ChangeTime) / 2000);
 			SetPosition(VAdd(pos, move));
 		}
 
-
 		if (_ChangeTime >= 0) {
+			// モード変更が完了した場合の処理
 			_ChangeTime = 0;
 			_Friend->SetChangeTime(0);
 			auto pe = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
@@ -215,7 +218,8 @@ void PlayerActor::UpdateActor() {
 			if (_ChangeFlag) {
 				_Friend->ChangeMode(1 + _ItemNum * 2);
 				ChangeMode(2 + _ItemNum * 2);
-			} else {
+			}
+			else {
 				_Friend->ChangeMode(2 + _ItemNum * 2);
 				ChangeMode(1 + _ItemNum * 2);
 			}
@@ -226,32 +230,34 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 	}
-	
+
+	// プレイヤーが一定の高さ以下に落下した場合の処理
 	if (GetPosition().y < -750) {
-		_FallTime += dt;
+		_FallTime += dt; // 落下時間を増加
 		if (_FallTime > 1000) {
-			Damage(GetSize().x/2);
+			Damage(GetSize().x / 2); // ダメージを与える
 			_ChangeFlag = false;
-			_Input->SetVelocity(VGet(0, 0, 0));
+			_Input->SetVelocity(VGet(0, 0, 0)); // 速度をリセット
 			if (_Friend->GetPosition().y > -750) {
+				// フレンドの位置に基づいてプレイヤーの位置を補正
 				SetPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
 				_MCollision->SetOldPosition(VAdd(_Friend->GetPosition(), VGet(0, 50 * GetSize().y, 0)));
 			}
 			else {
+				// 初期位置に戻す
 				SetPosition(VAdd(_StartPos, VGet(0, 50 * GetSize().y, 0)));
 				_MCollision->SetOldPosition(VAdd(_StartPos, VGet(0, 50 * GetSize().y, 0)));
 			}
 		}
 	}
 	else {
-		_FallTime = 0;
+		_FallTime = 0; // 落下時間をリセット
 	}
 
-
+	// アニメーションの更新処理
 	int animOrder = (int)anim::Wait;
-
 	if (_ModeNum == 0) {
-		_AnimTime -= (float)dt/ 10;
+		_AnimTime -= (float)dt / 10; // アニメーション時間を減少
 		if (_AnimTime < 0) {
 			_AnimTime = 0;
 		}
@@ -261,10 +267,10 @@ void PlayerActor::UpdateActor() {
 		else {
 			MV1SetAttachAnimTime(_BallModel->GetHandle(), 0, _AnimTime);
 		}
-	
 	}
-	if (_ModeNum > 0) {
 
+	// その他のモードでのアニメーション更新
+	if (_ModeNum > 0) {
 		if (_Animation == (int)anim::Daikanpa) {
 			_AnimTime += (float)GetMode()->GetStepTm() / 30;
 		}
@@ -278,48 +284,37 @@ void PlayerActor::UpdateActor() {
 		else {
 			_AnimTime += (float)GetMode()->GetStepTm() / 10;
 		}
-		//ChangeAnim(animOrder);
-		//_Friend->ChangeAnim(animOrder);
+
 		if (_AnimTime > _AnimTotalTime) {
 			if (_Animation == (int)anim::Walk) {
 				_AnimTime = 0;
 			}
 			else {
 				ChangeAnim((int)anim::Wait);
-				//_AnimTime = 0;
 			}
-			
-
-
 		}
 		{
-			int num = 0;
-			auto rate = _AnimationRate.begin();
-			while (rate != _AnimationRate.end()) {
-				num++;
-				if (num > _AnimationRate.size()) { break; }
-				if (rate->second < 1) {
-					if (_AnimationRate.size() <= 1) {
-						int test = 0;
-					}
-					if (rate->second <= 0.1) {
-						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
-						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
+		// アニメーションのブレンド処理
+		auto rate = _AnimationRate.begin();
+		while (rate != _AnimationRate.end()) {
+			if (rate->second < 1) {
+				if (rate->second <= 0.1) {
+					MV1DetachAnim(_TopModel->GetHandle(), rate->first);
+					MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
 						if (rate->first == _PunchIndex[0]) {
 							MV1DetachAnim(_TopModel->GetHandle(), _PunchIndex[1]);
 							MV1DetachAnim(_BottomModel->GetHandle(), _PunchIndex[1]);
 							_PunchIndex[0] = -2;
 							_PunchIndex[1] = -2;
 						}
-						_AnimationRate.erase(rate++);
-						continue;
-					}
-					else if (rate->second > 0) {
-
-						rate->second -= 0.1;
-						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
-					}
+					_AnimationRate.erase(rate++);
+					continue;
 				}
+					else if (rate->second > 0) {
+					rate->second -= 0.1;
+					MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+				}
+			}
 				if (rate->second > 1) {
 
 					if (rate->second >= 2) {
@@ -331,11 +326,11 @@ void PlayerActor::UpdateActor() {
 						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second - 1);
 					}
 				}
-				++rate;
-			}
+			++rate;
 		}
+	}
 
-
+	// モードごとの処理
 
 		switch (_ModeNum%2) {
 		case 1:
@@ -343,7 +338,6 @@ void PlayerActor::UpdateActor() {
 			break;
 
 		case 0:
-			//if (_Animation == (int)anim::Punch)
 			MV1SetAttachAnimTime(_TopModel->GetHandle(), _AnimIndex, _AnimTime);
 			if (_PunchIndex[0] != -2) {
 				MV1SetAttachAnimTime(_TopModel->GetHandle(), _PunchIndex[1], _AnimTime);
@@ -353,10 +347,9 @@ void PlayerActor::UpdateActor() {
 
 
 	}
-
 	switch (_ModeNum) {
 	case 0:
-
+		// 通常モードの処理
 	{
 		if (_Input->GetDashFlag()) {
 			auto mc = _MCollision->GetCollResult();
@@ -391,7 +384,6 @@ void PlayerActor::UpdateActor() {
 		tmp.y = 0;
 		float size = VSize(tmp) / 20000;
 		if (_Input->GetStand() && !_Input->GetDashFlag()) {
-			//AddSize(size);
 
 			v = VSub(v, VScale(v, 0.0001 * dt));
 			_Input->SetVelocity(v);
@@ -412,8 +404,6 @@ void PlayerActor::UpdateActor() {
 
 			MV1SetRotationZYAxis(_BallModel->GetHandle(), rot, rot2, 0);
 
-			//_BallModel->SetFront(rot);
-//_BallModel->SetUp(rot2);
 			_BallModel->SetRotationZY(rot, rot2);
 		}
 
@@ -434,12 +424,6 @@ void PlayerActor::UpdateActor() {
 						for (auto p : pe) {
 							p->SetIsUse(false);
 						}
-						/*
-												_Friend->ChangeMode(1 + _ItemNum * 2);
-						ChangeMode(2 + _ItemNum * 2);
-						ChangeAnim((int)anim::Change);
-						_Friend->ChangeAnim((int)anim::Change);
-						*/
 
 
 					}
@@ -455,13 +439,6 @@ void PlayerActor::UpdateActor() {
 						for (auto p : pe) {
 							p->SetIsUse(false);
 						}
-						/*
-												_Friend->ChangeMode(2 + _ItemNum * 2);
-						_Friend->ChangeAnim((int)anim::Change);
-						ChangeMode(1 + _ItemNum * 2);
-						ChangeAnim((int)anim::Change);
-						*/
-
 
 					}
 				}
@@ -545,12 +522,13 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 	}
-	break;
+		break;
 
 	case 1:
 	case 3:
 	case 5:
 	case 7:
+		// 下半身モードの処理
 	{
 		if (_Input->GetKey() & PAD_INPUT_2) {
 			_SeparateTime += dt;
@@ -586,7 +564,6 @@ void PlayerActor::UpdateActor() {
 					item->SetState(State::eDead);
 					switch (itemnum) {
 					case 0:
-						//AddSize(0.2 * GetSize().x, true);
 						break;
 					case 1:
 					case 2:
@@ -623,8 +600,6 @@ void PlayerActor::UpdateActor() {
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
 			if (tree != nullptr) {
 				tree->DropItem();
-				//_Input->SetDashTime(0);
-				//_Input->SetVelocity(VGet(0, 0, 0));
 			}
 
 			auto ice = dynamic_cast<BreakableBoxActor*>(h->GetOwner());
@@ -651,12 +626,13 @@ void PlayerActor::UpdateActor() {
 		VECTOR pos = GetPosition();
 		_Friend->SetPosition(VAdd(VGet(pos.x, pos.y + GetSize().y * 80, pos.z), VScale(VGet(0, 160, 0), _Friend->GetSize().x)));
 	}
-	break;
+		break;
 
 	case 2:
 	case 4:
 	case 6:
 	case 8:
+		// 上半身モードの処理
 	{
 		VECTOR dir = _Cursor->GetTargetDir();
 		VECTOR tmphitpos = _Cursor->GetHitPos();
@@ -664,7 +640,6 @@ void PlayerActor::UpdateActor() {
 		dir = VScale(dir, -1);
 		dir = VNorm(dir);
 
-		//dir = VGet(0, 0, -1);
 		if (!_PunchFlag) {
 			_TopModel->SetFront(VGet(dir.x, 0, dir.z));
 			_TopModel->SetUp(VGet(0, 1, 0));
@@ -722,7 +697,6 @@ void PlayerActor::UpdateActor() {
 		}
 
 		if (_Animation == (int)anim::Laser) {
-
 			if (_Input->GetKey() & PAD_INPUT_1 && _AnimTime > 50) {
 				_AnimTime = 45;
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
@@ -735,7 +709,6 @@ void PlayerActor::UpdateActor() {
 				tmppos = VTransform(tmppos, MGetRotVec2(tmpdir, dir));
 				tmppos = VAdd(GetPosition(), tmppos);
 
-				//tmppos = VGet(0, 0, 0);
 
 				tmpdir = VSub(tmppos, tmphitpos);
 				tmpdir = VNorm(tmpdir);
@@ -747,10 +720,6 @@ void PlayerActor::UpdateActor() {
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
 				auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "TDX", "tdx_laser");
 				s->Play();
-			}
-			if (_AnimTime > 45 && _AnimTime < 60) {
-
-
 			}
 
 		}
@@ -781,10 +750,7 @@ void PlayerActor::UpdateActor() {
 				tmpdir = VNorm(tmpdir);
 
 				VECTOR tmppos = VScale(tmpdir, GetSize().x * -100);
-				//tmppos = VAdd(tmppos, VGet(-200, 0, 0));
 				tmppos.y = GetSize().y * -100;
-				//tmpdir = VScale(tmpdir, -1);
-				//tmppos = VGet(0, 0, 0);
 				auto dkp = new DaikanpaActor(GetMode(), this, tmppos, tmpdir, GetSize().x * 25);
 				auto s = SoundServer::GetInstance()->Create(this, "tdx_dkp", "TDX", "tdx_dkp");
 				s->Play();
@@ -805,12 +771,11 @@ void PlayerActor::UpdateActor() {
 			MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), _PunchIndex[1], (1 - rate) * rate2);
 		}
 
-		VECTOR fripos = _Friend->GetPosition();
-		//SetPosition(VAdd(VGet(fripos.x, fripos.y + GetFriend()->GetSize().y * 160, fripos.z), VScale(VGet(0, 80, 0), GetSize().x)));
 	}
 
 	break;
 	case -1:
+		// 死亡モードの処理
 	{
 		auto dist = VSize(VSub(GetPosition(), _Friend->GetPosition()));
 		if (dist < _Friend->GetSize().x * 100 + 10) {
@@ -825,12 +790,11 @@ void PlayerActor::UpdateActor() {
 		if (_DeadTime > 10000) {
 			ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
 		}
-
 		break;
 	}
 	}
 
-
+	// グローバル変数の更新
 	gGlobal._PlayerHP[_PlayerNo - 1] = _Size.x;
 	gGlobal._MargeTimer = _ChangeTime;
 	gGlobal._ItemNum = _ItemNum;
@@ -838,12 +802,14 @@ void PlayerActor::UpdateActor() {
 	gGlobal._ItemList[1] = _Item[1];
 }
 
-void PlayerActor::ChangeMode(int mode)
-{
-	if (_ModeNum == mode) { return; }
-	float dist = 0;
+
+// モード変更処理
+// プレイヤーのモードを指定されたモードに変更する
+void PlayerActor::ChangeMode(int mode) {
+	if (_ModeNum == mode) { return; } // 既に同じモードの場合は何もしない
+
 	switch (mode) {
-	case -1:
+	case -1: // 死亡モード
 		_ModeNum = -1;
 		_BallModel->SetVisible(false);
 		_TopModel->SetVisible(false);
@@ -854,9 +820,9 @@ void PlayerActor::ChangeMode(int mode)
 		new ItemActor(GetMode(), GetPosition(), -1, -1);
 		break;
 
-	case 0:
+	case 0: // 通常モード
 		if (_ModeNum % 2 == 1) {
-			_Friend->SetPosition(VAdd(GetPosition(), VGet( 0, 2*GetSize().y, 0)));
+			_Friend->SetPosition(VAdd(GetPosition(), VGet(0, 2 * GetSize().y, 0)));
 			_Friend->GetComponent<MoveCollisionComponent>()[0]->SetOldPosition(VAdd(GetPosition(), VGet(0, 2 * GetSize().y, 0)));
 		}
 		_ChangeTime = 0;
@@ -864,7 +830,6 @@ void PlayerActor::ChangeMode(int mode)
 		_ModeNum = 0;
 		_Friend->ChangeMode(0);
 		SetSize(VGet(0.5, 0.5, 0.5));
-		//SetSize(VGet(2, 2, 2));
 		_BallModel->SetVisible(true);
 		_TopModel->SetVisible(false);
 		_BottomModel->SetVisible(false);
@@ -875,16 +840,13 @@ void PlayerActor::ChangeMode(int mode)
 		Init();
 		_Cursor->SetActiveFalse();
 		gGlobal._MaxMargeTime = -1;
-		gGlobal._MaxDashTime =-1;
+		gGlobal._MaxDashTime = -1;
 		break;
-	case 1:
+	case 1: // 下半身通常モード
 		_ModeNum = 1;
 		_BottomModel->SetHandle(_BottomModelHandle[0]);
 		_BottomModel->SetVisible(true);
-		//_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1/2, 0)));
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x*2000);
 		_Input->SetDashDownTime(1000);
@@ -894,13 +856,11 @@ void PlayerActor::ChangeMode(int mode)
 		new EffectSpriteComponent(this, "res/model/Sundercross/Tatsumaki/Tatsumaki_New.efkefc", VGet(0, 0, 0), VGet(0, 0, 0), GetSize().x * 10);
 		break;
 
-	case 2:
+	case 2: // 上半身通常モード
 		_ModeNum = 2;
 		_TopModel->SetHandle(_TopModelHandle[0]);
 		_TopModel->SetVisible(true);
-		//_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
@@ -909,13 +869,11 @@ void PlayerActor::ChangeMode(int mode)
 		break;
 
 
-	case 3:
+	case 3: // 下半身レーザーモード
 		_ModeNum = 3;
 		_BottomModel->SetHandle(_BottomModelHandle[1]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
@@ -926,12 +884,11 @@ void PlayerActor::ChangeMode(int mode)
 
 		break;
 
-	case 4:
+	case 4: // 上半身レーザーモード
 		_ModeNum = 4;
 		_TopModel->SetHandle(_TopModelHandle[1]);
 		_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
@@ -939,13 +896,11 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
-	case 5:
+	case 5: // 下半身ブレードモード
 		_ModeNum = 5;
 		_BottomModel->SetHandle(_BottomModelHandle[2]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
@@ -956,12 +911,11 @@ void PlayerActor::ChangeMode(int mode)
 
 		break;
 
-	case 6:
+	case 6: // 上半身ブレードモード
 		_ModeNum = 6;
 		_TopModel->SetHandle(_TopModelHandle[2]);
 		_TopModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//_ChangeTime = (GetSize().y + _Friend->GetSize().y) * 5000;
 		SetChangeTime(GetSize().y + _Friend->GetSize().y);
 		_MCollision->SetIsActive(false);
 		_Cursor->Init();
@@ -969,12 +923,11 @@ void PlayerActor::ChangeMode(int mode)
 		_Input->SetVelocity(VGet(0, 0, 0));
 		break;
 
-	case 7:
+	case 7: // 下半身ゴールデンモード
 		_ModeNum = 7;
 		_BottomModel->SetHandle(_BottomModelHandle[3]);
 		_BottomModel->SetVisible(true);
 		_BallModel->SetVisible(false);
-		//SetPosition(VAdd(GetPosition(), VGet(0, GetSize().y * 1 / 2, 0)));
 		_ChangeTime = -(GetSize().y + _Friend->GetSize().y) * 5000;
 		_Input->SetDashTime(GetSize().x * 2000);
 		_Input->SetDashDownTime(1000);
@@ -985,7 +938,7 @@ void PlayerActor::ChangeMode(int mode)
 
 		break;
 
-	case 8:
+	case 8: // 上半身ゴールデンモード
 		_ModeNum = 8;
 		_TopModel->SetHandle(_TopModelHandle[3]);
 		_TopModel->SetVisible(true);
@@ -1011,8 +964,10 @@ void PlayerActor::ChangeMode(int mode)
 	}
 }
 
+// アニメーション変更処理
+// 指定されたアニメーションに変更する
 void PlayerActor::ChangeAnim(int a) {
-	if (_Animation == a) { 
+	if (_Animation == a) {
 		if (_AnimTime > _AnimTotalTime) {
 			_AnimTime = 0;
 		}
@@ -1026,18 +981,17 @@ void PlayerActor::ChangeAnim(int a) {
 	int oldPunch = _PunchIndex[1];
 	int index = -1;
 	bool changeSucFlag = false;
-	switch (a) {
 
-	case (int)anim::Change:
+	switch (a) {
+	case (int)anim::Change: // 変身アニメーション
 		index = MV1GetAnimIndex(_AnimationModel[0], "modelmotion");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[0], TRUE);
 		_AnimTotalTime = MV1GetAttachAnimTotalTime(_TopModel->GetHandle(), _AnimIndex);
-
 		changeSucFlag = true;
 		break;
 
-	case (int)anim::Wait:
+	case (int)anim::Wait: // 待機アニメーション
 		if (_Animation == (int)anim::Walk || _AnimTime > _AnimTotalTime) {
 			index = MV1GetAnimIndex(_AnimationModel[1], "idle");
 			_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[1], TRUE);
@@ -1058,7 +1012,7 @@ void PlayerActor::ChangeAnim(int a) {
 		}
 		break;
 
-	case (int)anim::Punch:
+	case (int)anim::Punch: // パンチアニメーション
 		index = MV1GetAnimIndex(_AnimationModel[4], "reizo-kou_down");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[4], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[4], TRUE);
@@ -1070,7 +1024,7 @@ void PlayerActor::ChangeAnim(int a) {
 		_PunchIndex[1] = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[5], TRUE);
 		break;
 
-	case (int)anim::Laser:
+	case (int)anim::Laser: // レーザーアニメーション
 		index = MV1GetAnimIndex(_AnimationModel[6], "beemmotion_down");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[6], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[6], TRUE);
@@ -1082,7 +1036,7 @@ void PlayerActor::ChangeAnim(int a) {
 		_PunchIndex[1] = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[5], TRUE);
 		break;
 
-	case (int)anim::Blade:
+	case (int)anim::Blade: // ブレードアニメーション
 		index = MV1GetAnimIndex(_AnimationModel[8], "ztaireito_motion2");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[8], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[8], TRUE);
@@ -1090,7 +1044,7 @@ void PlayerActor::ChangeAnim(int a) {
 		changeSucFlag = true;
 		break;
 
-	case (int)anim::Daikanpa:
+	case (int)anim::Daikanpa: // 大寒波アニメーション
 		index = MV1GetAnimIndex(_AnimationModel[9], "dankanha_motion");
 		_AnimIndex = MV1AttachAnim(_TopModel->GetHandle(), index, _AnimationModel[9], TRUE);
 		_AnimIndex = MV1AttachAnim(_BottomModel->GetHandle(), index, _AnimationModel[9], TRUE);
@@ -1098,12 +1052,10 @@ void PlayerActor::ChangeAnim(int a) {
 		changeSucFlag = true;
 		break;
 
-
 	}
+
 	_AnimChangingflag = false;
 	if (changeSucFlag) {
-
-
 		_AnimationRate[_AnimIndex] = 1.01;
 
 		if (_AnimationRate.size() > 1) {
@@ -1112,24 +1064,15 @@ void PlayerActor::ChangeAnim(int a) {
 				_AnimationRate[oldPunch] = 0.99;
 			}
 		}
-		if (_Animation >= (int)anim::Punch) {
-			//_PunchIndex[0] = -2;
-			//_PunchIndex[1] = -2;
-		}
-
-		
-		//MV1DetachAnim(_TopModel->GetHandle(), oldindex);
-		//MV1DetachAnim(_BottomModel->GetHandle(), oldindex);
-
 		_Animation = a;
 		_AnimTime = 0;
 		_PunchFlag = false;
 	}
-
 }
 
-void PlayerActor::Init()
-{
+// 初期化処理
+// プレイヤーの状態を初期化する
+void PlayerActor::Init() {
 	_Input->SetVelocity(VGet(0, 0, 0));
 	_Input->SetDashTime(0);
 	_Input->SetGravity(1);
@@ -1137,7 +1080,7 @@ void PlayerActor::Init()
 	SetSize(VGet(0.1, 0.1, 0.1));
 	_HCollision->SetRSize(VGet(100, 100, 100));
 
-	// _AnimationRate のキーを使用してアニメーションをデタッチ
+	// アニメーションのデタッチ
 	for (const auto& animRate : _AnimationRate) {
 		MV1DetachAnim(_TopModel->GetHandle(), animRate.first);
 		MV1DetachAnim(_BottomModel->GetHandle(), animRate.first);
@@ -1154,20 +1097,20 @@ void PlayerActor::Init()
 	_AnimationRate.clear();
 	_Animation = -1;
 	_ChangeFlag = false;
-
 }
 
-void PlayerActor::DropItem(VECTOR dir, int num)
-{
+// アイテムをドロップする
+// 指定された方向とアイテム番号でアイテムを生成する
+void PlayerActor::DropItem(VECTOR dir, int num) {
 	auto hc = GetComponent<HitCollisionComponent>()[0];
-	
 	auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, hc->GetSize().y + 100, 0)), num);
 	auto m = item->GetComponent<MoveComponent>()[0];
 	m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 2));
 }
 
-void PlayerActor::AddSize(float size, bool flag)
-{
+// サイズを増加させる
+// 指定されたサイズ分だけプレイヤーのサイズを増加させる
+void PlayerActor::AddSize(float size, bool flag) {
 	if (_ModeNum == 0 && (!_Input->GetDashFlag() || flag) && !_LavaFlag) {
 		auto tmps = GetSize().x;
 		float Size = size / 2;
@@ -1184,7 +1127,8 @@ void PlayerActor::AddSize(float size, bool flag)
 					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
 					sv->Play();
 				}
-			} else {
+			}
+			else {
 				auto sv = SoundServer::GetInstance()->Create(this, "bel_marge", "VOICE", "bel_marge");
 				if (sv != nullptr) {
 					auto p = new SVItemPanning(sv);
@@ -1199,27 +1143,8 @@ void PlayerActor::AddSize(float size, bool flag)
 	}
 }
 
-void PlayerActor::SetChangeTime(float size)
-{
-	_ChangeTime = (size * size - 4) * 5000;
-	_ChangeTime += 3000;
-
-	_AlertTime = _ChangeTime * 0.1f;
-	if (_AlertTime > 3000) {
-		_AlertTime = 3000;
-	}
-	if (_AlertTime < 500) {
-		_AlertTime = 500;
-	}
-
-
-
-}
-
-
-
-
-
+// ダメージ処理
+// 指定されたダメージ量をプレイヤーに与える
 void PlayerActor::Damage(float damage, int time) {
 	if (_ModeNum == 0 && _InvincibleTime <= 0 && _ChangeTime == 0) {
 		_InvincibleTime = time;
@@ -1228,6 +1153,7 @@ void PlayerActor::Damage(float damage, int time) {
 			damage /= 2;
 		}
 		SetSize(VAdd(GetSize(), VGet(-damage, -damage, -damage)));
+
 		if (GetSize().x >= 1.f) {
 			if (_PlayerNo == 1) {
 				auto sv = SoundServer::GetInstance()->Create(this, "jin_damage", "VOICE", "jin_damage");
@@ -1239,7 +1165,8 @@ void PlayerActor::Damage(float damage, int time) {
 					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
 					sv->Play();
 				}
-			} else {
+			}
+			else {
 				auto sv = SoundServer::GetInstance()->Create(this, "bel_damage", "VOICE", "bel_damage");
 				if (sv != nullptr) {
 					auto p = new SVItemPanning(sv);
@@ -1251,6 +1178,7 @@ void PlayerActor::Damage(float damage, int time) {
 				}
 			}
 		}
+
 		if (GetSize().x < 0.1) {
 			ChangeMode(-1);
 			if (_PlayerNo == 1) {
@@ -1263,7 +1191,8 @@ void PlayerActor::Damage(float damage, int time) {
 					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
 					sv->Play();
 				}
-			} else {
+			}
+			else {
 				auto sv = SoundServer::GetInstance()->Create(this, "bel_down", "VOICE", "bel_down");
 				if (sv != nullptr) {
 					auto p = new SVItemPanning(sv);
@@ -1288,7 +1217,8 @@ void PlayerActor::Damage(float damage, int time) {
 					di->SetListener(dynamic_cast<ActorClass*>(g->GetCamera()));
 					sv->Play();
 				}
-			} else {
+			}
+			else {
 				auto sv = SoundServer::GetInstance()->Create(this, "bel_damage_l", "VOICE", "bel_damage_l");
 				if (sv != nullptr) {
 					auto p = new SVItemPanning(sv);
@@ -1300,12 +1230,12 @@ void PlayerActor::Damage(float damage, int time) {
 				}
 			}
 		}
-
 	}
 }
 
-void PlayerActor::KnockBack(VECTOR dir, float power)
-{
+// ノックバック処理
+// 指定された方向と力でプレイヤーをノックバックさせる
+void PlayerActor::KnockBack(VECTOR dir, float power) {
 	if (_ModeNum == 0 && _InvincibleTime <= 0) {
 		_KnockBackTime = 500;
 		_Input->SetVelocity(VAdd(_Input->GetVelocity(), VScale(dir, power)));
@@ -1313,6 +1243,24 @@ void PlayerActor::KnockBack(VECTOR dir, float power)
 	}
 }
 
+// 移動状態の確認
+// プレイヤーが移動しているかどうかを判定する
 bool PlayerActor::IsMoved() {
 	return VEqual(GetComponent<MoveComponent>()[0]->GetOldPosition(), GetPosition());
+}
+
+// サイズ変更時間の設定
+// 指定されたサイズに基づいてプレイヤーのサイズ変更時間を設定する
+void PlayerActor::SetChangeTime(float size)
+{
+	_ChangeTime = (size * size - 4) * 5000;
+	_ChangeTime += 3000; // 3000msの初期値を追加
+
+	_AlertTime = _ChangeTime * 0.1f;
+	if (_AlertTime > 3000) {
+		_AlertTime = 3000;
+	}
+	if (_AlertTime < 500) {
+		_AlertTime = 500;
+	}
 }
