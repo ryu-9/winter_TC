@@ -7,9 +7,10 @@
 #include "ModeStory.h"
 #include "ApplicationGlobal.h"
 
-bool ModeTitle::Initialize()
-{
+bool ModeTitle::Initialize() {
 	if (!base::Initialize()) { return false; }
+	
+	// ステップタイマー初期化
 	_Step = 0;
 	_StepTm.emplace_back(500);
 	_StepTm.emplace_back(3000);
@@ -22,13 +23,15 @@ bool ModeTitle::Initialize()
 	_StepTm.emplace_back(0);
 	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
-	auto ac = new ActorClass(this);
+
+	// サウンドの初期化
 	SoundServer::GetInstance()->Add("res/sound/BGM/SDX_BGM1.wav", "bgmt",true);
 	SoundServer::GetInstance()->Add("res/sound/VOICE/JIN/JIN_TITLE.wav", "jin_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/BEL/BEL_TITLE.wav", "bel_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_TITLE.wav", "tdx_title");
 	SoundServer::GetInstance()->Add("res/sound/VOICE/TDX/TDX_ATTEND.wav", "tdx_attend");
 
+	// サウンドの追加
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("BGM", "bgmt");
 	
@@ -44,7 +47,6 @@ bool ModeTitle::Initialize()
 }
 
 bool ModeTitle::Terminate() {
-	
 	return true;
 }
 

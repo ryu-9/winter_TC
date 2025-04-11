@@ -81,12 +81,6 @@
     <ClCompile Include="source\CameraActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeMenu.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeResult.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeTitle.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
@@ -251,9 +245,6 @@
     <ClInclude Include="source\ModeMenu.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeResult.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
-    </ClInclude>
     <ClInclude Include="source\ModeTitle.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
@@ -277,9 +268,6 @@
     </ClInclude>
     <ClInclude Include="source\ioJsonText.h">
       <Filter>iojson</Filter>
-    </ClInclude>
-    <ClInclude Include="source\BulletComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyCreator.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
@@ -374,9 +362,6 @@
     <ClInclude Include="source\ModeGameOver.h">
       <Filter>ヘッダー ファイル\Mode\Game</Filter>
     </ClInclude>
-    <ClInclude Include="source\UISoundActor.h">
-      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\UITextComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
@@ -409,6 +394,12 @@
     </ClInclude>
     <ClInclude Include="source\ChangeSnowBallActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISoundActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\BulletComponent.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

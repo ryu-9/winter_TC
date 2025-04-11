@@ -5,6 +5,8 @@
 #include "ModeTitle.h"
 #include "applicationGlobal.h"
 
+
+// コンティニューメニュー
 class OpMenuItemContinue : public MenuItemBase {
 public:
 	OpMenuItemContinue(void* param) : MenuItemBase(param, "") {
@@ -20,6 +22,7 @@ public:
 	}
 };
 
+// ステージセレクトメニュー
 class OpMenuOpenSelect : public MenuItemBase {
 public:
 	OpMenuOpenSelect(void* param) :MenuItemBase(param, "") {
@@ -37,6 +40,7 @@ public:
 	}
 };
 
+// 終了メニュー
 class OpMenuExit : public MenuItemBase {
 public:
 	OpMenuExit(void* param) : MenuItemBase(param, "") {
@@ -55,19 +59,25 @@ public:
 	}
 };
 
+
 bool ModeOption::Initialize() {
 	base::Initialize();
+	// 背景画像の追加
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/BACK_ALL.png");
 	new UIChipClass(this, VGet(1446, 540, 0), "res/UI/UI_POSE_BACKGROUND.png");
 	new UIChipClass(this, VGet(1518, 270, 0), "res/UI/UI_POSE_MENU.png");
 	new UIChipClass(this, VGet(438, 540, 0), "res/UI/UI_POSE_HOW_MOVE.png");
-	_Cur = 0;
+	
+
+	// メニュー項目の追加
 	Add(new OpMenuItemContinue(this));
 	Add(new OpMenuOpenSelect(this));
 	Add(new OpMenuExit(this));
+	// カーソルの初期化
+	_Cur = 0;
 	_vItems[_Cur]->Send(1);
 	
-
+	// 使用する音の追加
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("enter", "enter");
 	_UISound->AddSound("select", "select");

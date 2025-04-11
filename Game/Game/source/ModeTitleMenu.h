@@ -16,8 +16,9 @@ public:
 	void Clear();
 
 private:
-	std::vector<MenuItemBase*> _vItems;
-	int _Cur;
-	class UISoundActor* _UISound;
+
+	std::vector<MenuItemBase*> _vItems;		// メニューアイテム
+	int _Cur;								// 現在のカーソル
+	class UISoundActor* _UISound;			// UIサウンド
 };
 

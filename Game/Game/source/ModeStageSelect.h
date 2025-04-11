@@ -11,9 +11,9 @@ public:
 
 
 private:
-	std::vector<UIChipClass*> _UIChip;
-	int _Cur;
-	int _Tm;
-	class UISoundActor* _UISound;
+	std::vector<UIChipClass*> _UIChip;		// UI
+	int _Cur;								// 現在のカーソル
+	int _Tm;								// タイマー
+	class UISoundActor* _UISound;			// UIサウンド
 };
 

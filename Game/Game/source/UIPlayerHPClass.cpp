@@ -16,7 +16,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 	, _DrawType(0)
 	, _ModeType(type)
 	, _Main(main)
-	, _Side(left) {
+	, _Left(left) {
 	_CGData.clear();
 	if (_ModeType == 0) {
 		if (_Main) {
@@ -24,7 +24,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 			SetImage("res/UI/HP/UI_HP_CIRCLE_EMPTY_M_OK.png");
 			SetImage("res/UI/HP/UI_HP_CIRCLE.png");
 			SetImage("res/UI/HP/UI_HP_CIRCLE_M_OK.png");
-			if (_Side) {
+			if (_Left) {
 				SetImage("res/UI/HP/JIN_ICON.png");
 				SetImage("res/UI/1P.png");
 			} else {
@@ -37,7 +37,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 			SetImage("res/UI/UI_HP_CIRCLE _M_NO.png");
 			SetImage("res/UI/UI_HP_CIRCLE _M_NO.png");
 			SetImage("res/UI/UI_HP_CIRCLE_M_OK.png");
-			if (_Side) {
+			if (_Left) {
 				SetImage("res/UI/UI_HP2P_FUTA.png");
 			} else {
 
@@ -69,7 +69,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 		auto tmpy = 0;
 		auto tmpx = 0;
 		if (_ModeType == 0) {
-				auto hp = gGlobal._PlayerHP[_Side^_Main];
+				auto hp = gGlobal._PlayerHP[_Left^_Main];
 				if (hp >= 1) {
 					hp -= 1;
 					hp *= 10;
@@ -79,7 +79,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 					hp *= 100;
 					_DrawType = 0;
 				}
-				if (gGlobal._IsPlayerDead[_Side ^ _Main] == TRUE) {
+				if (gGlobal._IsPlayerDead[_Left ^ _Main] == TRUE) {
 					hp = 0;
 				} else {
 
