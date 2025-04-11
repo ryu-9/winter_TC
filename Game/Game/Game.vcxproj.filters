@@ -40,12 +40,6 @@
     <Filter Include="iojson">
       <UniqueIdentifier>{7ddaef9d-93f7-4054-83ed-12a54edd16fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Dev">
-      <UniqueIdentifier>{6cac334f-3d7b-44ba-9751-0523093a9a2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Dev">
-      <UniqueIdentifier>{9c7c26e2-6e78-404c-8ec4-599f2266fca5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Mode\Game\Enemy">
       <UniqueIdentifier>{c6879f5a-a626-47a3-8584-e9c61c333518}</UniqueIdentifier>
     </Filter>
@@ -117,9 +111,6 @@
     <ClCompile Include="source\ioJson.cpp">
       <Filter>iojson</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeStage.cpp">
-      <Filter>ソース ファイル\Dev</Filter>
-    </ClCompile>
     <ClCompile Include="source\EnemyCreator.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
@@ -132,23 +123,11 @@
     <ClCompile Include="source\EnemyComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
-    <ClCompile Include="source\EnemyMoveComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EnemySearchComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\ECornComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
     </ClCompile>
     <ClCompile Include="source\EBoxComponent.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeEnemyCon.cpp">
-      <Filter>ソース ファイル\Dev</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeTestStage.cpp">
-      <Filter>ソース ファイル\Dev</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeScenario.cpp">
       <Filter>ソース ファイル\Mode</Filter>
@@ -231,12 +210,6 @@
     <ClCompile Include="source\UIItemClass.cpp">
       <Filter>ソース ファイル\Mode\Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="source\ChangeSnowBallActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\LavaActor.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="source\BGMActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Sound</Filter>
     </ClCompile>
@@ -254,6 +227,12 @@
     </ClCompile>
     <ClCompile Include="source\UITextActor.cpp">
       <Filter>ソース ファイル\Mode\Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ChangeSnowBallActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LavaActor.cpp">
+      <Filter>ソース ファイル\Mode\Game\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,9 +278,6 @@
     <ClInclude Include="source\ioJsonText.h">
       <Filter>iojson</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeStage.h">
-      <Filter>ヘッダー ファイル\Dev</Filter>
-    </ClInclude>
     <ClInclude Include="source\BulletComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
@@ -314,13 +290,7 @@
     <ClInclude Include="source\BGMComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyMoveComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
-    </ClInclude>
     <ClInclude Include="source\EnemyComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EnemySearchComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyStruct.h">
@@ -331,12 +301,6 @@
     </ClInclude>
     <ClInclude Include="source\EBoxComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeEnemyCon.h">
-      <Filter>ヘッダー ファイル\Dev</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeTestStage.h">
-      <Filter>ヘッダー ファイル\Dev</Filter>
     </ClInclude>
     <ClInclude Include="source\SnowComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
@@ -431,12 +395,6 @@
     <ClInclude Include="source\UIItemClass.h">
       <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\ChangeSnowBallActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\LavaActor.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\BGMActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Sound</Filter>
     </ClInclude>
@@ -444,7 +402,13 @@
       <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\UITextActor.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Mode\Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LavaActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ChangeSnowBallActor.h">
+      <Filter>ヘッダー ファイル\Mode\Game\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

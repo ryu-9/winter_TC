@@ -174,8 +174,6 @@
     <ClCompile Include="source\EnemyActor.cpp" />
     <ClCompile Include="source\EnemyComponent.cpp" />
     <ClCompile Include="source\EnemyCreator.cpp" />
-    <ClCompile Include="source\EnemyMoveComponent.cpp" />
-    <ClCompile Include="source\EnemySearchComponent.cpp" />
     <ClCompile Include="source\EnemySpawnerActor.cpp" />
     <ClCompile Include="source\ExplosionActor.cpp" />
     <ClCompile Include="source\GimmickWallActor.cpp" />
@@ -186,7 +184,6 @@
     <ClCompile Include="source\ItemActor.cpp" />
     <ClCompile Include="source\LaserActor.cpp" />
     <ClCompile Include="source\LavaActor.cpp" />
-    <ClCompile Include="source\ModeEnemyCon.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameGoal.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
@@ -196,10 +193,8 @@
     <ClCompile Include="source\ModeOption.cpp" />
     <ClCompile Include="source\ModeResult.cpp" />
     <ClCompile Include="source\ModeScenario.cpp" />
-    <ClCompile Include="source\ModeStage.cpp" />
     <ClCompile Include="source\ModeStageSelect.cpp" />
     <ClCompile Include="source\ModeStory.cpp" />
-    <ClCompile Include="source\ModeTestStage.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\ModeTitleMenu.cpp" />
     <ClCompile Include="source\OutlineComponent.cpp" />
@@ -237,8 +232,6 @@
     <ClInclude Include="source\EnemyActor.h" />
     <ClInclude Include="source\EnemyComponent.h" />
     <ClInclude Include="source\EnemyCreator.h" />
-    <ClInclude Include="source\EnemyMoveComponent.h" />
-    <ClInclude Include="source\EnemySearchComponent.h" />
     <ClInclude Include="source\EnemySpawnerActor.h" />
     <ClInclude Include="source\EnemyStruct.h" />
     <ClInclude Include="source\ExplosionActor.h" />
@@ -250,7 +243,6 @@
     <ClInclude Include="source\ItemActor.h" />
     <ClInclude Include="source\LaserActor.h" />
     <ClInclude Include="source\LavaActor.h" />
-    <ClInclude Include="source\ModeEnemyCon.h" />
     <ClInclude Include="source\ModeGame.h" />
     <ClInclude Include="source\ModeGameGoal.h" />
     <ClInclude Include="source\ModeGameOver.h" />
@@ -260,10 +252,8 @@
     <ClInclude Include="source\ModeOption.h" />
     <ClInclude Include="source\ModeResult.h" />
     <ClInclude Include="source\ModeScenario.h" />
-    <ClInclude Include="source\ModeStage.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeStory.h" />
-    <ClInclude Include="source\ModeTestStage.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\OutlineComponent.h" />
     <ClInclude Include="source\ModeTitleMenu.h" />

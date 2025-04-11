@@ -1,5 +1,4 @@
 #include "EnemyActor.h"
-#include "EnemyMoveComponent.h"
 #include "ECornComponent.h"
 #include "EBoxComponent.h"
 #include "PlayerActor.h"

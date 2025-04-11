@@ -31,126 +31,11 @@
 #include "UITextActor.h"
 #include "ModeOption.h"
 
-class MenuItemOpenSelect : public MenuItemBase {
-public:
-	MenuItemOpenSelect(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		ModeStageSelect* modeSelect = new ModeStageSelect();
-		ModeServer::GetInstance()->Del(mdGame);
-		auto ui = ModeServer::GetInstance()->Get("gameui");
-		ModeServer::GetInstance()->Del(ui);
-		ModeServer::GetInstance()->Add(modeSelect, 99, "select");
-		gGlobal._Stageflg = 3;
-		return 1;
-	}
-};
-
-class MenuItemHColl : public MenuItemBase {
-public:
-	MenuItemHColl(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->debug_hcoll_flag = !mdGame->debug_hcoll_flag;
-		return 1;
-	}
-};
-
-class MenuItemMColl : public MenuItemBase {
-public:
-	MenuItemMColl(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->debug_mcoll_flag = !mdGame->debug_mcoll_flag;
-		return 1;
-	}
-};
-
-class MenuItemGameClear : public MenuItemBase {
-public:
-	MenuItemGameClear(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new GoalItemActor(mdGame, p->GetPosition());
-		return 1;
-	}
-};
-
-class MenuItem1 : public MenuItemBase {
-public:
-	MenuItem1(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 1);
-		return 1;
-	}
-};
-
-class MenuItem2 : public MenuItemBase {
-public:
-	MenuItem2(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 2);
-		return 1;
-	}
-};
-
-class MenuItem3 : public MenuItemBase {
-public:
-	MenuItem3(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 3);
-		return 1;
-	}
-};
-
-class MenuItem11 : public MenuItemBase {
-public:
-	MenuItem11(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 11);
-		return 1;
-	}
-};
-
-
-class MenuItem12 : public MenuItemBase {
-public:
-	MenuItem12(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		auto p = mdGame->GetPlayer(0);
-		new ItemActor(mdGame, p->GetPosition(), 12);
-		return 1;
-	}
-};
-
-class Big : public MenuItemBase {
-public:
-	Big(void* param, std::string text) : MenuItemBase(param, text) {}
-	virtual int Selected() {
-		ModeGame* mdGame = static_cast<ModeGame*>(_param);
-		mdGame->GetPlayer(0) -> SetSize(VGet(2, 2, 2));
-		mdGame->GetPlayer(1)->SetSize(VGet(2, 2, 2));
-		
-		return 1;
-	}
-};
-
+// 初期化用関数
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 	
-
-//	SetFogEnable(TRUE);
-//	SetFogStartEnd(200, 10000);
+	// メッセージウィンドウ
 	_UIT = new UITextActor(this);
 	_UIT->SetPosition(VGet(960, 840, 0));
 	
@@ -163,18 +48,7 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
-	//auto item = new ItemActor(this,VGet(0, 150, 500), 11, -1);
-	//auto tree = new TreeActor(this, VGet(0, 50, 500));
-	//tree->SetItem(item);
-	//auto item = new ItemActor(this, VGet(0, 75, 100), 11, -1);
-//	auto gw = new GimmickWallActor(this, VGet(0, 100, 300), VGet(1, 1,1), VGet(0, 0, 0), 0, item);
-	
-
-
-	//auto ice = new BreakableBoxActor(this, VGet(0, 100, 500), VGet(1, 1, 1));
-	//auto lava = new LavaActor(this, VGet(0, 200, 500), VGet(10, 10, 10));
-	
-	// 雑実装
+	// ステージロード
 	switch (gGlobal._SelectStage) {
 	case 0:
 		LoadStage("res/Stage/", "Stage1.json");
@@ -211,10 +85,11 @@ bool ModeGame::Initialize() {
 		break;
 	}
 
+	// BGM管理用Actor
 	new BGMActor(this);
 
 
-	{
+	{// サウンド追加
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BLADE.wav", "blade");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK1.wav", "boxwalk1");
 		SoundServer::GetInstance()->Add("res/sound/SE/TDX_BOX_WALK2.wav", "boxwalk2");
@@ -257,13 +132,6 @@ bool ModeGame::Initialize() {
 
 
 	}
-	
-		
-	{ // デバッグ用
-		debug_hcoll_flag =false;
-		debug_mcoll_flag =false;
-
-	}
 
 	PreLoad();
 	gGlobal.Init();
@@ -282,34 +150,18 @@ bool ModeGame::Process() {
 	int trg = ApplicationMain::GetInstance()->GetTrg(1);
 
 
-	if (trg & PAD_INPUT_10) {
+	if (trg & PAD_INPUT_10) {	// メニュー画面の表示
 		auto p = new ModeOption();
 		ModeServer::GetInstance()->Add(p, 99, "menu");
 
 
 	}
-
-	if (trg & PAD_INPUT_9) {
-		ModeMenu* modeMenu = new ModeMenu();
-		modeMenu->Add(new MenuItemOpenSelect(this, "Select"));
-		modeMenu->Add(new MenuItemHColl(this, "HCollFlag"));
-		modeMenu->Add(new MenuItemMColl(this, "MCollFlag"));
-		modeMenu->Add(new MenuItem1(this, "Item1"));
-		modeMenu->Add(new MenuItem2(this, "Item2"));
-		modeMenu->Add(new MenuItem3(this, "Item3"));
-		modeMenu->Add(new MenuItem11(this, "Item11"));
-		modeMenu->Add(new MenuItem12(this, "Item12"));
-		modeMenu->Add(new Big(this, "Big"));
-		modeMenu->Add(new MenuItemGameClear(this, "GameClear"));
-		ModeServer::GetInstance()->Add(modeMenu, 99, "menu");
-	}
 	return true;
 }
 
-bool ModeGame::Update()
-{
+bool ModeGame::Update() {
 	base::Update();
-	if (_Player[0]->GetModeNum() == -1 && _Player[1]->GetModeNum() ==-1) {
+	if (_Player[0]->GetModeNum() == -1 && _Player[1]->GetModeNum() ==-1) {	// ゲームオーバー画面の表示
 		ModeServer::GetInstance()->Add(new ModeGameOver(), 99, "gameover");
 	}
 	return false;
@@ -399,8 +251,13 @@ PlayerActor* ModeGame::GetPlayer(int n) {
 	return _Player[n];
 }
 
+/*
+ * @brief ステージのロード
+ * @param path:jsonファイルのパス
+ * @param jsname:jsonファイル名
+ * @return 成功したらtrue
+ */
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
-//	auto g = new GroupSpawnerActor(this, VGet(0, 0, 0));
 	
 	std::vector<std::vector<VECTOR>> poppos;
 	std::vector<GroupSpawnerActor*> g;
@@ -420,12 +277,11 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gwn = 5;
 		break;
 	case 2:
-		poppos.resize(6);
-		g.resize(6);
-		gw.resize(20);
+		poppos.resize(3);
+		g.resize(3);
+		gw.resize(9);
 		gwn = 5;
 		break;
-		// TODO: ウォールの個数修正
 	default:
 		break;
 	}
@@ -439,6 +295,8 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		std::string name = data.at("objectName");
 		if (name == "") { continue; }
 		std::string name2 = data.at("objectName");
+
+		// Unreal Engine->DXLibの座標系に変換
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
@@ -451,63 +309,64 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			continue;
 		}
 
-		// ステージボックスで読み込み　ちらつかない
+		// nameで分岐
 		if (name == "SM_Cube" || name == "Cube") {
-		//	pos.y += 4;
-		//	pos.y += scale.y * 1;
-		//	scale = VScale(scale, 0.985);
 			auto box = new StageBox(this, pos, rot, scale, 0);
 			box->Init();
-		}else if (name == "Ramp") {
+		}
+		else if (name == "Ramp") {
 			auto box = new StageBox(this, pos, rot, scale, 1);
 			box->Init();
-		} else if (name == "laststage") {
+		}
+		else if (name == "laststage") {
 			auto box = new StageBox(this, pos, rot, scale, 2);
 			box->Init();
-		} else if (name == "BP_Bro_spawn") {
+		}
+		else if (name == "BP_Bro_spawn") {
 			_Player[0]->SetPosition(pos);
 			_Player[0]->SetStartPos(pos);
 			_Player[0]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[0]->SetHitCollision(new HitCollisionComponent(_Player[0], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
-		} else if (name == "BP_Sis_spawn") {
+		}
+		else if (name == "BP_Sis_spawn") {
 			_Player[1]->SetPosition(pos);
 			_Player[1]->SetStartPos(pos);
 			_Player[1]->SetMoveCollision(new PlayerMoveCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
 			_Player[1]->SetHitCollision(new HitCollisionComponent(_Player[1], nullptr, VGet(0, 0, 0), VGet(100, 100, 100), 2, true, true));
-		} else if (name == "GroupAttack_EnemySpawn") {
-		//	g->AddPopPos(pos);
-		} else if (name == "BP_01EnemySpawn") {
+		}
+		else if (name == "BP_01EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(0);
-		//	esa->SetType(1);
-		} else if (name == "BP_02EnemySpawn") {
+		}
+		else if (name == "BP_02EnemySpawn") {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(1);
-		} else if ((name2.erase(name2.size() - 1, 1) == "Group_Area_Box_No")) {
+		}
+		else if ((name2.erase(name2.size() - 1, 1) == "Group_Area_Box_No")) {
 			std::string nm = data.at("objectName");
 			nm = nm.back();
-		//	auto g = new GroupSpawnerActor(this, pos);
-			auto n = std::stoi(nm)-1;
-			g[n] = new GroupSpawnerActor(this, pos,n);
+			auto n = std::stoi(nm) - 1;
+			g[n] = new GroupSpawnerActor(this, pos, n);
 			g[n]->SetDirection(rot);
 			g[n]->SetSize(scale);
-		
+
 			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
 			m->SetVisible(false);
-			//m->SetPosition(VGet(0, 200, 0));
 			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
 			g[n]->SetHCollision(h);
 			h->RefleshCollInfo();
-			
-		} else if (name2== "Spawner") {
+
+		}
+		else if (name2 == "Spawner") {
 			std::string nm = data.at("objectName");
 			nm = nm.back();
 			auto n = std::stoi(nm) - 1;
 			poppos[n].push_back(pos);
-		} else if (name == "House_Spawner") {
-			auto esa = new EnemySpawnerActor(this, pos,true);
 		}
-		else if (name2 == "Wall"||(name2.erase(name2.size()-1,1)=="Wall")) {
+		else if (name == "House_Spawner") {
+			auto esa = new EnemySpawnerActor(this, pos, true);
+		}
+		else if (name2 == "Wall" || (name2.erase(name2.size() - 1, 1) == "Wall")) {
 
 			std::string nm = data.at("objectName");
 			nm = nm.erase(0, 4);
@@ -515,14 +374,17 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			gw[n] = new GimmickWallActor(this, pos, scale, rot, 0, nullptr);
 		}
 		else if (name == "Goal_flag") {
-			new GoalItemActor(this, pos,true);
-		} else if (name == "BP_tree") {
-			auto item = new ItemActor(this,VAdd(pos,VGet(0,25,0)), 0, -1);
+			new GoalItemActor(this, pos, true);
+		}
+		else if (name == "BP_tree") {
+			auto item = new ItemActor(this, VAdd(pos, VGet(0, 25, 0)), 0, -1);
 			auto tree = new TreeActor(this, pos);
 			tree->SetItem(item);
-		} else if (name == "BP_GM_BreakWall") {
+		}
+		else if (name == "BP_GM_BreakWall") {
 			new BreakableBoxActor(this, pos, scale);
-		} else if (name == "bossspawner") {
+		}
+		else if (name == "bossspawner") {
 			auto b = new BossActor(this, pos);
 		}
 		else if (name == "BP_maguma") {
@@ -548,8 +410,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		for (auto j = 0; j < poppos[i].size(); j++) {
 			g[i]->AddPopPos(poppos[i][j]);
 		}
-		//g[i]->SetPopPos(poppos[i]);
 	}
+
+	// スポナー、壁の初期化とポジションの設定
 	switch (gGlobal._SelectStage) {
 	case 0:
 		gw[0]->SetIsActive(false);
