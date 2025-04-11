@@ -54,7 +54,7 @@ void BossAttackActor::UpdateActor() {
 		}
 	}
 	_Time += GetMode()->GetStepTm();
-	if (_Type == B_ACT::BEAM) {
+	if (_Type == BossActor::BEAM) {
 		if (_Time > 1200) {
 			auto pos = _HCollision->GetPosition();
 			pos.z -= 5000;
@@ -70,7 +70,7 @@ void BossAttackActor::UpdateActor() {
 			if (p->GetModeNum() == 0) {
 				p->Damage(0.5);
 			}
-			if (_Type == B_ACT::PUNCH || _Type == B_ACT::PUNCH_FALL) {
+			if (_Type == BossActor::PUNCH || _Type == BossActor::PUNCH_FALL) {
 				SetState(State::eDead);
 			}
 			continue;
@@ -83,7 +83,7 @@ void BossAttackActor::UpdateActor() {
 		}
 	}
 
-	if (_Type == B_ACT::PUNCH_FALL) {
+	if (_Type == BossActor::PUNCH_FALL) {
 		if (_Time < 3000) {
 			auto pos = GetPosition();
 			pos.y -= GetComponent<MoveComponent>()[0]->GetVelocity().y;
