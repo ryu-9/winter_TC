@@ -14,7 +14,6 @@ namespace {
 
 UITextComponent::UITextComponent(ActorClass* owner, std::string jsonkey, std::string jsonkey2)
 	:SpriteComponent(owner,200)
-
 {
 	
 	_CurrentTime = 0;
@@ -27,8 +26,6 @@ UITextComponent::UITextComponent(ActorClass* owner, std::string jsonkey, std::st
 	if (jsonkey != "") {
 		LoadText("res/loadtext/LoadText.json", jsonkey,jsonkey2);
 	}
-	
-//	ChangeFont("コーポレート・ロゴ ver3 Bold");
 }
 
 
@@ -37,16 +34,15 @@ UITextComponent::~UITextComponent() {
 }
 
 void UITextComponent::Update() {
-	if (_ScenarioData.size() == 0) { 
+	if (_ScenarioData.size() == 0) { // シナリオデータが無い場合
 		SCENARIO_DATA data;
 		data.next = "end";
 		_ScenarioData.push_back(data);
 	}
-	if (_IsActive == false) { return; }
+	if (_IsActive == false) { return; }		// 更新しない
 	_CurrentTime += _Owner->GetMode()->GetStepTm();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
-	if (_CurrentTime > _TextCount * TEXT_SPEED) {
-		AddText();
+	if (_CurrentTime > _TextCount * TEXT_SPEED) {		
+		AddText();		
 	}
 
 	if (_ScenarioData[_TextIndex].text.size() <= _StCount) {

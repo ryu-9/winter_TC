@@ -43,7 +43,7 @@ float SourceVoiceItem::GetVolume() {
 	return _Volume;
 }
 
-// �{�����[����0.0f�`1.0f�Őݒ�
+
 void SourceVoiceItem::SetVolume(float vol) {
 	if (_Volume != vol) {
 		_Volume = vol;
@@ -51,10 +51,8 @@ void SourceVoiceItem::SetVolume(float vol) {
 	}
 }
 
-// �{�����[����f�V�x���Őݒ�
+
 void SourceVoiceItem::SetVolumeDB(float db) {
-	//auto tmp = XAudio2AmplitudeRatioToDecibels(_Volume);
-//	if (tmp == db) { return; }
 	_Volume = XAudio2DecibelsToAmplitudeRatio(db);
 	_VolumeChanged = true;
 }
@@ -120,11 +118,10 @@ void SourceVoiceItem::Update(ActorClass* p) {
 	XAUDIO2_VOICE_STATE state;
 	_SV->GetState(&state);
 	if ((state.BuffersQueued > 0) == false) {
-		//SoundServer::GetInstance()->DeleteSourceVoice(_Actor, _WavName);
 		_Dead = true;
 	}
 
-	// �G�t�F�N�g�̍X�V
+	// エフェクトの更新
 	for (auto effect : _Effects) {
 		if (effect != nullptr) {
 			effect->Update(p);
@@ -137,8 +134,7 @@ void SourceVoiceItem::Update(ActorClass* p) {
 		return;
 	}
 
-	// ���ʂ̍X�V
-	// SetVolume���d���炵���̂ŁA�ύX���������������Ă�
+	// ボリュームの更新
 	if (_VolumeChanged == false) {
 		return;
 	}

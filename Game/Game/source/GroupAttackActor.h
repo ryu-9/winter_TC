@@ -24,7 +24,7 @@ public:
 private:
 	class PlayerActor* _Player[2];
 
-	struct Spawner {,ÅA  
+	struct Spawner { 
 		ModelComponent* model;
 		HitCollisionComponent* hCollision;
 		EffectSpriteComponent* effect;

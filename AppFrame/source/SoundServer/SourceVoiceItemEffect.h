@@ -5,6 +5,7 @@
 class SourceVoiceItem;
 class ActorClass;
 
+// ソースボイスアイテムのエフェクト基底クラス
 class SourceVoiceItemEffectBase {
 public:
 	SourceVoiceItemEffectBase(class SourceVoiceItem* sv);

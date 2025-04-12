@@ -73,7 +73,7 @@ UIPlayerHPSpriteComponent::UIPlayerHPSpriteComponent(UIChipClass* owner, int typ
 				if (hp >= 1) {
 					hp -= 1;
 					hp *= 10;
-					hp = (hp / (hp + 10)) * 100;
+					hp = (hp / (hp + 10)) * 100;		// ï\é¶äÑçá
 					_DrawType = 1;
 				} else {
 					hp *= 100;

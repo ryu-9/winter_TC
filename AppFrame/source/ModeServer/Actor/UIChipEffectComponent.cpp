@@ -18,7 +18,14 @@ UIChipEffectComponent::UIChipEffectComponent(ActorClass* owner, int updateOrder)
 
 
 
-
+/**
+* @brief UIChipFadeComponent
+* @details UIChipのフェードイン・アウトを行うコンポーネント
+* @param owner UIChipClass
+* @param alpha 0.0f~255.0f
+* @param tm フェードにかける時間
+* @param updateOrder 更新順
+*/
 UIChipFadeComponent::UIChipFadeComponent(ActorClass* owner, float alpha, int tm, int updateOrder)
 	:base(owner, updateOrder)
 {
@@ -46,6 +53,14 @@ void UIChipFadeComponent::Update()
 	
 }
 
+/**
+* @brief UIChipFocusComponent
+* @details UIChipのフォーカスを行うコンポーネント
+* @param owner UIChipClass
+* @param scale フォーカス時のスケール
+* @param tm フォーカスにかける時間
+* @param updateOrder 更新順
+*/
 UIChipFocusComponent::UIChipFocusComponent(ActorClass* owner, VECTOR scale, int tm, int updateOrder)
 	:base(owner, updateOrder)
 {
@@ -87,7 +102,6 @@ void UIChipFocusComponent::ProcessInput()
 			_UIChip->GetUIData()->scale = tmp;
 			if (_Data.cnt >= _Data.tm) {
 				_UIChip->GetUIData()->scale = _Data.start;
-//				_Owner->RemoveComponent(this);
 			}
 		}
 	}
@@ -98,6 +112,7 @@ void UIChipFocusComponent::Update()
 {
 }
 
+// フォーカスのオンオフを受け取る
 void UIChipFocusComponent::Receive(int message)
 {
 	if (message == 1) {
@@ -112,6 +127,14 @@ void UIChipFocusComponent::Receive(int message)
 	}
 }
 
+/**
+* @brief UIChipMoveComponent
+* @details UIChipの移動を行うコンポーネント
+* @param owner UIChipClass
+* @param pos 移動先
+* @param tm 移動にかける時間
+* @param updateOrder 更新順
+*/
 UIChipMoveComponent::UIChipMoveComponent(ActorClass* owner, VECTOR pos, int tm, int updateOrder)
 	:base(owner, updateOrder)
 {
@@ -127,20 +150,6 @@ UIChipMoveComponent::~UIChipMoveComponent()
 
 void UIChipMoveComponent::ProcessInput()
 {
-	/*if (_Data.cnt < _Data.tm) {
-		_Data.cnt += _Owner->GetMode()->GetStepTm();
-		auto tmp = (VSub(_Data.end, _Data.start));
-		auto tmp2 = ((float)_Data.cnt / (float)_Data.tm);
-		tmp.x = tmp.x * tmp2 + _Data.start.x;
-		tmp.y = tmp.y * tmp2 + _Data.start.y;
-		tmp.z = tmp.z;
-		_UIChip->SetPosition(tmp);
-		if (_Data.cnt >= _Data.tm) {
-			_UIChip->SetPosition(_Data.end);
-			_Owner->RemoveComponent(this);
-		}
-	}
-	*/
 	if (_Data.cnt < _Data.tm) {
 		_Data.cnt += _Owner->GetMode()->GetStepTm();
 		auto tmp = (VSub(_Data.end, _Data.start));
@@ -155,10 +164,16 @@ void UIChipMoveComponent::ProcessInput()
 	
 }
 
-void UIChipMoveComponent::Update()
-{
-}
+void UIChipMoveComponent::Update() {}
 
+/**
+* @brief UIChipScaleComponent
+* @details UIChipのスケールを変更するコンポーネント
+* @param owner UIChipClass
+* @param scale スケール
+* @param tm スケールにかける時間
+* @param updateOrder 更新順
+*/
 UIChipScaleComponent::UIChipScaleComponent(ActorClass* owner, VECTOR scale, int tm, int updateOrder) 
 	:base(owner, updateOrder) {
 	_Data.start = _UIChip->GetUIData()->scale;

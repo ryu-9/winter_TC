@@ -8,7 +8,6 @@
 #include "StageBox.h"
 #include "EnemyActor.h"
 #include "EnemyCreator.h"
-#include "BGMComponent.h"
 #include "ModeGameOver.h"
 #include "EnemySpawnerActor.h"
 #include <fstream>

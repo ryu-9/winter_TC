@@ -78,6 +78,7 @@ void EnemySpawnerActor::UpdateActor() {
 	}
 	
 	if (!_Breakable) { return; }
+	// “–‚½‚è”»’è
 	auto hit = _HitCol->IsHit();
 	for (auto h : hit) {
 		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());

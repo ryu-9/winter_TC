@@ -4,6 +4,8 @@
 
 bool ModeLoading::Initialize() {
 	if (!base::Initialize()) { return true; }
+
+	// ローディング画面の初期化
 	if (gGlobal._SelectStage == 0) {
 		_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_LOAD_BACK1.png", 0));
 	} else if (gGlobal._SelectStage == 1) {
@@ -13,6 +15,8 @@ bool ModeLoading::Initialize() {
 	}
 	
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_LOAD.png", 0));
+
+	// ローディング画面テキスト
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_LOAD_TEXT1.png", 0));
 	_UIChip.back()->AddImage("res/UI/UI_LOAD_TEXT2.png");
 	_UIChip.back()->AddImage("res/UI/UI_LOAD_TEXT3.png");
@@ -21,17 +25,16 @@ bool ModeLoading::Initialize() {
 	_UIChip.back()->AddImage("res/UI/UI_LOAD_TEXT6.png");
 	auto n = rand() % 6;
 	_UIChip.back()->ChangeImage(n);
-	return false;
+	return true;
 }
 
 bool ModeLoading::Terminate() {
-	return false;
+	return true;
 }
 
 bool ModeLoading::Process() {
 	base::Process();
 	ModeServer::GetInstance()->SkipProcessUnderLayer();
-	// 4秒ごとに画像を変更
 	_Tm += GetStepTm();
 	auto trg = ApplicationMain::GetInstance()->GetTrg();
 	auto trg2 = ApplicationMain::GetInstance()->GetTrg(2);
@@ -46,12 +49,11 @@ bool ModeLoading::Process() {
 		_Tm = 0;
 		ModeServer::GetInstance()->Del(this);
 	}
-
 	
-	return false;
+	return true;
 }
 
 bool ModeLoading::Render() {
 	base::Render();
-	return false;
+	return true;
 }

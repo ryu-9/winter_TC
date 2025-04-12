@@ -108,9 +108,6 @@
     <ClCompile Include="source\EnemyCreator.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="source\BGMComponent.cpp">
-      <Filter>ソース ファイル\Mode\Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\EnemyActor.cpp">
       <Filter>ソース ファイル\Mode\Game\Enemy</Filter>
     </ClCompile>
@@ -274,9 +271,6 @@
     </ClInclude>
     <ClInclude Include="source\EnemyActor.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="source\BGMComponent.h">
-      <Filter>ヘッダー ファイル\Mode\Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyComponent.h">
       <Filter>ヘッダー ファイル\Mode\Game\Enemy\component</Filter>

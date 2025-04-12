@@ -32,7 +32,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_Input = new MoveComponent(this);
 	SetSize(VGet(20, 20, 20));
 
-	// �A�j���[�V�����擾�p���f���̓ǂݍ���
+	// アニメーションの追加
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_idle_motion.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_reizo-kou.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/reiizo-beam.mv1"));
@@ -41,12 +41,12 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/hirumimotion.mv1"));
 	_AnimMV1.push_back(ModelServer::GetInstance()->Add("res/model/Sundercross/motion/SK_yarare.mv1"));
 
-	// �A�j���[�V�������̐ݒ�
+	// 名前の取得
 	for (auto i = 0; i < _AnimMV1.size(); i++) {
 		_AnimName.push_back(MV1GetAnimName(_AnimMV1[i], 0));
 	}
 
-	// ���f���̓ǂݍ���
+	// モデルの追加
 	_Model[0] = new ModelComponent(this, "res/model/Sundercross/B_Sundercross.mv1");
 	
 
@@ -58,7 +58,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 		_Input->SetGravity(false);
 	}
 
-	// �^�C�����C���̐ݒ�
+	
 
 #if 0
 	std::vector<ACTION_TIMELINE> timeline;
@@ -96,7 +96,7 @@ BossActor::BossActor(ModeBase* mode, VECTOR pos)
 #endif
 #if 1
 	std::vector<ACTION_TIMELINE> timeline;
-	//
+
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::PUNCH, 10000 });
 	timeline.push_back({ ACTION::PUNCH_FALL, 8000 });
@@ -185,7 +185,6 @@ void BossActor::UpdateActor() {
 	}
 
 	// 当たり判定
-
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {
 		auto punch = dynamic_cast<PunchActor*>(h->GetOwner());
@@ -346,6 +345,7 @@ bool BossActor::ChangeAction(ACTION a) {
 	_GenerateCnt = 0;
 	return false;
 }
+
 
 bool BossActor::Rotate() {
 
@@ -572,7 +572,6 @@ void BossActor::GenerateBeam() {
 	mv->SetGravity(false);
 	auto tmpos = VSub( GetPosition(), p->GetPosition());
 	auto dir = VNorm(VGet(tmpos.x, 0, tmpos.z));
-	//auto dir = VGet(0, 0, 1);
 	new EffectSpriteComponent(this, "res/model/Sundercross/Daikanpa_Boss.efkefc", VGet(0, 2000, -800), dir,50,false,0.7);
 	
 

@@ -18,7 +18,7 @@ bool ModeScenario::Initialize() {
 
 bool ModeScenario::Terminate() {
 	base::Terminate();
-	return false;
+	return true;
 }
 
 bool ModeScenario::Process() {
@@ -42,7 +42,6 @@ bool ModeScenario::LoadScenario(const char* filename,std::string index) {
 		data.text = s["text"];
 		_ScenarioData.push_back(data);
 	}
-	// TODO: 状況に合わせたデータの読み込み
 	return true;
 }
 
@@ -65,13 +64,15 @@ bool ModeScenario::AddText() {
 		
 		while (1) {
 			bool br = false;
-			s = _ScenarioData[_TextIndex].text.substr(_StCount);
-			n = Check(static_cast<unsigned char>(s[0]));
+			s = _ScenarioData[_TextIndex].text.substr(_StCount);		// 次の文字を取得
+			n = Check(static_cast<unsigned char>(s[0]));					// 文字数チェック
 			if (n > 0) {
 				//_Index += n;
 			} else {
 				n++;
 			}
+
+			// 改行、<C>タグの処理
 			if (s[0] == '<') {
 				_StCount++;
 				_TextData.push_back(TEXT_DATA());

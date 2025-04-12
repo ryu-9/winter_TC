@@ -83,12 +83,12 @@ bool ModeOption::Initialize() {
 	_UISound->AddSound("select", "select");
 	
 
-	return false;
+	return true;
 }
 
 bool ModeOption::Terminate() {
 	base::Terminate();
-	return false;
+	return true;
 }
 
 bool ModeOption::Process() {
@@ -128,13 +128,13 @@ bool ModeOption::Process() {
 		// ‚±‚Ìƒ‚[ƒh‚ðíœ‚·‚é
 		ModeServer::GetInstance()->Del(this);
 	}
-	return false;
+	return true;
 }
 
 bool ModeOption::Render() {
 	base::Render();
 	ModeServer::GetInstance()->SkipRenderUnderLayer();
-	return false;
+	return true;
 }
 
 void ModeOption::Add(MenuItemBase* itemBase) {

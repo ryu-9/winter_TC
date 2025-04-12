@@ -47,6 +47,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 bool ApplicationMain::Terminate() {
 	base::Terminate();
+	
 	return true;
 }
 

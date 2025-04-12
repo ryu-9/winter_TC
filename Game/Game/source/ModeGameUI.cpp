@@ -9,17 +9,15 @@
 
 bool ModeGameUI::Initialize() {
 
-	
+	if (!base::Initialize()) { return true; }
+	// UIの初期化
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 966, 0), "res/UI/BASE.png", 0));
 	_UIChip.push_back(new UIItemClass(this, VGet(960, 1000, 0), "res/UI/item_stock.png", 0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(150, 974, 0), "",0,1,1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(320, 1015, 0), "", 0, 0, 1));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1770, 974, 0), "", 0, 1,0));
 	_UIChip.push_back(new UIPlayerHPClass(this, VGet(1600, 1015, 0), "", 0, 0, 0));
-//	auto ui = new UIChipClass(this,VGet(960,940,0),"res/UI/UI_MESSAGE2.png",0);
-	
-//	new UITextComponent(ui, "Scenario");
-	// 7個
+
 
 	_UIChip.push_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_UI_MARGE.png", 0));
 	_UIChip.push_back(new UIChipClass(this, VGet(286, 990, 0), "res/UI/L.png", 0));
@@ -53,7 +51,7 @@ bool ModeGameUI::Terminate() {
 bool ModeGameUI::Process() {
 	base::Process();
 	auto game = dynamic_cast<ModeGame*>(ModeServer::GetInstance()->Get("game"));
-	if (game->GetPlayer()->GetModeNum() > 0) {
+	if (game->GetPlayer()->GetModeNum() > 0) {// サンダークロス移行時
 		if (_AnimCount < 80) {
 			
 			auto pos = _UIChip[2]->GetPosition();
@@ -76,7 +74,7 @@ bool ModeGameUI::Process() {
 			_AnimCount++;
 		}
 	} else {
-		if (_AnimCount > 0) {
+		if (_AnimCount > 0) {// 通常状態移行時
 			
 			auto pos = _UIChip[2]->GetPosition();
 			_UIChip[2]->SetPosition(VGet(pos.x + 15, pos.y, 0));
@@ -115,5 +113,5 @@ bool ModeGameUI::Render() {
 	SetFontSize(30);
 	DrawFormatString(210, 50, GetColor(255, 255, 255), "%02d", msec);
 	ChangeFontType(DX_FONTTYPE_NORMAL);
-	return false;
+	return true;
 }

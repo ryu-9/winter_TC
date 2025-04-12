@@ -11,6 +11,7 @@ BossAttackActor::BossAttackActor(ModeBase* mode, BossActor::ACTION type)
 	, _Type(type) {
 	VECTOR mSize = VGet(1, 1, 1);
 	VECTOR pos = VGet(0, 0, 0);
+	// ƒ^ƒCƒv•ª‚¯
 	switch (type) {
 	case BossActor::PUNCH:
 		_LifeTime = 5000;
@@ -63,6 +64,7 @@ void BossAttackActor::UpdateActor() {
 		}
 	}
 
+	// Õ“Ë”»’è
 	auto hit = _HCollision->IsHit();
 	for (auto h : hit) {
 		auto p = dynamic_cast<PlayerActor*>(h->GetOwner());

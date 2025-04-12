@@ -54,7 +54,6 @@ void ECornComponent::ProcessInput() {
 	case STATUS::WAIT: {
 		switch (_WaitAction) {
 		case 1:
-			// �ړ�
 			Move();
 			break;
 		case 2:
@@ -65,7 +64,7 @@ void ECornComponent::ProcessInput() {
 				_Duration = 2000;
 				auto p = _En->GetGroupSpawner();
 				if (p != nullptr) {
-					// ���S�����
+					// 集団戦の中央を向く
 
 					auto pos = _Owner->GetPosition();
 					auto target = p->GetPosition();
@@ -126,7 +125,7 @@ void ECornComponent::ProcessInput() {
 
 bool ECornComponent::Attack(int n) {
 
-	
+	//	弾を発射する
 		auto ac = new ActorClass(_Owner->GetMode());
 		ac->SetPosition(_Owner->GetPosition());
 		auto m = new ModelComponent(ac, "res/model/Enemy_corn/Enemy_corn.mv1");
@@ -141,6 +140,8 @@ bool ECornComponent::Attack(int n) {
 		auto rot = _Owner->GetComponent<ModelComponent>()[0]->GetRotation();
 		rot.y = atan2(dir.x, dir.z);
 		_Owner->GetComponent<ModelComponent>()[0]->SetRotation(rot);
+
+		// サウンド
 		SoundServer::GetInstance()->Create(ac, "cornfire", "AttackSE", "cornfire");
 		auto sv = SoundServer::GetInstance()->GetSourceVoice(ac, "cornfire");
 		auto p = new SVItemPanning(sv);
@@ -241,8 +242,7 @@ bool ECornComponent::Move() {
 	auto t = _Owner->GetMode()->GetStepTm();
 	auto d = _MoveDist * t;
 	auto front = _Owner->GetComponent<ModelComponent>()[0]->GetFront();
-	// TODO: ���f���̌�������
-	// ���Ńt�����g�𔽓]
+
 	front = VScale(front, -1);
 
 	auto vel = _En->GetInput()->GetVelocity();
@@ -267,7 +267,6 @@ bool ECornComponent::GoTo(int n) {
 		float dur = static_cast<float>(_Duration);
 		_MoveDist = (_MoveData.dist + (rand() % _MoveData.dist_rand)) / dur;
 
-		// �v���C���[�̕������
 		auto pos = _Owner->GetPosition();
 		auto target = _Target[n]->GetPosition();
 		auto dir = VSub(pos,target);
@@ -286,9 +285,7 @@ bool ECornComponent::GoTo(int n) {
 
 
 	if (_CurrentTime >= _Duration) {
-//		_CurrentTime = 0;
 		_En->GetInput()->SetVelocity(VGet(0, 0, 0));
-//		_Status = STATUS::COOLTIME;
 		return true;
 	}
 

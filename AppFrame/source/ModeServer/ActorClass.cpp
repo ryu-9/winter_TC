@@ -35,8 +35,6 @@ void ActorClass::ProcessInput() {
 		{
 			comp->ProcessInput();
 		}
-
-//		ActorInput();
 	}
 }
 
@@ -45,9 +43,6 @@ void ActorClass::Update() {
 		if (this == nullptr) {
 			delete this;
 			return;
-		}
-		if (_Components.size() > 500) {
-			int test = 0;
 		}
 		UpdateComponents();
 		UpdateActor();

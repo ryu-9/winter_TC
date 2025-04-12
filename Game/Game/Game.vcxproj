@@ -161,7 +161,6 @@
     <ClCompile Include="source\ApplicationGlobal.cpp" />
     <ClCompile Include="source\ApplicationMain.cpp" />
     <ClCompile Include="source\BGMActor.cpp" />
-    <ClCompile Include="source\BGMComponent.cpp" />
     <ClCompile Include="source\BossActor.cpp" />
     <ClCompile Include="source\BossAttackActor.cpp" />
     <ClCompile Include="source\BreakableBoxActor.cpp" />
@@ -217,7 +216,6 @@
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\BGMActor.h" />
-    <ClInclude Include="source\BGMComponent.h" />
     <ClInclude Include="source\BossActor.h" />
     <ClInclude Include="source\BossAttackActor.h" />
     <ClInclude Include="source\BreakableBoxActor.h" />

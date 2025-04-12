@@ -53,7 +53,7 @@ bool ModeStageSelect::Initialize() {
 bool ModeStageSelect::Terminate() {
 	base::Terminate();
 
-	return false;
+	return true;
 }
 
 bool ModeStageSelect::Process() {
@@ -100,10 +100,10 @@ bool ModeStageSelect::Process() {
 		
 	}
 
-	return false;
+	return true;
 }
 
 bool ModeStageSelect::Render() {
 	base::Render();
-	return false;
+	return true;
 }
