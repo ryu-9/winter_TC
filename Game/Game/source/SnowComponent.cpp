@@ -224,236 +224,236 @@ SnowComponent::SnowComponent(ActorClass* owner, MV1_COLL_RESULT_POLY m, bool fla
 // デストラクタ
 SnowComponent::~SnowComponent()
 {
-    // メモリ解放
-    delete[] _Snow;
-    delete[] _Index;
-    delete[] _Height;
+	// メモリ解放
+	delete[] _Snow;
+	delete[] _Index;
+	delete[] _Height;
 }
 
 // 描画関数
 void SnowComponent::Draw()
 {
-    bool flag = false;
-    int olddist = 1000000000;
-    int num = 0;
-    int que = 0;
-    int calc = 0;
-    int split = 2 * _Split * _Split;
+	bool flag = false;
+	int olddist = 1000000000;
+	int num = 0;
+	int que = 0;
+	int calc = 0;
+	int split = 2 * _Split * _Split;
 
-    // テクスチャのアドレスモードを設定
-    SetTextureAddressModeUV(DX_TEXADDRESS_WRAP, DX_TEXADDRESS_WRAP);
+	// テクスチャのアドレスモードを設定
+	SetTextureAddressModeUV(DX_TEXADDRESS_WRAP, DX_TEXADDRESS_WRAP);
 
-    // スノーサイズが3未満の場合は描画しない
-    if (_SnowSize < 3) { return; }
+	// スノーサイズが3未満の場合は描画しない
+	if (_SnowSize < 3) { return; }
 
-    // MoveCollisionComponentのリストを作成
-    std::deque<MoveCollisionComponent*> mclist;
-    for (auto mc : _MCList) {
-        mclist.push_back(mc);
-    }
-    for (auto mc : _OldMCList) {
-        bool mcflag = false;
-        for (auto mc2 : _MCList) {
-            if (mc == mc2) {
-                mcflag = true;
-            }
-        }
-        if (!mcflag) {
-            mclist.push_back(mc);
-        }
-    }
+	// MoveCollisionComponentのリストを作成
+	std::deque<MoveCollisionComponent*> mclist;
+	for (auto mc : _MCList) {
+		mclist.push_back(mc);
+	}
+	for (auto mc : _OldMCList) {
+		bool mcflag = false;
+		for (auto mc2 : _MCList) {
+			if (mc == mc2) {
+				mcflag = true;
+			}
+		}
+		if (!mcflag) {
+			mclist.push_back(mc);
+		}
+	}
 
-    // 角度の計算
-    float angle = 15 * VSize(VGet(_Normal.x, 0, _Normal.z));
+	// 角度の計算
+	float angle = 15 * VSize(VGet(_Normal.x, 0, _Normal.z));
 
-    // MoveCollisionComponentのリストを処理
-    for (auto mc : mclist) {
-        float vertexdepth = 0;
-        if (mc == nullptr) {
-            continue;
-        }
-        num = 0;
-        que = 0;
-        olddist = 1000000000;
-        int debugnum = 0;
-        float size = (mc->GetSize().x + angle + 5);
-        size *= size;
-        for (int i = 0; i < _SnowSize; i++) {
-            if (_Height[i] > 0) {
-                continue;
-            }
-            debugnum++;
-            float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), _Snow[i].pos);
-            float depth = dist - size;
-            if (depth > _Longest) {
-                break;
-            }
-            if (olddist > dist) {
-                flag = false;
-                olddist = dist;
-            }
-            if (num < i) {
-                if (flag) {
-                    break;
-                }
-                que = sqrt(i * 2);
-                num = (que + 2) * (que + 3) / 2;
-                flag = true;
-            }
+	// MoveCollisionComponentのリストを処理
+	for (auto mc : mclist) {
+		float vertexdepth = 0;
+		if (mc == nullptr) {
+			continue;
+		}
+		num = 0;
+		que = 0;
+		olddist = 1000000000;
+		int debugnum = 0;
+		float size = (mc->GetSize().x + angle + 5);
+		size *= size;
+		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] > 0) {
+				continue;
+			}
+			debugnum++;
+			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), _Snow[i].pos);
+			float depth = dist - size;
+			if (depth > _Longest) {
+				break;
+			}
+			if (olddist > dist) {
+				flag = false;
+				olddist = dist;
+			}
+			if (num < i) {
+				if (flag) {
+					break;
+				}
+				que = sqrt(i * 2);
+				num = (que + 2) * (que + 3) / 2;
+				flag = true;
+			}
 
-            // 雪をへこませる
-            if (depth < 0) {
-                flag = false;
-                depth = sqrt(-depth);
-                if (depth > 20 + _Height[i]) { depth = 20 + _Height[i]; }
-                vertexdepth += depth;
-                _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
-                _Height[i] -= depth;
-                _Flag = TRUE;
-            }
+			// 雪をへこませる
+			if (depth < 0) {
+				flag = false;
+				depth = sqrt(-depth);
+				if (depth > 20 + _Height[i]) { depth = 20 + _Height[i]; }
+				vertexdepth += depth;
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -depth, 0));
+				_Height[i] -= depth;
+				_Flag = TRUE;
+			}
 
-            calc--;
-            if (calc < 0) {
-                unsigned int nande = que * que * split;
-                if ((dist - size) > nande && flag) {
-                    int t = dist - size;
-                    t = sqrt(t);
-                    t /= _Split;
-                    t /= que + 1;
-                    for (int j = 0; j < t; j++) {
-                        i += que + j;
-                    }
-                    flag = false;
-                }
-            }
-        }
+			calc--;
+			if (calc < 0) {
+				unsigned int nande = que * que * split;
+				if ((dist - size) > nande && flag) {
+					int t = dist - size;
+					t = sqrt(t);
+					t /= _Split;
+					t /= que + 1;
+					for (int j = 0; j < t; j++) {
+						i += que + j;
+					}
+					flag = false;
+				}
+			}
+		}
 
-        // プレイヤーのサイズを調整
-        auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
-        if (pl != nullptr) {
-            if (!pl->GetModeNum()) {
-                float tmpsize = pl->GetSize().x + 0.5;
-                tmpsize *= tmpsize;
-                tmpsize *= tmpsize;
-                tmpsize *= tmpsize;
-                if (pl->GetSize().x > 1) {
-                    tmpsize *= 2;
-                }
-                // へこませた雪の体積に応じてプレイヤーを大きくする
-                float tmp = vertexdepth * _Area / 300000 / tmpsize;
-                if (tmp > 0.003) {
-                    tmp = 0.003;
-                }
-                pl->AddSize(tmp);
-            }
-        }
-    }
+		// プレイヤーのサイズを調整
+		auto pl = dynamic_cast<PlayerActor*>(mc->GetOwner());
+		if (pl != nullptr) {
+			if (!pl->GetModeNum()) {
+				float tmpsize = pl->GetSize().x + 0.5;
+				tmpsize *= tmpsize;
+				tmpsize *= tmpsize;
+				tmpsize *= tmpsize;
+				if (pl->GetSize().x > 1) {
+					tmpsize *= 2;
+				}
+				// へこませた雪の体積に応じてプレイヤーを大きくする
+				float tmp = vertexdepth * _Area / 300000 / tmpsize;
+				if (tmp > 0.003) {
+					tmp = 0.003;
+				}
+				pl->AddSize(tmp);
+			}
+		}
+	}
 
-    for (auto mc : _MCList2) {
-        float vertexdepth = 0;
-        if (mc == nullptr) {
-            continue;
-        }
-        num = 0;
-        que = 0;
-        olddist = 1000000000;
-        int debugnum = 0;
-        float size = mc->GetSize().x * mc->GetSize().x * 2;
-        for (int i = 0; i < _SnowSize; i++) {
-            if (_Height[i] > 0) {
-                continue;
-            }
+	for (auto mc : _MCList2) {
+		float vertexdepth = 0;
+		if (mc == nullptr) {
+			continue;
+		}
+		num = 0;
+		que = 0;
+		olddist = 1000000000;
+		int debugnum = 0;
+		float size = mc->GetSize().x * mc->GetSize().x * 2;
+		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] > 0) {
+				continue;
+			}
 
-            debugnum++;
-            float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0)));
-            if (dist > _Longest) {
-                break;
-            }
-            if (olddist > dist) {
-                flag = false;
-                olddist = dist;
-            }
-            if (num < i) {
-                if (flag) {
-                    break;
-                }
-                que = sqrt(i * 2);
-                num = (que + 2) * (que + 3) / 2;
-                flag = true;
-            }
+			debugnum++;
+			float dist = Segment_Point_MinLength_Square(mc->GetPosition(), mc->GetDrawPos(1), VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0)));
+			if (dist > _Longest) {
+				break;
+			}
+			if (olddist > dist) {
+				flag = false;
+				olddist = dist;
+			}
+			if (num < i) {
+				if (flag) {
+					break;
+				}
+				que = sqrt(i * 2);
+				num = (que + 2) * (que + 3) / 2;
+				flag = true;
+			}
 
-            // 雪を積もらせる
-            float depth = dist - size;
-            if (depth < 0) {
-                flag = false;
-                depth = sqrt(-depth);
-                if (depth < 20 && _Height[i] < -depth) {
-                    _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
-                    _Height[i] = depth - 20;
-                    _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, +_Height[i], 0));
-                }
-                else {
-                    _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
-                    _Height[i] = 0;
-                }
-                vertexdepth += depth - _Height[i];
-                if (_Height[i] > 0) {
-                    _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
-                    _Height[i] = 0;
-                }
-            }
-            calc--;
-            if (calc < 0) {
-                unsigned int nande = que * que * split;
-                if ((dist - size) > nande && flag) {
-                    int t = dist - size;
-                    t = sqrt(t);
-                    t /= _Split;
-                    t /= que + 1;
-                    for (int j = 0; j < t; j++) {
-                        i += que + j;
-                    }
-                    flag = false;
-                }
-            }
-        }
-    }
+			// 雪を積もらせる
+			float depth = dist - size;
+			if (depth < 0) {
+				flag = false;
+				depth = sqrt(-depth);
+				if (depth < 20 && _Height[i] < -depth) {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = depth - 20;
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, +_Height[i], 0));
+				}
+				else {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = 0;
+				}
+				vertexdepth += depth - _Height[i];
+				if (_Height[i] > 0) {
+					_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, -_Height[i], 0));
+					_Height[i] = 0;
+				}
+			}
+			calc--;
+			if (calc < 0) {
+				unsigned int nande = que * que * split;
+				if ((dist - size) > nande && flag) {
+					int t = dist - size;
+					t = sqrt(t);
+					t /= _Split;
+					t /= que + 1;
+					for (int j = 0; j < t; j++) {
+						i += que + j;
+					}
+					flag = false;
+				}
+			}
+		}
+	}
 
-    // へこんでいる雪を徐々に戻す
-    if (_Flag) {
-        _Flag = FALSE;
-        float fall = 0.1 / GetFPS();
-        for (int i = 0; i < _SnowSize; i++) {
-            if (_Height[i] < 0) {
-                _Height[i] += fall;
-                _Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, fall, 0));
-                _Flag = TRUE;
-            }
-        }
-    }
+	// へこんでいる雪を徐々に戻す
+	if (_Flag) {
+		_Flag = FALSE;
+		float fall = 0.1 / GetFPS();
+		for (int i = 0; i < _SnowSize; i++) {
+			if (_Height[i] < 0) {
+				_Height[i] += fall;
+				_Snow[i].pos = VAdd(_Snow[i].pos, VGet(0, fall, 0));
+				_Flag = TRUE;
+			}
+		}
+	}
 
-    // マテリアルパラメータの設定
-    MATERIALPARAM MatParam;
-    MatParam.Diffuse = GetColorF(0.8, 0.8, 0.8, 1.0f); // ディフューズカラーは白
-    MatParam.Ambient = GetColorF(0.8, 0.8, 0.8, 1.0f); // アンビエントカラーは白
-    MatParam.Specular = GetColorF(0.0f, 0.0f, 0.0f, 0.0f); // スペキュラカラーは無し
-    MatParam.Emissive = GetColorF(0.1f, 0.1f, 0.2f, 0.5f); // エミッシブカラーもなし
-    MatParam.Power = 0.0f; // スペキュラはないので0
+	// マテリアルパラメータの設定
+	MATERIALPARAM MatParam;
+	MatParam.Diffuse = GetColorF(0.8, 0.8, 0.8, 1.0f); // ディフューズカラーは白
+	MatParam.Ambient = GetColorF(0.8, 0.8, 0.8, 1.0f); // アンビエントカラーは白
+	MatParam.Specular = GetColorF(0.0f, 0.0f, 0.0f, 0.0f); // スペキュラカラーは無し
+	MatParam.Emissive = GetColorF(0.1f, 0.1f, 0.2f, 0.5f); // エミッシブカラーもなし
+	MatParam.Power = 0.0f; // スペキュラはないので0
 
-    // マテリアルのパラメータをセット
-    SetMaterialParam(MatParam);
-    SetMaterialUseVertSpcColor(true);
+	// マテリアルのパラメータをセット
+	SetMaterialParam(MatParam);
+	SetMaterialUseVertSpcColor(true);
 
-    // ポリゴンの描画
-    if (_Flag) {
-        DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, _Handle, FALSE);     // 描画
-    }
-    else {
-        DrawPolygonIndexed3D(_LowSnow, 6, _LowIndex, 7, _Handle, FALSE);        // 軽量描画
-    }
+	// ポリゴンの描画
+	if (_Flag) {
+		DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, _Handle, FALSE);     // 描画
+	}
+	else {
+		DrawPolygonIndexed3D(_LowSnow, 6, _LowIndex, 7, _Handle, FALSE);        // 軽量描画
+	}
 
-    // MoveCollisionComponentリストのクリア
-    _MCList.clear();
-    _MCList2.clear();
-    return;
+	// MoveCollisionComponentリストのクリア
+	_MCList.clear();
+	_MCList2.clear();
+	return;
 }
