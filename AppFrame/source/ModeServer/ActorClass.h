@@ -21,7 +21,6 @@ public:
 	virtual ~ActorClass();
 
 	void ProcessInput();
-//	virtual void ActorInput() {};
 
 	void Update();
 	void UpdateComponents();

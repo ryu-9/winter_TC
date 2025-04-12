@@ -4,9 +4,7 @@
 #include "ModelComponent.h"
 #include "MoveComponent.h"
 #include "../AppFrame/source/ModelServer/ModelServer.h"
-
 #include "../Application/ApplicationBase.h"
-
 
 MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelComponent* model, VECTOR pos, VECTOR size, int type, bool move, bool active, int handle)
 	: Component(owner)
@@ -25,7 +23,7 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 		}
 	}
 	OldPos = GetPosition();
-	
+
 	if (type == 2) { return; }
 
 	// modelがnullptrならModelComponentを取得
@@ -46,11 +44,9 @@ MoveCollisionComponent::MoveCollisionComponent(class ActorClass* owner, ModelCom
 		Handle = modelComp->GetHandle();
 	}
 
-
 	// コリジョンリフレッシュ
 	RefleshCollInfo();
 }
-
 
 MoveCollisionComponent::~MoveCollisionComponent()
 {
@@ -59,10 +55,12 @@ MoveCollisionComponent::~MoveCollisionComponent()
 
 void MoveCollisionComponent::Update() {
 
-
+	// コリジョン情報の初期化
 	devpos = VGet(0, 0, 0);
 	_CollResult.clear();
 
+
+	// アクティブ状態の確認
 	if (isActive == TRUE && isCalc == TRUE) {
 
 		int pushnum = 0;
@@ -70,6 +68,7 @@ void MoveCollisionComponent::Update() {
 
 		drawpos[0] = GetPosition();
 
+		// 移動するならMoveComponentを取得
 		if (_Move == nullptr && isMove) {
 			auto mc = _Owner->GetComponent<MoveComponent>();
 			if (mc.size() > 0) {
@@ -79,13 +78,14 @@ void MoveCollisionComponent::Update() {
 
 
 
-
+		// 初期化
 		flag = FALSE;
 		shomen = FALSE;
 		OldMove = VGet(0, 0, 0);
-		std::deque<MV1_COLL_RESULT_POLY_DIM> debugresult;
+
 		bool sqrtFlag = FALSE;
 		bool shomen = false;
+		// コリジョン情報の取得
 		for (auto mcoll : _Owner->GetMode()->GetMCollision()) {
 			VECTOR oldmove = VGet(0, 0, 0);
 			if (mcoll->GetIsActive() == TRUE) {
@@ -94,6 +94,7 @@ void MoveCollisionComponent::Update() {
 
 					VECTOR tmp = VSub(GetPosition(), OldPos);
 
+					// 移動前と移動後のカプセルでコリジョンチェック
 					MV1_COLL_RESULT_POLY_DIM result;
 					{
 						VECTOR size = GetSize();
@@ -101,10 +102,9 @@ void MoveCollisionComponent::Update() {
 						radian /= 3;
 						result = MV1CollCheck_Capsule(mcoll->GetHandle(), -1, GetPosition(), OldPos,  radian );
 					}
-					debugresult.push_front(result);
+					// コリジョンがあった場合
 					if (result.HitNum > 0) {
-
-
+						// コリジョン情報を取得
 						CollResult tmp_CollResult;
 						tmp_CollResult.mc = mcoll;
 						VECTOR Ntmp = VNorm(tmp);
@@ -127,12 +127,15 @@ void MoveCollisionComponent::Update() {
 			}
 		}
 
+		// コリジョン情報がなければ終了
 		if (_CollResult.size() <= 0) {
 			RefleshCollInfo();
 			drawpos[1] = OldPos;
 			OldPos = GetPosition();
 			return;
 		}
+
+		// 移動前からのコリジョン情報を取得
 		std::deque<VECTOR> HitPos;
 		std::deque<VECTOR> HitNormal;
 		std::deque<float> dist;
@@ -206,23 +209,24 @@ void MoveCollisionComponent::Update() {
 			MV1CollResultPolyDimTerminate(Presult);
 		}
 
+		// 押し出し処理
 		float radius = GetSize().x + GetSize().y + GetSize().z;
 		radius /= 3;
 		int sqrtnum = -1;
 		for (int i = 0; i < HitPos.size(); i++) {
 
+			// 移動ベクトルを計算
 			VECTOR move = VSub(OldPos, HitPos[i]);
 			if (VSize(move) == 0) {
 				move = HitNormal[i];
 			}
 			move = VNorm(move);
-			if (VSize(move) <= 0) {
-				continue;
-				move = HitNormal[i];
-			}
+
+			// 法線との内積が負ならスキップ
 			if (VDot(move, HitNormal[i]) < 0) {
 				continue;
 			}
+			// 移動方向との内積が正ならスキップ
 			if (VDot(move, tmp) > 0) {
 				continue;
 			}
@@ -230,10 +234,11 @@ void MoveCollisionComponent::Update() {
 				float length = 0;
 
 
-				float v = VDot(move, OldMove);
+				// メッシュの法線との内積を計算
 				float judge = VDot(move, HitNormal[i]);
 
-	
+				// 直前の移動方向を相殺
+				float v = VDot(move, OldMove);
 				move = VSub(move, VScale(OldMove, v));
 				if (VSize(move) <= 0.01) {
 
@@ -251,12 +256,13 @@ void MoveCollisionComponent::Update() {
 					int test = 0;
 				}
 				
+				// 法線と一致している場合
 				if (judge >= 1){
 
+					// 面上になるように移動量を計算
 					float a = VDot(tmp, HitNormal[i]);
 					if (a < 0) { a *= -1; }
 					float b =VDot(VSub( GetPosition(), HitPos[i]), HitNormal[i]);
-					//if (b < 0) { b *= -1; }
 					float c = radius;
 					length = -b + c;
 					if (length >= 2000) {
@@ -273,13 +279,18 @@ void MoveCollisionComponent::Update() {
 					}
 					shomen = true;
 				}
+				// 法線と一致していない場合
 				else {
+
+					// HitPos[i]にせっするように移動量を計算
+					// 2次方程式の解の公式
 					float dot = VDot(move, VSub(HitPos[i], GetPosition()));
 					float a = VSize(VSub(HitPos[i], GetPosition()));
 					float r = radius;
 					float debugSQRT = 4 * (dot * dot) - 4 * (a * a - r * r);
+
+					// 解が虚数の場合はスキップ
 					if (debugSQRT < 0) {
-						//									OldMove = move;
 						if (sqrtFlag == FALSE) {
 							sqrtFlag = TRUE;
 							sqrtnum = i;
@@ -289,12 +300,7 @@ void MoveCollisionComponent::Update() {
 					else {
 						length = (2.0f * dot + sqrt(debugSQRT)) / 2.0f;
 					}
-					if (move.x > 0.7) {
-						int test = 0;
-					}
-					if (i == 0) {
-						int test = 0;
-					}
+					// 移動量が負の場合はスキップ
 					if (length < 0) {
 						continue;
 					}
@@ -304,7 +310,9 @@ void MoveCollisionComponent::Update() {
 					continue;
 				}
 
+
 				if (isMove) {
+					// 移動量を加算
 					_Owner->SetPosition(VAdd(_Owner->GetPosition(), VScale(move, length)));
 					pushnum++;
 
@@ -320,6 +328,7 @@ void MoveCollisionComponent::Update() {
 						int test = 0;
 					}
 
+					// ぶつかったものから押し出し方向の速度成分を反映
 					MoveComponent* EnMoveCon = coll[i]->GetMove();
 					VECTOR EnMove;
 					if (EnMoveCon != nullptr) {
@@ -335,7 +344,7 @@ void MoveCollisionComponent::Update() {
 
 
 
-
+				// ぶつかったものが一定角度以下の時
 				float deg = 0;
 				if (move.y >= cos(deg / 180 * atan(1) * 4)) {
 					if (_Move != nullptr) {
@@ -345,6 +354,7 @@ void MoveCollisionComponent::Update() {
 
 				RefleshCollInfo();
 
+				// 虚数解をスキップしていた時、再計算
 				if (sqrtFlag == TRUE) {
 					sqrtFlag = FALSE;
 
@@ -435,24 +445,6 @@ void MoveCollisionComponent::Update() {
 		
 		
 		}
-		if (VSize(OldPos) != 0) {
-			if (!shomen && _CollResult.size() > 0) {
-				int test = 0;
-			}
-		}
-
-		if (devpos.y < 0.5 && radius > 10 && dist.size()>1) {
-			int test = 0;
-		}
-		if ( ApplicationBase::GetInstance()->GetKey(1)& PAD_INPUT_4) {
-			if (devpos.y > radius  && _CollResult.size() > 0) {
-				int test = 0;
-			}
-			int num = movedList.size() - dist.size();
-			if (num < -1) {
-				int test = 0;
-			}
-		}
 
 		drawpos[1] = OldPos;
 		OldPos = GetPosition();
@@ -462,52 +454,66 @@ void MoveCollisionComponent::Update() {
 
 }
 
+
+// コリジョン情報をリフレッシュする関数
 void MoveCollisionComponent::RefleshCollInfo()
 {
+	// ハンドルの位置を設定
 	MV1SetPosition(Handle, GetPosition());
+
+	// サイズを取得して設定
 	VECTOR size = GetSize();
 	MV1SetScale(Handle, GetSize());
+
+	// 回転を設定
 	MV1SetRotationXYZ(Handle, GetRotation());
+
+	// コリジョン情報をセットアップ
 	MV1SetupCollInfo(Handle);
 }
 
-
+// 位置を取得する関数
 VECTOR MoveCollisionComponent::GetPosition() {
 	VECTOR pos = VMulti(Pos, _Owner->GetSize());
 	VECTOR dir = _Owner->GetDirection();
 	pos = VTransform(pos, MGetRotX(dir.x));
 	pos = VTransform(pos, MGetRotY(dir.y));
 	pos = VTransform(pos, MGetRotZ(dir.z));
-	return VAdd(_Owner->GetPosition(), pos); 
+	return VAdd(_Owner->GetPosition(), pos);
 }
 
+// サイズを取得する関数
 VECTOR MoveCollisionComponent::GetSize() {
-	return VMulti(Size, _Owner->GetSize()); 
+	return VMulti(Size, _Owner->GetSize());
 }
 
+// 上方向ベクトルを取得する関数
 VECTOR MoveCollisionComponent::GetUp()
 {
 	return _Model->GetUp();
 }
 
+// 前方向ベクトルを取得する関数
 VECTOR MoveCollisionComponent::GetFront()
 {
 	return _Model->GetFront();
 }
 
+// 右方向ベクトルを取得する関数
 VECTOR MoveCollisionComponent::GetRight()
 {
-	return VCross(GetUp(),GetFront());
+	return VCross(GetUp(), GetFront());
 }
 
+// 回転を取得する関数
 VECTOR MoveCollisionComponent::GetRotation()
 {
 	return VAdd(Rot, _Owner->GetDirection());
 }
 
+// デバッグ描画を行う関数
 void MoveCollisionComponent::DebugDraw()
 {
-
 	if (isActive == FALSE) {
 		return;
 	}
@@ -532,27 +538,24 @@ void MoveCollisionComponent::DebugDraw()
 		DrawFormatString(0, 16, GetColor(255, 255, 255), "Shomen");
 	}
 	switch (Type) {
-
 	case 1:
 		DrawLine3D(VAdd(GetPosition(), VGet(0, 0, 0)), VAdd(GetPosition(), VGet(0, 0, GetSize().z)), GetColor(255, 255, 255));
 		break;
-
 	case 2:
 		DrawSphere3D(GetPosition(), GetSize().x, 16, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
 		break;
-
-
 	default:
 		MV1DrawModel(Handle);
 		break;
-
 	}
 }
 
+// プッシュ処理を行う関数
 void MoveCollisionComponent::Push()
 {
 }
 
+// 回転を設定する関数
 void MoveCollisionComponent::SetRotation(VECTOR rot)
 {
 	Rot = rot;
