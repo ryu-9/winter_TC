@@ -59,6 +59,7 @@ private:
 	bool ChangeAnim(ACTION a);
 	bool ChangeAction(ACTION a);
 
+
 	bool Rotate();
 
 	class MoveComponent* _Input;

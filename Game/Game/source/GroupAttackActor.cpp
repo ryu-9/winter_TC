@@ -31,7 +31,7 @@ void GroupSpawnerActor::Init() {
 }
 
 void GroupSpawnerActor::UpdateActor() {
-	if (_Active == false) { 
+	if (_Active == false) {			// グループアタック中でない
 		int n = 0;
 		auto hit =_HCollision->IsHit();
 		for (auto h : hit) {
@@ -41,12 +41,13 @@ void GroupSpawnerActor::UpdateActor() {
 				if (e->GetModeNum() > 0) {
 					n++;
 				}
-				if (n >= 2) {
+				if (n >= 2) {// プレイヤーが2人以上いる
 					_Active = true;
 					gGlobal._IsGroupAttack = true;
 					auto g = dynamic_cast<ModeGame*>(GetMode());
 					auto c = g->GetCamera()->GetComponent<CameraComponent>()[0];
 					
+					// カメラの位置を変更
 					VECTOR* p = new VECTOR;
 					*p = GetPosition();
 					p->y += GetSize().z * 80;
@@ -58,7 +59,7 @@ void GroupSpawnerActor::UpdateActor() {
 					c->SetPosition2(p);
 					c->SetEasing(1000);
 					
-
+					// テキストを表示
 					auto s = gGlobal._SelectStage +1;
 					auto n = _Num +1;
 					std::string key = "g" + std::to_string(s) + "_" + std::to_string(n);
@@ -84,7 +85,7 @@ void GroupSpawnerActor::UpdateActor() {
 			_TmCnt += GetMode()->GetStepTm();
 		}
 
-		if ((_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0)) {
+		if ((_TotalPopCnt >= _Data.max_popcount && _PopCnt <= 0)) {	// グループアタック終了
 			_Active = false;
 			gGlobal._IsGroupAttack = false;
 			auto g = dynamic_cast<ModeGame*>(GetMode());
@@ -98,42 +99,13 @@ void GroupSpawnerActor::UpdateActor() {
 			if (gGlobal._SelectStage == 0) {
 				g->GetUIT()->AddText("Scenario", "win", true);
 			}
-			if (gGlobal._SelectStage == 1) {
-				switch (_Num) {
-				case 0:
-					g->GetUIT()->AddText("Scenario", "g2_1win", true);
-					break;
-				case 1:
-					g->GetUIT()->AddText("Scenario", "g2_2win", true);
-					break;
-				case 2:
-					g->GetUIT()->AddText("Scenario", "g2_3win", true);
-					break;
-				case 3:
-					g->GetUIT()->AddText("Scenario", "g2_4win", true);
-					break;
-				case 4:
-					g->GetUIT()->AddText("Scenario", "g2_5win", true);
-					break;
-				default:
-					break;
-				}
+			else {
+				auto s = gGlobal._SelectStage + 1;
+				auto n = _Num + 1;
+				std::string key = "g" + std::to_string(s) + "_" + std::to_string(n) + "win";
+				g->GetUIT()->AddText("Scenario", key, true);
 			}
-			if (gGlobal._SelectStage == 2) {
-				switch (_Num) {
-				case 0:
-					g->GetUIT()->AddText("Scenario", "g3_1win", true);
-					break;
-				case 1:
-					g->GetUIT()->AddText("Scenario", "g3_2win", true);
-					break;
-				case 2:
-					g->GetUIT()->AddText("Scenario", "g3_3win", true);
-					break;
-				default:
-					break;
-				}
-			}
+			
 		}
 
 
@@ -155,7 +127,7 @@ void GroupSpawnerActor::UpdateActor() {
 				}
 			}
 
-			// ��ԉ����X�|�i�[���琶��
+			// 生成位置を選ぶ
 			auto randdist = rand() % _Data.pop_range;
 			auto randangle = rand() % 360;
 			randangle = DEG2RAD(randangle);
@@ -167,8 +139,8 @@ void GroupSpawnerActor::UpdateActor() {
 				}
 			}
 
-			// �G���A��ɐ���
-
+			
+			
 			EnemyCreator::GetInstance()->Create(GetMode(), 0, VAdd(_PopPos[max], pos), this);
 			_PopCnt++;
 			_TotalPopCnt++;
@@ -190,6 +162,7 @@ void GroupSpawnerActor::UpdateActor() {
 				continue;
 			}
 
+			// 当たり判定
 			auto hit = _Spawner[i].hCollision->IsHit();
 			for (auto h : hit) {
 				auto p = dynamic_cast<PlayerActor*>(h->GetOwner());

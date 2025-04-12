@@ -1,6 +1,5 @@
 #include "SoundServer.h"
 #include <mmsystem.h>
-#include "SoundComponent.h"
 #include "SourceVoiceItem.h"
 #include "SourceVoiceItemEffect.h"
 #include <xapofx.h>

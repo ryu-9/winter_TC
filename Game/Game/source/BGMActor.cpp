@@ -19,7 +19,6 @@ BGMActor::BGMActor(ModeBase* mode)
 		SS::GetInstance()->GetSourceVoice(this, "bgm3")->SetVolume(0.4);
 	}
 	
-	//TODO: �W�c���BGM
 }
 
 BGMActor::~BGMActor() {
@@ -37,7 +36,7 @@ void BGMActor::UpdateActor() {
 	auto bgm1 = SS::GetInstance()->GetSourceVoice(this, "bgm1");
 	auto bgm2 = SS::GetInstance()->GetSourceVoice(this, "bgm2");
 	auto bgm3 = SS::GetInstance()->GetSourceVoice(this, "bgm3");
-	if (_PlayBGM == 0) {
+	if (_PlayBGM == 0) {		// 初期化
 		XAUDIO2_FILTER_PARAMETERS param;
 		param.Type = LowPassOnePoleFilter;
 		param.Frequency = 1.f;
@@ -50,7 +49,7 @@ void BGMActor::UpdateActor() {
 	auto n = dynamic_cast<ModeGame*>(_Mode)->GetPlayer()->GetModeNum();
 	if (n >= 2) { n = 1; }
 
-	if (_PlayBGM == 1) {
+	if (_PlayBGM == 1) {		// 通常
 		if (n >= 1 && bgm2 != nullptr) {
 			bgm1->Stop();
 			bgm2->Play();
@@ -79,7 +78,7 @@ void BGMActor::UpdateActor() {
 			}
 		}
 	}
-	if (_PlayBGM ==2) {
+	if (_PlayBGM == 2) {		// サンダークロス
 		if (n < 1) {
 			bgm2->Stop();
 			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm2");
@@ -97,7 +96,7 @@ void BGMActor::UpdateActor() {
 		}
 
 	}
-	if (_PlayBGM == 3) {
+	if (_PlayBGM == 3) {		// グループアタック
 		if (n >= 1 && bgm2 != nullptr) {
 			bgm3->Stop();
 			SoundServer::GetInstance()->DeleteSourceVoice(this, "bgm3");

@@ -39,5 +39,25 @@ namespace iojson {
 		return true;
 	}
 
+	bool SaveData(int n, std::string fname) {
+		std::ofstream file(fname);
+		nlohmann::json json;
+		json["text"] = n;
+		file << json.dump(4);
+
+		file.close();
+		return true;
+	}
+
+	bool LoadJson(int& n, std::string fname) {
+		std::ifstream file(fname);
+		nlohmann::json json;
+		file >> json;
+		auto text = json.at("text");
+
+		n = text;
+		return true;
+	}
+
 	
 }

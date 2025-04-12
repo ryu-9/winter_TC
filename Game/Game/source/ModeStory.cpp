@@ -1,3 +1,8 @@
+/**
+* @file ModeStory.cpp
+* @brief ストーリーモード
+*/
+
 #include "ModeStory.h"
 #include "ApplicationMain.h"
 #include "ApplicationGlobal.h"
@@ -17,6 +22,7 @@ namespace {
 
 bool ModeStory::Initialize() {
 	if (!base::Initialize()) { return false; }
+	// シナリオデータの読み込み
 	LoadScenario("res/loadtext/outgametext.json",std::to_string(gGlobal._SelectStage));
 	SetFontSize(FONT_SIZE);
 	_CurrentTime = 0;
@@ -25,37 +31,39 @@ bool ModeStory::Initialize() {
 	_TextIndex = 0;
 	_TextCount = 0;
 	_TextData.push_back(ModeScenario::TEXT_DATA());
+	// 背景画像の読み込み
 	switch (gGlobal._SelectStage) {
-	case -1:
+	case -1:	// オープニング
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
 		break;
-	case 0:
+	case 0:		// ステージ1
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART1_ED.png"));
 		break;
-	case 1:
+	case 1:		// ステージ2
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART2_ED.png"));
 		break;
-	case 2:
+	case 2:		// ステージ3
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_PART3_ED.png"));
 		break;
-	case 3:
+	case 3:		// エンディング
 		_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_ED.png"));
 		break;
 	default:
 		break;
 	}
-//	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/STORY_OP.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 950, 0), "res/UI/UI_TEXT_BACK.png"));
 	_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 0), "res/UI/TDX_STORY_SIDE.png"));
+
+	// ステージ解放フラグ
 	if (gGlobal._SelectStage == gGlobal._Stageflg) {
 		gGlobal._Stageflg++;
 	}
-	return false;
+	return true;
 }
 
 bool ModeStory::Terminate() {
 	base::Terminate();
-	return false;
+	return true;
 }
 
 bool ModeStory::Process() {
@@ -67,17 +75,17 @@ bool ModeStory::Process() {
 		AddText();
 	}
 
-	if (trg & PAD_INPUT_1) {
-		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {
+	if (trg & PAD_INPUT_1) {		// ボタン押下で次へ
+		if (_ScenarioData[_TextIndex].text.size() <= _StCount) {		// テキストの最後まで表示されたら
 			_StCount = 0;
 			_TextCount = 0;
 			_CurrentTime = 0;
 			_TextIndex++;
-			if (_TextIndex >= _ScenarioData.size()) {
+			if (_TextIndex >= _ScenarioData.size()) {		// シナリオの最後まで表示されたら
 
 				ModeServer::GetInstance()->Del(this);
-				if (gGlobal._SelectStage == -1) {
-				} else if (gGlobal._SelectStage == 2) {
+				if (gGlobal._SelectStage == -1) {}
+				else if (gGlobal._SelectStage == 2) {		// ステージ3
 					gGlobal._SelectStage = 3;
 					ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 					ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
@@ -122,7 +130,7 @@ bool ModeStory::Render() {
 		x += GetDrawFormatStringWidth(text.c_str());
 	}
 	ModeServer::GetInstance()->SkipRenderUnderLayer();
-	return false;
+	return true;
 }
 
 

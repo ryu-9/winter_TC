@@ -17,7 +17,7 @@ GoalItemActor::GoalItemActor(ModeBase* mode, VECTOR pos,bool flag)
 	
 	_Model->SetVisible(true);
 	_HCollision->RefleshCollInfo();
-	_PosY = poss.y ;
+	_PosY = poss.y;
 	_Fallf = flag;
 	SetSize(VGet(2, 2, 2));
 }
@@ -29,8 +29,8 @@ void GoalItemActor::UpdateActor() {
 	_AnimCount += GetMode()->GetStepTm();
 	VECTOR rot = _Model->GetRotation();
 	rot.y += 0.02f;
-	_Model->SetRotation(rot);
-	if (_Fallf) {
+	_Model->SetRotation(rot);		// âÒì]
+	if (_Fallf) {		// óéâ∫íÜ
 		_PosY -= 1.f;
 		if (GetComponent<MoveComponent>()[0]->GetStand()) {
 			_Fallf = false;
@@ -38,6 +38,6 @@ void GoalItemActor::UpdateActor() {
 	}
 	VECTOR pos = GetPosition();
 	pos.y = _PosY + 10 * sin(_AnimCount * 0.005f);
-	SetPosition(pos);
+	SetPosition(pos);		// è„â∫â^ìÆ
 
 }

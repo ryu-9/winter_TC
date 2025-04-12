@@ -19,19 +19,19 @@ bool ModeGameGoal::Initialize() {
 	_Sec = (gGlobal._EndTime - gGlobal._StartTime) / 1000 % 60;
 	_Msec = (gGlobal._EndTime - gGlobal._StartTime) % 1000 / 10;
 	SetFontSize(60);
-	return false;
+	return true;
 }
 
 bool ModeGameGoal::Terminate() {
 	base::Terminate();
-	return false;
+	return true;
 }
 
 bool ModeGameGoal::Process() {
 	base::Process();
 	switch (_Step) {
-	case 0:
-		if (GetModeTm() > 1000) {
+	case 0:	// クリア文字
+		if (GetModeTm() > 1000) {	
 			_UIChipList.push_back(new UIChipClass(this, VGet(264, 75, 0), "res/UI/UI_CLEAR_MOJI.png", 110));
 			_UIChipList.back()->GetUIData()->scale = VGet(1.8, 1.8, 1.8);
 			new UIChipScaleComponent(_UIChipList.back(), VGet(1, 1, 1), 500);
@@ -66,7 +66,7 @@ bool ModeGameGoal::Process() {
 			}
 		}
 	}
-	return false;
+	return true;
 }
 
 
@@ -78,6 +78,6 @@ bool ModeGameGoal::Render() {
 		
 		DrawFormatString(1300, 920, GetColor(255, 255, 255), "クリアタイム %02d:%02d:%02d", _Min, _Sec,_Msec);
 	}
-	return false;
+	return true;
 }
  

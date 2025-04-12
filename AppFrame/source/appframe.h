@@ -13,7 +13,6 @@
 #include "ModeServer/HitCollisionComponent.h"
 #include "ModeServer/MoveComponent.h"
 #include "SoundServer/SoundServer.h"
-#include "SoundServer/SoundComponent.h"
 #include "SoundServer/SourceVoiceItem.h"
 #include "SoundServer/SourceVoiceItemEffect.h"
 #include "EffectServer/EffectManager.h"

@@ -6,6 +6,8 @@
 #include "UISoundActor.h"
 #include "ApplicationGlobal.h"
 
+#include "ioJson.h"
+
 // 初めから開始ボタン
 class TMenuItemStart : public MenuItemBase
 {
@@ -40,7 +42,7 @@ public:
 
 	}
 	virtual int Selected() {
-		gGlobal._Stageflg = 3;
+		iojson::LoadJson(gGlobal._Stageflg, "res/loadtext/flag.json");	
 		ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
 		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("title"));
 		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("titlemenu"));
@@ -81,14 +83,14 @@ bool ModeTitleMenu::Initialize() {
 	_UISound = new UISoundActor(this);
 	_UISound->AddSound("enter", "enter");
 	_UISound->AddSound("select", "select");
-	return false;
+	return true;
 }
 
 bool ModeTitleMenu::Terminate()
 {
 	base::Terminate();
 	Clear();
-	return false;
+	return true;
 }
 
 bool ModeTitleMenu::Process()
@@ -129,13 +131,13 @@ bool ModeTitleMenu::Process()
 		// このモードを削除する
 		ModeServer::GetInstance()->Del(this);
 	}
-	return false;
+	return true;
 }
 
 bool ModeTitleMenu::Render()
 {
 	base::Render();
-	return false;
+	return true;
 }
 
 void ModeTitleMenu::Add(MenuItemBase* itemBase) {

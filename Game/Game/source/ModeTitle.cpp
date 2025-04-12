@@ -2,7 +2,6 @@
 #include "ApplicationMain.h"
 #include "ModeGame.h"
 #include "ModeTitleMenu.h"
-#include "BGMComponent.h"
 #include "UISoundActor.h"
 #include "ModeStory.h"
 #include "ApplicationGlobal.h"
@@ -21,7 +20,7 @@ bool ModeTitle::Initialize() {
 	_StepTm.emplace_back(1000);
 	_StepTm.emplace_back(8000);
 	_StepTm.emplace_back(0);
-	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/title/logo.png"));
+	_UIChip.emplace_back(new UIChipClass(this,VGet(960,540,1),"res/UI/UI_LOGO.png"));
 	new UIChipFadeComponent(_UIChip.front(), 255, _StepTm[_Step]);
 
 	// サウンドの初期化
@@ -62,20 +61,19 @@ base::Process();
 		break;
 	case 0:
 		if (_TitleTm > _StepTm[_Step]) { newstep++; }
-		else if (trg & PAD_INPUT_1) {
+		else if (trg & PAD_INPUT_1) {		// ボタン押下で次へ
 			newstep = 2;
-			_UIChip.emplace_back(new UIChipClass(this, VGet(960, 540, 1), "res/UI/UI_LOGO.png"));
-			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
+			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);	
 		}
 		break;
-	case 1:
+	case 1:		// フェードアウト
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			newstep = 2;
 			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep],110);
 			
 		}
 		break;
-	case 2:
+	case 2:		// 警告画像
 		if (_TitleTm > _StepTm[_Step]) {
 			newstep++;
 			delete _UIChip.front();
@@ -85,7 +83,7 @@ base::Process();
 			_UISound->PlayActSound("tdx_attend");
 		}
 		break;
-	case 3:
+	case 3:		// ボタン押下で次へ
 		if (_TitleTm > _StepTm[_Step]) { newstep++; }
 		else if (trg & PAD_INPUT_1) {
 			newstep = 5;
@@ -99,7 +97,7 @@ base::Process();
 			new UIChipFadeComponent(_UIChip.front(), 0, _StepTm[newstep], 110);
 		}
 		break;
-	case 5:
+	case 5:		// OPストーリー
 		if (_TitleTm > _StepTm[_Step] || trg & PAD_INPUT_1) {
 			ModeServer::GetInstance()->Add(new ModeStory(), 99, "story");
 			newstep++;
@@ -108,7 +106,7 @@ base::Process();
 			new UIChipFadeComponent(_UIChip.front(), 255, 1500);
 		}
 		break;
-	case 6:
+	case 6:		// タイトル画面
 	{
 		_UISound->PlayActSound("BGM");
 		SoundServer::GetInstance()->GetSourceVoice(_UISound, "BGM")->SetVolume(0.4);
@@ -128,7 +126,7 @@ base::Process();
 		if (trg & PAD_INPUT_1) {
 			newstep++;
 		}
-	case 8:
+	case 8:		
 		if (trg & PAD_INPUT_1) {
 			new UIChipFadeComponent(_UIChip.back(), 0, 500, 110);
 			new UIChipMoveComponent(_UIChip.front(), VGet(560, 500, 1), 500, 110);
@@ -139,7 +137,7 @@ base::Process();
 			newstep = 6;
 		}
 		break;
-	case 9:
+	case 9:// タイトルメニュー
 		if (_TitleTm > 500) {
 			ModeServer::GetInstance()->Add(new ModeTitleMenu(), 1, "titlemenu");
 			newstep = 8;
@@ -158,6 +156,5 @@ base::Process();
 
 bool ModeTitle::Render() {
 	base::Render();
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", _Step);
-	return false;
+	return true;
 }

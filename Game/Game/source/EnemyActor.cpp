@@ -73,6 +73,7 @@ void EnemyActor::UpdateActor() {
 }
 
 void EnemyActor::Death(int type) {
+	// “G‚ÌŽ€–Sˆ—
 	{
 		auto item = new ItemActor(GetMode(), VAdd(GetPosition(), VGet(0, 100, 0)), 11 + rand() % 2);
 		auto m = item->GetComponent<MoveComponent>()[0];
@@ -80,6 +81,8 @@ void EnemyActor::Death(int type) {
 		dir = VTransform(dir, MGetRotY((float)(rand() % 360) / 180.0f * DX_PI));
 		m->SetVelocity(VScale(VGet(dir.x, 0.25, dir.z), 5));
 	}
+
+	// ƒGƒtƒFƒNƒgŒn
 	{
 		auto ac = new ActorClass(GetMode());
 		ac->SetPosition(GetPosition());

@@ -11,7 +11,12 @@ SourceVoiceItemEffectBase::~SourceVoiceItemEffectBase() {
 	_svItem->RemoveEffect(this);
 }
 
-
+/**
+* @brief ボリュームフェード
+* @details ボリュームフェードのクラス
+* @note
+* 	- ボリュームの初期値は、SourceVoiceItemのボリュームを取得して設定する
+*/
 SVItemVolumeFade::SVItemVolumeFade(SourceVoiceItem* sv)
 	:base(sv) 
 	, _FadeTime(0)
@@ -41,6 +46,10 @@ void SVItemVolumeFade::Update(ActorClass* p) {
 
 }
 
+/**
+* @brief ピッチランダム
+* @details ピッチをランダムに変更するクラス
+*/
 SVItemPitchRand::SVItemPitchRand(SourceVoiceItem* sv)
 	:base(sv)
 	, _Rand(25)
@@ -54,6 +63,7 @@ void SVItemPitchRand::SetUp() {
 	if (rand() % 2 == 0) r *= -1;
 	_svItem->SetPitch(1.0f + r);
 }
+
 
 SVItemDistanceDecay::SVItemDistanceDecay(SourceVoiceItem* sv)
 	:base(sv)

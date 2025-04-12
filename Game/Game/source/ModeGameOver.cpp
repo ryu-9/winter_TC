@@ -7,6 +7,7 @@
 #include "ApplicationGlobal.h"
 
 bool ModeGameOver::Initialize() {
+	if (!base::Initialize()) { return false; }
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_GAMEOVER_BACK.png");
 	new UIChipClass(this, VGet(960, 540, 0), "res/UI/UI_GAMEOVER_TEXT.png");
 	auto u = new UIChipClass(this, VGet(960, 700, 0), "res/UI/UI_GAMEOVER_CONTINUE.png");
@@ -18,11 +19,11 @@ bool ModeGameOver::Initialize() {
 	_Button.push_back(u);
 	_Cur = 0;
 	SoundServer::GetInstance()->Create(u, "gameover", "SE", "gameover")->Play();
-	return false;
+	return true;
 }
 
 bool ModeGameOver::Terminate() {
-	return false;
+	return true;
 }
 
 bool ModeGameOver::Process() {
@@ -50,7 +51,7 @@ bool ModeGameOver::Process() {
 		_Button[_Cur]->ChangeImage(1);
 	}
 	if (trg & PAD_INPUT_1) {
-		if (_Cur == 0) {
+		if (_Cur == 0) {	// continue
 			ModeServer::GetInstance()->Del(this);
 			ModeServer::GetInstance()->AllDel();
 			
@@ -60,7 +61,8 @@ bool ModeGameOver::Process() {
 			ModeServer::GetInstance()->Add(new ModeGameUI(), 2, "gameui");
 			ModeServer::GetInstance()->Add(new ModeLoading(), 100, "loading");
 
-		} else {
+		}
+		else {	// end
 			gGlobal._SelectStage = -1;
 			ModeServer::GetInstance()->Del(this);
 			auto g = ModeServer::GetInstance()->Get("game");
@@ -70,10 +72,10 @@ bool ModeGameOver::Process() {
 			ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 		}
 	}
-	return false;
+	return true;
 }
 
 bool ModeGameOver::Render() {
 	base::Render();
-	return false;
+	return true;
 }

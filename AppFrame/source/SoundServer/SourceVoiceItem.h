@@ -26,7 +26,6 @@ public:
 	virtual void SetFilter(XAUDIO2_FILTER_PARAMETERS param);
 	virtual void SetFilter(float param);
 	virtual void SetPan(float pan,float pan2);
-//	virtual void SetIsPlay(bool flg) { _IsPlay = flg; }
 
 	virtual void SetToDestroy(bool flg) { _Dead = flg; }
 	virtual bool IsToDestroy() { return _Dead; }

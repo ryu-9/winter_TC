@@ -2,6 +2,8 @@
 #include "AppFrame.h"
 #include "ApplicationGlobal.h"
 
+#include "ioJson.h"
+
 // 実体
 ApplicationGlobal		gGlobal;
 
@@ -11,6 +13,10 @@ ApplicationGlobal::ApplicationGlobal() {
 }
 
 ApplicationGlobal::~ApplicationGlobal() {
+	if (_Stageflg > 0) {
+		// ステージ解放フラグ
+		iojson::LoadJson(_Stageflg, "res/loadtext/flag.json");
+	}
 }
 
 

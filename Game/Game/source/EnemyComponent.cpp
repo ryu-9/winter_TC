@@ -28,10 +28,10 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 			if (VDot(VNorm(VSub(ppos, epos)), front) > cosf(_SearchRef.angle * DX_PI / 180)) {
 				auto p = dynamic_cast<PlayerActor*>(target[i]);
 				if (p != nullptr) {
-					if (p->GetModeNum() != 3) {
+					if (p->GetModeNum() != -1) {		// Ž€‚ñ‚Å‚È‚©‚Á‚½‚ç
 						f = true;
 						if (!d.empty()) {
-							if (tdist < d[0]) {
+							if (tdist < d[0]) {		// ‹ß‚¢‡‚É•À‚×‚é
 								d.push_back(tdist);
 							} else {
 								d.insert(d.begin(), tdist);
@@ -45,7 +45,7 @@ bool EnemyComponent::Search(std::vector<ActorClass*> target) {
 				} else {
 					f = true;
 					if (!d.empty()) {
-						if (tdist < d[0]) {
+						if (tdist < d[0]) {		// ‹ß‚¢‡‚É•À‚×‚é
 							d.push_back(tdist);
 						} else {
 							d.insert(d.begin(), tdist);
