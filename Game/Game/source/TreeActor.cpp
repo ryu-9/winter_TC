@@ -54,5 +54,5 @@ void TreeActor::DropItem()
 	}
 	_AnimRate = 1;
 	_Item.clear();
-	//_HCollision->SetIsActive(false);
+	_HCollision->SetIsActive(false);
 }

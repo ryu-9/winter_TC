@@ -74,6 +74,7 @@ void PlayerMoveComponent::ProcessInput()
 		float rad = atan2(v.z, v.x);
 		v.x = -cos(rad + camrad) * length;
 		v.z = -sin(rad + camrad) * length;
+
 		if (_DashTime <= 0) {
 			if (v.x != 0 || v.z != 0) {
 
@@ -102,8 +103,8 @@ void PlayerMoveComponent::ProcessInput()
 
 		{
 			int dt = _Owner->GetMode()->GetStepTm();
-			float limit = 1.0;
-			float accel = 100;
+			float limit = 0.5;
+			float accel = 200;
 			if (v.x > 0) {
 				if (v.x * limit > velocity.x) {
 					velocity.x += v.x / accel * dt;
@@ -124,7 +125,45 @@ void PlayerMoveComponent::ProcessInput()
 					velocity.z += v.z / accel * dt;
 				}
 			}
-		
+		}
+
+		if (_Trg & PAD_INPUT_1) {
+			int dt = _Owner->GetMode()->GetStepTm();
+			float limit = 100.0;
+			float accel = 50;
+			VECTOR moveV = v;
+			if (VSize(moveV) == 0) {
+				moveV = VScale(VNorm(VGet(velocity.x, 0, velocity.z)), mvSpeed);
+			}
+			if (moveV.x > 0) {
+				if (moveV.x * limit > velocity.x) {
+					velocity.x += moveV.x / accel * dt;
+				}
+			}
+			else {
+				if (moveV.x * limit < velocity.x) {
+					velocity.x += moveV.x / accel * dt;
+				}
+			}
+			if (moveV.z > 0) {
+				if (moveV.z * limit > velocity.z) {
+					velocity.z += moveV.z / accel * dt;
+				}
+			}
+			else {
+				if (moveV.z * limit < velocity.z) {
+					velocity.z += moveV.z / accel * dt;
+				}
+			}
+			//SoundServer::GetInstance()->Create(_pOwner, "jb_dash", "SE", "jb_dash")->Play();
+			if (_pOwner->GetPlayerNo() == 1) {
+				//auto s = SoundServer::GetInstance()->Create(_pOwner, "jin_dash", "SE", "jin_dash");
+				//s->Play();
+			}
+			else {
+				//auto s = SoundServer::GetInstance()->Create(_pOwner, "bel_dash", "SE", "bel_dash");
+				//s->Play();
+			}
 		}
 
 
@@ -138,17 +177,7 @@ void PlayerMoveComponent::ProcessInput()
 		}
 
 
-		if (_Trg & PAD_INPUT_1 && _DashTime <= -1000 && _JumpFlag) {
-			_DashTime = 500;
-			SoundServer::GetInstance()->Create(_pOwner, "jb_dash", "SE", "jb_dash")->Play();
-			if (_pOwner->GetPlayerNo() == 1) {
-				auto s = SoundServer::GetInstance()->Create(_pOwner, "jin_dash", "SE", "jin_dash");
-				s->Play();
-			} else {
-				auto s = SoundServer::GetInstance()->Create(_pOwner, "bel_dash", "SE", "bel_dash");
-				s->Play();
-			}
-		}
+
 		if (_Trg & PAD_INPUT_2) {
 			_pOwner->SetChangeFlag(true);
 			if (_JumpFlag) {

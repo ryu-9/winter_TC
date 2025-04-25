@@ -385,7 +385,7 @@ void PlayerActor::UpdateActor() {
 		float size = VSize(tmp) / 20000;
 		if (_Input->GetStand() && !_Input->GetDashFlag()) {
 
-			v = VSub(v, VScale(v, 0.0001 * dt));
+			v = VSub(v, VScale(v, 0.0005 * dt));
 			_Input->SetVelocity(v);
 		}
 
@@ -504,9 +504,10 @@ void PlayerActor::UpdateActor() {
 			}
 			auto tree = dynamic_cast<TreeActor*>(h->GetOwner());
 			if (tree != nullptr) {
-				if (_Input->GetDashFlag()) {
+				if (VSize(_Input->GetVelocity())>2) {
 					tree->DropItem();
 					_Input->SetDashTime(0);
+					_Input->SetVelocity(VGet(0, _Input->GetVelocity().y, 0));
 				}
 			}
 
