@@ -127,10 +127,10 @@ void PlayerMoveComponent::ProcessInput()
 			}
 		}
 
-		if (_Trg & PAD_INPUT_1) {
+		if (_Key & PAD_INPUT_1) {
 			int dt = _Owner->GetMode()->GetStepTm();
-			float limit = 100.0;
-			float accel = 50;
+			float limit = 4.0;
+			float accel = 500;
 			VECTOR moveV = v;
 			if (VSize(moveV) == 0) {
 				moveV = VScale(VNorm(VGet(velocity.x, 0, velocity.z)), mvSpeed);
