@@ -24,6 +24,7 @@ int WINAPI WinMain(
 
 	SetZBufferBitDepth(64);
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	SetOutApplicationLogValidFlag(FALSE);
 	if (FAILED(hr)) {
 		printf("CoInitializeEx failed: %#X\n", hr);
 		return false;
@@ -31,6 +32,9 @@ int WINAPI WinMain(
 	if (!appBase->Initialize(hInstance)) {
 		return 0;
 	}
+
+
+
 
 	// 1フレームループを組む ----------------------------------------------------------
 	while (ProcessMessage() == 0)		// プログラムが終了するまでループ
