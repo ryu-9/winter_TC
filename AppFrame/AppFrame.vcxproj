@@ -172,9 +172,6 @@
     <ClInclude Include="source\EffectServer\ShadowMapSpriteComponent.h" />
     <ClInclude Include="source\ModelServer\ModelServer.h" />
     <ClInclude Include="source\ModeServer\ActorClass.h" />
-    <ClInclude Include="source\ModeServer\Actor\UIChipClass.h" />
-    <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h" />
-    <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\Component.h" />
     <ClInclude Include="source\ModeServer\EffectSpriteComponent.h" />
     <ClInclude Include="source\ModeServer\HitCollisionComponent.h" />
@@ -184,6 +181,9 @@
     <ClInclude Include="source\ModeServer\MoveCollisionComponent.h" />
     <ClInclude Include="source\ModeServer\MoveComponent.h" />
     <ClInclude Include="source\ModeServer\SpriteComponent.h" />
+    <ClInclude Include="source\ModeServer\UI\UIChipClass.h" />
+    <ClInclude Include="source\ModeServer\UI\UIChipEffectComponent.h" />
+    <ClInclude Include="source\ModeServer\UI\UIChipSpriteComponent.h" />
     <ClInclude Include="source\SoundServer\SoundServer.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItem.h" />
     <ClInclude Include="source\SoundServer\SourceVoiceItemEffect.h" />
@@ -198,9 +198,6 @@
     <ClCompile Include="source\EffectServer\ShadowMapSpriteComponent.cpp" />
     <ClCompile Include="source\ModelServer\ModelServer.cpp" />
     <ClCompile Include="source\ModeServer\ActorClass.cpp" />
-    <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp" />
-    <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp" />
-    <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\Component.cpp" />
     <ClCompile Include="source\ModeServer\EffectSpriteComponent.cpp" />
     <ClCompile Include="source\ModeServer\HitCollisionComponent.cpp" />
@@ -210,6 +207,9 @@
     <ClCompile Include="source\ModeServer\MoveCollisionComponent.cpp" />
     <ClCompile Include="source\ModeServer\MoveComponent.cpp" />
     <ClCompile Include="source\ModeServer\SpriteComponent.cpp" />
+    <ClCompile Include="source\ModeServer\UI\UIChipClass.cpp" />
+    <ClCompile Include="source\ModeServer\UI\UIChipEffectComponent.cpp" />
+    <ClCompile Include="source\ModeServer\UI\UIChipSpriteComponent.cpp" />
     <ClCompile Include="source\SoundServer\SoundServer.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItem.cpp" />
     <ClCompile Include="source\SoundServer\SourceVoiceItemEffect.cpp" />
