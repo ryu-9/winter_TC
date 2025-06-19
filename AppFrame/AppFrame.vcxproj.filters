@@ -9,9 +9,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="ModeServer\Actor">
-      <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ModelServer">
       <UniqueIdentifier>{8adc9293-3359-4859-b7db-5cc46bec2372}</UniqueIdentifier>
     </Filter>
@@ -23,6 +20,9 @@
     </Filter>
     <Filter Include="EffectServer">
       <UniqueIdentifier>{744f18b5-1e29-44b8-8329-b743f8bcd112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ModeServer\UI">
+      <UniqueIdentifier>{b3d3b00a-2033-45cd-bf54-fd1dcdd2c876}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,15 +47,6 @@
     </ClInclude>
     <ClInclude Include="source\Application\UtilMacro.h">
       <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeServer\Actor\UIChipSpriteComponent.h">
-      <Filter>ModeServer\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeServer\Actor\UIChipClass.h">
-      <Filter>ModeServer\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeServer\Actor\UIChipEffectComponent.h">
-      <Filter>ModeServer\Actor</Filter>
     </ClInclude>
     <ClInclude Include="source\ModelServer\ModelServer.h">
       <Filter>ModelServer</Filter>
@@ -99,6 +90,15 @@
     <ClInclude Include="source\SoundServer\SourceVoiceItemEffect.h">
       <Filter>SoundServer\SourceVoice</Filter>
     </ClInclude>
+    <ClInclude Include="source\ModeServer\UI\UIChipEffectComponent.h">
+      <Filter>ModeServer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\UI\UIChipSpriteComponent.h">
+      <Filter>ModeServer\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeServer\UI\UIChipClass.h">
+      <Filter>ModeServer\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Application\WinMain.cpp">
@@ -121,15 +121,6 @@
     </ClCompile>
     <ClCompile Include="source\ModeServer\ModeServer.cpp">
       <Filter>ModeServer</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeServer\Actor\UIChipClass.cpp">
-      <Filter>ModeServer\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeServer\Actor\UIChipSpriteComponent.cpp">
-      <Filter>ModeServer\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeServer\Actor\UIChipEffectComponent.cpp">
-      <Filter>ModeServer\Actor</Filter>
     </ClCompile>
     <ClCompile Include="source\ModelServer\ModelServer.cpp">
       <Filter>ModelServer</Filter>
@@ -172,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="source\SoundServer\SourceVoiceItemEffect.cpp">
       <Filter>SoundServer\SourceVoice</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\UI\UIChipEffectComponent.cpp">
+      <Filter>ModeServer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\UI\UIChipSpriteComponent.cpp">
+      <Filter>ModeServer\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeServer\UI\UIChipClass.cpp">
+      <Filter>ModeServer\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

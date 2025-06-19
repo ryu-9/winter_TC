@@ -198,7 +198,7 @@
     <ClCompile Include="source\PlayerCursorComponent.cpp" />
     <ClCompile Include="source\PlayerMoveComponent.cpp" />
     <ClCompile Include="source\PlayerActor.cpp" />
-    <ClCompile Include="source\PlayerMovoCollisionComponent.cpp" />
+    <ClCompile Include="source\PlayerMoveCollisionComponent.cpp" />
     <ClCompile Include="source\PunchActor.cpp" />
     <ClCompile Include="source\SlashActor.cpp" />
     <ClCompile Include="source\SnowComponent.cpp" />
