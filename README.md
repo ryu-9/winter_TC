@@ -37,13 +37,13 @@
 |       |
 |       |── EffectServer(エフェクトや影関連をまとめたもの)
 |       |   |
-|       |   |── EffectController()
+|       |   |── EffectController(EffectManagerを継承して作られたエフェクトの管理クラス)
 |       |   |
-|       |   |── EffectManager()
+|       |   |── EffectManager(画面効果用の基底クラス)
 |       |   |
-|       |   |── PlayerEmphasisEffect()
+|       |   |── PlayerEmphasisEffect(プレイヤーの描画を別個に行い、ほかのモデルを貫通して描画する)
 |       |   |
-|       |   └── ShadowMapSpriteComponent()
+|       |   └── ShadowMapSpriteComponent(落ち影を描画する)
 |       |
 |       |── ModelServer(3Dモデル関連をまとめたもの)
 |       |   |
@@ -67,19 +67,19 @@
 |       |   |
 |       |   |── Component(アクタクラスに持たせる動作の基底クラス)
 |       |   |
-|       |   |── EffectSpriteComponent()
+|       |   |── EffectSpriteComponent(Effekseerで作成したエフェクトの描画用コンポーネント)
 |       |   |
-|       |   |── HitCollisionComponent()
+|       |   |── HitCollisionComponent(攻撃などの当たり判定用コリジョンのコンポーネント)
 |       |   |
 |       |   |── ModeBase(ゲームのシーンを作成する際の基底クラス)
 |       |   |
-|       |   |── ModelComponent()
+|       |   |── ModelComponent(3Dモデルの管理、描画を行うコンポーネント)
 |       |   |
 |       |   |── ModeServer(ゲームのシーンを作成する際の基底クラス)
 |       |   |
-|       |   |── MoveCollisionComponent()
+|       |   |── MoveCollisionComponent(地形との当たり判定用コリジョンのコンポーネント)
 |       |   |
-|       |   |── MoveComponent()
+|       |   |── MoveComponent(移動を行うコンポーネント)
 |       |   |
 |       |   └── SpriteComponent(描画関連の基底クラス)
 |       |
@@ -123,7 +123,7 @@
 |   |        |
 |   |        |── CameraActor(インゲームのカメラを制御するアクタクラス)
 |   |        |
-|   |        |── ChangeSnowBallActor()
+|   |        |── ChangeSnowBallActor(返信途中の演出用の雪玉アクタクラス)
 |   |        |
 |   |        |── DaikanpaActor(サンダークロスの技、ダイカン波のアクタクラス)
 |   |        |
