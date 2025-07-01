@@ -1,7 +1,7 @@
 #include "OutlineComponent.h"
 #include "CameraActor.h"
 #include "ModeGame.h"
-#include "ModeTestStage.h"
+
 
 OutlineComponent::OutlineComponent(ActorClass* owner, const TCHAR* file, class ModelComponent* model)
 	:SpriteComponent(owner)
@@ -10,8 +10,6 @@ OutlineComponent::OutlineComponent(ActorClass* owner, const TCHAR* file, class M
 	_TargetHandle = model->GetHandle();
 	auto mode = dynamic_cast<ModeGame*>(owner->GetMode());
 	if (mode == nullptr) { 
-		auto modeT = dynamic_cast<ModeTestStage*>(owner->GetMode());
-		_Camera =modeT->GetCamera()->GetComponent<CameraComponent>()[0];
 
 	}
 	else {
