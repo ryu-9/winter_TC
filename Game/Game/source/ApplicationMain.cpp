@@ -3,6 +3,8 @@
 #include "ModeTitle.h"
 #include "EnemyCreator.h"
 
+#include "ModeStageSelect.h"
+
 
 ApplicationMain				g_oApplicationMain;
 
@@ -27,10 +29,10 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	ChangeFont("コーポレート・ロゴ ver3 Bold");
 
 	
-#if 1
+#if 0
 	ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 #endif
-#if 0
+#if 1
 	gGlobal._Stageflg = 3;
 	ModeServer::GetInstance()->Add(new ModeStageSelect(), 3, "select");
 

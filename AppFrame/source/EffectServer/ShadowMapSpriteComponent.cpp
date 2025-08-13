@@ -65,6 +65,7 @@ void ShadowMapSpriteComponent::Draw()
 				}
 				if (flag) {continue;}
 				if (sp->GetOwner() == nullptr) { continue; }
+				if (sp->GetDrawOrder() < 0) { continue; }
 				sp->Draw();
 				debug.emplace_back(sp);
 			}

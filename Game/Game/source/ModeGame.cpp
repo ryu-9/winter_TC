@@ -29,6 +29,7 @@
 #include "UITextComponent.h"
 #include "UITextActor.h"
 #include "ModeOption.h"
+#include "ShaderDemoSpriteComponent.h"
 
 // 初期化用関数
 // ゲームモードの初期化を行う
@@ -51,6 +52,8 @@ bool ModeGame::Initialize() {
 	_Player[0]->SetFriend(_Player[1]);
 	_Camera->GetComponent<CameraComponent>()[0]->SetPlayer(_Player[0], _Player[1]);
 
+	auto a = new ActorClass(this);
+	new ShaderDemoSpriteComponent(a);
 	// ステージのロード
 	switch (gGlobal._SelectStage) {
 	case 0:
@@ -218,8 +221,8 @@ bool ModeGame::Render() {
 		}
 	}
 
-	return true;
-	base::Render();
+	DrawExtendGraph(0, 0, 640, 320, ShaderDemoSpriteComponent::GetInstance()->GetReflectHandle(), FALSE);
+
 	return true;
 }
 

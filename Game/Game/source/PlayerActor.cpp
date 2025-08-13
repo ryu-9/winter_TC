@@ -103,6 +103,7 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	// 初期位置とサイズの設定
 	SetPosition(VGet(0, 1000, 0));
 	SetSize(VGet(0.1, 0.1, 0.1));
+	SetSize(VGet(1.0, 1.0, 1.0)); // サイズを大きく設定
 
 	// アニメーションモデルの設定
 	_AnimationModel[0] = ModelServer::GetInstance()->Add("res/model/Sundercross/motion/gattaimotion.mv1");
