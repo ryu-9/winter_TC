@@ -221,6 +221,8 @@ bool ModeGame::Render() {
 		}
 	}
 
+
+
 	DrawExtendGraph(0, 0, 640, 320, ShaderDemoSpriteComponent::GetInstance()->GetReflectHandle(), FALSE);
 
 	return true;

@@ -79,6 +79,8 @@ public:
 
 	void AddMaterial(std::string name, COLOR_F value) { _Material[name] = value; }
 	void DelMaterial(std::string name) { _Material.erase(name); }
+
+	ModelComponent* GetModel() const { return _Model; }
 	
 private:
 

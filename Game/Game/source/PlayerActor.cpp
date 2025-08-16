@@ -968,6 +968,7 @@ void PlayerActor::ChangeMode(int mode) {
 // アニメーション変更処理
 // 指定されたアニメーションに変更する
 void PlayerActor::ChangeAnim(int a) {
+
 	if (_Animation == a) {
 		if (_AnimTime > _AnimTotalTime) {
 			_AnimTime = 0;

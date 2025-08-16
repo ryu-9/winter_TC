@@ -20,6 +20,7 @@ class ShaderDemoSpriteComponent : public SpriteComponent
 private:
 	int _PShader[4];
 	int _VShader[4];
+	int _MatCapShader[3];
 	int _Handle[4];
 	bool _DrawFlag;
 	int _ZMaskHandle[2];

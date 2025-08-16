@@ -63,6 +63,7 @@ void EffectSpriteComponent::Draw()
 	int debug = DrawEffekseer3D_Begin();
 	debug = DrawEffekseer3D_Draw(_Handle);
 	debug = DrawEffekseer3D_End();
+
 }
 
 void EffectSpriteComponent::Play()

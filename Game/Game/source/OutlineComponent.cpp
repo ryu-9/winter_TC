@@ -44,5 +44,5 @@ void OutlineComponent::Draw()
 	scale = VAdd(scale, VScale(VGet(1, 1, 1), _Camera->GetDist() / 10000));
 	MV1SetScale(_Handle, scale);
 	MV1SetRotationXYZ(_Handle, MV1GetRotationXYZ(_TargetHandle));
-	MV1DrawModel(_Handle);
+	//MV1DrawModel(_Handle);
 }
