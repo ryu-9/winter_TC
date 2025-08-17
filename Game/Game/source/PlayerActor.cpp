@@ -91,7 +91,13 @@ PlayerActor::PlayerActor(ModeBase* mode, int playerNo)
 	_BottomModel->SetPosition(VGet(0, -100, 0));
 	_BottomModel->SetRotation(VGet(0, pi, pi));
 	_TopModel->SetVisible(false);
+	_TopModel->GetSprite()->SetUseShader(true);
+	_TopModel->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/SkinMesh4_DirLightVS.vso"), 0);
+	_TopModel->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/MatCapPS.pso"), 1);
 	_BottomModel->SetVisible(false);
+	_BottomModel->GetSprite()->SetUseShader(true);
+	_BottomModel->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/NormalMesh_DirLight_NrmMapVS.vso"), 0);
+	_BottomModel->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/MatCapPS.pso"), 1);
 
 	// カーソルコンポーネントの初期化
 	_Cursor = new PlayerCursorComponent(this, _PlayerNo);
@@ -1255,7 +1261,7 @@ bool PlayerActor::IsMoved() {
 // 指定されたサイズに基づいてプレイヤーのサイズ変更時間を設定する
 void PlayerActor::SetChangeTime(float size)
 {
-	_ChangeTime = (size * size - 4) * 5000;
+	_ChangeTime = (size * size - 4) * 500000; // 5000
 	_ChangeTime += 3000; // 3000msの初期値を追加
 
 	_AlertTime = _ChangeTime * 0.1f;

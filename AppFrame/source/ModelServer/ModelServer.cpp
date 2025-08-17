@@ -102,10 +102,12 @@ void ModelServer::UpdateEffect()
 	_UpdatedEffectNum++;
 	if (_UpdatedEffectNum >= _EffectHandle.size() && _EffectHandle.size())
 	{
+
+		
 		_UpdatedEffectNum = 0;
-		//UpdateEffekseer3D();
-		//DrawEffekseer3D();
-		//RefreshDxLibDirect3DSetting();
+		UpdateEffekseer3D();
+		DrawEffekseer3D();
+		// RefreshDxLibDirect3DSetting();
 	}
 }
 

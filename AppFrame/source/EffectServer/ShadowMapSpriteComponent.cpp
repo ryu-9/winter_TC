@@ -1,4 +1,5 @@
 #include "ShadowMapSpriteComponent.h"
+#include "../ModeServer/ModelComponent.h"
 
 ShadowMapSpriteComponent::ShadowMapSpriteComponent(ActorClass* owner, int size, VECTOR dir, VECTOR target, int index, float length, int drawOrder)
 	:EffectManager(owner, drawOrder)
@@ -66,8 +67,17 @@ void ShadowMapSpriteComponent::Draw()
 				if (flag) {continue;}
 				if (sp->GetOwner() == nullptr) { continue; }
 				if (sp->GetDrawOrder() < 0) { continue; }
+				auto m = dynamic_cast<ModelSpriteComponent*>(sp);
+				bool isShader = false;
+				if( m != nullptr) {
+					isShader = m->GetUseShader();
+					m->SetUseShader(false); // モデルスプライトのシェーダーを無効化
+				}
 				sp->Draw();
-				debug.emplace_back(sp);
+				//debug.emplace_back(sp);
+				if (m != nullptr) {
+					m->SetUseShader(isShader); // モデルスプライトのシェーダーを元に戻す
+				}
 			}
 		}
 	}

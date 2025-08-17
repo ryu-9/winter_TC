@@ -18,12 +18,12 @@ class ShaderDemoSpriteComponent : public SpriteComponent
 	static ShaderDemoSpriteComponent* GetInstance() { return _Instance; }
 
 private:
-	int _PShader[4];
-	int _VShader[4];
-	int _MatCapShader[3];
+	int _PShader[5];
+	int _VShader[2];
+	int _MatCapShader[4];
 	int _Handle[4];
 	bool _DrawFlag;
-	int _ZMaskHandle[2];
+	int _ZMaskHandle[3];
 	int _ReflectHandle;
 };
 

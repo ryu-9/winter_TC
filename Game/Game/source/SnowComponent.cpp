@@ -457,3 +457,53 @@ void SnowComponent::Draw()
 	_MCList2.clear();
 	return;
 }
+
+void SnowComponent::DrawForReflect()
+{
+	// マテリアルパラメータの設定
+	MATERIALPARAM MatParam;
+	MatParam.Diffuse = GetColorF(0.8, 0.8, 0.8, 1.0f); // ディフューズカラーは白
+	MatParam.Ambient = GetColorF(0.8, 0.8, 0.8, 1.0f); // アンビエントカラーは白
+	MatParam.Specular = GetColorF(0.0f, 0.0f, 0.0f, 0.0f); // スペキュラカラーは無し
+	MatParam.Emissive = GetColorF(0.1f, 0.1f, 0.2f, 0.5f); // エミッシブカラーもなし
+	MatParam.Power = 0.0f; // スペキュラはないので0
+
+	// マテリアルのパラメータをセット
+	SetMaterialParam(MatParam);
+	SetMaterialUseVertSpcColor(true);
+
+	VERTEX3DSHADER* SSnow = new VERTEX3DSHADER[_SnowSize];
+	VERTEX3DSHADER* SLowSnow = new VERTEX3DSHADER[6];
+	for(int i = 0; i < _SnowSize; i++) {
+		SSnow[i].pos = _Snow[i].pos;
+		SSnow[i].norm = _Snow[i].norm;
+		SSnow[i].dif = _Snow[i].dif;
+		SSnow[i].u = _Snow[i].u;
+		SSnow[i].v = _Snow[i].v;
+		SSnow[i].su = _Snow[i].su;
+		SSnow[i].sv = _Snow[i].sv;
+	}
+	for(int i = 0; i < 6; i++) {
+		SLowSnow[i].pos = _LowSnow[i].pos;
+		SLowSnow[i].norm = _LowSnow[i].norm;
+		SLowSnow[i].dif = _LowSnow[i].dif;
+		SLowSnow[i].u = _LowSnow[i].u;
+		SLowSnow[i].v = _LowSnow[i].v;
+		SLowSnow[i].su = _LowSnow[i].su;
+		SLowSnow[i].sv = _LowSnow[i].sv;
+	}
+	SetUseTextureToShader(0, _Handle);
+	// ポリゴンの描画
+	if (_Flag) {
+		DrawPolygonIndexed3DToShader(SSnow, _SnowSize, _Index, _IndexSize / 3); // 描画
+		//DrawPolygonIndexed3D(_Snow, _SnowSize, _Index, _IndexSize / 3, _Handle, FALSE);     // 描画
+	}
+	else {
+		DrawPolygonIndexed3DToShader(SLowSnow, 6, _LowIndex, 7); // 軽量描画
+		//DrawPolygonIndexed3D(_LowSnow, 6, _LowIndex, 7, _Handle, FALSE);        // 軽量描画
+	}
+	SetUseTextureToShader(0, -1);
+
+	delete[] SSnow;
+	delete[] SLowSnow;
+}

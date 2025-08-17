@@ -82,7 +82,9 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 			break;
 		}
 	}
-
+	_Model->GetSprite()->SetUseShader(true);
+	_Model->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/NormalMesh_DirLight_NrmMapVS.vso"), 0);
+	_Model->GetSprite()->SetShaderHandle(LoadPixelShader("res/shader/MatCapPS.pso"), 1);
 	Init();
 
 }
@@ -130,6 +132,7 @@ void StageBox::Init()
 	MV1CollResultPolyDimTerminate(p);
 	_MCollision->RefleshCollInfo();
 	_HCollision->RefleshCollInfo();
+
 }
 
 void StageBox::StartBreak()

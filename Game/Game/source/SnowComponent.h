@@ -7,6 +7,7 @@ public:
 	SnowComponent(class ActorClass* owner, MV1_COLL_RESULT_POLY m, bool flag0, bool flag1, bool flag2);
 	virtual ~SnowComponent();
 	void Draw() override;
+	void DrawForReflect();
 
 	void AddMoveCollision(MoveCollisionComponent* mc) { _MCList.push_back(mc); }
 	void AddMoveCollision2(MoveCollisionComponent* mc) { _MCList2.push_back(mc); }

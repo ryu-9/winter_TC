@@ -80,6 +80,11 @@ public:
 	void AddMaterial(std::string name, COLOR_F value) { _Material[name] = value; }
 	void DelMaterial(std::string name) { _Material.erase(name); }
 
+	void SetUseShader(bool use) { _IsUseShader = use; }
+	bool GetUseShader() const { return _IsUseShader; }
+	void SetShaderHandle(int handle, int index = 0) { _ShaderHandle[index] = handle; }
+	int GetShaderHandle(int index = 0) const { return _ShaderHandle[index]; }
+
 	ModelComponent* GetModel() const { return _Model; }
 	
 private:
@@ -87,6 +92,7 @@ private:
 	class ModelComponent* _Model;
 	//std::deque<std::string> _Material;
 	std::map<std::string, COLOR_F> _Material;
-	
+	bool _IsUseShader = false;
+	int _ShaderHandle[2] = { -1, -1 }; // シェーダーハンドル
 };
 

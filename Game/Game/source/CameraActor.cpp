@@ -9,7 +9,7 @@ CameraActor::CameraActor(ModeBase* mode)
 	// カメラの設定（わかりやすい位置に）
 	_Position = VGet(0, 200.f, -300.f);
 	_Direction = VGet(0, 0, 0);
-	_clipNear = 2.f;
+	_clipNear = 2.0f;
 	_clipFar = 200000.f;
 	_Follow = nullptr;
 	new CameraComponent(this);
@@ -91,7 +91,7 @@ void CameraComponent::ProcessInput()
 	float length = sqrt(sz * sz + sx * sx);
 	if (rx > analogMin) { rad -= 0.05f; }
 	if (rx < -analogMin) { rad += 0.05f; }
-	//_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
+	_cOwner->SetPosition(VGet(_cOwner->GetDirection().x + cos(rad) * length, _cOwner->GetPosition().y, _cOwner->GetDirection().z + sin(rad) * length));
 	// Y位置
 	//if (ry > analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y - 50.f, _cOwner->GetPosition().z)); }
 	//if (ry < -analogMin) { _cOwner->SetPosition(VGet(_cOwner->GetPosition().x, _cOwner->GetPosition().y + 50.f, _cOwner->GetPosition().z)); }
@@ -111,7 +111,7 @@ void CameraComponent::ProcessInput()
 	VECTOR angle = VSub(GetCameraPosition(), GetCameraTarget());
 
 
-	angle = VGet(0, 200, -300);
+	//angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
 
 	angle = VTransform(angle, MGetRotY(rx/1000));
@@ -119,7 +119,7 @@ void CameraComponent::ProcessInput()
 	camrad += ry / 1000;
 	angle.y = sin(camrad);
 
-	angle = VGet(0, 200, -300);
+	//angle = VGet(0, 200, -300);
 	angle = VNorm(angle);
 
 	if (_Dist < 500) { _Dist = 500; }

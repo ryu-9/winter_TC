@@ -223,7 +223,7 @@ bool ModeGame::Render() {
 
 
 
-	DrawExtendGraph(0, 0, 640, 320, ShaderDemoSpriteComponent::GetInstance()->GetReflectHandle(), FALSE);
+	DrawExtendGraph(0, 0, 640, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2), FALSE);
 
 	return true;
 }
