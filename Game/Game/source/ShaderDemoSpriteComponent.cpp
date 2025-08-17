@@ -331,3 +331,110 @@ void ShaderDemoSpriteComponent::CreateReflect()
 
 	_DrawFlag = false;
 }
+
+
+
+ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR scale)
+	: ActorClass(mode)
+{
+	SetPosition(pos);
+	SetSize(scale);
+	auto model = new ModelComponent(this, ""); // モデルコンポーネントを追加
+	new ShaderDemoSubSpriteComponent(this, model); // スプライトコンポーネントを追加
+}
+
+ShaderDemoSubSpriteComponent::ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder)
+	: ModelSpriteComponent(owner, model)
+{
+	_VShader[0] = LoadVertexShader("res/merikomi/ZBuffer3_VS.vso");
+	_PShader[0] = LoadPixelShader("res/merikomi/ZBuffer3_PS.pso");
+	_VShader[1] = LoadVertexShader("res/merikomi/ZBuffer2_VS.vso");
+	_PShader[1] = LoadPixelShader("res/merikomi/ZBuffer2_PS.pso");
+	_VShader[2] = LoadVertexShader("res/merikomi/merikomiVS.vso");
+	//_VShader[2] = LoadVertexShader("res/hansha/MatCapVS.vso");
+	_PShader[2] = LoadPixelShader("res/merikomi/merikomiPS.pso");
+	//_PShader[2] = LoadPixelShader("res/hansha/NormalMesh_DirLight_NrmMapPS.pso");
+	_BackCullMask = MakeScreen(1920, 1080, TRUE); // バックカリング用の描画先を作成
+	_ZBufferMask[0] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0); // Zマスクのハンドルを取得
+	_ZBufferMask[1] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1); // Zマスクのハンドルを取得
+	_ZBufferMask[2] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2); // Zマスクのハンドルを取得
+
+}
+
+
+
+void ShaderDemoSubSpriteComponent::DrawMask(int i)
+{
+	VECTOR cTarget = GetCameraTarget();
+	VECTOR cPos = GetCameraPosition();
+	float nearZ = GetCameraNear();
+	float farZ = GetCameraFar();
+
+
+	SetDrawScreen(_BackCullMask);
+	ClearDrawScreen(); // 描画先をクリア
+
+	int num = GetMultiDrawScreenNum();
+
+	SetUseZBufferFlag(TRUE); // Zバッファを使用する
+	//MV1SetUseOrigShader(TRUE); // オリジナルのシェーダーを使用する
+
+	SetUseVertexShader(_VShader[1]);
+	SetUsePixelShader(_PShader[1]);
+
+	SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
+	//ClearDrawScreen();
+	SetRenderTargetToShader(0, _ZBufferMask[1]);
+	SetRenderTargetToShader(1, _BackCullMask); // Zバッファをシェーダーに設定
+	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
+	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
+
+	SetUseTextureToShader(2, _ZBufferMask[2]); // 法線マップをシェーダーに設定
+	SetUseTextureToShader(3, _ZBufferMask[0]); // Zバッファをシェーダーに設定
+
+	MV1SetUseZBuffer(_Model->GetHandle(), TRUE); // Zバッファを使用しない
+	MV1SetWriteZBuffer(_Model->GetHandle(), TRUE); // Zバッファに書き込まない
+	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_RIGHT); // メッシュのバックカリングを無効化
+
+	MV1DrawModel(_Model->GetHandle()); // モデルを描画
+
+	MV1SetUseZBuffer(_Model->GetHandle(), TRUE); // Zバッファを使用する
+	MV1SetWriteZBuffer(_Model->GetHandle(), TRUE); // Zバッファに書き込む
+	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_LEFT); // メッシュのバックカリングを有効化
+
+	SetUseVertexShader(_VShader[0]);
+	SetUsePixelShader(_PShader[0]);
+
+	//SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
+
+	SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
+	SetRenderTargetToShader(1, -1);
+	ClearDrawScreen();
+	SetRenderTargetToShader(0, _ZBufferMask[0]);
+
+
+	//SetDrawScreen(_ZBufferMask[0]);
+	ClearDrawScreenZBuffer(); // Zバッファをクリア
+	//MV1SetZBufferCmpType(DX_CMP_GREATER);
+
+	SetWriteZBufferFlag(TRUE);
+	SetUseZBufferFlag(TRUE); // Zバッファを使用する	
+	MV1SetUseZBuffer(_Model->GetHandle(), TRUE); // Zバッファを使用する
+	MV1SetWriteZBuffer(_Model->GetHandle(), TRUE); // Zバッファに書き込む
+	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_LEFT); // メッシュのバックカリングを有効化
+
+	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
+	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
+	SetUseTextureToShader(2, _ZBufferMask[1]);
+	SetUseTextureToShader(3, _BackCullMask); // 法線マップをシェーダーに設定
+	MV1DrawModel(_Model->GetHandle());
+
+	//SetZBufferCmpType(DX_CMP_LESS);
+	SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
+	ClearDrawScreen();
+	SetRenderTargetToShader(0, -1);
+
+
+	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
+	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
+}

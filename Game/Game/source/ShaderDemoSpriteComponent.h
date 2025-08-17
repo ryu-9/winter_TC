@@ -27,3 +27,29 @@ private:
 	int _ReflectHandle;
 };
 
+
+
+class ShaderDemoSubActor : public ActorClass
+{
+public:
+	ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR scale);
+
+private:
+};
+
+
+class ShaderDemoSubSpriteComponent : public ModelSpriteComponent
+{
+public:
+	ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder = 100);
+
+
+
+	void DrawMask(int i = 0);
+
+private:
+	int _PShader[3];
+	int _VShader[3];
+	int _ZBufferMask[3];
+	int _BackCullMask;
+};

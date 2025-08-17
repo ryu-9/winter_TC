@@ -87,7 +87,7 @@ public:
 
 	ModelComponent* GetModel() const { return _Model; }
 	
-private:
+protected:
 
 	class ModelComponent* _Model;
 	//std::deque<std::string> _Material;
