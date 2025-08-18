@@ -31,6 +31,7 @@
 #include "ModeOption.h"
 #include "ShaderDemoSpriteComponent.h"
 
+
 // 初期化用関数
 // ゲームモードの初期化を行う
 bool ModeGame::Initialize() {
@@ -54,6 +55,7 @@ bool ModeGame::Initialize() {
 
 	auto a = new ActorClass(this);
 	new ShaderDemoSpriteComponent(a);
+	new ShaderDemoSubActor(this, VGet(0, 50, 50), VGet(10, 10, 10)); // シェーダーデモ用のサブアクターを追加
 	// ステージのロード
 	switch (gGlobal._SelectStage) {
 	case 0:
@@ -223,7 +225,8 @@ bool ModeGame::Render() {
 
 
 
-	DrawExtendGraph(0, 0, 640, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2), FALSE);
+	DrawExtendGraph(0, 0, 640, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), FALSE);
+	DrawExtendGraph(0, 360, 640, 720, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), FALSE);
 
 	return true;
 }

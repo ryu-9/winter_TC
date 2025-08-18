@@ -85,6 +85,7 @@ public:
 	void SetShaderHandle(int handle, int index = 0) { _ShaderHandle[index] = handle; }
 	int GetShaderHandle(int index = 0) const { return _ShaderHandle[index]; }
 
+	void AddShaderTexture(int shaderIndex, int textureHandle) { _ShaderTexture[shaderIndex] = textureHandle; }
 	ModelComponent* GetModel() const { return _Model; }
 	
 protected:
@@ -94,5 +95,6 @@ protected:
 	std::map<std::string, COLOR_F> _Material;
 	bool _IsUseShader = false;
 	int _ShaderHandle[2] = { -1, -1 }; // シェーダーハンドル
+	std::map<int, int> _ShaderTexture;
 };
 

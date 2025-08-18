@@ -44,8 +44,8 @@ public:
 	ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder = 100);
 
 
-
-	void DrawMask(int i = 0);
+	void Draw() override;
+	void DrawMask();
 
 private:
 	int _PShader[3];

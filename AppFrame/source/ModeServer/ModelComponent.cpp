@@ -158,6 +158,9 @@ void ModelSpriteComponent::Draw()
 		MV1SetUseOrigShader(TRUE);
 		if (_ShaderHandle[0] != -1) SetUseVertexShader(_ShaderHandle[0]); // シェーダーを設定
 		if (_ShaderHandle[1] != -1) SetUsePixelShader(_ShaderHandle[1]); // ピクセルシェーダーを設定
+		for(auto t : _ShaderTexture) {
+			if (t.second != -1) SetUseTextureToShader(t.first, t.second); // シェーダーにテクスチャを設定
+		}
 	}
 	else MV1SetUseOrigShader(FALSE);
 	
@@ -204,7 +207,9 @@ void ModelSpriteComponent::Draw()
 
 		MV1DrawModel(_Model->GetHandle());
 		//DrawFormatString(0,0,GetColor(255,255,255),"x %f, y %f, z %f",rot.x,rot.y,rot.z);
-
+		for(auto t : _ShaderTexture) {
+			SetUseTextureToShader(t.first, -1); // シェーダーからテクスチャを解除
+		}
 	}
 }
 

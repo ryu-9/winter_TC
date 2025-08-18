@@ -85,13 +85,30 @@ void ShaderDemoSpriteComponent::CreateZMask()
 	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
 
-	
+	std::vector<ShaderDemoSubSpriteComponent*> ssc; // 押し込まれたスプライトのリスト
+
 	for (auto s : _Owner->GetMode()->GetSprites()) {
 		int VshaderHandle = -1;
 		int PshaderHandle = -1;
 		bool isShader = false;
 		if (s->GetDrawOrder() < 0 || s->GetDrawOrder() > 150) continue; // 描画順序が負のスプライトは描画しない
-
+		auto sds = dynamic_cast<ShaderDemoSubSpriteComponent*>(s);
+		if (sds != nullptr) {
+			float dist = 0.0f;
+			bool flag = false;
+			dist = VSize(VSub(sds->GetOwner()->GetPosition(), cPos)); // カメラからの距離を計算
+			for (int i = 0; i < ssc.size(); i++) {
+				if (dist > VSize(VSub(ssc[i]->GetOwner()->GetPosition(), cPos))) {
+					ssc.insert(ssc.begin() + i, sds); // カメラからの距離が遠い順に挿入
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				ssc.push_back(sds); // どこにも挿入されなかった場合は最後に追加
+			}
+			continue; // ShaderDemoSubSpriteComponentは描画しない
+		}
 		if (dynamic_cast<OutlineComponent*>(s) != nullptr) continue;
 		if (dynamic_cast<EffectManager*>(s) != nullptr) continue;
 		auto m = dynamic_cast<ModelSpriteComponent*>(s);
@@ -139,33 +156,12 @@ void ShaderDemoSpriteComponent::CreateZMask()
 
 	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
-	_DrawFlag = false;
-	return;
-	/*
-	std::vector<ShaderDemoSubSpriteComponent*> ssc; // カメラからの距離が遠い順にソートするためのベクター
-	float dist = 0.0f;
-	for (auto sc : _DepressedList) {
-		bool flag = false;
-		dist = VSize(VSub(sc->GetOwner()->GetPosition(), cPos)); // カメラからの距離を計算
-		for (int i = 0; i < ssc.size(); i++) {
-			if (dist > VSize(VSub(ssc[i]->GetOwner()->GetPosition(), cPos))) {
-				ssc.insert(ssc.begin() + i, sc); // カメラからの距離が遠い順に挿入
-				flag = true;
-				break;
-			}
-		}
-		if (!flag) {
-			ssc.push_back(sc); // どこにも挿入されなかった場合は最後に追加
-		}
+	//_DrawFlag = false;
+	//return;
+
+	for(auto sds : ssc) {
+		sds->DrawMask();
 	}
-	int i = 0;
-	for (auto sc : ssc) {
-		if (sc) {
-			sc->DrawMask(i); // 押し込まれたスプライトのマスクを描画
-			i++;
-		}
-	}
-	*/
 
 
 	SetDrawScreen(DX_SCREEN_BACK); // Zバッファを使用するための描画先を設定
@@ -339,32 +335,54 @@ ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR 
 {
 	SetPosition(pos);
 	SetSize(scale);
-	auto model = new ModelComponent(this, ""); // モデルコンポーネントを追加
+	auto model = new ModelComponent(this, "res/Stage/model/Sphere.mv1"); // モデルコンポーネントを追加
+	delete model->GetSprite(); // 既存のスプライトを削除
 	new ShaderDemoSubSpriteComponent(this, model); // スプライトコンポーネントを追加
 }
 
 ShaderDemoSubSpriteComponent::ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder)
 	: ModelSpriteComponent(owner, model)
 {
-	_VShader[0] = LoadVertexShader("res/merikomi/ZBuffer3_VS.vso");
-	_PShader[0] = LoadPixelShader("res/merikomi/ZBuffer3_PS.pso");
-	_VShader[1] = LoadVertexShader("res/merikomi/ZBuffer2_VS.vso");
-	_PShader[1] = LoadPixelShader("res/merikomi/ZBuffer2_PS.pso");
-	_VShader[2] = LoadVertexShader("res/merikomi/merikomiVS.vso");
+	_VShader[0] = LoadVertexShader("res/Shader/ZBuffer3_VS.vso");
+	_PShader[0] = LoadPixelShader("res/Shader/ZBuffer3_PS.pso");
+	_VShader[1] = LoadVertexShader("res/Shader/ZBuffer2_VS.vso");
+	_PShader[1] = LoadPixelShader("res/Shader/ZBuffer2_PS.pso");
+	_VShader[2] = LoadVertexShader("res/Shader/merikomiVS.vso");
 	//_VShader[2] = LoadVertexShader("res/hansha/MatCapVS.vso");
-	_PShader[2] = LoadPixelShader("res/merikomi/merikomiPS.pso");
+	_PShader[2] = LoadPixelShader("res/Shader/merikomiPS.pso");
 	//_PShader[2] = LoadPixelShader("res/hansha/NormalMesh_DirLight_NrmMapPS.pso");
 	_BackCullMask = MakeScreen(1920, 1080, TRUE); // バックカリング用の描画先を作成
 	_ZBufferMask[0] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0); // Zマスクのハンドルを取得
 	_ZBufferMask[1] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1); // Zマスクのハンドルを取得
 	_ZBufferMask[2] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2); // Zマスクのハンドルを取得
 
+	
+	SetUseShader(true); // シェーダーを使用する
+	SetShaderHandle(_VShader[2], 0); // 頂点シェーダーを設定
+	SetShaderHandle(_PShader[2], 1); // ピクセルシェーダーを設定
 }
 
 
 
-void ShaderDemoSubSpriteComponent::DrawMask(int i)
+void ShaderDemoSubSpriteComponent::Draw()
 {
+
+	// モデルのテクスチャハンドルを取得
+	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_RIGHT);
+	MV1SetUseOrigShader(TRUE);
+
+
+	SetUseTextureToShader(13, _ZBufferMask[1]);
+	SetUseTextureToShader(14, _ZBufferMask[2]);
+	//MV1DrawModel(_Model->GetHandle()); // モデルを描画
+	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_LEFT);
+	SetUseTextureToShader(13, -1);
+	SetUseTextureToShader(14, -1);
+}
+
+void ShaderDemoSubSpriteComponent::DrawMask()
+{
+
 	VECTOR cTarget = GetCameraTarget();
 	VECTOR cPos = GetCameraPosition();
 	float nearZ = GetCameraNear();
@@ -382,15 +400,15 @@ void ShaderDemoSubSpriteComponent::DrawMask(int i)
 	SetUseVertexShader(_VShader[1]);
 	SetUsePixelShader(_PShader[1]);
 
-	SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
-	//ClearDrawScreen();
-	SetRenderTargetToShader(0, _ZBufferMask[1]);
+	SetDrawScreen(_ZBufferMask[1]); // 描画先をバックスクリーンに設定
+
+	//SetRenderTargetToShader(0, _ZBufferMask[1]);
 	SetRenderTargetToShader(1, _BackCullMask); // Zバッファをシェーダーに設定
 	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
 
-	SetUseTextureToShader(2, _ZBufferMask[2]); // 法線マップをシェーダーに設定
-	SetUseTextureToShader(3, _ZBufferMask[0]); // Zバッファをシェーダーに設定
+	SetUseTextureToShader(13, _ZBufferMask[2]); // 法線マップをシェーダーに設定
+	SetUseTextureToShader(14, _ZBufferMask[0]); // Zバッファをシェーダーに設定
 
 	MV1SetUseZBuffer(_Model->GetHandle(), TRUE); // Zバッファを使用しない
 	MV1SetWriteZBuffer(_Model->GetHandle(), TRUE); // Zバッファに書き込まない
@@ -407,10 +425,10 @@ void ShaderDemoSubSpriteComponent::DrawMask(int i)
 
 	//SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
 
-	SetDrawScreen(DX_SCREEN_BACK); // 描画先をバックスクリーンに設定
+	SetDrawScreen(_ZBufferMask[0]); // 描画先をバックスクリーンに設定
 	SetRenderTargetToShader(1, -1);
-	ClearDrawScreen();
-	SetRenderTargetToShader(0, _ZBufferMask[0]);
+	//ClearDrawScreen();
+	//SetRenderTargetToShader(0, _ZBufferMask[0]);
 
 
 	//SetDrawScreen(_ZBufferMask[0]);
@@ -425,8 +443,8 @@ void ShaderDemoSubSpriteComponent::DrawMask(int i)
 
 	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
-	SetUseTextureToShader(2, _ZBufferMask[1]);
-	SetUseTextureToShader(3, _BackCullMask); // 法線マップをシェーダーに設定
+	SetUseTextureToShader(13, _ZBufferMask[1]);
+	SetUseTextureToShader(14, _BackCullMask); // 法線マップをシェーダーに設定
 	MV1DrawModel(_Model->GetHandle());
 
 	//SetZBufferCmpType(DX_CMP_LESS);
@@ -437,4 +455,7 @@ void ShaderDemoSubSpriteComponent::DrawMask(int i)
 
 	SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
+
+	SetUseTextureToShader(13, -1);
+	SetUseTextureToShader(14, -1); // 法線マップをシェーダーに設定
 }

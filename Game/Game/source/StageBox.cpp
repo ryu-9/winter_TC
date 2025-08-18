@@ -1,6 +1,7 @@
 #include "StageBox.h"
 #include "SnowComponent.h"
 #include "ApplicationGlobal.h"
+#include "ShaderDemoSpriteComponent.h"
 
 StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int type)
 	:ActorClass(mode)
@@ -84,7 +85,10 @@ StageBox::StageBox(ModeBase* mode, VECTOR pos, VECTOR rot, VECTOR scale, int typ
 	}
 	_Model->GetSprite()->SetUseShader(true);
 	_Model->GetSprite()->SetShaderHandle(LoadVertexShader("res/shader/NormalMesh_DirLight_NrmMapVS.vso"), 0);
-	_Model->GetSprite()->SetShaderHandle(LoadPixelShader("res/shader/MatCapPS.pso"), 1);
+	//_Model->GetSprite()->SetShaderHandle(LoadPixelShader("res/shader/MatCapPS.pso"), 1);
+	_Model->GetSprite()->SetShaderHandle(LoadPixelShader("res/shader/merikomare.pso"), 1);
+	_Model->GetSprite()->AddShaderTexture(13, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0));
+	_Model->GetSprite()->AddShaderTexture(14, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1));
 	Init();
 
 }
