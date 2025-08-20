@@ -217,3 +217,25 @@ void ModelSpriteComponent::SetImage()
 {
 }
 
+void ModelSpriteComponent::SetUseCullingSetting(int flag)
+{
+	for(int i = 0; i < MV1GetMeshNum(_Model->GetHandle()); i++) {
+		MV1SetMeshBackCulling(_Model->GetHandle(), i, flag);
+	}
+}
+
+void ModelSpriteComponent::AddShaderTexture(int shaderIndex, int textureHandle)
+{
+	if (textureHandle == -1) _ShaderTexture.erase(shaderIndex); // シェーダーインデックスが無効な場合は削除
+	else _ShaderTexture[shaderIndex] = textureHandle; // シェーダーインデックスとテクスチャハンドルをマップに追加
+}
+
+int ModelSpriteComponent::GetTextureHandle(int shaderIndex)
+{
+	auto it = _ShaderTexture.find(shaderIndex);
+	if (it != _ShaderTexture.end()) {
+		return it->second;
+	}
+	return -1;
+}
+

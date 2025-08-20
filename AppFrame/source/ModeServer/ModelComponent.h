@@ -85,8 +85,12 @@ public:
 	void SetShaderHandle(int handle, int index = 0) { _ShaderHandle[index] = handle; }
 	int GetShaderHandle(int index = 0) const { return _ShaderHandle[index]; }
 
-	void AddShaderTexture(int shaderIndex, int textureHandle) { _ShaderTexture[shaderIndex] = textureHandle; }
+	void AddShaderTexture(int shaderIndex, int textureHandle);
+	int GetTextureHandle(int shaderIndex);
+
 	ModelComponent* GetModel() const { return _Model; }
+
+	void SetUseCullingSetting(int flag = DX_CULLING_LEFT);
 	
 protected:
 

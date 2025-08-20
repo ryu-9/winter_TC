@@ -18,12 +18,12 @@ class ShaderDemoSpriteComponent : public SpriteComponent
 	static ShaderDemoSpriteComponent* GetInstance() { return _Instance; }
 
 private:
-	int _PShader[5];
+	int _PShader[6];
 	int _VShader[2];
 	int _MatCapShader[4];
 	int _Handle[4];
 	bool _DrawFlag;
-	int _ZMaskHandle[3];
+	int _ZMaskHandle[5];
 	int _ReflectHandle;
 };
 
@@ -42,7 +42,7 @@ class ShaderDemoSubSpriteComponent : public ModelSpriteComponent
 {
 public:
 	ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder = 100);
-
+	~ShaderDemoSubSpriteComponent() override;
 
 	void Draw() override;
 	void DrawMask();
@@ -50,6 +50,7 @@ public:
 private:
 	int _PShader[3];
 	int _VShader[3];
-	int _ZBufferMask[3];
+	int _ZBufferMask[4];
 	int _BackCullMask;
+
 };

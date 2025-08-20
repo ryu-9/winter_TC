@@ -81,8 +81,8 @@ void CameraComponent::ProcessInput()
 	float lx, ly, rx, ry;	// 左右アナログスティックの座標
 	float analogMin = 0.3f;	// アナログ閾値
 	// Logicoolパッドの場合
-	lx = (float)di.X / 1000.f; ly = (float)di.Y / 100.f;
-	rx = (float)di.Z / 100.f; ry = -(float)di.Rz / 100.f;	// Y軸反転
+	lx = (float)di.X / 100.f; ly = (float)di.Y / 100.f;
+	rx = (float)di.Z / 50.f; ry = -(float)di.Rz / 100.f;	// Y軸反転
 
 	// Y軸回転
 	float sx = _cOwner->GetPosition().x - _cOwner->GetDirection().x;

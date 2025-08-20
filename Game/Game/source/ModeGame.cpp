@@ -186,7 +186,7 @@ bool ModeGame::Render() {
 	// 3D描画設定
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
-	SetUseBackCulling(TRUE);
+	//SetUseBackCulling(TRUE);
 	Effekseer_Sync3DSetting();
 	SetUseLighting(TRUE);
 
@@ -224,9 +224,15 @@ bool ModeGame::Render() {
 	}
 
 
-
-	DrawExtendGraph(0, 0, 640, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), FALSE);
-	DrawExtendGraph(0, 360, 640, 720, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), FALSE);
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50); // アルファブレンドモードを設定
+	//DrawGraph(0, 0, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), TRUE); // バックカリング用のマスクを描画
+	//DrawGraph(0, 0, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), TRUE); // バックカリング用のマスクを描画
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを無効化
+	DrawExtendGraph(0, 0, 320, 180, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), FALSE);
+	DrawExtendGraph(0, 180, 320, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), FALSE);
+	DrawExtendGraph(0, 360, 320, 540, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2), FALSE);
+	DrawExtendGraph(0, 540, 320, 720, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3), FALSE);
+	DrawExtendGraph(0, 720, 320, 900, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(4), FALSE);
 
 	return true;
 }
