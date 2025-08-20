@@ -55,7 +55,7 @@ bool ModeGame::Initialize() {
 
 	auto a = new ActorClass(this);
 	new ShaderDemoSpriteComponent(a);
-	new ShaderDemoSubActor(this, VGet(0, 50, 50), VGet(10, 10, 10)); // シェーダーデモ用のサブアクターを追加
+	//new ShaderDemoSubActor(this, VGet(0, 50, 50), VGet(10, 10, 10)); // シェーダーデモ用のサブアクターを追加
 	// ステージのロード
 	switch (gGlobal._SelectStage) {
 	case 0:

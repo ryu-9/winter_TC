@@ -391,15 +391,31 @@ void ShaderDemoSpriteComponent::CreateReflect()
 
 
 
-ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR scale)
+ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, float scale)
 	: ActorClass(mode)
+	, _Count(20000)
 {
 	SetPosition(pos);
-	SetSize(scale);
+	SetSize(VGet(scale, scale, scale));
 	auto model = new ModelComponent(this, "res/Stage/model/Sphere.mv1"); // モデルコンポーネントを追加
 	//auto model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1"); // モデルコンポーネントを追加
 	delete model->GetSprite(); // 既存のスプライトを削除
 	new ShaderDemoSubSpriteComponent(this, model); // スプライトコンポーネントを追加
+}
+
+
+ShaderDemoSubActor::~ShaderDemoSubActor()
+{
+	// デストラクタで特に何もしない
+}
+
+void ShaderDemoSubActor::UpdateActor()
+{
+	_Count -= 1000 / GetFPS(); // カウントダウン
+
+	if(_Count<= 0) {
+		delete this; // カウントが0以下になったら自分自身を削除
+	}
 }
 
 ShaderDemoSubSpriteComponent::ShaderDemoSubSpriteComponent(ActorClass* owner, ModelComponent* model, int drawOrder)
@@ -441,7 +457,7 @@ void ShaderDemoSubSpriteComponent::Draw()
 	MV1SetUseOrigShader(TRUE);
 
 
-	SetUseTextureToShader(13, _ZBufferMask[2]);
+	SetUseTextureToShader(13, _ZBufferMask[1]);
 	SetUseTextureToShader(14, _ZBufferMask[3]);
 	SetUseVertexShader(_VShader[2]); // 頂点シェーダーを設定
 	SetUsePixelShader(_PShader[2]); // ピクセルシェーダーを設定

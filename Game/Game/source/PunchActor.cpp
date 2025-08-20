@@ -1,6 +1,7 @@
 #include "PunchActor.h"
 #include "EnemyActor.h"
 #include "ExplosionActor.h"
+#include "ShaderDemoSpriteComponent.h"
 
 PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, float scale)
 	:ActorClass(mode)
@@ -31,6 +32,7 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 PunchActor::~PunchActor()
 {
 	new ExplosionActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 200);
+	new ShaderDemoSubActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 20);
 }
 
 void PunchActor::UpdateActor()
