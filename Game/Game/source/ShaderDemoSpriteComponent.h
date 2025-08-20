@@ -51,10 +51,12 @@ public:
 	void Draw() override;
 	void DrawMask();
 
+	int GetZMaskHandle(int index = 0) const { return _ZBufferMask[index]; }
+
 private:
-	int _PShader[3];
+	int _PShader[4];
 	int _VShader[3];
-	int _ZBufferMask[4];
+	int _ZBufferMask[5];
 	int _BackCullMask;
 
 };

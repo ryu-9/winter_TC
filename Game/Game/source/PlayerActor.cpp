@@ -1261,7 +1261,7 @@ bool PlayerActor::IsMoved() {
 // 指定されたサイズに基づいてプレイヤーのサイズ変更時間を設定する
 void PlayerActor::SetChangeTime(float size)
 {
-	_ChangeTime = (size * size - 4) * 500000; // 5000
+	_ChangeTime = (size * size - 4) * 5000000; // 5000
 	_ChangeTime += 3000; // 3000msの初期値を追加
 
 	_AlertTime = _ChangeTime * 0.1f;

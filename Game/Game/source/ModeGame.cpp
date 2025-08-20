@@ -224,7 +224,7 @@ bool ModeGame::Render() {
 	}
 
 
-	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50); // アルファブレンドモードを設定
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 50); // アルファブレンドモードを設定
 	//DrawGraph(0, 0, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), TRUE); // バックカリング用のマスクを描画
 	//DrawGraph(0, 0, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), TRUE); // バックカリング用のマスクを描画
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを無効化
@@ -233,7 +233,16 @@ bool ModeGame::Render() {
 	DrawExtendGraph(0, 360, 320, 540, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2), FALSE);
 	DrawExtendGraph(0, 540, 320, 720, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3), FALSE);
 	DrawExtendGraph(0, 720, 320, 900, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(4), FALSE);
+	//DrawExtendGraph(0, 0, 640, 360, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0), FALSE);
+	//DrawExtendGraph(0, 360, 640, 720, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1), FALSE);
 
+	for(auto s : _Sprites) {
+		auto sc = dynamic_cast<ShaderDemoSubSpriteComponent*>(s);
+		if (sc != nullptr) {
+			DrawExtendGraph(1920 - 320, 0, 1920, 180, sc->GetZMaskHandle(3), FALSE);
+			DrawExtendGraph(1920 - 320, 180, 1920, 360, sc->GetZMaskHandle(4), FALSE);
+		}
+	}
 	return true;
 }
 
