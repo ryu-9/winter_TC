@@ -434,10 +434,10 @@ ShaderDemoSubSpriteComponent::ShaderDemoSubSpriteComponent(ActorClass* owner, Mo
 	_ZBufferMask[0] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(0); // Zマスクのハンドルを取得
 	_ZBufferMask[1] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(1); // Zマスクのハンドルを取得
 	_ZBufferMask[2] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(2); // Zマスクのハンドルを取得
-	//_ZBufferMask[3] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3); // Zマスクのハンドルを取得
-	//_ZBufferMask[4] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(4); // Zマスクのハンドルを取得
-	_ZBufferMask[3] = MakeScreen(1920, 1080, TRUE); // Zマスク用の描画先を作成
-	_ZBufferMask[4] = MakeScreen(1920, 1080, TRUE); // Zマスク用の描画先を作成
+	_ZBufferMask[3] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3); // Zマスクのハンドルを取得
+	_ZBufferMask[4] = ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(4); // Zマスクのハンドルを取得
+	//_ZBufferMask[3] = MakeScreen(1920, 1080, TRUE); // Zマスク用の描画先を作成
+	//_ZBufferMask[4] = MakeScreen(1920, 1080, TRUE); // Zマスク用の描画先を作成
 	_BackCullMask = MakeScreen(1920, 1080, TRUE); // バックカリング用の描画先を作成
 	
 	SetUseShader(true); // シェーダーを使用する
@@ -449,8 +449,8 @@ ShaderDemoSubSpriteComponent::ShaderDemoSubSpriteComponent(ActorClass* owner, Mo
 ShaderDemoSubSpriteComponent::~ShaderDemoSubSpriteComponent()
 {
 	// debug
-	DeleteGraph(_ZBufferMask[3]); // Zマスク用の描画先を削除
-	DeleteGraph(_ZBufferMask[4]); // Zマスク用の描画先を削除
+	//DeleteGraph(_ZBufferMask[3]); // Zマスク用の描画先を削除
+	//DeleteGraph(_ZBufferMask[4]); // Zマスク用の描画先を削除
 	DeleteGraph(_BackCullMask); // バックカリング用の描画先を削除
 }
 
@@ -463,10 +463,10 @@ void ShaderDemoSubSpriteComponent::Draw()
 	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_NONE);
 	MV1SetUseOrigShader(TRUE);
 
-
+	SetUseTextureToShader(12, _ZBufferMask[2]); // 法線マップをシェーダーに設定
 	SetUseTextureToShader(13, _ZBufferMask[1]);
 	SetUseTextureToShader(14, _ZBufferMask[3]);
-	SetUseTextureToShader(14, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3)); // Zマスクをシェーダーに設定
+	//SetUseTextureToShader(14, ShaderDemoSpriteComponent::GetInstance()->GetZMaskHandle(3)); // Zマスクをシェーダーに設定
 	SetUseVertexShader(_VShader[2]); // 頂点シェーダーを設定
 	SetUsePixelShader(_PShader[2]); // ピクセルシェーダーを設定
 	MV1DrawModel(_Model->GetHandle()); // モデルを描画
