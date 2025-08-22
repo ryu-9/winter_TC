@@ -1,6 +1,7 @@
 #include "SlashActor.h"
 #include "EnemyActor.h"
 #include "SnowComponent.h"
+#include "ShaderDemoSpriteComponent.h"
 
 SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float height, VECTOR move, VECTOR rot, VECTOR scale)
 	:ActorClass(mode)
@@ -29,10 +30,15 @@ SlashActor::SlashActor(ModeBase* mode, ActorClass* owner, VECTOR pos, float heig
 	//MV1SetVisible(model->GetHandle(), FALSE);
 	SoundServer::GetInstance()->Create(this, "blade", "AttackSE", "blade");
 	SoundServer::GetInstance()->GetSourceVoice(this, "blade")->Play();
+
+	VECTOR scaleV = VGet(1, 0.2, 1);
+	scaleV = VScale(scaleV, _HCollision->GetRSize().x);
+	new ShaderDemoSubActor(GetMode(), GetPosition(), scaleV);
 }
 
 SlashActor::~SlashActor()
 {
+
 }
 
 void SlashActor::UpdateActor()

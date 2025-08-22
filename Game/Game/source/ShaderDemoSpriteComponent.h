@@ -32,7 +32,7 @@ private:
 class ShaderDemoSubActor : public ActorClass
 {
 public:
-	ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, float scale);
+	ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR scale);
 	~ShaderDemoSubActor() override;
 
 	void UpdateActor() override;

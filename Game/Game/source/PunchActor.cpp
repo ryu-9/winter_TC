@@ -32,7 +32,9 @@ PunchActor::PunchActor(ModeBase* mode, VECTOR pos, VECTOR move, VECTOR rot, floa
 PunchActor::~PunchActor()
 {
 	new ExplosionActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 200);
-	new ShaderDemoSubActor(GetMode(), GetPosition(), _HCollision->GetRSize().x / 20);
+	VECTOR scale = VGet(1, 1, 1);
+	scale = VScale(scale, _HCollision->GetRSize().x / 20);
+	new ShaderDemoSubActor(GetMode(), GetPosition(), scale);
 }
 
 void PunchActor::UpdateActor()

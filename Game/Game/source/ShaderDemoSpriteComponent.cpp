@@ -70,7 +70,7 @@ void ShaderDemoSpriteComponent::CreateZMask()
 	for (int i = 0; i < 4; i++) {
 		SetDrawScreen(_ZMaskHandle[i]); // Zバッファを使用するための描画先を設定
 		ClearDrawScreen(); // 描画先をクリア
-		if (i == 2 ) {}
+		if (i == 2 || 1 == 0 ) {}
 			//DrawBox(0, 0, 1920, 1080, GetColor(255, 255, 255), TRUE); // バックスクリーンをZバッファに描画
 		else
 			DrawBox(0, 0, 1920, 1080, GetColor(255, 255, 255), TRUE); // バックスクリーンをZバッファに描画
@@ -391,12 +391,12 @@ void ShaderDemoSpriteComponent::CreateReflect()
 
 
 
-ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, float scale)
+ShaderDemoSubActor::ShaderDemoSubActor(ModeBase* mode, const VECTOR pos, VECTOR scale)
 	: ActorClass(mode)
 	, _Count(200000)
 {
 	SetPosition(pos);
-	SetSize(VGet(scale, scale, scale));
+	SetSize(scale);
 	auto model = new ModelComponent(this, "res/Stage/model/Sphere.mv1"); // モデルコンポーネントを追加
 	//auto model = new ModelComponent(this, "res/model/Mapchip/Mapchip_Broken1.mv1"); // モデルコンポーネントを追加
 	delete model->GetSprite(); // 既存のスプライトを削除
