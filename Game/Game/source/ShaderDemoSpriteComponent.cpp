@@ -102,7 +102,7 @@ void ShaderDemoSpriteComponent::CreateZMask()
 			bool flag = false;
 			dist = VSize(VSub(sds->GetOwner()->GetPosition(), cPos)); // カメラからの距離を計算
 			for (int i = 0; i < ssc.size(); i++) {
-				if (dist > VSize(VSub(ssc[i]->GetOwner()->GetPosition(), cPos))) {
+				if (dist < VSize(VSub(ssc[i]->GetOwner()->GetPosition(), cPos))) {
 					ssc.insert(ssc.begin() + i, sds); // カメラからの距離が遠い順に挿入
 					flag = true;
 					break;
@@ -264,8 +264,12 @@ void ShaderDemoSpriteComponent::CreateReflect()
 	ClearDrawScreen(); // 描画先をクリア
 	VECTOR newcPos = VAdd(cPos, VScale(cDir, 2.0 * nearZ)); // カメラの位置を反射位置に設定
 	VECTOR newcTarget = VAdd(newcPos, VScale(cDir, -VSize(VSub(cPos, cTarget)))); // カメラのターゲットを反射位置に設定
-	
-	SetCameraPositionAndTargetAndUpVec(newcPos, cPos, VGet(0, 1, 0)); // カメラの位置と向きを設定
+	auto camera = dynamic_cast<ModeGame*>(GetOwner()->GetMode())->GetCamera();
+	VECTOR cmove = VSub(camera->GetPosition(), cPos);
+	cmove.y = 0;
+	cmove = VScale(cmove, 2.0f);
+	newcPos = VAdd(cPos, cmove);
+	SetCameraPositionAndTargetAndUpVec(newcPos, VAdd(newcPos, VScale(cDir, -1.0f)), VGet(0, 1, 0)); // カメラの位置と向きを設定
 	//SetCameraPositionAndTargetAndUpVec(cPos, cTarget, VGet(0, 1, 0)); // カメラの位置と向きを設定
 	SetCameraNearFar(nearZ, farZ); // カメラの近くと遠くの距離を設定
 
@@ -528,6 +532,7 @@ void ShaderDemoSubSpriteComponent::DrawMask()
 	MV1SetMeshBackCulling(_Model->GetHandle(), 0, DX_CULLING_RIGHT); // メッシュのバックカリングを無効化
 
 	MV1DrawModel(_Model->GetHandle()); // モデルを描画
+	ClearDrawScreenZBuffer(); // Zバッファをクリア
 
 	MV1SetUseZBuffer(_Model->GetHandle(), TRUE); // Zバッファを使用する
 	MV1SetWriteZBuffer(_Model->GetHandle(), TRUE); // Zバッファに書き込む
@@ -545,7 +550,7 @@ void ShaderDemoSubSpriteComponent::DrawMask()
 
 
 	//SetDrawScreen(_ZBufferMask[0]);
-	ClearDrawScreenZBuffer(); // Zバッファをクリア
+	//ClearDrawScreenZBuffer(); // Zバッファをクリア
 	//MV1SetZBufferCmpType(DX_CMP_GREATER);
 
 	SetWriteZBufferFlag(TRUE);
