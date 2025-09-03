@@ -243,18 +243,44 @@ PlayerActor* ModeGame::GetPlayer(int n) {
 // ステージのロード処理
 // JSONファイルからステージデータを読み込み、オブジェクトを生成する
 bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
-	// JSONファイルの読み込み
+	std::vector<std::vector<VECTOR>> poppos;
+	std::vector<GroupSpawnerActor*> g;
+	std::vector<GimmickWallActor*> gw;
+	int gwn = 0;
+	switch (gGlobal._SelectStage) {
+	case 0:
+		poppos.resize(1);
+		g.resize(1);
+		gw.resize(4);
+		gwn = 1;
+		break;
+	case 1:
+		poppos.resize(6);
+		g.resize(6);
+		gw.resize(20);
+		gwn = 5;
+		break;
+	case 2:
+		poppos.resize(3);
+		g.resize(3);
+		gw.resize(9);
+		gwn = 5;
+		break;
+	default:
+		break;
+	}
+
 	std::ifstream file(path + jsname);
 	nlohmann::json json;
 	file >> json;
 
-	// ステージデータの解析とオブジェクト生成
 	nlohmann::json stage = json.at("Stage");
 	for (auto& data : stage) {
 		std::string name = data.at("objectName");
 		if (name == "") { continue; }
+		std::string name2 = data.at("objectName");
 
-		// Unreal Engine -> DXLibの座標系変換
+		// Unreal Engine->DXLibの座標系に変換
 		auto pos = VGet(data.at("translate").at("x"), data.at("translate").at("z"), data.at("translate").at("y"));
 		pos.z *= -1.f;
 		auto rot = VGet(data.at("rotate").at("x"), data.at("rotate").at("z"), data.at("rotate").at("y"));
@@ -263,7 +289,11 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		rot.z = DEG2RAD(rot.z);
 		auto scale = VGet(data.at("scale").at("x"), data.at("scale").at("z"), data.at("scale").at("y"));
 
-		// オブジェクト名に応じた処理
+		if (name == "") {
+			continue;
+		}
+
+		// nameで分岐
 		if (name == "SM_Cube" || name == "Cube") {
 			auto box = new StageBox(this, pos, rot, scale, 0);
 			box->Init();
@@ -296,6 +326,37 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			auto esa = new EnemySpawnerActor(this, pos);
 			esa->SetCol(1);
 		}
+		else if ((name2.erase(name2.size() - 1, 1) == "Group_Area_Box_No")) {
+			std::string nm = data.at("objectName");
+			nm = nm.back();
+			auto n = std::stoi(nm) - 1;
+			g[n] = new GroupSpawnerActor(this, pos, n);
+			g[n]->SetDirection(rot);
+			g[n]->SetSize(scale);
+
+			auto m = new ModelComponent(g[n], (path + "model/Cube.mv1").c_str());
+			m->SetVisible(false);
+			auto h = new HitCollisionComponent(g[n], m, VGet(0, 0, 0), VGet(1, 1, 1), 4, true, true);
+			g[n]->SetHCollision(h);
+			h->RefleshCollInfo();
+
+		}
+		else if (name2 == "Spawner") {
+			std::string nm = data.at("objectName");
+			nm = nm.back();
+			auto n = std::stoi(nm) - 1;
+			poppos[n].push_back(pos);
+		}
+		else if (name == "House_Spawner") {
+			auto esa = new EnemySpawnerActor(this, pos, true);
+		}
+		else if (name2 == "Wall" || (name2.erase(name2.size() - 1, 1) == "Wall")) {
+
+			std::string nm = data.at("objectName");
+			nm = nm.erase(0, 4);
+			auto n = std::stoi(nm) - gwn;
+			gw[n] = new GimmickWallActor(this, pos, scale, rot, 0, nullptr);
+		}
 		else if (name == "Goal_flag") {
 			new GoalItemActor(this, pos, true);
 		}
@@ -315,6 +376,7 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			pos.y += 30;
 			scale = VScale(scale, 3.333);
 			scale.y = 5;
+
 			auto l = new LavaActor(this, pos, scale);
 		}
 		else {
@@ -328,6 +390,79 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 			mv->RefleshCollInfo();
 		}
 	}
+	for (auto i = 0; i < poppos.size(); i++) {
+		for (auto j = 0; j < poppos[i].size(); j++) {
+			g[i]->AddPopPos(poppos[i][j]);
+		}
+	}
 
+	// スポナー、壁の初期化とポジションの設定
+	switch (gGlobal._SelectStage) {
+	case 0:
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(false);
+		gw[2]->SetIsActive(false);
+		gw[3]->SetIsActive(true);
+		gw[2]->SetActor(g[0]);
+		gw[3]->SetActor(g[0]);
+		g[0]->SetType(0);
+		break;
+	case 2:
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(true);
+		gw[2]->SetIsActive(true);
+		gw[3]->SetIsActive(false);
+		gw[4]->SetIsActive(true);
+		gw[5]->SetIsActive(false);
+		gw[6]->SetIsActive(true);
+		gw[7]->SetIsActive(false);
+		gw[8]->SetIsActive(true);
+		gw[9]->SetIsActive(false);
+		gw[10]->SetIsActive(true);
+		gw[11]->SetIsActive(false);
+		gw[12]->SetIsActive(true);
+		gw[0]->SetActor(g[0]);
+		gw[1]->SetActor(g[0]);
+		gw[2]->SetActor(g[0]);
+		gw[3]->SetActor(g[1]);
+		gw[4]->SetActor(g[1]);
+		gw[5]->SetActor(g[2]);
+		gw[6]->SetActor(g[2]);
+		gw[7]->SetActor(g[3]);
+		gw[8]->SetActor(g[3]);
+		gw[9]->SetActor(g[4]);
+		gw[10]->SetActor(g[4]);
+		gw[11]->SetActor(g[5]);
+		gw[12]->SetActor(g[5]);
+		g[0]->SetType(1);
+		g[1]->SetType(4);
+		g[2]->SetType(4);
+		g[3]->SetType(4);
+		g[4]->SetType(4);
+		g[5]->SetType(4);
+		break;
+	case 1:
+		gw[0]->SetIsActive(false);
+		gw[1]->SetIsActive(true);
+		gw[2]->SetIsActive(false);
+		gw[3]->SetIsActive(false);
+		gw[4]->SetIsActive(true);
+		gw[5]->SetIsActive(true);
+		gw[6]->SetIsActive(false);
+		gw[7]->SetIsActive(false);
+		gw[8]->SetIsActive(true);
+		gw[0]->SetActor(g[0]);
+		gw[1]->SetActor(g[0]);
+		gw[2]->SetActor(g[1]);
+		gw[3]->SetActor(g[1]);
+		gw[4]->SetActor(g[1]);
+		gw[5]->SetActor(g[1]);
+		gw[6]->SetActor(g[2]);
+		gw[7]->SetActor(g[2]);
+		gw[8]->SetActor(g[2]);
+		g[0]->SetType(1);
+		g[1]->SetType(5);
+		g[2]->SetType(5);
+	};
 	return true;
 }

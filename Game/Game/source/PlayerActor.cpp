@@ -294,27 +294,27 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 		{
-		// アニメーションのブレンド処理
-		auto rate = _AnimationRate.begin();
-		while (rate != _AnimationRate.end()) {
-			if (rate->second < 1) {
-				if (rate->second <= 0.1) {
-					MV1DetachAnim(_TopModel->GetHandle(), rate->first);
-					MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
+			// アニメーションのブレンド処理
+			auto rate = _AnimationRate.begin();
+			while (rate != _AnimationRate.end()) {
+				if (rate->second < 1) {
+					if (rate->second <= 0.1) {
+						MV1DetachAnim(_TopModel->GetHandle(), rate->first);
+						MV1DetachAnim(_BottomModel->GetHandle(), rate->first);
 						if (rate->first == _PunchIndex[0]) {
 							MV1DetachAnim(_TopModel->GetHandle(), _PunchIndex[1]);
 							MV1DetachAnim(_BottomModel->GetHandle(), _PunchIndex[1]);
 							_PunchIndex[0] = -2;
 							_PunchIndex[1] = -2;
 						}
-					_AnimationRate.erase(rate++);
-					continue;
-				}
+						_AnimationRate.erase(rate++);
+						continue;
+					}
 					else if (rate->second > 0) {
-					rate->second -= 0.1;
-					MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+						rate->second -= 0.1;
+						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second);
+					}
 				}
-			}
 				if (rate->second > 1) {
 
 					if (rate->second >= 2) {
@@ -326,13 +326,13 @@ void PlayerActor::UpdateActor() {
 						MV1SetAttachAnimBlendRate(_TopModel->GetHandle(), rate->first, rate->second - 1);
 					}
 				}
-			++rate;
+				++rate;
+			}
 		}
-	}
 
-	// モードごとの処理
+		// モードごとの処理
 
-		switch (_ModeNum%2) {
+		switch (_ModeNum % 2) {
 		case 1:
 			MV1SetAttachAnimTime(_BottomModel->GetHandle(), _AnimIndex, _AnimTime);
 			break;
@@ -419,7 +419,7 @@ void PlayerActor::UpdateActor() {
 						_Friend->SetChangeTime(-2000);
 						_Friend->GetInput()->SetIsActive(false);
 						_Friend->SetChangeFlag(false);
-						new ChangeSnowBallActor(GetMode(), _Friend, _Friend->GetSize().x* 5);
+						new ChangeSnowBallActor(GetMode(), _Friend, _Friend->GetSize().x * 5);
 						auto pe = EffectController::GetInstance()->GetEffect<PlayerEmphasisEffect>();
 						for (auto p : pe) {
 							p->SetIsUse(false);
@@ -451,7 +451,7 @@ void PlayerActor::UpdateActor() {
 			auto enemy = dynamic_cast<EnemyActor*>(h->GetOwner());
 			if (enemy != nullptr) {
 				enemy->Death(0);
-				
+
 
 				VECTOR knock = VSub(GetPosition(), enemy->GetPosition());
 				if (VSize(knock) == 0) { knock = VGet(0, 1, 0); }
@@ -484,7 +484,7 @@ void PlayerActor::UpdateActor() {
 				case 11:
 				case 12:
 					_Item[itemnum - 11]++;
-					
+
 					if (_Item[itemnum - 11] > 6) {
 						_Item[itemnum - 11] = 0;
 						gGlobal._ItemList[itemnum - 11] = 0;
@@ -522,7 +522,7 @@ void PlayerActor::UpdateActor() {
 			}
 		}
 	}
-		break;
+	break;
 
 	case 1:
 	case 3:
@@ -626,7 +626,7 @@ void PlayerActor::UpdateActor() {
 		VECTOR pos = GetPosition();
 		_Friend->SetPosition(VAdd(VGet(pos.x, pos.y + GetSize().y * 80, pos.z), VScale(VGet(0, 160, 0), _Friend->GetSize().x)));
 	}
-		break;
+	break;
 
 	case 2:
 	case 4:
@@ -660,7 +660,7 @@ void PlayerActor::UpdateActor() {
 			if (enemy != nullptr) {
 				enemy->Death(1);
 			}
-			
+
 			auto goal = dynamic_cast<GoalItemActor*>(h->GetOwner());
 			if (goal != nullptr) {
 				ModeServer::GetInstance()->Add(new ModeGameGoal(), 5, "goal");
@@ -718,8 +718,10 @@ void PlayerActor::UpdateActor() {
 
 
 				auto laser = new LaserActor(GetMode(), tmppos, VScale(tmpdir, -GetSize().x * 40), tmpdir, GetSize().x * 10);
-				auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "TDX", "tdx_laser");
-				s->Play();
+				if (SoundServer::GetInstance()->GetSourceVoice(this, "tdx_laser") == nullptr) {
+					auto s = SoundServer::GetInstance()->Create(this, "tdx_laser", "TDX", "tdx_laser");
+					s->Play();
+				}
 			}
 
 		}
@@ -732,7 +734,7 @@ void PlayerActor::UpdateActor() {
 			if (_AnimTime > 40 && !_PunchFlag)
 			{
 				VECTOR tmpdir = VNorm(VGet(dir.x, 0, dir.z));
-				VECTOR tmppos = VGet(0, -GetSize().y * 100 , 0);
+				VECTOR tmppos = VGet(0, -GetSize().y * 100, 0);
 
 				float tmpsize = GetSize().x * 1.5 + _Friend->GetSize().y * 1.5;
 				tmpsize *= 1.5;
