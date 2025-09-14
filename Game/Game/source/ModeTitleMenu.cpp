@@ -42,7 +42,11 @@ public:
 
 	}
 	virtual int Selected() {
-		iojson::LoadJson(gGlobal._Stageflg, "res/loadtext/flag.json");	
+		// 本来はセーブデータを読み込む
+		//iojson::LoadJson(gGlobal._Stageflg, "res/loadtext/flag.json");
+
+		// デバッグ用にクリアフラグをたてる
+		gGlobal._Stageflg = 3;
 		ModeServer::GetInstance()->Add(new ModeStageSelect(), 1, "select");
 		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("title"));
 		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("titlemenu"));

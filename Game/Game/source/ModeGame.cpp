@@ -261,9 +261,9 @@ bool ModeGame::LoadStage(const std::string path, const std::string jsname) {
 		gwn = 5;
 		break;
 	case 2:
-		poppos.resize(3);
-		g.resize(3);
-		gw.resize(9);
+		poppos.resize(6);
+		g.resize(6);
+		gw.resize(20);
 		gwn = 5;
 		break;
 	default:
