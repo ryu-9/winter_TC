@@ -134,17 +134,13 @@ void PlayerMoveCollisionComponent::Update()
 							}
 							if (tmpDist == dist[k]) {
 								VECTOR tmpmove = VNorm(VSub(GetPosition(), OldPos));
-								if (VEqual(HitPos[k], tmpHit)) {
-									if (VDot(tmpmove, r.mesh[j].Normal) < VDot(tmpmove, HitNormal[k])) {
-										HitPos[k] = tmpHit;
-										HitNormal[k] = r.mesh[j].Normal;
-										dist[k] = tmpDist;
-										coll[k] = r.mc;
-									}
+								if (VDot(tmpmove, r.mesh[j].Normal) > VDot(tmpmove, HitNormal[k])) {
+									HitPos.insert(HitPos.begin() + k, tmpHit);
+									HitNormal.insert(HitNormal.begin() + k, r.mesh[j].Normal);
+									dist.insert(dist.begin() + k, tmpDist);
+									coll.insert(coll.begin() + k, r.mc);
 									break;
 								}
-
-
 							}
 							if (k == dist.size() - 1) {
 								HitPos.push_back(tmpHit);
@@ -168,7 +164,6 @@ void PlayerMoveCollisionComponent::Update()
 
 			shomen = false;
 			VECTOR move = VSub(OldPos, HitPos[i]);
-
 			if (VSize(move) == 0) {
 				move = HitNormal[i];
 			}
@@ -202,7 +197,6 @@ void PlayerMoveCollisionComponent::Update()
 						_pOwner->Damage(0);
 					}
 				}
-				VECTOR Rawmove = move;
 				move = VSub(move, VScale(OldMove, v));
 				if (VSize(move) <= 0.01) {
 					continue;
@@ -278,7 +272,7 @@ void PlayerMoveCollisionComponent::Update()
 
 				movedList.push_front(move);
 				tmp = VSub(GetPosition(), OldPos);
-
+				OldMove = move;
 				devpos = VAdd(devpos, move);
 
 				if (move.y < 0.3) {
@@ -292,25 +286,16 @@ void PlayerMoveCollisionComponent::Update()
 				}
 				else { EnMove = VGet(0, 0, 0); }
 				VECTOR velocity = _Move->GetVelocity();
-				move = Rawmove;
 				if (VDot(move, velocity) < VDot(move, EnMove)) {
-					float reflect = 1;
-					reflect = VSize(VGet(move.x, 0, move.z));
-					reflect *= 2;
-					//reflect = 1;
-					velocity = VSub(VSub(_Move->GetVelocity(), VScale(move, reflect * VDot(move, _Move->GetVelocity()))), VScale(move, reflect * VDot(move, EnMove)));
+					VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
 					_Move->SetVelocity(velocity);
 				}
 
-				OldMove = move;
+
 				float deg = 60;
 				if (move.y >= cos(deg / 180 * atan(1) * 4)) {
 					if (_Move != nullptr) {
 						_Move->SetStand(TRUE);
-						if (velocity.y > 0) {
-							velocity.y = 0;
-							_Move->SetVelocity(velocity);
-						}
 					}
 				}
 
@@ -332,7 +317,7 @@ void PlayerMoveCollisionComponent::Update()
 					if (VSize(move) != 0) {
 						length = 0;
 
-						Rawmove = move;
+
 						v = VDot(move, OldMove);
 
 						if (v < 0) {
@@ -383,13 +368,8 @@ void PlayerMoveCollisionComponent::Update()
 						}
 						else { EnMove = VGet(0, 0, 0); }
 						VECTOR velocity = _Move->GetVelocity();
-						move = Rawmove;
 						if (VDot(move, velocity) < VDot(move, EnMove)) {
-							float reflect = VSize(VGet(move.x, 0, move.z));
-							reflect *= 2;
-							reflect = 1;
-
-							velocity = VSub(VSub(_Move->GetVelocity(), VScale(move, reflect * VDot(move, _Move->GetVelocity()))), VScale(move, reflect * VDot(move, EnMove)));
+							VECTOR velocity = VAdd(VSub(_Move->GetVelocity(), VScale(move, VDot(move, _Move->GetVelocity()))), VScale(move, VDot(move, EnMove)));
 							_Move->SetVelocity(velocity);
 						}
 
@@ -397,10 +377,6 @@ void PlayerMoveCollisionComponent::Update()
 						if (move.y >= cos(deg / 180 * atan(1) * 4)) {
 							if (_Move != nullptr) {
 								_Move->SetStand(TRUE);
-								if (velocity.y > 0) {
-									velocity.y = 0;
-									_Move->SetVelocity(velocity);
-								}
 							}
 						}
 						RefleshCollInfo();
