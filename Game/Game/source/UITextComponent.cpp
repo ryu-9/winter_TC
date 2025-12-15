@@ -73,7 +73,7 @@ void UITextComponent::Draw() {
 	SetFontSize(FONT_SIZE);
 	int x = _Owner->GetPosition().x + X;
 	int y = _Owner->GetPosition().y + Y;
-	DrawFormatString(x, y + 150, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
+	DrawFormatString(x-5, y + 150, GetColor(255, 255, 255), _ScenarioData[_TextIndex].name.c_str());
 	y += FONT_SIZE + 7;
 	for (int i = 0; i < _TextData.size(); i++) {
 		auto text = iojson::ConvertString(_TextData[i].text);
